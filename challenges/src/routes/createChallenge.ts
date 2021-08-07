@@ -1,20 +1,26 @@
 import express, {Request,Response,NextFunction} from 'express';
 import { BasicCustomError } from '../errors/BasicCustomError';
+import { NotAnAdminError } from '../errors/NotAnAdminError';
 import { requireAuth } from '../middlewares/requireAuth';
 import { Challenge } from '../models/challengeModel';
 
 const router = express.Router();
 
 router.post('/api/v1/challenges/new', requireAuth, async(req: Request,res: Response,next: NextFunction)=>{
+    
+    if(req.currentUser!.role!=='admin'){
+        return next(new NotAnAdminError())
+    }
+
     const {name, description, difficulty, isPublic, expiresAt, tests} = req.body;
-    console.log('eee')
+
     try{
         const challenge = new Challenge({
             name: name,
             description: description,
             difficulty: difficulty,
             isPublic: isPublic,
-            status: 'pending',
+            status: 'approved',
             startsAt: Date.now(),
             expiresAt: expiresAt,
             creatorId: req.currentUser!.id,
@@ -28,4 +34,4 @@ router.post('/api/v1/challenges/new', requireAuth, async(req: Request,res: Respo
 
 })
 
-export {router as createChallengeRoute}
+export {router as createChallengeRouter}

@@ -5,7 +5,7 @@ import mongoose from 'mongoose';
 import jwt from 'jsonwebtoken'
 
 declare global {
-    function signin(id: mongoose.Types.ObjectId): string[];
+    function signin(id: mongoose.Types.ObjectId, role: string): string[];
 }
 
 let mongo: MongoMemoryServer;
@@ -36,10 +36,11 @@ afterAll(async()=>{
     await mongoose.connection.close();
 })
 
-global.signin = (id: mongoose.Types.ObjectId) => {
+global.signin = (id: mongoose.Types.ObjectId, role: string) => {
     const payload = {
         id: id,
-        email: 'test@gmail.com'
+        email: 'test@gmail.com',
+        role: role
     };
 
     const token = jwt.sign(payload, process.env.JWT_KEY!);
