@@ -14,4 +14,8 @@ spec:
             backend:
               serviceName: auth-cluster-srv
               servicePort: 4000
+          - path: /api/v1/challenges/?(.*)
+            backend:
+              serviceName: challenges-cluster-srv
+              servicePort: 4000
             
