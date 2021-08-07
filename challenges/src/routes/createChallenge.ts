@@ -7,7 +7,7 @@ const router = express.Router();
 
 router.post('/api/v1/challenges/new', requireAuth, async(req: Request,res: Response,next: NextFunction)=>{
     const {name, description, difficulty, isPublic, expiresAt, tests} = req.body;
-
+    console.log('eee')
     try{
         const challenge = new Challenge({
             name: name,
