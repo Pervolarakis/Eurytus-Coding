@@ -2,6 +2,7 @@ export * from './errors/BasicCustomError';
 export * from './errors/CustomErrorClass';
 export * from './errors/NotAnAdminError';
 export * from './errors/UnauthenticatedError';
+export * from './errors/YouDontOwnThisError';
 
 export * from './events/ChallengeNewRequestEventData';
 export * from './events/Listener';
