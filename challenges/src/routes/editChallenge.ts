@@ -1,6 +1,8 @@
 import express, {Request, Response, NextFunction} from 'express';
-import { BasicCustomError,requireAuth, NotAnAdminError } from '@eurytus/common';
+import { BasicCustomError,requireAuth, NotAnAdminError, YouDontOwnThisError } from '@eurytus/common';
 import { Challenge } from '../models/challengeModel';
+import { natsWrapper } from '../events/NatsWrapper';
+import { ChallengeNewRequestPublisher } from '../events/ChallengeNewRequestPubisher';
 
 const router = express.Router();
 
@@ -12,7 +14,17 @@ router.put('/api/v1/challenges/update/:id', requireAuth, async(req: Request, res
     if(!challenge){
         return next(new BasicCustomError('Challenge Not found', 400))
     }
+    if(challenge.creatorId!==req.currentUser?.id && req.currentUser!.role!=='admin'){
+        return next(new YouDontOwnThisError('Challenge'));
+    }
     try{
+        if(req.currentUser!.role!=='admin'){
+            new ChallengeNewRequestPublisher(natsWrapper.client).publish({
+                kind: 'edit',
+                data: JSON.stringify({...req.body, "id": req.params.id})
+            })
+            res.status(201).json({success: true, data: 'Request submited'})
+        }
         const challenge = await Challenge.findByIdAndUpdate(req.params.id, req.body,{
             new: true,
             runValidators: true,

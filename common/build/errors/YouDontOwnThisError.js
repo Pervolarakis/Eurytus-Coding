@@ -15,20 +15,20 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.BasicCustomError = void 0;
+exports.YouDontOwnThisError = void 0;
 var CustomErrorClass_1 = require("./CustomErrorClass");
-var BasicCustomError = /** @class */ (function (_super) {
-    __extends(BasicCustomError, _super);
-    function BasicCustomError(property) {
+var YouDontOwnThisError = /** @class */ (function (_super) {
+    __extends(YouDontOwnThisError, _super);
+    function YouDontOwnThisError(property) {
         var _this = _super.call(this, "You dont own this " + property) || this;
         _this.property = property;
         _this.errorCode = 403;
-        Object.setPrototypeOf(_this, BasicCustomError.prototype);
+        Object.setPrototypeOf(_this, YouDontOwnThisError.prototype);
         return _this;
     }
-    BasicCustomError.prototype.getFormatedMessage = function () {
+    YouDontOwnThisError.prototype.getFormatedMessage = function () {
         return "You dont own this " + this.property;
     };
-    return BasicCustomError;
+    return YouDontOwnThisError;
 }(CustomErrorClass_1.CustomErrorClass));
-exports.BasicCustomError = BasicCustomError;
+exports.YouDontOwnThisError = YouDontOwnThisError;

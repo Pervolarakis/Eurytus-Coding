@@ -29,10 +29,9 @@ it('fails if challenge doesnt exists', async()=>{
 
 })
 
-it('fails if user is not admin', async()=>{
+it('fails if user is not admin and doesnt own the challenge', async()=>{
     const userOne = new mongoose.Types.ObjectId();
-    const challengeId = new mongoose.Types.ObjectId();
-    const response = await request(app)
+    await request(app)
         .delete(`/api/v1/challenges/delete/${dumbChallenges[0]._id}`)
         .set('Cookie', global.signin(userOne, 'user'))
         .expect(403);

@@ -24,7 +24,7 @@ it('fails is user is not authed', async()=>{
         .expect(401)
 })
 
-it('fails if user is not admin', async()=>{
+it('fails if user is not admin and doesnt own the challenge', async()=>{
     const userOne = new mongoose.Types.ObjectId();
     await request(app)
         .put(`/api/v1/challenges/update/${dumbChallenges[0]._id}`)

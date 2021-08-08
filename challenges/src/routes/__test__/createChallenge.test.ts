@@ -26,7 +26,7 @@ it('creates Challenge successfully', async()=>{
                 ]
             })
         })
-        .expect(200)
+        .expect(201)
 })
 
 it('fails if user is not authenticated', async()=>{
