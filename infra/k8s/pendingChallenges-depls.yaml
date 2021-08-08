@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: challenges-depl
+  name: pendingchallenges-depl
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: challenges
+      app: pendingchallenges
   template:
     metadata:
       labels:
-        app: challenges
+        app: pendingchallenges
     spec:
       containers:
-        - name: challenges
-          image: pervolarakis/challenges
+        - name: pendingchallenges
+          image: pervolarakis/pendingchallenges
           env:
             - name: JWT_KEY
               valueFrom:
@@ -29,12 +29,12 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: challenges-cluster-srv
+  name: pendingchallenges-cluster-srv
 spec:
   selector:
-    app: challenges
+    app: pendingchallenges
   ports:
-    - name: challenges
+    - name: pendingchallenges
       protocol: TCP
       port: 4000
       targetPort: 4000

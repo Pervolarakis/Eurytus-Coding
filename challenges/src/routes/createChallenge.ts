@@ -1,16 +1,16 @@
 import express, {Request,Response,NextFunction} from 'express';
-import { BasicCustomError } from '../errors/BasicCustomError';
-import { NotAnAdminError } from '../errors/NotAnAdminError';
-import { requireAuth } from '../middlewares/requireAuth';
+import { BasicCustomError,NotAnAdminError,requireAuth } from '@eurytus/common'
 import { Challenge } from '../models/challengeModel';
+import { ChallengeNewRequestPublisher } from '../events/ChallengeNewRequestPubisher';
+import { natsWrapper } from '../events/NatsWrapper';
 
 const router = express.Router();
 
 router.post('/api/v1/challenges/new', requireAuth, async(req: Request,res: Response,next: NextFunction)=>{
     
-    if(req.currentUser!.role!=='admin'){
-        return next(new NotAnAdminError())
-    }
+    // if(req.currentUser!.role!=='admin'){
+    //     return next(new NotAnAdminError())
+    // }
 
     const {name, description, difficulty, isPublic, expiresAt, tests} = req.body;
 
@@ -27,6 +27,11 @@ router.post('/api/v1/challenges/new', requireAuth, async(req: Request,res: Respo
             tests: tests
         })
         await challenge.save();
+        new ChallengeNewRequestPublisher(natsWrapper.client).publish({
+            kind: 'created',
+            data: JSON.stringify(req.body),
+            message: 'please approve my test'
+        })
         res.status(201).json({success: true, data: challenge})
     }catch(err){
         return next(new BasicCustomError(err,400))

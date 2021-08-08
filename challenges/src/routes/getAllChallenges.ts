@@ -1,6 +1,6 @@
 import { Challenge } from "../models/challengeModel";
 import express from 'express';
-import { BasicCustomError } from "../errors/BasicCustomError";
+import { BasicCustomError } from "@eurytus/common";
 
 const router = express.Router();
 

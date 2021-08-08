@@ -1,8 +1,6 @@
 import express, {Request, Response, NextFunction} from 'express';
-import { BasicCustomError } from '../errors/BasicCustomError';
+import { BasicCustomError,requireAuth, NotAnAdminError } from '@eurytus/common';
 import { Challenge } from '../models/challengeModel';
-import { requireAuth } from '../middlewares/requireAuth';
-import { NotAnAdminError } from '../errors/NotAnAdminError';
 
 const router = express.Router();
 

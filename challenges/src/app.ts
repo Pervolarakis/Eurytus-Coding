@@ -1,10 +1,9 @@
 import express from 'express';
 import cookieSession from 'cookie-session';
-import { currentUser } from './middlewares/currentUser';
+import { currentUser, ErrorHandler } from '@eurytus/common';
 import { createChallengeRouter } from './routes/createChallenge';
 import { getAllChallengesRouter } from './routes/getAllChallenges';
 import { editChallengeRouter } from './routes/editChallenge';
-import { ErrorHandler } from './middlewares/errorHandler';
 import { deleteChallengeRouter } from './routes/deleteChallenge';
 
 const app = express();

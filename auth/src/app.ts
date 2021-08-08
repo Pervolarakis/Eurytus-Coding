@@ -1,7 +1,7 @@
 import express from 'express';
 import { signUpRouter } from './routes/signUp';
 import { signInRouter } from './routes/logIn';
-import { ErrorHandler } from './middlewares/errorHandler';
+import { ErrorHandler } from '@eurytus/common';
 import cookieSession from 'cookie-session';
 
 const app = express();
