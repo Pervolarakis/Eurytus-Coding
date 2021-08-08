@@ -11,16 +11,16 @@ router.post('/api/v1/challenges/new', requireAuth, async(req: Request,res: Respo
 
     const {name, description, difficulty, isPublic, expiresAt, tests} = req.body;
 
+    
     try{
-
         if(req.currentUser!.role!=='admin'){
             new ChallengeNewRequestPublisher(natsWrapper.client).publish({
                 kind: 'created',
                 data: JSON.stringify(req.body)
             })
             res.status(201).json({success: true, data: 'Request submited'})
+            return next();
         }
-
         const challenge = new Challenge({
             name: name,
             description: description,

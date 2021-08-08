@@ -7,13 +7,12 @@ import { ChallengeNewRequestPublisher } from '../events/ChallengeNewRequestPubis
 const router = express.Router();
 
 router.put('/api/v1/challenges/update/:id', requireAuth, async(req: Request, res: Response, next: NextFunction)=>{
-    if(req.currentUser!.role!=='admin'){
-        return next(new NotAnAdminError())
-    }
+    
     const challenge = await Challenge.findById(req.params.id);
     if(!challenge){
         return next(new BasicCustomError('Challenge Not found', 400))
     }
+    
     if(challenge.creatorId!==req.currentUser?.id && req.currentUser!.role!=='admin'){
         return next(new YouDontOwnThisError('Challenge'));
     }
@@ -24,6 +23,7 @@ router.put('/api/v1/challenges/update/:id', requireAuth, async(req: Request, res
                 data: JSON.stringify({...req.body, "id": req.params.id})
             })
             res.status(201).json({success: true, data: 'Request submited'})
+            return next();
         }
         const challenge = await Challenge.findByIdAndUpdate(req.params.id, req.body,{
             new: true,
