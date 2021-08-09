@@ -18,9 +18,13 @@ router.put('/api/v1/challenges/update/:id', requireAuth, async(req: Request, res
     }
     try{
         if(req.currentUser!.role!=='admin'){
+            const message = req.body.message;
+            delete req.body.message
             new ChallengeNewRequestPublisher(natsWrapper.client).publish({
-                kind: 'edit',
-                data: JSON.stringify({...req.body, "id": req.params.id})
+                kind: 'update',
+                challengeId: req.params.id,
+                data: JSON.stringify(req.body),
+                message: message
             })
             res.status(201).json({success: true, data: 'Request submited'})
             return next();

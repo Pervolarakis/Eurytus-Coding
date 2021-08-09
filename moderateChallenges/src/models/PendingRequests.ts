@@ -2,7 +2,9 @@ import mongoose from 'mongoose';
 
 interface PendingRequestDoc extends mongoose.Document{
     kind: string;
-    data: string;
+    challengeId?: string;
+    data?: string;
+    message: string;
 }
 
 const pendingRequestSchema = new mongoose.Schema({
@@ -12,8 +14,17 @@ const pendingRequestSchema = new mongoose.Schema({
     },
     data: {
         type: String,
+        required: false
+    },
+    challengeId: {
+        type: String,
+        required: false
+    },
+    message: {
+        type: String,
         required: true
     }
+
 })
 
 const PendingRequest = mongoose.model<PendingRequestDoc>('PendingRequest', pendingRequestSchema); 

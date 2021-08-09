@@ -8,7 +8,7 @@ export class ChallengeNewRequestListener extends Listener<ChallengeNewRequestEve
     QueueGroup = 'pendingChallenges-service';
 
     async onMessage(data: ChallengeNewRequestEventData["data"], msg: Message){
-        const request = new PendingRequest({kind: data.kind, data: data.data});
+        const request = new PendingRequest(data);
         await request.save();
         msg.ack();
     }
