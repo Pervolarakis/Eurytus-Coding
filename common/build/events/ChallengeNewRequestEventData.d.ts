@@ -3,7 +3,7 @@ export interface ChallengeNewRequestEventData {
     subject: Subjects.ChallengeNewRequest;
     data: {
         kind: string;
-        id?: string;
+        challengeId?: string;
         data?: string;
         message: string;
     };
