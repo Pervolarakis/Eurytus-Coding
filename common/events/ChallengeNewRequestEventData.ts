@@ -5,5 +5,6 @@ export interface ChallengeNewRequestEventData{
     data: {
         kind: string;
         data: string;
+        message: string;
     }
 }
