@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: pendingchallenges-depl
+  name: moderate-challenges-depl
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: pendingchallenges
+      app: moderate-challenges
   template:
     metadata:
       labels:
-        app: pendingchallenges
+        app: moderate-challenges
     spec:
       containers:
-        - name: pendingchallenges
-          image: pervolarakis/pendingchallenges
+        - name: moderate-challenges
+          image: pervolarakis/moderatechallenges
           env:
             - name: JWT_KEY
               valueFrom:
@@ -29,12 +29,12 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: pendingchallenges-cluster-srv
+  name: moderate-challenges-cluster-srv
 spec:
   selector:
-    app: pendingchallenges
+    app: moderate-challenges
   ports:
-    - name: pendingchallenges
+    - name: moderate-challenges
       protocol: TCP
       port: 4000
       targetPort: 4000

@@ -24,8 +24,8 @@ build:
         manual:
           - src: 'src/**/*.ts'
             dest: .
-    - image: pervolarakis/pendingchallenges
-      context: pendingChallenges
+    - image: pervolarakis/moderatechallenges
+      context: moderateChallenges
       docker:
           dockerfile: Dockerfile
       sync:

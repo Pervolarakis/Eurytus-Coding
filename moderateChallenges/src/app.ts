@@ -1,7 +1,7 @@
 import express from 'express';
 import cookieSession from 'cookie-session';
-import { currentUser } from './middlewares/currentUser';
-import { ErrorHandler } from './middlewares/errorHandler';
+import { currentUser,ErrorHandler } from '@eurytus/common';
+import { getAllRequestsRouter } from './routes/getAllRequests';
 
 
 const app = express();
@@ -14,8 +14,7 @@ app.use(cookieSession({
 
 app.use(currentUser)
 
-
-
+app.use(getAllRequestsRouter);
 
 app.use(ErrorHandler);
 

@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: moderate-challenges-mongo-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: moderate-challenges-mongo
+  template:
+    metadata:
+      labels:
+        app: moderate-challenges-mongo
+    spec:
+      containers:
+        - name: moderate-challenges-mongo
+          image: mongo
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: moderate-challenges-mongo-srv
+spec:
+  selector:
+    app: moderate-challenges-mongo
+  ports:
+    - name: moderate-challenges
+      protocol: TCP
+      port: 27017
+      targetPort: 27017

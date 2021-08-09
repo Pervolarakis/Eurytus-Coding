@@ -8,7 +8,7 @@ const start = async () =>{
             throw new Error('No Jwt Env variable');
         }
         await natsWrapper.connect('eurytus', process.env.CLIENT_ID!, 'http://nats-srv:4222')
-        await mongoose.connect('mongodb://challenges-mongo-srv:27017/auth',{
+        await mongoose.connect('mongodb://challenges-mongo-srv:27017/challenges',{
             useNewUrlParser: true,
             useUnifiedTopology: true,
             useCreateIndex: true
