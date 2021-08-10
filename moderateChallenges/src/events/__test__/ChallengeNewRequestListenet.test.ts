@@ -32,6 +32,7 @@ const setup = async()=>{
                 ]
             })
         }),
+        ownerId: new mongoose.Types.ObjectId().toString(),
         message: 'please create this new challenge'
         
     }
@@ -52,7 +53,7 @@ it('successfully listens and creates request', async()=>{
 
     const pendingRequest = await PendingRequest.findOne({challengeId: data.challengeId})
 
-    expect(PendingRequest).toBeDefined()
+    expect(pendingRequest).toBeDefined()
 
     expect(msg.ack).toHaveBeenCalled()
 

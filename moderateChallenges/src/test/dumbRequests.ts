@@ -4,6 +4,7 @@ export const dumbRequests = [
         _id: new mongoose.Types.ObjectId(),
         kind: 'create',
         challengeId: new mongoose.Types.ObjectId(),
+        ownerId: new mongoose.Types.ObjectId(),
         data: JSON.stringify({
             name: "Sum Challenge",
             description: "Write a function that sums 3 numbers",
@@ -31,12 +32,14 @@ export const dumbRequests = [
     {
         _id: new mongoose.Types.ObjectId(),
         kind: 'delete',
+        ownerId: new mongoose.Types.ObjectId(),
         challengeId: new mongoose.Types.ObjectId(),
         message: 'please delete this challenge'
     },
     {
         _id: new mongoose.Types.ObjectId(),
         kind: 'create',
+        ownerId: new mongoose.Types.ObjectId(),
         challengeId: new mongoose.Types.ObjectId(),
         data: JSON.stringify({
             name: "Multiply Challenge2",
@@ -65,6 +68,7 @@ export const dumbRequests = [
     {
         _id: new mongoose.Types.ObjectId(),
         kind: 'update',
+        ownerId: new mongoose.Types.ObjectId(),
         challengeId: new mongoose.Types.ObjectId(),
         data: JSON.stringify({
             name: "Multiply Challenge2",

@@ -22,7 +22,8 @@ router.delete('/api/v1/challenges/delete/:id', requireAuth, async(req: Request, 
             new ChallengeNewRequestPublisher(natsWrapper.client).publish({
                 kind: 'delete',
                 challengeId: req.params.id,
-                message: message
+                message: message,
+                ownerId: req.currentUser?.id!
             })
             res.status(201).json({success: true, data: 'Request submited'})
             return next();

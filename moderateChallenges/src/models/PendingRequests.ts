@@ -12,6 +12,10 @@ const pendingRequestSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    ownerId: {
+        type: String,
+        required: true
+    },
     data: {
         type: String,
         required: false
