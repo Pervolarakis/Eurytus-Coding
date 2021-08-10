@@ -6,7 +6,7 @@ export class CreateChallengeApprovedListener extends Listener<CreateChallengeEve
     subject: Subjects.CreateChallengeApproved = Subjects.CreateChallengeApproved;
     QueueGroup = 'challenges-service'
     async onMessage(data: CreateChallengeEventData["data"], msg: Message){
-        const challenge = new Challenge(JSON.parse(data.data));
+        const challenge = new Challenge({...JSON.parse(data.data), status:'approved'});
         await challenge.save();
         msg.ack()
     }

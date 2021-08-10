@@ -13,7 +13,7 @@ const setup = async()=>{
         difficulty: 1,
         isPublic: true,
         expiresAt: "2014-02-01T00:00:00",
-        status: 'pending',
+        status: 'approved',
         startsAt: Date.now(),
         creatorId: new mongoose.Types.ObjectId(),
         tests: JSON.stringify({

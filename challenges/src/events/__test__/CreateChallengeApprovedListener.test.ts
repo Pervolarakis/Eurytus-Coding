@@ -9,7 +9,7 @@ const setup = async()=>{
     const listener = new CreateChallengeApprovedListener(natsWrapper.client)
     const data: CreateChallengeEventData["data"] = {
         data: JSON.stringify({
-            name: "Multiply Challenge2",
+            name: "Multiply Challenge5",
             description: "Write a challenge that multiplies 3 numbers",
             difficulty: 1,
             isPublic: true,
@@ -46,10 +46,10 @@ it('successfully listens and creates request', async()=>{
 
     await listener.onMessage(data,msg);
 
-    const challenge = await Challenge.findOne({name: "Multiply Challenge2"})
+    const challenge = await Challenge.findOne({name: "Multiply Challenge5"})
 
-    expect(challenge).toBeDefined()
-
+    expect(challenge).toBeDefined();
+    expect(challenge?.status).toBe('approved');
     expect(msg.ack).toHaveBeenCalled()
 
 })
