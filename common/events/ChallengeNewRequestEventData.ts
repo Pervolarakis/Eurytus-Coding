@@ -7,5 +7,6 @@ export interface ChallengeNewRequestEventData{
         challengeId?: string;
         data?: string;
         message: string;
+        ownerId: string;
     }
 }

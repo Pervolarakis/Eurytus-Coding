@@ -1,6 +1,6 @@
 import { Subjects } from './Subjects';
-export interface UpdateChallengeApproved {
-    subject: Subjects.updateChallengeApproved;
+export interface UpdateChallengeApprovedEventData {
+    subject: Subjects.UpdateChallengeApproved;
     data: {
         challengeId: string;
         data: string;
