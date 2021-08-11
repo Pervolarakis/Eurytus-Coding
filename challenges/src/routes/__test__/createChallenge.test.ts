@@ -5,13 +5,14 @@ import { natsWrapper } from "../../events/NatsWrapper";
 
 it('creates Challenge successfully', async()=>{
     const userOne = new mongoose.Types.ObjectId();
-    request(app)
+    await request(app)
         .post('/api/v1/challenges/new')
         .set('Cookie', global.signin(userOne, 'admin'))
         .send({
             name: "Sum Challenge",
             description: "Write a function that sums 3 numbers",
             difficulty: 1,
+            startsAt: Date.now(),
             isPublic: true,
             expiresAt: "2014-02-01T00:00:00",
             tests: JSON.stringify({
@@ -31,7 +32,7 @@ it('creates Challenge successfully', async()=>{
 })
 
 it('fails if user is not authenticated', async()=>{
-    request(app)
+    await request(app)
         .post('/api/v1/challenges/new')
         .send({
             name: "Sum Challenge",
@@ -57,7 +58,7 @@ it('fails if user is not authenticated', async()=>{
 
 it('fails if fields are missing', async()=>{
     const userOne = new mongoose.Types.ObjectId();
-    request(app)
+    await request(app)
         .post('/api/v1/challenges/new')
         .set('Cookie', global.signin(userOne, 'admin'))
         .send({

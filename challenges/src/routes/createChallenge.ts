@@ -8,9 +8,8 @@ const router = express.Router();
 
 router.post('/api/v1/challenges/new', requireAuth, async(req: Request,res: Response,next: NextFunction)=>{
     
-
-    const {name, description, difficulty, isPublic, expiresAt, tests} = req.body;
-
+    const {name, description, difficulty, isPublic, startsAt, expiresAt, tests} = req.body;
+    
     try{
         if(req.currentUser!.role!=='admin' && isPublic===true){
             const message = req.body.message;
@@ -30,7 +29,7 @@ router.post('/api/v1/challenges/new', requireAuth, async(req: Request,res: Respo
             difficulty: difficulty,
             isPublic: isPublic,
             status: 'approved',
-            startsAt: Date.now(),
+            startsAt: startsAt,
             expiresAt: expiresAt,
             creatorId: req.currentUser!.id,
             tests: tests

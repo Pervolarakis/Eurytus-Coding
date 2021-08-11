@@ -1,0 +1,20 @@
+{
+  "name": "executeChallenges",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src/index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/express": "^4.17.13",
+    "compile-run": "^2.3.4",
+    "express": "^4.17.1",
+    "mongoose": "^5.13.6",
+    "node-nats-streaming": "^0.3.2",
+    "ts-node-dev": "^1.1.8"
+  }
+}

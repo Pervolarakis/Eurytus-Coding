@@ -20,8 +20,12 @@ router.post('/api/v1/moderate/approve/:id', requireAuth, async(req: Request, res
     }
     
     if(request.kind==='create'){
+        console.log(request.ownerId);
         new CreateChallengeApprovedPublisher(natsWrapper.client).publish({
-            data: request.data!
+            data: JSON.stringify({
+                ...JSON.parse(request.data!),
+                creatorId: request.ownerId
+            })
         })
         await PendingRequest.findByIdAndRemove(req.params.id,{
             useFindAndModify: false

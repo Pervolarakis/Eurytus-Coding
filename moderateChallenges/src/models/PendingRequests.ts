@@ -5,6 +5,7 @@ interface PendingRequestDoc extends mongoose.Document{
     challengeId?: string;
     data?: string;
     message: string;
+    ownerId: string;
 }
 
 const pendingRequestSchema = new mongoose.Schema({
