@@ -1,5 +1,5 @@
 import { Subjects } from './Subjects';
-export interface CreateChallengeEventData {
+export interface CreateChallengeApprovedEventData {
     subject: Subjects.CreateChallengeApproved;
     data: {
         data: string;
