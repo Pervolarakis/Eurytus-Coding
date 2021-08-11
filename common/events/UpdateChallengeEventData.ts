@@ -7,6 +7,7 @@ export interface UpdateChallengeEventData{
         tests: string,
         status: string,
         startsAt: Date,
-        expiresAt: Date
+        expiresAt: Date,
+        version: number
     }
 }
