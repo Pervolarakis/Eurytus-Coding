@@ -7,5 +7,6 @@ export interface UpdateChallengeEventData {
         status: string;
         startsAt: Date;
         expiresAt: Date;
+        version: number;
     };
 }
