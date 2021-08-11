@@ -1,5 +1,5 @@
 import { Subjects } from './Subjects';
-export interface UpdateChallengeEventData {
+export interface DeleteChallengeEventData {
     subject: Subjects.DeleteChallenge;
     data: {
         id: string;
