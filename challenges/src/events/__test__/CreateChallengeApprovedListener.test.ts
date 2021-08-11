@@ -1,4 +1,4 @@
-import { CreateChallengeEventData } from "@eurytus/common"
+import { CreateChallengeApprovedEventData } from "@eurytus/common"
 import { natsWrapper } from "../NatsWrapper"
 import mongoose from 'mongoose'
 import { Message } from "node-nats-streaming"
@@ -7,7 +7,7 @@ import { Challenge } from "../../models/challengeModel"
 
 const setup = async()=>{
     const listener = new CreateChallengeApprovedListener(natsWrapper.client)
-    const data: CreateChallengeEventData["data"] = {
+    const data: CreateChallengeApprovedEventData["data"] = {
         data: JSON.stringify({
             name: "Multiply Challenge5",
             description: "Write a challenge that multiplies 3 numbers",

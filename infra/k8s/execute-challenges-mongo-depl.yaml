@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: execute-challenges-mongo-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: execute-challenges-mongo
+  template:
+    metadata:
+      labels:
+        app: execute-challenges-mongo
+    spec:
+      containers:
+        - name: execute-challenges-mongo
+          image: mongo
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: execute-challenges-mongo-srv
+spec:
+  selector:
+    app: execute-challenges-mongo
+  ports:
+    - name: execute-challenges
+      protocol: TCP
+      port: 27017
+      targetPort: 27017

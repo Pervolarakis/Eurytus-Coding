@@ -3,6 +3,7 @@ import { BasicCustomError,NotAnAdminError,requireAuth } from '@eurytus/common'
 import { Challenge } from '../models/challengeModel';
 import { ChallengeNewRequestPublisher } from '../events/ChallengeNewRequestPubisher';
 import { natsWrapper } from '../events/NatsWrapper';
+import { CreateChallengePublisher } from '../events/CreateChallengePublisher';
 
 const router = express.Router();
 
@@ -35,6 +36,15 @@ router.post('/api/v1/challenges/new', requireAuth, async(req: Request,res: Respo
             tests: tests
         })
         await challenge.save();
+        console.log(challenge)
+
+        new CreateChallengePublisher(natsWrapper.client).publish({
+            id: challenge.id,
+            tests: challenge.tests,
+            status: challenge.status,
+            startsAt: challenge.startsAt,
+            expiresAt: challenge.expiresAt
+        })
         res.status(201).json({success: true, data: challenge})
     }catch(err){
         return next(new BasicCustomError(err,400))

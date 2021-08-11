@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: execute-challenges-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: execute-challenges
+  template:
+    metadata:
+      labels:
+        app: execute-challenges
+    spec:
+      containers:
+        - name: execute-challenges
+          image: pervolarakis/executechallenges
+          env:
+            - name: JWT_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: jwt-key
+                  key: JWT_KEY
+            - name: CLIENT_ID
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: execute-challenges-cluster-srv
+spec:
+  selector:
+    app: execute-challenges
+  ports:
+    - name: execute-challenges
+      protocol: TCP
+      port: 4000
+      targetPort: 4000
