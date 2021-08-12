@@ -7,6 +7,7 @@ import { CreateChallengeListener } from './events/CreateChallengeListener';
 import { natsWrapper } from './events/NatsWrapper';
 import { UpdateChallengeListener } from './events/UpdateChallengeListener';
 import { DeleteChallengeListener } from './events/DeleteChallengeListener';
+import {app} from './app';
 
 const start = async()=>{
     
@@ -27,6 +28,9 @@ const start = async()=>{
     }catch(err){
         console.log(err)
     }
+    app.listen(4000, ()=>{
+        console.log('listening on 4000')
+    })
     
 }
 
