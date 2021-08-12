@@ -51,5 +51,5 @@ it('successfully listens and creates request', async()=>{
     expect(challenge).toBeDefined();
     expect(challenge?.status).toBe('approved');
     expect(msg.ack).toHaveBeenCalled()
-
+    expect(natsWrapper.client.publish).toHaveBeenCalled();
 })

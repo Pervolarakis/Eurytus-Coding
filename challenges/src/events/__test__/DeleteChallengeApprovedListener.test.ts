@@ -54,4 +54,6 @@ it('successfully listens and creates request', async()=>{
 
     expect(msg.ack).toHaveBeenCalled()
 
+    expect(natsWrapper.client.publish).toHaveBeenCalled();
+
 })

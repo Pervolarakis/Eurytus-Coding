@@ -1,4 +1,4 @@
-import {Listener, CreateChallengeEventData, Subjects, DeleteChallengeEventData} from '@eurytus/common'
+import {Listener, Subjects, DeleteChallengeEventData} from '@eurytus/common'
 import { Message } from 'node-nats-streaming';
 import { Challenge } from '../models/Challenge';
 
@@ -14,7 +14,6 @@ export class DeleteChallengeListener extends Listener<DeleteChallengeEventData>{
             useFindAndModify: false
         })
         await challenge?.save();
-        console.log(challenge);
         msg.ack();
     }
 }

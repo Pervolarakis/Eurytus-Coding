@@ -6,6 +6,7 @@ interface ChallengeDoc extends mongoose.Document{
     status: string;
     startsAt: Date;
     expiresAt: Date;
+    version: number;
 }
 
 const challengeSchema = new mongoose.Schema({
