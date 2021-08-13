@@ -10,7 +10,8 @@ export class UpdateChallengeListener extends Listener<UpdateChallengeEventData>{
             tests: data.tests,
             status: data.status,
             expiresAt: data.expiresAt,
-            startsAt: data.startsAt
+            startsAt: data.startsAt,
+            availableLanguages: data.availableLanguages
         },{
             new: true,
             runValidators: true,

@@ -29,7 +29,6 @@ const pendingRequestSchema = new mongoose.Schema({
         type: String,
         required: true
     }
-
 })
 
 const PendingRequest = mongoose.model<PendingRequestDoc>('PendingRequest', pendingRequestSchema); 

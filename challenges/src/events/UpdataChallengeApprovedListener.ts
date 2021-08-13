@@ -20,7 +20,8 @@ export class UpdateChallengeApprovedListener extends Listener<UpdateChallengeApp
             status: challenge?.status!,
             startsAt: challenge?.startsAt!,
             expiresAt: challenge?.expiresAt!,
-            version: challenge?.version!!
+            version: challenge?.version!,
+            availableLanguages: challenge?.availableLanguages!
         })
         msg.ack();
     }

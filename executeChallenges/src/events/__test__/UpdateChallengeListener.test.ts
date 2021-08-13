@@ -48,7 +48,8 @@ const setup = async()=>{
                     output: [150]
                 }
             ]
-        })
+        }),
+        availableLanguages: ["java", "js"]
     }    
     
     //@ts-ignore

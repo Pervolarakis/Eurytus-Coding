@@ -15,7 +15,8 @@ export class CreateChallengeApprovedListener extends Listener<CreateChallengeApp
             tests: challenge.tests,
             status: challenge.status,
             startsAt: challenge.startsAt,
-            expiresAt: challenge.expiresAt
+            expiresAt: challenge.expiresAt,
+            availableLanguages: challenge.availableLanguages
         })
         msg.ack()
     }

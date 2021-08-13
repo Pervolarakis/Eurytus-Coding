@@ -7,6 +7,7 @@ interface ChallengeDoc extends mongoose.Document{
     startsAt: Date;
     expiresAt: Date;
     version: number;
+    availableLanguages: string[]
 }
 
 const challengeSchema = new mongoose.Schema({
@@ -25,7 +26,12 @@ const challengeSchema = new mongoose.Schema({
     expiresAt: {
         type: Date,
         required: true
-    }
+    },
+    availableLanguages: [{
+        type: String,
+        enum: ["js", "c", "java"],
+        required: true    
+    }]
 },{
     toJSON: {
         transform(doc, ret){

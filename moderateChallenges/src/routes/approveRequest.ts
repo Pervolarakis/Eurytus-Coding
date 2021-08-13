@@ -20,7 +20,6 @@ router.post('/api/v1/moderate/approve/:id', requireAuth, async(req: Request, res
     }
     
     if(request.kind==='create'){
-        console.log(request.ownerId);
         new CreateChallengeApprovedPublisher(natsWrapper.client).publish({
             data: JSON.stringify({
                 ...JSON.parse(request.data!),

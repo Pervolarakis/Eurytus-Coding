@@ -9,7 +9,7 @@ const router = express.Router();
 
 router.post('/api/v1/challenges/new', requireAuth, async(req: Request,res: Response,next: NextFunction)=>{
     
-    const {name, description, difficulty, isPublic, startsAt, expiresAt, tests} = req.body;
+    const {name, description, difficulty, isPublic, startsAt, expiresAt, tests, availableLanguages} = req.body;
     
     try{
         if(req.currentUser!.role!=='admin' && isPublic===true){
@@ -33,17 +33,18 @@ router.post('/api/v1/challenges/new', requireAuth, async(req: Request,res: Respo
             startsAt: startsAt,
             expiresAt: expiresAt,
             creatorId: req.currentUser!.id,
-            tests: tests
+            tests: tests,
+            availableLanguages: availableLanguages
         })
         await challenge.save();
-        console.log(challenge)
 
         new CreateChallengePublisher(natsWrapper.client).publish({
             id: challenge.id,
             tests: challenge.tests,
             status: challenge.status,
             startsAt: challenge.startsAt,
-            expiresAt: challenge.expiresAt
+            expiresAt: challenge.expiresAt,
+            availableLanguages: availableLanguages
         })
         res.status(201).json({success: true, data: challenge})
     }catch(err){
