@@ -8,5 +8,6 @@ export interface ChallengeNewRequestEventData{
         data?: string;
         message: string;
         ownerId: string;
+        availableLanguages: string[];
     }
 }
