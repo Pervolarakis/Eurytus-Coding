@@ -9,7 +9,7 @@ const router = express.Router();
 
 router.post('/api/v1/challenges/new', requireAuth, async(req: Request,res: Response,next: NextFunction)=>{
     
-    const {name, description, difficulty, isPublic, startsAt, expiresAt, tests, availableLanguages} = req.body;
+    const {name, description, difficulty, isPublic, startsAt, expiresAt, tests, language} = req.body;
     
     try{
         if(req.currentUser!.role!=='admin' && isPublic===true){
@@ -34,7 +34,7 @@ router.post('/api/v1/challenges/new', requireAuth, async(req: Request,res: Respo
             expiresAt: expiresAt,
             creatorId: req.currentUser!.id,
             tests: tests,
-            availableLanguages: availableLanguages
+            language: language
         })
         await challenge.save();
 
@@ -44,7 +44,7 @@ router.post('/api/v1/challenges/new', requireAuth, async(req: Request,res: Respo
             status: challenge.status,
             startsAt: challenge.startsAt,
             expiresAt: challenge.expiresAt,
-            availableLanguages: availableLanguages
+            language: challenge.language
         })
         res.status(201).json({success: true, data: challenge})
     }catch(err){

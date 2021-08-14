@@ -44,7 +44,7 @@ router.put('/api/v1/challenges/update/:id', requireAuth, async(req: Request, res
             startsAt: challenge?.startsAt!,
             expiresAt: challenge?.expiresAt!,
             version: challenge?.version!,
-            availableLanguages: challenge?.availableLanguages!
+            language: challenge?.language!
 
         })
         res.status(200).json({success: true, data: challenge});

@@ -25,7 +25,8 @@ export const dumbRequests = [
                         output: [55]
                     }
                 ]
-            })
+            }),
+            language: 'java'
         }),
         message: 'this is going to be a perfect new challenge'
     },
@@ -61,7 +62,8 @@ export const dumbRequests = [
                         output: [150]
                     }
                 ]
-            })
+            }),
+            language: 'c'
         }),
         message: 'please create this new challenge'
     },

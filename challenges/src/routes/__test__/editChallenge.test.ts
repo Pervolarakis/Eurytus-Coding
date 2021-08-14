@@ -82,7 +82,8 @@ it('successfully publishes update event if user owns the challenge', async()=>{
                     output: [55]
                 }
             ]
-        })
+        }),
+        language: 'js'
     })
     await challenge.save();
     await request(app)

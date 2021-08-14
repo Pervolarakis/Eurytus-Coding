@@ -7,6 +7,6 @@ export interface CreateChallengeEventData {
         status: string;
         startsAt: Date;
         expiresAt: Date;
-        availableLanguages: string[];
+        language: string;
     };
 }

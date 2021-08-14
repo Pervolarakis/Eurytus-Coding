@@ -26,7 +26,8 @@ it('creates Challenge successfully', async()=>{
                         output: [55]
                     }
                 ]
-            })
+            }),
+            language: 'js'
         })
         .expect(201)
 })
@@ -51,7 +52,8 @@ it('fails if user is not authenticated', async()=>{
                         output: [55]
                     }
                 ]
-            })
+            }),
+            language: 'js'
         })
         .expect(401)
 })
@@ -77,7 +79,8 @@ it('fails if fields are missing', async()=>{
                         output: [55]
                     }
                 ]
-            })
+            }),
+            language: 'js'
         })
         .expect(400)
 })
@@ -103,7 +106,8 @@ it('successfully published a create new challenge event', async()=>{
                         output: [55]
                     }
                 ]
-            })
+            }),
+            language: 'js'
         })
         .expect(201)
     expect(natsWrapper.client.publish).toHaveBeenCalled();

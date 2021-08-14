@@ -18,7 +18,7 @@ export const dumbChallenges = [
                 }
             ]
         }),
-        availableLanguages: ["java", "js"]
+        language: "java"
     },
     {
         _id: new mongoose.Types.ObjectId(),
@@ -37,7 +37,7 @@ export const dumbChallenges = [
                 }
             ]
         }),
-        availableLanguages: ["c", "js"]
+        language: "js"
     },
     {
         _id: new mongoose.Types.ObjectId(),    
@@ -56,6 +56,6 @@ export const dumbChallenges = [
                 }
             ]
         }),
-        availableLanguages: ["java"]
+        language: "java"
     },
 ]

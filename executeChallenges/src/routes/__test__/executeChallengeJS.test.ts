@@ -1,10 +1,12 @@
 import request from 'supertest'
 import {app} from '../../app';
 import { Challenge } from '../../models/Challenge';
+import mongoose from 'mongoose'
 
 jest.setTimeout(150000)
 
 it('successfully runs tests', async()=>{
+    const user = new mongoose.Types.ObjectId();
     const challenge = new Challenge({
         status: 'approved',
         startsAt: Date.now(),
@@ -21,11 +23,12 @@ it('successfully runs tests', async()=>{
                 }
             ]
         }),
-        availableLanguages: ["js"]
+        language: "js"
     })
     await challenge.save()
     const result = await request(app)
         .post(`/api/v1/compile/challengejs/${challenge.id}`)
+        .set('Cookie', global.signin(user,'user'))
         .send({
             solution: 'function solution(a,b,c){console.log(a+b+c)}'
         })
@@ -35,6 +38,7 @@ it('successfully runs tests', async()=>{
 })
 
 it('successfully runs tests 2', async()=>{
+    const user = new mongoose.Types.ObjectId();
     const challenge = new Challenge({
         status: 'approved',
         startsAt: Date.now(),
@@ -55,11 +59,12 @@ it('successfully runs tests 2', async()=>{
                 }
             ]
         }),
-        availableLanguages: ["c","js"]
+        language: "js"
     })
     await challenge.save()
     const result = await request(app)
         .post(`/api/v1/compile/challengejs/${challenge.id}`)
+        .set('Cookie', global.signin(user,'user'))
         .send({
             solution: 'function solution(a,b,c){console.log(a+b+c)}'
         })
@@ -69,6 +74,7 @@ it('successfully runs tests 2', async()=>{
 })
 
 it('throws error if it cant compile', async()=>{
+    const user = new mongoose.Types.ObjectId();
     const challenge = new Challenge({
         status: 'approved',
         startsAt: Date.now(),
@@ -89,11 +95,12 @@ it('throws error if it cant compile', async()=>{
                 }
             ]
         }),
-        availableLanguages: ["c","java","js"]
+        language: "js"
     })
     await challenge.save()
     const result = await request(app)
         .post(`/api/v1/compile/challengejs/${challenge.id}`)
+        .set('Cookie', global.signin(user,'user'))
         .send({
             solution: 'function solution(a,b,c){console.log(a++c)}'
         })
@@ -103,6 +110,7 @@ it('throws error if it cant compile', async()=>{
 })
 
 it('fails if challenge doesnt support this language', async()=>{
+    const user = new mongoose.Types.ObjectId();
     const challenge = new Challenge({
         status: 'approved',
         startsAt: Date.now(),
@@ -123,11 +131,12 @@ it('fails if challenge doesnt support this language', async()=>{
                 }
             ]
         }),
-        availableLanguages: ["c","java"]
+        language: "java"
     })
     await challenge.save()
     const result = await request(app)
         .post(`/api/v1/compile/challengejs/${challenge.id}`)
+        .set('Cookie', global.signin(user,'user'))
         .send({
             solution: 'function solution(a,b,c){console.log(a++c)}'
         })

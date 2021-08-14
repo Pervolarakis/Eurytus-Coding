@@ -28,7 +28,8 @@ const setup = async()=>{
                         output: [150]
                     }
                 ]
-            })
+            }),
+            language: 'js'
         })
     }
 

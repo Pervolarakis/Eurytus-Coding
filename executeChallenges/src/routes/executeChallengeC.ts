@@ -2,18 +2,18 @@ import express, {Request,Response,NextFunction} from 'express';
 import { Challenge } from '../models/Challenge';
 import {cTemp} from '../templates/cTemp';
 import {c} from 'compile-run'
-import { BasicCustomError } from '@eurytus/common';
+import { BasicCustomError, requireAuth } from '@eurytus/common';
 
 const router = express.Router();
 
-router.post('/api/v1/compile/challengec/:id', async(req: Request, res: Response, next: NextFunction)=>{
+router.post('/api/v1/compile/challengec/:id', requireAuth, async(req: Request, res: Response, next: NextFunction)=>{
     const challenge = await Challenge.findById(req.params.id);
-
+    
     if(!challenge){
         return next(new BasicCustomError('This challenge doesnt exists', 400))
     }
 
-    if(challenge.availableLanguages.indexOf("c")<0){
+    if(challenge.language !== "c"){
         return next(new BasicCustomError('This language is not supported for this test', 400))
     }
 

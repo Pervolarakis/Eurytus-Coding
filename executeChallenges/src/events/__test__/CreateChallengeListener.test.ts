@@ -24,7 +24,7 @@ const setup = async()=>{
                 }
             ]
         }),
-        availableLanguages: ["c","java"]    
+        language: "java"
     }
 
     //@ts-ignore

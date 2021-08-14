@@ -27,7 +27,8 @@ const setup = async()=>{
                     output: [150]
                 }
             ]
-        })
+        }),
+        language: 'js'
     })
     await challenge.save();
     const data: UpdateChallengeApprovedEventData["data"] = {

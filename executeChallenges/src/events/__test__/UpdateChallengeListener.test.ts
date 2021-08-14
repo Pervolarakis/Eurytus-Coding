@@ -26,7 +26,8 @@ const setup = async()=>{
                     output: [150]
                 }
             ]
-        })
+        }),
+        language: "js"
     })
 
     await challenge.save();
@@ -49,7 +50,7 @@ const setup = async()=>{
                 }
             ]
         }),
-        availableLanguages: ["java", "js"]
+        language: "js"
     }    
     
     //@ts-ignore
