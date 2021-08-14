@@ -9,6 +9,6 @@ export interface UpdateChallengeEventData{
         startsAt: Date,
         expiresAt: Date,
         version: number,
-        availableLanguages: string[]
+        language: string
     }
 }
