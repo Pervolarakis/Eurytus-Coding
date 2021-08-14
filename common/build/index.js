@@ -15,6 +15,7 @@ __exportStar(require("./errors/CustomErrorClass"), exports);
 __exportStar(require("./errors/NotAnAdminError"), exports);
 __exportStar(require("./errors/UnauthenticatedError"), exports);
 __exportStar(require("./errors/YouDontOwnThisError"), exports);
+__exportStar(require("./errors/RequestValidationError"), exports);
 __exportStar(require("./events/ChallengeNewRequestEventData"), exports);
 __exportStar(require("./events/Listener"), exports);
 __exportStar(require("./events/Publisher"), exports);

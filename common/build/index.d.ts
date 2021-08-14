@@ -3,6 +3,7 @@ export * from './errors/CustomErrorClass';
 export * from './errors/NotAnAdminError';
 export * from './errors/UnauthenticatedError';
 export * from './errors/YouDontOwnThisError';
+export * from './errors/RequestValidationError';
 export * from './events/ChallengeNewRequestEventData';
 export * from './events/Listener';
 export * from './events/Publisher';
