@@ -1,8 +1,10 @@
 import { ValidationError } from "express-validator";
-import { CustomErrorClass } from "./CustomErrorClass";
-export declare class RequestValidationError extends CustomErrorClass {
+export declare class RequestValidationError extends Error {
     errors: ValidationError[];
     errorCode: number;
     constructor(errors: ValidationError[]);
-    getFormatedMessage(): string;
+    getFormatedMessage(): {
+        message: any;
+        field: string;
+    }[];
 }

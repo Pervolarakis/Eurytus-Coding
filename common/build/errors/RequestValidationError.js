@@ -16,7 +16,6 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.RequestValidationError = void 0;
-var CustomErrorClass_1 = require("./CustomErrorClass");
 var RequestValidationError = /** @class */ (function (_super) {
     __extends(RequestValidationError, _super);
     function RequestValidationError(errors) {
@@ -30,8 +29,8 @@ var RequestValidationError = /** @class */ (function (_super) {
         var formattedErrors = this.errors.map(function (error) {
             return { message: error.msg, field: error.param };
         });
-        return JSON.stringify(formattedErrors);
+        return formattedErrors;
     };
     return RequestValidationError;
-}(CustomErrorClass_1.CustomErrorClass));
+}(Error));
 exports.RequestValidationError = RequestValidationError;

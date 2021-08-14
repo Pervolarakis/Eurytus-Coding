@@ -1,13 +1,14 @@
 import express, {Request,Response,NextFunction} from 'express';
-import { BasicCustomError,NotAnAdminError,requireAuth } from '@eurytus/common'
+import { BasicCustomError,NotAnAdminError,requireAuth, validateRequestSchema } from '@eurytus/common'
 import { Challenge } from '../models/challengeModel';
 import { ChallengeNewRequestPublisher } from '../events/ChallengeNewRequestPubisher';
 import { natsWrapper } from '../events/NatsWrapper';
 import { CreateChallengePublisher } from '../events/CreateChallengePublisher';
+import { createChallengeSchema } from './requestSchemas/createChallengeSchema';
 
 const router = express.Router();
 
-router.post('/api/v1/challenges/new', requireAuth, async(req: Request,res: Response,next: NextFunction)=>{
+router.post('/api/v1/challenges/new', createChallengeSchema, validateRequestSchema,  requireAuth, async(req: Request,res: Response,next: NextFunction)=>{
     
     const {name, description, difficulty, isPublic, startsAt, expiresAt, tests, language} = req.body;
     
