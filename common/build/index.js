@@ -28,3 +28,4 @@ __exportStar(require("./events/DeleteChallengeEventData"), exports);
 __exportStar(require("./middlewares/currentUser"), exports);
 __exportStar(require("./middlewares/errorHandler"), exports);
 __exportStar(require("./middlewares/requireAuth"), exports);
+__exportStar(require("./middlewares/validateRequestSchema"), exports);
