@@ -1,10 +1,10 @@
-import {c} from 'compile-run';
+import {java} from 'compile-run';
 import express, {Request, Response, NextFunction} from 'express';
 
 const router = express.Router();
 
-router.post('/api/v1/compile/c', async(req: Request, res: Response, next: NextFunction)=>{
-    c.runSource(req.body.code)
+router.post('/api/v1/compile/java', async(req: Request, res: Response, next: NextFunction)=>{
+    java.runSource(req.body.code)
         .then((result)=>{
             res.status(200).json({success: true, data: result})
         })
@@ -13,4 +13,4 @@ router.post('/api/v1/compile/c', async(req: Request, res: Response, next: NextFu
         })
 })
 
-export {router as compileCRouter}
+export {router as compileJavaRouter}

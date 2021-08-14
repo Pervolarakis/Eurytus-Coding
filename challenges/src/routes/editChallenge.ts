@@ -8,7 +8,7 @@ import { editChallengeSchema } from './requestSchemas/editChallengeSchema';
 
 const router = express.Router();
 
-router.put('/api/v1/challenges/update/:id', editChallengeSchema, validateRequestSchema, requireAuth, async(req: Request, res: Response, next: NextFunction)=>{
+router.put('/api/v1/challenges/update/:id', requireAuth, editChallengeSchema, validateRequestSchema, async(req: Request, res: Response, next: NextFunction)=>{
     
     const challenge = await Challenge.findById(req.params.id);
     if(!challenge){

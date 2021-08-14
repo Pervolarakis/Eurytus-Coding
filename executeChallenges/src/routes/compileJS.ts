@@ -1,10 +1,10 @@
-import {c} from 'compile-run';
+import {node} from 'compile-run';
 import express, {Request, Response, NextFunction} from 'express';
 
 const router = express.Router();
 
-router.post('/api/v1/compile/c', async(req: Request, res: Response, next: NextFunction)=>{
-    c.runSource(req.body.code)
+router.post('/api/v1/compile/js', async(req: Request, res: Response, next: NextFunction)=>{
+    node.runSource(req.body.code)
         .then((result)=>{
             res.status(200).json({success: true, data: result})
         })
@@ -13,4 +13,4 @@ router.post('/api/v1/compile/c', async(req: Request, res: Response, next: NextFu
         })
 })
 
-export {router as compileCRouter}
+export {router as compileJSRouter}

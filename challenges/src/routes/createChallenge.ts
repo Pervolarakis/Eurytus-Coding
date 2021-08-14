@@ -8,7 +8,7 @@ import { createChallengeSchema } from './requestSchemas/createChallengeSchema';
 
 const router = express.Router();
 
-router.post('/api/v1/challenges/new', createChallengeSchema, validateRequestSchema,  requireAuth, async(req: Request,res: Response,next: NextFunction)=>{
+router.post('/api/v1/challenges/new', requireAuth,  createChallengeSchema, validateRequestSchema, async(req: Request,res: Response,next: NextFunction)=>{
     
     const {name, description, difficulty, isPublic, startsAt, expiresAt, tests, language} = req.body;
     

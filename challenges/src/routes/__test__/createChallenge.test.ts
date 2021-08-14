@@ -12,7 +12,7 @@ it('creates Challenge successfully', async()=>{
             name: "Sum Challenge",
             description: "Write a function that sums 3 numbers",
             difficulty: 1,
-            startsAt: Date.now(),
+            startsAt: "2014-02-01T00:00:00",
             isPublic: true,
             expiresAt: "2014-02-01T00:00:00",
             tests: JSON.stringify({
@@ -94,6 +94,8 @@ it('successfully published a create new challenge event', async()=>{
             name: "Sum Challenge",
             description: "Write a function that sums 3 numbers",
             isPublic: true,
+            difficulty: 1,
+            startsAt: "2014-02-01T00:00:00",
             expiresAt: "2014-02-01T00:00:00",
             tests: JSON.stringify({
                 "challenge" : [

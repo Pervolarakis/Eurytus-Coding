@@ -5,6 +5,8 @@ import { executeCRouter } from './routes/executeChallengeC'
 import { executeJavaRouter } from './routes/executeChallengeJava'
 import { executeJSRouter } from './routes/executeChallengeJS'
 import { compileCRouter } from './routes/compileC'
+import { compileJSRouter } from './routes/compileJS'
+import { compileJavaRouter } from './routes/compileJava'
 
 const app = express()
 
@@ -20,6 +22,8 @@ app.use(executeCRouter);
 app.use(executeJavaRouter);
 app.use(executeJSRouter);
 app.use(compileCRouter);
+app.use(compileJSRouter);
+app.use(compileJavaRouter);
 
 app.use(ErrorHandler);
 
