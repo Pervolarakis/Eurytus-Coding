@@ -31,7 +31,7 @@ router.post('/api/v1/compile/challengejs/:id',requireAuth, async(req: Request, r
     
         runningTests.push(node.runSource(jsTemp(currentChallenge.input,funct))
             .then(result => {
-                if(result.stdout.trim()==currentChallenge.output){
+                if(result.stdout.trim()==currentChallenge.output.trim()){
                     successfulTests++;
                 }
             })

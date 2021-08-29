@@ -28,10 +28,9 @@ router.post('/api/v1/compile/challengec/:id', requireAuth, async(req: Request, r
     for(let i=0; i<tests["challenge"].length; i++){
         
         const currentChallenge = tests["challenge"][i];
-        
         runningTests.push(c.runSource(cTemp(currentChallenge.input,funct))
             .then(result => {
-                if(result.stdout==currentChallenge.output){
+                if(result.stdout.trim()==currentChallenge.output.trim()){
                     successfulTests++;
                 }
             })

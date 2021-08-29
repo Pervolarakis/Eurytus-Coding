@@ -24,13 +24,13 @@ router.post('/api/v1/compile/challengejava/:id', requireAuth, async(req: Request
     let successfulTests = 0;
 
     let runningTests = []
-
+    
     for(let i=0; i<tests["challenge"].length; i++){
         
         const currentChallenge = tests["challenge"][i];
         runningTests.push(java.runSource(javaTemp(currentChallenge.input,funct))
             .then(result => {
-                if(result.stdout==currentChallenge.output){
+                if(result.stdout.trim()==currentChallenge.output.trim()){
                     successfulTests++;
                 }
             })

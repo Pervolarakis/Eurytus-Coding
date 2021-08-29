@@ -2,6 +2,7 @@ import request from 'supertest'
 import {app} from '../../app';
 import { Challenge } from '../../models/Challenge';
 import mongoose from 'mongoose'
+import {advancedJavaChallenges, advancedJavaChallengesSolutions} from './advancedJavaChallenges'
 
 jest.setTimeout(150000)
 
@@ -14,12 +15,12 @@ it('successfully runs tests', async()=>{
         tests: JSON.stringify({
             "challenge" : [
                 {
-                    input: "5,10,15",
-                    output: "30"
+                    input: `5,10,15`,
+                    output: `30`
                 },
                 {
-                    input: "10,40,5",
-                    output: "55"
+                    input: `10,40,5`,
+                    output: `55`
                 }
             ]
         }),
@@ -30,7 +31,7 @@ it('successfully runs tests', async()=>{
         .post(`/api/v1/compile/challengejava/${challenge.id}`)
         .set('Cookie', global.signin(user,'user'))
         .send({
-            solution: 'public void solution(int a,int b,int c){System.out.print(a+b+c);}'
+            solution: 'public int solution(int a,int b,int c){return(a+b+c);}'
         })
         .expect(200)
     expect(result.body.data.successfulTests).toEqual(result.body.data.totalTestsDone)
@@ -46,16 +47,16 @@ it('successfully runs tests 2', async()=>{
         tests: JSON.stringify({
             "challenge" : [
                 {
-                    input: "5,10,15",
-                    output: "30"
+                    input: `5,10,15`,
+                    output: `30`
                 },
                 {
-                    input: "10,40,5",
-                    output: "55"
+                    input: `10,40,5`,
+                    output: `55`
                 },
                 {
-                    input: "10,40,12",
-                    output: "55"
+                    input: `10,40,12`,
+                    output: `55`
                 }
             ]
         }),
@@ -66,7 +67,7 @@ it('successfully runs tests 2', async()=>{
         .post(`/api/v1/compile/challengejava/${challenge.id}`)
         .set('Cookie', global.signin(user,'user'))
         .send({
-            solution: 'public void solution(int a,int b,int c){System.out.print(a+b+c);}'
+            solution: 'public int solution(int a,int b,int c){return(a+b+c);}'
         })
         .expect(200)
     expect(result.body.data.successfulTests).toEqual(result.body.data.totalTestsDone-1)
@@ -82,16 +83,16 @@ it('throws error if it cant compile', async()=>{
         tests: JSON.stringify({
             "challenge" : [
                 {
-                    input: "5,10,15",
-                    output: "30"
+                    input: `5,10,15`,
+                    output: `30`
                 },
                 {
-                    input: "10,40,5",
-                    output: "55"
+                    input: `10,40,5`,
+                    output: `55`
                 },
                 {
-                    input: "10,40,12",
-                    output: "55"
+                    input: `10,40,12`,
+                    output: `55`
                 }
             ]
         }),
@@ -102,7 +103,7 @@ it('throws error if it cant compile', async()=>{
         .post(`/api/v1/compile/challengejava/${challenge.id}`)
         .set('Cookie', global.signin(user,'user'))
         .send({
-            solution: 'public void solution(int a,int ,int c){System.out.print(a+b+c);}'
+            solution: 'public int solution(int a,int ,int c){return(a+b+c);}'
         })
         .expect(200)
     expect(result.body.data.successfulTests).toEqual(0)
@@ -118,16 +119,16 @@ it('fails if challenge doesnt support this language', async()=>{
         tests: JSON.stringify({
             "challenge" : [
                 {
-                    input: "5,10,15",
-                    output: "30"
+                    input: `5,10,15`,
+                    output: `30`
                 },
                 {
-                    input: "10,40,5",
-                    output: "55"
+                    input: `10,40,5`,
+                    output: `55`
                 },
                 {
-                    input: "10,40,12",
-                    output: "55"
+                    input: `10,40,12`,
+                    output: `55`
                 }
             ]
         }),
@@ -138,9 +139,22 @@ it('fails if challenge doesnt support this language', async()=>{
         .post(`/api/v1/compile/challengejava/${challenge.id}`)
         .set('Cookie', global.signin(user,'user'))
         .send({
-            solution: 'public void solution(int a,int ,int c){System.out.print(a+b+c);}'
+            solution: 'public int solution(int a,int b,int c){return(a+b+c);}'
         })
         .expect(400)
+})
+
+it('compiles advanced java test', async()=>{
+    const user = new mongoose.Types.ObjectId()
+    const challenge = new Challenge(advancedJavaChallenges[0])
+    await challenge.save()
+    const result = await request(app)
+        .post(`/api/v1/compile/challengejava/${challenge.id}`)
+        .set('Cookie', global.signin(user,'user'))
+        .send({
+            solution: advancedJavaChallengesSolutions[0].algo
+        })
+        .expect(200)
 })
 
 //note to fix this
