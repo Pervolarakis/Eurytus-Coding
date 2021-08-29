@@ -1,27 +1,27 @@
 import mongoose from 'mongoose'
 export const advancedJavaChallenges = [
     {   
-        id: new mongoose.Types.ObjectId(),
+        _id: new mongoose.Types.ObjectId(),
         status: 'approved',
         startsAt: Date.now(),
         expiresAt: "2014-02-01T00:00:00",
         tests: JSON.stringify({
             "challenge" : [
                 {
-                    input: `"ab", ".*"`,
-                    output: `true`
+                    input: JSON.stringify(`"ab", ".*"`),
+                    output: JSON.stringify(`true`)
                 },
                 {
-                    input: `"aa", "a*"`,
-                    output: `true`
+                    input: JSON.stringify(`"aa", "a*"`),
+                    output: JSON.stringify(`true`)
                 },
                 {
-                    input: `"aa", "a"`,
-                    output: `false`
+                    input: JSON.stringify(`"aa", "a"`),
+                    output: JSON.stringify(`false`)
                 },
                 {
-                    input: `"mississippi", "mis*is*p*."`,
-                    output: `false`
+                    input: JSON.stringify(`"mississippi", "mis*is*p*."`),
+                    output: JSON.stringify(`false`)
                 },
             ]
         }),
@@ -30,7 +30,7 @@ export const advancedJavaChallenges = [
 ]
 
 export const advancedJavaChallengesSolutions = [
-    JSON.parse(JSON.stringify({
+    JSON.stringify({
         algo: 
         `public boolean solution(String text, String pattern) {
             if (pattern.isEmpty()) return(text.isEmpty());
@@ -44,5 +44,5 @@ export const advancedJavaChallengesSolutions = [
                 return (first_match && solution(text.substring(1), pattern.substring(1)));
             }
         }`
-    }))
+    })
 ]

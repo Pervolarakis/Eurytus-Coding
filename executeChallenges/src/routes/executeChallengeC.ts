@@ -17,10 +17,10 @@ router.post('/api/v1/compile/challengec/:id', requireAuth, async(req: Request, r
         return next(new BasicCustomError('This language is not supported for this test', 400))
     }
 
-    const funct = req.body.solution;
+    const funct = JSON.parse(req.body.solution);
 
     const tests = JSON.parse(challenge?.tests!);
-
+    
     let successfulTests = 0;
 
     let runningTests = []
@@ -28,9 +28,9 @@ router.post('/api/v1/compile/challengec/:id', requireAuth, async(req: Request, r
     for(let i=0; i<tests["challenge"].length; i++){
         
         const currentChallenge = tests["challenge"][i];
-        runningTests.push(c.runSource(cTemp(currentChallenge.input,funct))
+        runningTests.push(c.runSource(cTemp(JSON.parse(currentChallenge.input),funct))
             .then(result => {
-                if(result.stdout.trim()==currentChallenge.output.trim()){
+                if(result.stdout.trim()==JSON.parse(currentChallenge.output).trim().replaceAll(`"`,``)){
                     successfulTests++;
                 }
             })

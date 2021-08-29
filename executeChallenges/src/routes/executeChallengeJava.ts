@@ -17,7 +17,7 @@ router.post('/api/v1/compile/challengejava/:id', requireAuth, async(req: Request
         return next(new BasicCustomError('This language is not supported for this test', 400))
     }
 
-    const funct = req.body.solution;
+    const funct = JSON.parse(req.body.solution);
 
     const tests = JSON.parse(challenge?.tests!);
 
@@ -28,9 +28,9 @@ router.post('/api/v1/compile/challengejava/:id', requireAuth, async(req: Request
     for(let i=0; i<tests["challenge"].length; i++){
         
         const currentChallenge = tests["challenge"][i];
-        runningTests.push(java.runSource(javaTemp(currentChallenge.input,funct))
+        runningTests.push(java.runSource(javaTemp(JSON.parse(currentChallenge.input),funct))
             .then(result => {
-                if(result.stdout.trim()==currentChallenge.output.trim()){
+                if(result.stdout.trim()==JSON.parse(currentChallenge.output).trim().replaceAll(`"`,``)){
                     successfulTests++;
                 }
             })

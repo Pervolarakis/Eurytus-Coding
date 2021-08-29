@@ -9,12 +9,12 @@ export const dumbChallenges = [
         tests: JSON.stringify({
             "challenge" : [
                 {
-                    input: [5,10,15],
-                    output: [30]
+                    input: JSON.stringify(`5,10,15`),
+                    output: JSON.stringify(`30`)
                 },
                 {
-                    input: [10,40,5],
-                    output: [55]
+                    input: JSON.stringify(`10,40,5`),
+                    output: JSON.stringify(`55`)
                 }
             ]
         }),
@@ -28,12 +28,12 @@ export const dumbChallenges = [
         tests: JSON.stringify({
             "challenge" : [
                 {
-                    input: [5,10,2],
-                    output: [100]
+                    input: JSON.stringify(`5,10,2`),
+                    output: JSON.stringify(`100`)
                 },
                 {
-                    input: [10,5,3],
-                    output: [150]
+                    input: JSON.stringify(`10,5,3`),
+                    output: JSON.stringify(`150`)
                 }
             ]
         }),
@@ -47,12 +47,12 @@ export const dumbChallenges = [
         tests: JSON.stringify({
             "challenge" : [
                 {
-                    input: [5,10,2],
-                    output: [100]
+                    input: JSON.stringify(`5,10,2`),
+                    output: JSON.stringify(`100`)
                 },
                 {
-                    input: [10,5,3],
-                    output: [150]
+                    input: JSON.stringify(`10,5,3`),
+                    output: JSON.stringify(`150`)
                 }
             ]
         }),
