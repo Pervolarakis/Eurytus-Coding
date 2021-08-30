@@ -155,7 +155,25 @@ it('compiles advanced java test', async()=>{
             solution: advancedJavaChallengesSolutions[0]
         })
         .expect(200)
+        expect(result.body.data.successfulTests).toEqual(JSON.parse(advancedJavaChallenges[0].tests)["challenge"].length)
 })
+
+
+it('compiles advanced java test2', async()=>{
+    const user = new mongoose.Types.ObjectId()
+    const challenge = new Challenge(advancedJavaChallenges[1])
+    await challenge.save()
+    const result = await request(app)
+        .post(`/api/v1/compile/challengejava/${challenge.id}`)
+        .set('Cookie', global.signin(user,'user'))
+        .send({
+            solution: advancedJavaChallengesSolutions[1]
+        })
+        .expect(200)
+    expect(result.body.data.successfulTests).toEqual(JSON.parse(advancedJavaChallenges[1].tests)["challenge"].length)
+})
+
+
 
 //note to fix this
 

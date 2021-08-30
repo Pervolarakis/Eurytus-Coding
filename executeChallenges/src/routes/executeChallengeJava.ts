@@ -18,7 +18,7 @@ router.post('/api/v1/compile/challengejava/:id', requireAuth, async(req: Request
     }
 
     const funct = JSON.parse(req.body.solution);
-
+    //console.log(funct)
     const tests = JSON.parse(challenge?.tests!);
 
     let successfulTests = 0;
@@ -30,6 +30,8 @@ router.post('/api/v1/compile/challengejava/:id', requireAuth, async(req: Request
         const currentChallenge = tests["challenge"][i];
         runningTests.push(java.runSource(javaTemp(JSON.parse(currentChallenge.input),funct))
             .then(result => {
+                //console.log(javaTemp(JSON.parse(currentChallenge.input),funct))
+                // console.log(result.stdout.trim()+ " : "+ JSON.parse(currentChallenge.output).trim().replaceAll(`"`,``))
                 if(result.stdout.trim()==JSON.parse(currentChallenge.output).trim().replaceAll(`"`,``)){
                     successfulTests++;
                 }
