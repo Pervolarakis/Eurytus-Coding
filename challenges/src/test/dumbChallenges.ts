@@ -21,7 +21,8 @@ export const dumbChallenges = [
                     output: [55]
                 }
             ]
-        })
+        }),
+        language: 'c'
     },
     {
         _id: new mongoose.Types.ObjectId(),
@@ -44,7 +45,8 @@ export const dumbChallenges = [
                     output: [150]
                 }
             ]
-        })
+        }),
+        language: 'js'
     },
     {
         _id: new mongoose.Types.ObjectId(),
@@ -67,6 +69,7 @@ export const dumbChallenges = [
                     output: [150]
                 }
             ]
-        })
+        }),
+        language: 'java'
     },
 ]

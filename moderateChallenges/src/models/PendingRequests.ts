@@ -5,6 +5,7 @@ interface PendingRequestDoc extends mongoose.Document{
     challengeId?: string;
     data?: string;
     message: string;
+    ownerId: string;
 }
 
 const pendingRequestSchema = new mongoose.Schema({
@@ -28,7 +29,6 @@ const pendingRequestSchema = new mongoose.Schema({
         type: String,
         required: true
     }
-
 })
 
 const PendingRequest = mongoose.model<PendingRequestDoc>('PendingRequest', pendingRequestSchema); 

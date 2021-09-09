@@ -3,6 +3,7 @@ import { requireAuth, BasicCustomError, YouDontOwnThisError } from '@eurytus/com
 import { Challenge } from '../models/challengeModel';
 import { natsWrapper } from '../events/NatsWrapper';
 import { ChallengeNewRequestPublisher } from '../events/ChallengeNewRequestPubisher';
+import { DeleteChallengePublisher} from '../events/DeleteChallengePublisher'
 
 const router = express.Router();
 
@@ -32,6 +33,11 @@ router.delete('/api/v1/challenges/delete/:id', requireAuth, async(req: Request, 
             new: true,
             runValidators: true,
             useFindAndModify: false
+        })
+        await challenge?.save();
+        new DeleteChallengePublisher(natsWrapper.client).publish({
+            id: challenge?.id,
+            version: challenge?.version!
         })
         res.status(200).json({success: true, data: challenge});
     }catch(err){

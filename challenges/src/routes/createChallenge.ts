@@ -1,16 +1,17 @@
 import express, {Request,Response,NextFunction} from 'express';
-import { BasicCustomError,NotAnAdminError,requireAuth } from '@eurytus/common'
+import { BasicCustomError,NotAnAdminError,requireAuth, validateRequestSchema } from '@eurytus/common'
 import { Challenge } from '../models/challengeModel';
 import { ChallengeNewRequestPublisher } from '../events/ChallengeNewRequestPubisher';
 import { natsWrapper } from '../events/NatsWrapper';
+import { CreateChallengePublisher } from '../events/CreateChallengePublisher';
+import { createChallengeSchema } from './requestSchemas/createChallengeSchema';
 
 const router = express.Router();
 
-router.post('/api/v1/challenges/new', requireAuth, async(req: Request,res: Response,next: NextFunction)=>{
+router.post('/api/v1/challenges/new', requireAuth,  createChallengeSchema, validateRequestSchema, async(req: Request,res: Response,next: NextFunction)=>{
     
-
-    const {name, description, difficulty, isPublic, expiresAt, tests} = req.body;
-
+    const {name, description, difficulty, isPublic, startsAt, expiresAt, tests, language} = req.body;
+    
     try{
         if(req.currentUser!.role!=='admin' && isPublic===true){
             const message = req.body.message;
@@ -30,12 +31,22 @@ router.post('/api/v1/challenges/new', requireAuth, async(req: Request,res: Respo
             difficulty: difficulty,
             isPublic: isPublic,
             status: 'approved',
-            startsAt: Date.now(),
+            startsAt: startsAt,
             expiresAt: expiresAt,
             creatorId: req.currentUser!.id,
-            tests: tests
+            tests: tests,
+            language: language
         })
         await challenge.save();
+
+        new CreateChallengePublisher(natsWrapper.client).publish({
+            id: challenge.id,
+            tests: challenge.tests,
+            status: challenge.status,
+            startsAt: challenge.startsAt,
+            expiresAt: challenge.expiresAt,
+            language: challenge.language
+        })
         res.status(201).json({success: true, data: challenge})
     }catch(err){
         return next(new BasicCustomError(err,400))

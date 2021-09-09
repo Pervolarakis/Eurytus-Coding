@@ -59,7 +59,8 @@ it('successfully publishes delete event if user owns the challenge', async()=>{
                     output: [55]
                 }
             ]
-        })
+        }),
+        language: 'js'
     })
     await challenge.save();
     await request(app)

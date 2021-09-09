@@ -1,6 +1,8 @@
 import { DeleteChallengeApprovedEventData, Listener, Subjects } from "@eurytus/common";
 import { Message } from "node-nats-streaming";
 import { Challenge } from "../models/challengeModel";
+import { DeleteChallengePublisher } from "./DeleteChallengePublisher";
+import { natsWrapper } from "./NatsWrapper";
 
 export class DeleteChallengeApprovedListener extends Listener<DeleteChallengeApprovedEventData>{
     subject: Subjects.DeleteChallengeApproved = Subjects.DeleteChallengeApproved;
@@ -10,6 +12,11 @@ export class DeleteChallengeApprovedListener extends Listener<DeleteChallengeApp
             new: true,
             runValidators: true,
             useFindAndModify: false
+        })
+        await challenge?.save();
+        new DeleteChallengePublisher(natsWrapper.client).publish({
+            id: challenge?.id,
+            version: challenge?.version!
         })
         msg.ack();
     }

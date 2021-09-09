@@ -1,0 +1,87 @@
+import mongoose from 'mongoose'
+export const advancedJavaChallenges = [
+    {   
+        _id: new mongoose.Types.ObjectId(),
+        status: 'approved',
+        startsAt: Date.now(),
+        expiresAt: "2014-02-01T00:00:00",
+        tests: JSON.stringify({
+            "challenge" : [
+                {
+                    input: JSON.stringify(`"ab", ".*"`),
+                    output: JSON.stringify(`true`)
+                },
+                {
+                    input: JSON.stringify(`"aa", "a*"`),
+                    output: JSON.stringify(`true`)
+                },
+                {
+                    input: JSON.stringify(`"aa", "a"`),
+                    output: JSON.stringify(`false`)
+                },
+                {
+                    input: JSON.stringify(`"mississippi", "mis*is*p*."`),
+                    output: JSON.stringify(`false`)
+                },
+            ]
+        }),
+        language: "java"
+    },
+    {
+        _id: new mongoose.Types.ObjectId(),
+        status: 'approved',
+        startsAt: Date.now(),
+        expiresAt: "2014-02-01T00:00:00",
+        tests: JSON.stringify({
+            "challenge" : [
+                {
+                    input: JSON.stringify(`new int[]{0,1,0,2,1,0,1,3,2,1,2,1}`),
+                    output: JSON.stringify(`6`)
+                },
+                {
+                    input: JSON.stringify(`new int[]{4,2,0,3,2,5}`),
+                    output: JSON.stringify(`9`)
+                }
+            ]
+        }),
+        language: "java"
+    }
+]
+
+export const advancedJavaChallengesSolutions = [
+    JSON.stringify(
+        `public boolean solution(String text, String pattern) {
+            if (pattern.isEmpty()) return(text.isEmpty());
+            boolean first_match = (!text.isEmpty() &&
+                                   (pattern.charAt(0) == text.charAt(0) || pattern.charAt(0) == '.'));
+        
+            if (pattern.length() >= 2 && pattern.charAt(1) == '*'){
+                return ((solution(text, pattern.substring(2)) ||
+                        (first_match && solution(text.substring(1), pattern))));
+            } else {
+                return (first_match && solution(text.substring(1), pattern.substring(1)));
+            }
+        }`
+    ),
+    JSON.stringify( 
+        `public int solution(int[] height) {
+            int result = 0;
+            int start = 0;
+            int end = height.length - 1;
+            while (start < end) {
+                if (height[start] <= height[end]) {
+                    int current = height[start];
+                    while (height[++start] < current) {
+                        result += current - height[start];
+                    }
+                } else {
+                    int current = height[end];
+                    while(height[--end] < current) {
+                        result += current - height[end];
+                    }
+                }
+            }
+            return result;
+        }`
+    )
+]

@@ -30,7 +30,8 @@ const setup = async()=>{
                         output: [150]
                     }
                 ]
-            })
+            }),
+            language: 'js'
         }),
         ownerId: new mongoose.Types.ObjectId().toString(),
         message: 'please create this new challenge'

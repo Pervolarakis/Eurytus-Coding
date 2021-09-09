@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import {updateIfCurrentPlugin} from 'mongoose-update-if-current'
 
 interface ChallengeDoc extends mongoose.Document{
     name: string;
@@ -9,7 +10,9 @@ interface ChallengeDoc extends mongoose.Document{
     status: string;
     startsAt: Date;
     expiresAt: Date;
-    tests: String;
+    tests: string;
+    version: number;
+    language: string
 }
 
 const challengeSchma  = new mongoose.Schema({
@@ -48,6 +51,11 @@ const challengeSchma  = new mongoose.Schema({
     tests: {
         type: String,
         required: true
+    },
+    language: {
+        type: String,
+        enum: ["js", "c", "java"],
+        required: true
     }
 },{
     toJSON: {
@@ -58,6 +66,9 @@ const challengeSchma  = new mongoose.Schema({
         }
     }
 })
+
+challengeSchma.set('versionKey', 'version');
+challengeSchma.plugin(updateIfCurrentPlugin)
 
 const Challenge = mongoose.model<ChallengeDoc>('Challenge', challengeSchma);
 

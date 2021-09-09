@@ -7,4 +7,7 @@ var Subjects;
     Subjects["CreateChallengeApproved"] = "createchallenge:approved";
     Subjects["UpdateChallengeApproved"] = "updatechallenge:approved";
     Subjects["DeleteChallengeApproved"] = "deletechallenge:approved";
+    Subjects["CreateChallenge"] = "challenge:create";
+    Subjects["UpdateChallenge"] = "challenge:update";
+    Subjects["DeleteChallenge"] = "challenge:delete";
 })(Subjects = exports.Subjects || (exports.Subjects = {}));

@@ -27,7 +27,8 @@ const setup = async()=>{
                     output: [150]
                 }
             ]
-        })
+        }),
+        language: 'js'
     })
     await challenge.save();
     const data: DeleteChallengeApprovedEventData["data"] = {
@@ -53,5 +54,7 @@ it('successfully listens and creates request', async()=>{
     expect(challenge?.status).toBe('deleted')
 
     expect(msg.ack).toHaveBeenCalled()
+
+    expect(natsWrapper.client.publish).toHaveBeenCalled();
 
 })

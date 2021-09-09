@@ -1,0 +1,73 @@
+import { body } from "express-validator";
+
+export const editChallengeSchema = [
+    body('name')
+        .optional()
+        .exists({checkFalsy: true})
+        .withMessage("Name cant be empty")
+        .bail()
+        .trim()
+        .isLength({min: 6})
+        .withMessage('Name has to be longer than 6 characters'),
+    body('description')
+        .optional()
+        .exists({checkFalsy: true})
+        .withMessage("Description cant be empty")
+        .bail()
+        .trim()
+        .isLength({min: 6})
+        .withMessage('Description has to be longer than 6 characters'),
+    body('difficulty')
+        .optional()
+        .exists({checkFalsy: true})
+        .withMessage("Difficulty cant be empty")
+        .bail()
+        .trim()
+        .isInt({min: 1, max: 5})
+        .withMessage('Difficulty has to be a number between 1 and 5'),
+    body('isPublic')
+        .optional()
+        .exists({checkFalsy: true})
+        .withMessage("Is Public cant be empty")
+        .bail()
+        .trim()
+        .isBoolean()
+        .withMessage('Is public should be true or false'),
+    body('startsAt')
+        .optional()
+        .exists({checkFalsy: true})
+        .withMessage("Starts at cant be empty")
+        .bail()
+        .custom(value => Date.parse(value))
+        .withMessage('Starts at has to be a valid date'),
+    body('expiresAt')
+        .optional()
+        .exists({checkFalsy: true})
+        .withMessage("Expires at cant be empty")
+        .bail()
+        .custom(value => Date.parse(value))
+        .withMessage('Expires at has to be a valid date'),
+    body('tests')
+        .optional()
+        .exists({checkFalsy: true})
+        .withMessage("Tests cant be empty")
+        .bail()
+        .trim()
+        .isLength({min: 6}),
+    body('language')
+        .optional()
+        .exists({checkFalsy: true})
+        .withMessage("Language cant be empty")
+        .bail()
+        .trim()
+        .isIn(['c','js','java'])
+        .withMessage('Language should be one of the supported languages'),
+    body('message')
+        .optional()
+        .exists({checkFalsy: true})
+        .withMessage("Message cant be empty")
+        .bail()
+        .trim()
+        .isLength({min: 6})
+        .withMessage('Message has to be longer than 6 characters'),
+]

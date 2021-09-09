@@ -27,7 +27,8 @@ const setup = async()=>{
                     output: [150]
                 }
             ]
-        })
+        }),
+        language: 'js'
     })
     await challenge.save();
     const data: UpdateChallengeApprovedEventData["data"] = {
@@ -55,5 +56,7 @@ it('successfully listens and creates request', async()=>{
 
     expect(challenge!.name).toBe("new name for challenge 2")
     expect(msg.ack).toHaveBeenCalled()
+
+    expect(natsWrapper.client.publish).toHaveBeenCalled();
 
 })
