@@ -31,7 +31,7 @@ const userSchema = new mongoose.Schema({
     },
     role: {
         type: String,
-        default: 'User'
+        default: 'user'
     }
 },{
     toJSON: {
@@ -53,11 +53,11 @@ userSchema.pre('save', async function (done) {
 })
 
 userSchema.methods.matchPasswords = async function(enteredPassword: string){
-  return await bcrypt.compare(enteredPassword, this.get('password'));
+    return await bcrypt.compare(enteredPassword, this.get('password'));
 }
 
 userSchema.methods.getSignedJwtToken = function(){
-  return jwt.sign({id: this.get('_id'), email: this.get('email')}, process.env.JWT_KEY!);
+    return jwt.sign({id: this.get('_id'), email: this.get('email'),role: this.get('role')}, process.env.JWT_KEY!);
 }
 
 const User = mongoose.model<UserDoc>('User', userSchema);

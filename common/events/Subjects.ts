@@ -1,6 +1,6 @@
 export enum Subjects {
     ChallengeNewRequest = 'challenge:request',
-    ChallengeCreated = 'challenge:created',
-    ChallengeUpdate = 'challenge:update',
-    ChallengeDelete = 'challenge:delete'
+    CreateChallengeApproved = 'createchallenge:approved',
+    UpdateChallengeApproved = 'updatechallenge:approved',
+    DeleteChallengeApproved = 'deletechallenge:approved'
 }

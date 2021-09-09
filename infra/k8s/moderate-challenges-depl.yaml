@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: moderate-challenges-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: moderate-challenges
+  template:
+    metadata:
+      labels:
+        app: moderate-challenges
+    spec:
+      containers:
+        - name: moderate-challenges
+          image: pervolarakis/moderatechallenges
+          env:
+            - name: JWT_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: jwt-key
+                  key: JWT_KEY
+            - name: CLIENT_ID
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: moderate-challenges-cluster-srv
+spec:
+  selector:
+    app: moderate-challenges
+  ports:
+    - name: moderate-challenges
+      protocol: TCP
+      port: 4000
+      targetPort: 4000

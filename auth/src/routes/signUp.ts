@@ -6,9 +6,9 @@ const router = express.Router();
 
 router.post('/api/v1/users/auth/signup', async (req: Request, res: Response, next: NextFunction)=>{
     
-    const {email, password, firstName, lastName} = req.body;
+    const {email, password, firstName, lastName, role} = req.body;
     
-    if(!email || !password || !firstName || !lastName){
+    if(!email || !password || !firstName || !lastName || !role){
         return next(new BasicCustomError('Invalid Data', 400))
     }
 
@@ -19,7 +19,7 @@ router.post('/api/v1/users/auth/signup', async (req: Request, res: Response, nex
     }
 
     try{
-        const user = new User({email,password,firstName, lastName});
+        const user = new User({email, password, firstName, lastName, role});
         await user.save()
 
         const token = user.getSignedJwtToken()

@@ -17,9 +17,13 @@ router.delete('/api/v1/challenges/delete/:id', requireAuth, async(req: Request, 
     }
     try{
         if(req.currentUser!.role!=='admin'){
+            const message = req.body.message;
+            delete req.body.message
             new ChallengeNewRequestPublisher(natsWrapper.client).publish({
                 kind: 'delete',
-                data: JSON.stringify({...req.body, "id": req.params.id})
+                challengeId: req.params.id,
+                message: message,
+                ownerId: req.currentUser?.id!
             })
             res.status(201).json({success: true, data: 'Request submited'})
             return next();
