@@ -74,12 +74,12 @@ it('successfully publishes update event if user owns the challenge', async()=>{
         tests: JSON.stringify({
             "challenge" : [
                 {
-                    input: [5,10,15],
-                    output: [30]
+                    input: JSON.stringify(`5,10,15`),
+                    output: JSON.stringify(`30`)
                 },
                 {
-                    input: [10,40,5],
-                    output: [55]
+                    input: JSON.stringify(`40,10,5`),
+                    output: JSON.stringify(`55`)
                 }
             ]
         }),
@@ -110,12 +110,12 @@ it('successfully updates challenge if user owns the challenge and challenge is p
         tests: JSON.stringify({
             "challenge" : [
                 {
-                    input: [5,10,15],
-                    output: [30]
+                    input: JSON.stringify(`5,10,15`),
+                    output: JSON.stringify(`30`)
                 },
                 {
-                    input: [10,40,5],
-                    output: [55]
+                    input: JSON.stringify(`40,10,5`),
+                    output: JSON.stringify(`55`)
                 }
             ]
         }),
