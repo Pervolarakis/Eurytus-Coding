@@ -173,7 +173,40 @@ it('compiles advanced java test2', async()=>{
     expect(result.body.data.successfulTests).toEqual(JSON.parse(advancedJavaChallenges[1].tests)["challenge"].length)
 })
 
+it('fails if challenge is deleted', async()=>{
+    const user = new mongoose.Types.ObjectId()
+    const challenge = new Challenge({
+        status: 'deleted',
+        startsAt: Date.now(),
+        expiresAt: "2014-02-01T00:00:00",
+        tests: JSON.stringify({
+            "challenge" : [
+                {
+                    input: JSON.stringify(`5,10,15`),
+                    output: JSON.stringify(`30`)
+                },
+                {
+                    input: JSON.stringify(`10,40,5`),
+                    output: JSON.stringify(`55`)
+                },
+                {
+                    input: JSON.stringify(`10,40,12`),
+                    output: JSON.stringify(`55`)
+                }
+            ]
+        }),
+        language: "java"
+    })
+    await challenge.save()
+    const result = await request(app)
+        .post(`/api/v1/compile/challengejava/${challenge.id}`)
+        .set('Cookie', global.signin(user,'user'))
+        .send({
+            solution: JSON.stringify(`public int solution(int a,int b,int c){return(a+b+c);}`)
+        })
+        .expect(400)
 
+})
 
 //note to fix this
 

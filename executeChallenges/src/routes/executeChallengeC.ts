@@ -9,7 +9,7 @@ const router = express.Router();
 router.post('/api/v1/compile/challengec/:id', requireAuth, async(req: Request, res: Response, next: NextFunction)=>{
     const challenge = await Challenge.findById(req.params.id);
     
-    if(!challenge){
+    if(!challenge || challenge.status==='deleted'){
         return next(new BasicCustomError('This challenge doesnt exists', 400))
     }
 
