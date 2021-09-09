@@ -1,11 +1,12 @@
 import {Request, Response,  NextFunction } from "express";
-import { BasicCustomError } from "../errors/BasicCustomError";
+import {UnauthenticatedError} from '../errors/UnauthenticatedError'
 import jwt from 'jsonwebtoken'
 
 
 interface UserPayload {
     id: string;
     email: string;
+    role: string
 }
 
 declare global{
@@ -18,13 +19,13 @@ declare global{
 
 export const currentUser = (req: Request, res: Response, next: NextFunction)=>{
     if(!req.session?.jwt){
-        return next(new BasicCustomError('Not authorized', 401));
+        return next();
     }
     try{
         const payload = jwt.verify(req.session?.jwt, process.env.JWT_KEY!) as UserPayload;
         req.currentUser = payload;
     }catch(err){
-        return next(new BasicCustomError('Not authorized', 401));
+        return next(new UnauthenticatedError());
     }
     next();
 }

@@ -1,5 +1,5 @@
 import express from 'express';
-import { BasicCustomError } from '../errors/BasicCustomError';
+import { BasicCustomError } from '@eurytus/common';
 import { User } from '../models/UserModel';
 
 const router = express.Router();

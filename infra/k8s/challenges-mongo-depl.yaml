@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: challenges-mongo-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: challenges-mongo
+  template:
+    metadata:
+      labels:
+        app: challenges-mongo
+    spec:
+      containers:
+        - name: challenges-mongo
+          image: mongo
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: challenges-mongo-srv
+spec:
+  selector:
+    app: challenges-mongo
+  ports:
+    - name: challenges
+      protocol: TCP
+      port: 27017
+      targetPort: 27017

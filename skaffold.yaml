@@ -16,3 +16,19 @@ build:
         manual:
           - src: 'src/**/*.ts'
             dest: .
+    - image: pervolarakis/challenges
+      context: challenges
+      docker:
+          dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: 'src/**/*.ts'
+            dest: .
+    - image: pervolarakis/pendingchallenges
+      context: pendingChallenges
+      docker:
+          dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: 'src/**/*.ts'
+            dest: .
