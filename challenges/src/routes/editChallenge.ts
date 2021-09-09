@@ -19,7 +19,7 @@ router.put('/api/v1/challenges/update/:id', requireAuth, editChallengeSchema, va
         return next(new YouDontOwnThisError('Challenge'));
     }
     try{
-        if(req.currentUser!.role!=='admin'){
+        if(req.currentUser!.role!=='admin' && challenge.isPublic ===true){
             const message = req.body.message;
             delete req.body.message
             new ChallengeNewRequestPublisher(natsWrapper.client).publish({
@@ -32,23 +32,23 @@ router.put('/api/v1/challenges/update/:id', requireAuth, editChallengeSchema, va
             res.status(201).json({success: true, data: 'Request submited'})
             return next();
         }
-        const challenge = await Challenge.findByIdAndUpdate(req.params.id, req.body,{
+        const newChallenge = await Challenge.findByIdAndUpdate(req.params.id, req.body,{
             new: true,
             runValidators: true,
             useFindAndModify: false
         });
-        await challenge?.save();
+        await newChallenge?.save();
         new UpdateChallengePublisher(natsWrapper.client).publish({
-            id: challenge?.id!,
-            tests: challenge?.tests!,
-            status: challenge?.status!,
-            startsAt: challenge?.startsAt!,
-            expiresAt: challenge?.expiresAt!,
-            version: challenge?.version!,
-            language: challenge?.language!
+            id: newChallenge?.id!,
+            tests: newChallenge?.tests!,
+            status: newChallenge?.status!,
+            startsAt: newChallenge?.startsAt!,
+            expiresAt: newChallenge?.expiresAt!,
+            version: newChallenge?.version!,
+            language: newChallenge?.language!
 
         })
-        res.status(200).json({success: true, data: challenge});
+        res.status(200).json({success: true, data: newChallenge});
     }catch(err){
         return next(new BasicCustomError(err,400));
     }

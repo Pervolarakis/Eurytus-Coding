@@ -69,3 +69,38 @@ it('successfully publishes delete event if user owns the challenge', async()=>{
         .expect(201);
     expect(natsWrapper.client.publish).toHaveBeenCalled();
 })
+
+it('successfully deletes challenge if user owns the challenge and challenge is private', async()=>{
+    const userOne = new mongoose.Types.ObjectId();
+    const challenge = new Challenge({
+        name: "Sum Challenge",
+        description: "Write a function that sums 3 numbers",
+        difficulty: 1,
+        isPublic: false,
+        expiresAt: "2014-02-01T00:00:00",
+        status: 'approved',
+        startsAt: Date.now(),
+        creatorId: userOne,
+        tests: JSON.stringify({
+            "challenge" : [
+                {
+                    input: [5,10,15],
+                    output: [30]
+                },
+                {
+                    input: [10,40,5],
+                    output: [55]
+                }
+            ]
+        }),
+        language: 'js'
+    })
+    await challenge.save();
+    await request(app)
+        .delete(`/api/v1/challenges/delete/${challenge.id}`)
+        .set('Cookie', global.signin(userOne, 'user'))
+        .expect(200);
+    expect(natsWrapper.client.publish).toHaveBeenCalled();
+    const updatedChallenge = await Challenge.findById(challenge.id);
+    expect(updatedChallenge?.status).toEqual('deleted')
+})
