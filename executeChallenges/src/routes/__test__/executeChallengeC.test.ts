@@ -138,7 +138,7 @@ it('throws error if it cant compile', async()=>{
             solution: JSON.stringify(`int solution(int a,int b, int c){int  = a+b+c; return sum;}`)
         })
         .expect(200)
-    expect(result.body.data.successfulTests).toEqual(0)
+    expect(result.body.success).toEqual(false)
 
 })
 

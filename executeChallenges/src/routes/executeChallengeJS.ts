@@ -31,6 +31,9 @@ router.post('/api/v1/compile/challengejs/:id',requireAuth, async(req: Request, r
     
         runningTests.push(node.runSource(jsTemp(JSON.parse(currentChallenge.input),funct))
             .then(result => {
+                // if(result.stderr){
+                //     Promise.reject(result.stderr)
+                // }
                 if(result.stdout.trim()==JSON.parse(currentChallenge.output).trim().replaceAll(`"`,``)){
                     successfulTests++;
                 }
@@ -39,8 +42,11 @@ router.post('/api/v1/compile/challengejs/:id',requireAuth, async(req: Request, r
                 console.log(err);
             }));
     }
-    await Promise.all(runningTests)
-    res.status(200).json({success: true, data: {totalTestsDone: tests["challenge"].length, successfulTests: successfulTests}})
+    Promise.all(runningTests)
+        .then((result) => {
+            res.status(200).json({success: true, data: {totalTestsDone: tests["challenge"].length, successfulTests: successfulTests}})
+        })
+        .catch(error => res.status(200).json({success: false, compileError: error}))
     
 
 })

@@ -18,7 +18,7 @@ router.post('/api/v1/compile/challengejava/:id', requireAuth, async(req: Request
     }
 
     const funct = JSON.parse(req.body.solution);
-    //console.log(funct)
+    // console.log(funct)
     const tests = JSON.parse(challenge?.tests!);
 
     let successfulTests = 0;
@@ -28,20 +28,35 @@ router.post('/api/v1/compile/challengejava/:id', requireAuth, async(req: Request
     for(let i=0; i<tests["challenge"].length; i++){
         
         const currentChallenge = tests["challenge"][i];
-        runningTests.push(java.runSource(javaTemp(JSON.parse(currentChallenge.input),funct))
+        runningTests.push(new Promise((resolve, reject)=>java.runSource(javaTemp(JSON.parse(currentChallenge.input),funct))
             .then(result => {
-                //console.log(javaTemp(JSON.parse(currentChallenge.input),funct))
-                // console.log(result.stdout.trim()+ " : "+ JSON.parse(currentChallenge.output).trim().replaceAll(`"`,``))
-                if(result.stdout.trim()==JSON.parse(currentChallenge.output).trim().replaceAll(`"`,``)){
+                if(result.stderr){
+                    console.log('compile mlkia')
+                    reject(result.stderr)
+                }
+                console.log(javaTemp(JSON.parse(currentChallenge.input),funct))
+            
+                let stdOut = result.stdout;
+                // if(stdOut.indexOf('[')>-1){
+                //     stdOut = stdOut.split(/\s/).join('');
+                // }
+                console.log(stdOut.trim().split(/\s/).join('') + " : "+ JSON.parse(currentChallenge.output).trim().replaceAll(`"`,``).replaceAll(`'`,``).split(/\s/).join(''))
+                if(stdOut.trim().split(/\s/).join('') == JSON.parse(currentChallenge.output).trim().replaceAll(`"`,``).replaceAll(`'`,``).split(/\s/).join('')){
                     successfulTests++;
                 }
+                resolve('done');
             })
             .catch(err => {
                 console.log(err);
-            }));
+                resolve('done');
+            })));
     }
-    await Promise.all(runningTests)
-    res.status(200).json({success: true, data: {totalTestsDone: tests["challenge"].length, successfulTests: successfulTests}})
+    Promise.all(runningTests)
+        .then((result) => {
+            res.status(200).json({success: true, data: {totalTestsDone: tests["challenge"].length, successfulTests: successfulTests}})
+        })
+        .catch(error => {res.status(200).json({success: false, compileError: error})})
+    
     
 
 })

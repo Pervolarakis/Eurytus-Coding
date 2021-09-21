@@ -105,7 +105,7 @@ it('throws error if it cant compile', async()=>{
             solution: JSON.stringify(`function solution(a,b,c){return(a++c)}`)
         })
         .expect(200)
-    expect(result.body.data.successfulTests).toEqual(0)
+        expect(result.body.success).toEqual(false)
 
 })
 
