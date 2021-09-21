@@ -29,18 +29,23 @@ router.post('/api/v1/compile/challengejs/:id',requireAuth, async(req: Request, r
         
         const currentChallenge = tests["challenge"][i];
     
-        runningTests.push(node.runSource(jsTemp(JSON.parse(currentChallenge.input),funct))
+        runningTests.push(new Promise((resolve, reject)=>node.runSource(jsTemp(JSON.parse(currentChallenge.input),funct))
             .then(result => {
-                // if(result.stderr){
-                //     Promise.reject(result.stderr)
-                // }
-                if(result.stdout.trim()==JSON.parse(currentChallenge.output).trim().replaceAll(`"`,``)){
+                if(result.stderr){
+                    console.log('compile mlkia')
+                    reject(result.stderr)
+                }
+                let stdOut = result.stdout;
+                // console.log(stdOut.trim().split(/\s|\"|\'/).join('') + ' : ' + JSON.parse(currentChallenge.output).trim().replaceAll(`"`,``).replaceAll(`'`,``).split(/\s/).join(''));
+                if(stdOut.trim().split(/\s|\"|\'/).join('') == JSON.parse(currentChallenge.output).trim().replaceAll(`"`,``).replaceAll(`'`,``).split(/\s/).join('')){
                     successfulTests++;
                 }
+                resolve('done');
             })
             .catch(err => {
                 console.log(err);
-            }));
+                resolve('done');
+            })));
     }
     Promise.all(runningTests)
         .then((result) => {
