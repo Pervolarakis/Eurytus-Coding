@@ -26,6 +26,7 @@ __exportStar(require("./events/UpdateChallengeApprovedEventData"), exports);
 __exportStar(require("./events/CreateChallengeEventData"), exports);
 __exportStar(require("./events/UpdateChallengeEventData"), exports);
 __exportStar(require("./events/DeleteChallengeEventData"), exports);
+__exportStar(require("./events/CreateHistoryEventData"), exports);
 __exportStar(require("./middlewares/currentUser"), exports);
 __exportStar(require("./middlewares/errorHandler"), exports);
 __exportStar(require("./middlewares/requireAuth"), exports);
