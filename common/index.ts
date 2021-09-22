@@ -15,6 +15,7 @@ export * from './events/UpdateChallengeApprovedEventData';
 export * from './events/CreateChallengeEventData';
 export * from './events/UpdateChallengeEventData';
 export * from './events/DeleteChallengeEventData';
+export * from './events/CreateHistoryEventData'
 
 export * from './middlewares/currentUser';
 export * from './middlewares/errorHandler';
