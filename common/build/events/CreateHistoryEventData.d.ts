@@ -3,7 +3,7 @@ export interface CreateHistoryEventData {
     subject: Subjects.CreateHistory;
     data: {
         userId: String;
-        challengetId: String;
+        challengeId: String;
         challengeName: String;
         score: String;
     };

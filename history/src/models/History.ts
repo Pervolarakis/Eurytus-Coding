@@ -1,22 +1,22 @@
 import mongoose from 'mongoose';
 
 interface historyDoc extends mongoose.Document{
-    playerId: string,
-    testId: string,
-    testName: string,
+    userId: string,
+    challengeId: string,
+    challengeName: string,
     score: string
 }
 
 const historySchema = new mongoose.Schema({
-    playerId: {
+    userId: {
         type: String,
         required: true
     },
-    testId: {
+    challengeId: {
         type: String,
         required: true
     },
-    testName: {
+    challengeName: {
         type: String,
         required: true
     },
