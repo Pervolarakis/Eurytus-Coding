@@ -29,10 +29,10 @@ export const javaDataTypesTest = [
                     input: JSON.stringify(`new Byte[]{1,0,1,1}`),
                     output: JSON.stringify(`[1,0,1,1]`)
                 },
-                // {
-                //     input: JSON.stringify(`new Float[]{1.34f,0.56f,1.99f,16.99f,17.43f}`),
-                //     output: JSON.stringify(`[1.34,0.56,1.99,16.99,17.43]`)
-                // },
+                {
+                    input: JSON.stringify(`new Float[]{1.34f,0.56f,1.99f,16.99f,17.43f}`),
+                    output: JSON.stringify(`[1.34,0.56,1.99,16.99,17.43]`)
+                },
                 {
                     input: JSON.stringify(`new Double[]{1.34534443,0.4355345334,1.12321321312312,1.43553343435}`),
                     output: JSON.stringify(`[1.34534443,0.4355345334,1.12321321312312,1.43553343435]`)
@@ -98,15 +98,15 @@ export const javaDataTypesTest = [
                     input: JSON.stringify(`new HashMap<String, Integer>() {{put("key1", 5);put("key2", 5);}}`),
                     output: JSON.stringify(`{key1=5,key2=5}`)
                 },
-                {
-                    input: JSON.stringify(`Map.ofEntries(
-                        new AbstractMap.SimpleEntry<String, String>("name", "John"),
-                        new AbstractMap.SimpleEntry<String, String>("city", "budapest"),
-                        new AbstractMap.SimpleEntry<String, String>("zip", "000000"),
-                        new AbstractMap.SimpleEntry<String, String>("home", "1231231231")
-                      )`),
-                    output: JSON.stringify(`{name=john,city=budapest,zip=000000,home=1231231231}`)
-                },
+                // {
+                //     input: JSON.stringify(`Map.ofEntries(
+                //         new AbstractMap.SimpleEntry<String, String>("name", "John"),
+                //         new AbstractMap.SimpleEntry<String, String>("city", "budapest"),
+                //         new AbstractMap.SimpleEntry<String, String>("zip", "000000"),
+                //         new AbstractMap.SimpleEntry<String, String>("home", "1231231231")
+                //       )`),
+                //     output: JSON.stringify(`{name=john,city=budapest,zip=000000,home=1231231231}`)
+                // },
                 {
                     input: JSON.stringify(`Map.of("key1", "value")`),
                     output: JSON.stringify(`{key1=value}`)
