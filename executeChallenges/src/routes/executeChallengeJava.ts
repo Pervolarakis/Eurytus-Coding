@@ -28,20 +28,20 @@ router.post('/api/v1/compile/challengejava/:id', requireAuth, async(req: Request
     for(let i=0; i<tests["challenge"].length; i++){
         
         const currentChallenge = tests["challenge"][i];
-        runningTests.push(new Promise((resolve, reject)=>java.runSource(javaTemp(JSON.parse(currentChallenge.input),funct))
+        runningTests.push(new Promise((resolve, reject)=>java.runSource(javaTemp(JSON.parse(currentChallenge.input),funct, JSON.parse(currentChallenge.output)))
             .then(result => {
                 if(result.stderr){
                     console.log('compile mlkia')
                     reject(result.stderr)
                 }
-                console.log(javaTemp(JSON.parse(currentChallenge.input),funct))
+                //console.log(javaTemp(JSON.parse(currentChallenge.input),funct))
             
                 let stdOut = result.stdout;
                 // if(stdOut.indexOf('[')>-1){
                 //     stdOut = stdOut.split(/\s/).join('');
                 // }
-                console.log(stdOut.trim().split(/\s/).join('') + " : "+ JSON.parse(currentChallenge.output).trim().replaceAll(`"`,``).replaceAll(`'`,``).split(/\s/).join(''))
-                if(stdOut.trim().split(/\s/).join('') == JSON.parse(currentChallenge.output).trim().replaceAll(`"`,``).replaceAll(`'`,``).split(/\s/).join('')){
+                //console.log(stdOut.trim().split(/\s/).join('') + " : "+ JSON.parse(currentChallenge.output).trim().replaceAll(`"`,``).replaceAll(`'`,``).split(/\s/).join(''))
+                if(stdOut.trim().split(/\s/).join('') == 'true'){
                     successfulTests++;
                 }
                 resolve('done');

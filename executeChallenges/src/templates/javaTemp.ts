@@ -1,7 +1,8 @@
-export const javaTemp = (args: string, func:string) => `
+export const javaTemp = (args: string, func:string, expectedOutput:string) => `
 
     import java.util.*;
     import java.io.*;
+    import java.lang.reflect.*;
 
     public class SimpleClass {
 
@@ -12,144 +13,141 @@ export const javaTemp = (args: string, func:string) => `
         
         public static void main(String[] args) {
             SimpleClass test = new SimpleClass();
-            check.printType(test.solution(${args}));
+            System.out.println(check.checkEquality(${expectedOutput}, test.solution(${args})));
         }
 
     }
     
     class check{
 
-        static void printType(Byte a)
+        static boolean checkEquality(int[] a, int[] b)
         {
-            System.out.println(a);
+            return Arrays.equals(a,b);
         }
-
-        static void printType(Integer a)
+        static boolean checkEquality(long[] a, long[] b)
         {
-            System.out.println(a);
+            return (Arrays.equals(a,b));
         }
-        static void printType(Character c)
+        static boolean checkEquality(float[] a, float[] b)
         {
-            System.out.println(c);
+            return (Arrays.equals(a,b));
         }
-        static void printType(Float f)
+        static boolean checkEquality(double[] a, double[] b)
         {
-            System.out.println(f);
+            return (Arrays.equals(a,b));
         }
-        static void printType(Double d)
+        static boolean checkEquality(char[] a, char[] b)
         {
-            System.out.println(d);
+            return (Arrays.equals(a,b));
         }
-        static void printType(Long l)
+        static boolean checkEquality(boolean[] a, boolean[] b)
         {
-            System.out.println(l);
+            return (Arrays.equals(a,b));
         }
-        static void printType(String s)
+        static boolean checkEquality(short[] a, short[] b)
         {
-            System.out.println(s);
+            return (Arrays.equals(a,b));
         }
-        static void printType(Boolean s)
-        {
-            System.out.println(s);
-        }
-        static void printType(Short s)
-        {
-            System.out.println(s);
-        }
-        static <T>void printType(T[] array) {
-            System.out.println(Arrays.deepToString(array));
-        }
-        static <T>void printType(List<T> array) {
-            Object[] str = GetStringArray(array);
+        static <T>boolean checkEquality(T a, T b) {
     
-            // Print Array elements
-            System.out.print(Arrays.deepToString(str));
+            if (a instanceof String || a instanceof Integer || a instanceof Short || a instanceof Long
+                    || a instanceof Byte || a instanceof Character || a instanceof Boolean
+                    || a instanceof Float || a instanceof Double || a instanceof Map || a instanceof Set || a instanceof List) {
+                return (a.equals(b));
+            }
+            else if (a instanceof String[] || a instanceof Integer[] || a instanceof Short[] || a instanceof Long[]
+                    || a instanceof Byte[] || a instanceof Character[] || a instanceof Boolean[]
+                    || a instanceof Float[] || a instanceof Double[] || a instanceof Map[] || a instanceof Set[] || a instanceof List[]) {
+                return (Arrays.equals((Object[]) a,(Object[]) b));
+            }
+            else if (a instanceof int[]){
+                return (check.checkEquality((int[])a,(int[]) b));
+            }
+            else if (a instanceof short[]){
+                return (check.checkEquality((short[])a,(short[]) b));
+            }
+            else if (a instanceof long[]){
+                return (check.checkEquality((long[])a,(long[]) b));
+            }
+            else if (a instanceof byte[]){
+                return (check.checkEquality((byte[])a,(byte[]) b));
+            }
+            else if (a instanceof char[]){
+                return (check.checkEquality((char[])a,(char[]) b));
+            }
+            else if (a instanceof boolean[]){
+                return (check.checkEquality((boolean[])a,(boolean[]) b));
+            }
+            else if (a instanceof float[]){
+                return (check.checkEquality((float[])a,(float[]) b));
+            }
+            else if (a instanceof double[]) {
+                return (check.checkEquality((double[])a,(double[]) b));
+            }
+            else {
+                return(compareObject(a, b));
+            }
         }
-        static <T>void printType(Set<T> array) {
-            // String[] str = GetStringArray(array);
     
-            // Print Array elements
-            System.out.print(Arrays.deepToString(array.toArray()));
-        }
-        static <T,J>void printType(Map<T,J> array) {
-            // String[] str = GetStringArray(array);
-            String[] str = new String[array.size()];
-            // Print Array elements
-            Integer index=0;
-            for (Map.Entry entry : array.entrySet())
-            {
-    //            System.out.println(entry.getKey());
-    //            System.out.println(entry.getValue());
-                String kt;
+    
+        public static boolean compareObject(Object o1, Object o2){
+    
+            // Record comparison results
+            boolean retFlag = true;
+    
+            // First of all, it is judged whether the object to be compared is null, one is null, and the other is not null, and the return is not equal.
+            if((o1 == null && o2 != null)||(o1 != null && o2 == null)){
+                return false;
+            }
+    
+            // When both are null, return equal
+            if(o1 ==null && o2==null){
+                return true;
+            }
+    
+            // +++++++++++++++++++++ Continue to compare +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    
+            // First, we compare whether the two objects have the same type, different type and different direct return.
+            if(o1.getClass().isInstance(o2)){
+    
+    
                 try {
-                   kt  = Arrays.deepToString((Object[]) entry.getValue());
+    
+                    // Obtain object classes that need to be compared by reflection
+                    Class clzz = Class.forName(o1.getClass().getName());
+    
+                    // Get the attribute object corresponding to the class
+                    Field[] fs = clzz.getDeclaredFields();
+    
+                    // Compare attribute values in turn
+                    for(Field ftemp : fs){
+    
+                        // set fields to accessible
+                        ftemp.setAccessible(true);
+                        Class<?> Cls = ftemp.getType();
+                        //get field value from each object
+                        Object v1 = ftemp.get(o1);
+                        Object v2 = ftemp.get(o2);
+    
+                        if(!check.checkEquality(v1, v2)){
+                            retFlag = false;
+                            break;
+                        }
+                    }
+    
+                } catch (ClassNotFoundException e) {
+                    System.out.println("fail to compare Objects !");
+                    retFlag = false;
+                } catch (IllegalAccessException e) {
+                    System.out.println("fail to compare Objects !");
+                    retFlag = false;
                 }
-                catch(Exception e) {
-                    kt = entry.getValue().toString();
-                }
-                str[index++] = entry.getKey() + "=" + kt;
-    
-            }
-            System.out.println('{'+String.join(", ", str)+'}');
-    //        System.out.println("mpainei edo");
-    //         List<Map<T , J>> myMap  = new ArrayList<Map<T,J>>();
-    //         myMap.add(0,array);
-    //         Object[] str = GetStringArray(myMap);
-    //         System.out.print(Arrays.deepToString(myMap.toArray()));
-    //         Object[] obj = new Object[1];
-    //         obj[0] = array;
-    //         System.out.println(Arrays.deepToString(obj));
-        }    
-    
-        static void printType(int[] s)
-        {
-            System.out.println(Arrays.toString(s));
-        }
-        static void printType(long[] s)
-        {
-            System.out.println(Arrays.toString(s));
-        }
-        static void printType(float[] s)
-        {
-            System.out.println(Arrays.toString(s));
-        }
-        static void printType(double[] s)
-        {
-            System.out.println(Arrays.toString(s));
-        }
-        static void printType(byte[] s)
-        {
-            System.out.println(Arrays.toString(s));
-        }
-        static void printType(char[] s)
-        {
-            System.out.println(Arrays.toString(s));
-        }
-        static void printType(boolean[] s)
-        {
-            System.out.println(Arrays.toString(s));
-        }
-        static void printType(short[] s)
-        {
-            System.out.println(Arrays.toString(s));
-        }
-    
-        public static <T>Object[] GetStringArray(List<T> arr)
-        {
-    
-            // declaration and initialise String Array
-            Object str[] = new Object[arr.size()];
-    
-            // ArrayList to Array Conversion
-            for (int j = 0; j < arr.size(); j++) {
-    
-                // Assign each value to String array
-                str[j] = arr.get(j);
+            }else{
+                retFlag = false;
             }
     
-            return str;
+            return retFlag;
         }
-    
     
     }
 
