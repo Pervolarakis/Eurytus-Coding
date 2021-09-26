@@ -5,19 +5,15 @@ export const javaTemp = (args: string, func:string, expectedOutput:string) => `
     import java.lang.reflect.*;
 
     public class SimpleClass {
-
-        public SimpleClass() {
-        }
-        
-        ${func}
-        
+    
         public static void main(String[] args) {
-            SimpleClass test = new SimpleClass();
-            System.out.println(check.checkEquality(${expectedOutput}, test.solution(${args})));
+            System.out.println(check.checkEquality(${expectedOutput}, ${args}));
         }
 
     }
     
+    ${func}
+
     class check{
 
         static boolean checkEquality(int[] a, int[] b)
