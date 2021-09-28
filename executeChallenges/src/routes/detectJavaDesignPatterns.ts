@@ -15,7 +15,7 @@ router.post('/api/v1/compile/getJavaStructure', async(req: Request, res: Respons
     const str = funct.split(/\s|\"|\'/).join('');
     const regExp = /(?<=class|interface).*?(?=extends|{|implements)/g;
     const classAndInterfaceNames = str.match(regExp);
-    console.log(classAndInterfaceNames);
+    // console.log(classAndInterfaceNames);
     let runningTests = [];
     let classesInfo: {
             className: string,
@@ -43,7 +43,7 @@ router.post('/api/v1/compile/getJavaStructure', async(req: Request, res: Respons
     for(let i=0; i<classAndInterfaceNames.length; i++){
         
         const currentClass = classAndInterfaceNames[i];
-        //console.log(detectJavaDesignPatternsTemp(funct, currentClass));
+        // console.log(detectJavaDesignPatternsTemp(funct, currentClass));
         runningTests.push(new Promise((resolve, reject)=>java.runSource(detectJavaDesignPatternsTemp(funct, currentClass),{timeout: 4000, compileTimeout: 4000, stdoutLimit: 50000, stderrLimit: 50000 })
             .then(result => {
                 if(result.stderr){
@@ -53,7 +53,9 @@ router.post('/api/v1/compile/getJavaStructure', async(req: Request, res: Respons
                 
                 let stdOut = result.stdout;
                 // console.log(stdOut);
-                classesInfo.push(JSON.parse(stdOut));
+                if(stdOut){
+                    classesInfo.push(...JSON.parse(stdOut));
+                }
 
                 resolve('done');
             })

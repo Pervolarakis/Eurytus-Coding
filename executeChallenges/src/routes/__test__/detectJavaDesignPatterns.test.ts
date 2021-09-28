@@ -6,7 +6,12 @@ it('successfully detects all class names and interfaces', async()=>{
         .post('/api/v1/compile/getJavaStructure')
         .send({
             code: JSON.stringify(`class mlkia {
-
+                class peops{
+                    private int pepe=5;
+                    private int getPepe(){
+                        return pepe;
+                    }
+                }
             }
             
             abstract class mlkia2{
