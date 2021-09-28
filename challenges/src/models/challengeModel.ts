@@ -56,6 +56,9 @@ const challengeSchma  = new mongoose.Schema({
         type: String,
         enum: ["js", "c", "java"],
         required: true
+    },
+    template: {
+        type: String
     }
 },{
     toJSON: {

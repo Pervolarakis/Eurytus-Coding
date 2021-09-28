@@ -27,6 +27,7 @@ it('successfully returns challenges created by the user', async()=>{
                 }
             ]
         }),
+        template: 'solution(a,b,c){}',
         language: 'c'
     })
     const challenge2= new Challenge({
@@ -51,6 +52,7 @@ it('successfully returns challenges created by the user', async()=>{
                 }
             ]
         }),
+        template: 'solution(a,b,c){}',
         language: 'c'
     })
     await challenge1.save();

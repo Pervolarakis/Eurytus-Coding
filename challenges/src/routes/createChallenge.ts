@@ -10,10 +10,12 @@ const router = express.Router();
 
 router.post('/api/v1/challenges/new', requireAuth,  createChallengeSchema, validateRequestSchema, async(req: Request,res: Response,next: NextFunction)=>{
     
-    const {name, description, difficulty, isPublic, startsAt, expiresAt, tests, language} = req.body;
+    const {name, description, difficulty, isPublic, startsAt, expiresAt, tests, language, template} = req.body;
     
     try{
-        if(req.currentUser!.role!=='admin' && isPublic===true){
+        
+        if(req.currentUser!.role !== 'admin' && isPublic==="true"){
+            console.log("edo")
             const message = req.body.message;
             delete req.body.message
             new ChallengeNewRequestPublisher(natsWrapper.client).publish({
@@ -22,6 +24,7 @@ router.post('/api/v1/challenges/new', requireAuth,  createChallengeSchema, valid
                 message: message,
                 ownerId: req.currentUser?.id!
             })
+
             res.status(201).json({success: true, data: 'Request submited'})
             return next();
         }
@@ -35,6 +38,7 @@ router.post('/api/v1/challenges/new', requireAuth,  createChallengeSchema, valid
             expiresAt: expiresAt,
             creatorId: req.currentUser!.id,
             tests: tests,
+            template: template,
             language: language
         })
         await challenge.save();
