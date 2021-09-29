@@ -162,13 +162,17 @@ export const detectJavaDesignPatternsTemp = (codeInput: string, currentClass: st
                 System.out.print("{\\n");
                 //gia kathe field typono modifier type kai onoma
                 Class type = fields[j].getType();
+                String fieldType = type.getName();
+                if(fieldType.equals("java.util.List")){
+                    fieldType = fieldType+'<'+((Class<?>)((ParameterizedType)fields[j].getGenericType()).getActualTypeArguments()[0]).getName()+'>';
+                }
                 String name = fields[j].getName();
 
                 String modifiers = Modifier.toString(fields[j].getModifiers());
                 if (modifiers.length() > 0) System.out.println("\\"modifiers\\": [\\"" + String.join("\\",\\"",modifiers.split("\\\\|", -1)) + "\\"],");
                 else System.out.println("\\"modifiers\\": [],");
                 System.out.println("\\"name\\": \\""+name+"\\",");
-                System.out.println("\\"type\\": \\""+type.getName()+"\\"");
+                System.out.println("\\"type\\": \\""+fieldType+"\\"");
                 System.out.println("}");
             }
             System.out.println("]");

@@ -264,16 +264,3 @@ it('returns map', async()=>{
     expect(result.body.data.successfulTests).toEqual(JSON.parse(javaDataTypesTest[3].tests)["challenge"].length)
 })
 
-it('returns map', async()=>{
-    const user = new mongoose.Types.ObjectId()
-    const challenge = new Challenge(javaDataTypesTest[3])
-    await challenge.save()
-    const result = await request(app)
-        .post(`/api/v1/compile/challengejava/${challenge.id}`)
-        .set('Cookie', global.signin(user,'user'))
-        .send({
-            solution: javaDataTypesTestSolutions[3]
-        })
-        .expect(200)
-    expect(result.body.data.successfulTests).toEqual(JSON.parse(javaDataTypesTest[4].tests)["challenge"].length)
-})

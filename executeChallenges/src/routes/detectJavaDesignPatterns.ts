@@ -2,6 +2,7 @@ import express, {Request,Response,NextFunction} from 'express';
 import {detectJavaDesignPatternsTemp} from '../templates/detectJavaDesignPatternsTemp';
 import {java} from 'compile-run'
 import { BasicCustomError, requireAuth } from '@eurytus/common';
+import { detectFactory, detectObserver, detectSingleton } from './designPatterns';
 
 const router = express.Router();
 
@@ -56,7 +57,7 @@ router.post('/api/v1/compile/getJavaStructure', async(req: Request, res: Respons
                 if(stdOut){
                     classesInfo.push(...JSON.parse(stdOut));
                 }
-
+                 
                 resolve('done');
             })
             .catch(err => {
@@ -66,7 +67,11 @@ router.post('/api/v1/compile/getJavaStructure', async(req: Request, res: Respons
     }
     Promise.all(runningTests)
         .then((result) => {
-            res.status(200).json({success: true, data: classesInfo})
+            // console.log(detectSingleton(classesInfo))
+            // console.log(detectFactory(classesInfo))
+            res.status(200).json({success: true, data: {singleton: detectSingleton(classesInfo),
+                                                        factory: detectFactory(classesInfo),
+                                                        observer: detectObserver(classesInfo)}})
         })
         .catch(error => {res.status(200).json({success: false, compileError: error})})
 
