@@ -27,6 +27,7 @@ it('creates Challenge successfully', async()=>{
                     }
                 ]
             }),
+            template: 'solution(a,b,c){}',
             language: 'js'
         })
         .expect(201)
@@ -53,6 +54,7 @@ it('fails if user is not authenticated', async()=>{
                     }
                 ]
             }),
+            template: 'solution(a,b,c){}',
             language: 'js'
         })
         .expect(401)
@@ -80,6 +82,7 @@ it('fails if fields are missing', async()=>{
                     }
                 ]
             }),
+            template: 'solution(a,b,c){}',
             language: 'js'
         })
         .expect(400)
@@ -87,7 +90,7 @@ it('fails if fields are missing', async()=>{
 
 it('successfully published a create new challenge event', async()=>{
     const userOne = new mongoose.Types.ObjectId();
-    await request(app)
+    const result = await request(app)
         .post('/api/v1/challenges/new')
         .set('Cookie', global.signin(userOne, 'user'))
         .send({
@@ -109,6 +112,7 @@ it('successfully published a create new challenge event', async()=>{
                     }
                 ]
             }),
+            template: '',
             language: 'js'
         })
         .expect(201)

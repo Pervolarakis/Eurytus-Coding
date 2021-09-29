@@ -83,6 +83,7 @@ it('successfully publishes update event if user owns the challenge', async()=>{
                 }
             ]
         }),
+        template: 'solution(a,b,c){}',
         language: 'js'
     })
     await challenge.save();
@@ -119,6 +120,7 @@ it('successfully updates challenge if user owns the challenge and challenge is p
                 }
             ]
         }),
+        template: 'solution(a,b,c){}',
         language: 'js'
     })
     await challenge.save();

@@ -60,6 +60,7 @@ it('successfully publishes delete event if user owns the challenge', async()=>{
                 }
             ]
         }),
+        template: 'solution(a,b,c){}',
         language: 'js'
     })
     await challenge.save();
@@ -93,6 +94,7 @@ it('successfully deletes challenge if user owns the challenge and challenge is p
                 }
             ]
         }),
+        template: 'solution(a,b,c){}',
         language: 'js'
     })
     await challenge.save();

@@ -22,6 +22,7 @@ export const dumbChallenges = [
                 }
             ]
         }),
+        template: 'solution(a,b,c){}',
         language: 'c'
     },
     {
@@ -46,6 +47,7 @@ export const dumbChallenges = [
                 }
             ]
         }),
+        template: 'solution(a,b,c){}',
         language: 'js'
     },
     {
@@ -118,6 +120,7 @@ export const dumbChallenges = [
                 }
             ]
         }),
+        template: 'solution(a,b,c){}',
         language: 'java'
     },
 ]

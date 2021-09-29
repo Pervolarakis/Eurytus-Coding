@@ -70,4 +70,12 @@ export const editChallengeSchema = [
         .trim()
         .isLength({min: 6})
         .withMessage('Message has to be longer than 6 characters'),
+    body('template')
+        .optional()
+        .exists({checkFalsy: true})
+        .withMessage("Template cant be empty")
+        .bail()
+        .trim()
+        .isLength({min: 6})
+        .withMessage('Template has to be longer than 6 characters'),
 ]

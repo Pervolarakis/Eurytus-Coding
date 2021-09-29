@@ -9,15 +9,15 @@ export const jsDataTypesTest = [
         tests: JSON.stringify({
             "challenge" : [
                 {
-                    input: JSON.stringify(`[1,0,1,1]`),
+                    input: JSON.stringify(`solution([1,0,1,1])`),
                     output: JSON.stringify(`[1,0,1,1]`)
                 },
                 {
-                    input: JSON.stringify(`['a',"b","c",'d']`),
+                    input: JSON.stringify(`solution(['a',"b","c",'d'])`),
                     output: JSON.stringify(`["a","b","c",'d']`)
                 },
                 {
-                    input: JSON.stringify(`{"key": "val", "key2": "val2"}`),
+                    input: JSON.stringify(`solution({"key": "val", "key2": "val2"})`),
                     output: JSON.stringify(`{'key': 'val', 'key2': 'val2'}`)
                 }
             ]

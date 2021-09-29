@@ -28,6 +28,7 @@ const setup = async()=>{
                 }
             ]
         }),
+        template: 'solution(a,b,c){}',
         language: 'js'
     })
     await challenge.save();
