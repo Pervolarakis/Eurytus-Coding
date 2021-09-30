@@ -3,6 +3,7 @@ import {detectJavaDesignPatternsTemp} from '../templates/detectJavaDesignPattern
 import {java} from 'compile-run'
 import { BasicCustomError, requireAuth } from '@eurytus/common';
 import { detectFactory, detectObserver, detectSingleton } from './designPatterns';
+import { checkStructure } from './__test__/checkProgramStructure';
 
 const router = express.Router();
 
@@ -68,7 +69,7 @@ router.post('/api/v1/compile/getJavaStructure', async(req: Request, res: Respons
     Promise.all(runningTests)
         .then((result) => {
             // console.log(detectSingleton(classesInfo))
-            // console.log(detectFactory(classesInfo))
+            console.log(checkStructure(classesInfo))
             res.status(200).json({success: true, data: {singleton: detectSingleton(classesInfo),
                                                         factory: detectFactory(classesInfo),
                                                         observer: detectObserver(classesInfo)}})
