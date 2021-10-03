@@ -1,4 +1,4 @@
-export const detectJavaDesignPatternsTemp = (codeInput: string, currentClass: string) => `
+export const detectJavaDesignPatternsTemp = (codeInput: string, classNames: string) => `
 
     import java.util.*;
     import java.io.*;
@@ -9,13 +9,18 @@ export const detectJavaDesignPatternsTemp = (codeInput: string, currentClass: st
         public static void main(String[] args){
             //pairno tin clasi
 
-            try {
-                
-                Class c = Class.forName("${currentClass}");
-                System.out.println('[');
-                printClass(c);
-                System.out.println(']');
-            } catch (ClassNotFoundException e) {}
+            System.out.println('[');
+            String[] classNames = new String[]{${classNames}};
+            for(int i=0; i<classNames.length; i++){
+                try {
+                    
+                    Class c = Class.forName(classNames[i]);
+                    if(i>0)System.out.println(',');
+                    printClass(c);
+                } catch (ClassNotFoundException e) {}
+            }
+
+            System.out.println(']');
 
 
 
