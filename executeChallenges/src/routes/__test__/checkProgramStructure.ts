@@ -36,7 +36,7 @@ const sampleStructTest:classesInfo = {
     constructors: [
     {
     modifiers: ["public"],
-    parameters: ["java.lang.String", "[I", "java.util.Map"]
+    parameters: ["java.lang.String", "java.util.Map", "[I"]
     }],
     methods: [
         {
@@ -54,19 +54,31 @@ const sampleStructTest:classesInfo = {
     }
     ]
 
-        
-    
 }
 
-export const checkStructure = (classes: classesInfo[]) => {
+const sampleFromJSON = JSON.parse(`[{"className":"TestEntity2","modifiers":[],"superClass":"TestEntitySuper","interfaces":["TestInt"],"constructors":[{"modifiers":[\"public\"],"parameters":[\"java.lang.String\",\"[I\",\"java.util.Map\"]}],"methods":[{"modifiers":[\"public\"],"name":"getStr","returnType":"java.lang.String","parameters":[]},{"modifiers":[\"public\",\"static\"],"name":"testMethod","returnType":"void","parameters":[\"int\",\"java.lang.Integer\",\"java.lang.String\"]}],"fields":[{"modifiers":[\"private\"],"type":"java.util.Map","name":"m"},{"modifiers":[\"private\"],"type":"java.lang.String","name":"str"}]}]`)
+
+const compareArrays = (arr1:string[], arr2:string[])=>{
+    if(arr1.sort().join(',')=== arr2.sort().join(',')){
+        return true;
+    }
+    return false;
+}
+
+export const checkStructure = (classes: classesInfo[], targetClass: classesInfo) => {
+    // targetClass=sampleStructTest;
     let found = false;
     classes.map((currentClass,index)=>{
-        if(currentClass.className===sampleStructTest.className){
-            if(JSON.stringify(currentClass.modifiers)===JSON.stringify(sampleStructTest.modifiers)){
-                if(currentClass.superClass===sampleStructTest.superClass){
-                    if(sampleStructTest.methods.every(el=>currentClass.methods.some(method=>method.name===el.name && JSON.stringify(method.modifiers)===JSON.stringify(el.modifiers) && method.returnType===el.returnType && JSON.stringify(method.parameters)===JSON.stringify(el.parameters) && method.overrides===el.overrides))){
-                        if(sampleStructTest.constructors.every(el=>currentClass.constructors.some(constructor=> JSON.stringify(el.modifiers)===JSON.stringify(constructor.modifiers)&&JSON.stringify(el.parameters)===JSON.stringify(constructor.parameters)))){
-                            if(sampleStructTest.fields.every(el=>currentClass.fields.some(field=>JSON.stringify(el.modifiers)===JSON.stringify(field.modifiers)&&el.name===field.name&&el.type===field.type))){
+        
+        if(currentClass.className===targetClass.className){
+            // console.log('idio name')
+            // console.log(JSON.stringify(currentClass));
+            // console.log(JSON.stringify(targetClass));
+            if(compareArrays(currentClass.modifiers,targetClass.modifiers)){
+                if(currentClass.superClass===targetClass.superClass){
+                    if(targetClass.methods.every(el=>currentClass.methods.some(method=>method.name===el.name && compareArrays(method.modifiers,el.modifiers) && method.returnType===el.returnType && compareArrays(method.parameters,el.parameters)))){
+                        if(targetClass.constructors.every(el=>currentClass.constructors.some(constructor=> compareArrays(el.modifiers,constructor.modifiers)&& compareArrays(el.parameters,constructor.parameters)))){
+                            if(targetClass.fields.every(el=>currentClass.fields.some(field=>compareArrays(el.modifiers,field.modifiers)&&el.name===field.name&&el.type===field.type))){
                                 found = true;
                             }
                         }

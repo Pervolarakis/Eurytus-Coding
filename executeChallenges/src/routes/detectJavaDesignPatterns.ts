@@ -65,9 +65,10 @@ router.post('/api/v1/compile/getJavaStructure', async(req: Request, res: Respons
             resolve('done');
         }))
     .then((result) => {
-        console.log(classesInfo);
+        // console.log(classesInfo);
         // console.log(detectSingleton(classesInfo))
-        console.log(checkStructure(classesInfo))
+        const sampleFromJSON = JSON.parse(`[{"className":"TestEntity2","modifiers":[],"superClass":"TestEntitySuper","interfaces":["TestInt"],"constructors":[{"modifiers":[\"public\"],"parameters":[\"java.lang.String\",\"[I\",\"java.util.Map\"]}],"methods":[{"modifiers":[\"public\"],"name":"getStr","returnType":"java.lang.String","parameters":[]},{"modifiers":[\"public\",\"static\"],"name":"testMethod","returnType":"void","parameters":[\"int\",\"java.lang.Integer\",\"java.lang.String\"]}],"fields":[{"modifiers":[\"private\"],"type":"java.util.Map","name":"m"},{"modifiers":[\"private\"],"type":"java.lang.String","name":"str"}]}]`)
+        console.log(checkStructure(classesInfo, sampleFromJSON[0]))
         res.status(200).json({success: true, data: {singleton: detectSingleton(classesInfo),
                                                     factory: detectFactory(classesInfo),
                                                     observer: detectObserver(classesInfo)}})
