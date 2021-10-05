@@ -107,7 +107,7 @@ export const detectObserver = (classes: classesInfo[]) => {
                                 //for each of the classes fields
                                 for(let k=0; k<classes[j].fields.length; k++){
                                     //check if this class has a field with type equal to <Observer>
-                                    if(classes[j].fields[k].type===`java.util.List<${currentClass.className}>`){
+                                    if(classes[j].fields[k].type===`List<${currentClass.className}>`){
                                         found=true;
                                     }
                                 }

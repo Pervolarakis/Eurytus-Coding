@@ -26,6 +26,29 @@ export const detectJavaDesignPatternsTemp = (codeInput: string, classNames: stri
 
         }
 
+        public static String printPrimitive(String prim){
+            String str = prim.replace("java.lang.","");
+            str = str.replace("java.util.","");
+            str = str.replace("class ","");
+            str = str.replace("interface ","");
+            if(str.startsWith("[L")){
+                str = str.replace("[L","");
+                str = str.replace(";","[]");
+            }
+            if(str.startsWith("[")){
+                str = str.replace("[","");
+                if(str.equals("B")) return "byte[]";
+                if(str.equals("S")) return "short[]";
+                if(str.equals("Z")) return "boolean[]";
+                if(str.equals("C")) return "char[]";
+                if(str.equals("D")) return "double[]";
+                if(str.equals("J")) return "long[]";
+                if(str.equals("F")) return "float[]";
+                if(str.equals("I")) return "int[]";
+            }
+            return str;
+        }
+    
         public static void printClass(Class cl){
             //pairno tin uperklasi
             Class supercl = cl.getSuperclass();
@@ -38,22 +61,22 @@ export const detectJavaDesignPatternsTemp = (codeInput: string, classNames: stri
             //System.out.print("class " + name);
             if (supercl != null && supercl != Object.class) System.out.println("\\"superClass\\": \\"" + supercl.getName()+"\\",");
             else System.out.println("\\"superClass\\": \\"\\",");
-
-
+    
+    
             printInterfaces(cl);
             printConstructors(cl);
             printMethods(cl);
             printFields(cl);
             System.out.println("}");
-
+    
             Class[] childClasses =  cl.getDeclaredClasses();
-
+    
             for(int j=0; j<childClasses.length; j++){
                 printClass(childClasses[j]);
             }
-
+    
         }
-
+    
         public static void printInterfaces(Class cl){
             Class<?>[] interfaces = cl.getInterfaces();
             System.out.print("\\"interfaces\\": [");
@@ -63,7 +86,7 @@ export const detectJavaDesignPatternsTemp = (codeInput: string, classNames: stri
             }
             System.out.println("],");
         }
-
+    
         /**
          * Prints all constructors of a class
          * @param cl a class
@@ -84,20 +107,20 @@ export const detectJavaDesignPatternsTemp = (codeInput: string, classNames: stri
                 if (modifiers.length() > 0) System.out.println("\\"modifiers\\": [\\""+ String.join("\\",\\"",modifiers.split("\\\\|", -1)) + "\\"],");
                 else System.out.println("\\"modifiers\\": [],");
                 System.out.print("\\"parameters\\": [");
-
+    
                 //pairno ola ta arguments
-                Class[] paramTypes = constructors[j].getParameterTypes();
-                for (int k = 0; k < paramTypes.length; k++)
+                Type[] types = constructors[j].getGenericParameterTypes();
+                for (int k = 0; k < types.length; k++)
                 {
                     //ta typono me koma metaksi tous
                     if (k > 0) System.out.print(", ");
-                    System.out.print("\\""+paramTypes[k].getName()+"\\"");
+                    System.out.print("\\""+printPrimitive(types[k].toString())+"\\"");
                 }
                 System.out.println("]\\n}");
             }
             System.out.println("],");
         }
-
+    
         /**
          * Prints all methods of a class
          * @param cl a class
@@ -105,17 +128,17 @@ export const detectJavaDesignPatternsTemp = (codeInput: string, classNames: stri
         public static void printMethods(Class cl) {
             //pairno oles tis methodous tis klassis
             Method[] methods = cl.getDeclaredMethods();
-
+    
             System.out.println("\\"methods\\": [");
             for (int j = 0; j < methods.length; j++) {
-
+    
                 if (j > 0) System.out.print(",");
                 System.out.print("{\\n");
                 String overrides = "false";
                 //gia kathe methodo pairno to return type kai to name
-                Class retType = methods[j].getReturnType();
+                Type retType = methods[j].getGenericReturnType();
                 String name = methods[j].getName();
-
+    
                 try {
                     cl.getSuperclass().getMethod(methods[j].getName(), methods[j].getParameterTypes());
                     overrides = "\\"" + cl.getSuperclass().getName() + "\\"";
@@ -125,27 +148,27 @@ export const detectJavaDesignPatternsTemp = (codeInput: string, classNames: stri
                             iface.getMethod(methods[j].getName(), methods[j].getParameterTypes());
                             overrides = "\\"" + iface.getName() + "\\"";
                         } catch (NoSuchMethodException ignored) {
-
+    
                         }
                     }
                 } catch (NullPointerException e) {
                 }
-
-
+    
+    
                 //pairno tous modifiers px public static
                 String modifiers = Modifier.toString(methods[j].getModifiers());
-
+    
                 //typono modifiers returntype kai onoma methodou
                 System.out.println("\\"name\\": \\"" + name + "\\",");
                 if (modifiers.length() > 0) System.out.println("\\"modifiers\\": [\\"" + String.join("\\",\\"", modifiers.split(" ", -1)) + "\\"],");
                 else System.out.println("\\"modifiers\\": [],");
-                System.out.println("\\"returnType\\": \\"" + retType.getName() + "\\",");
+                System.out.println("\\"returnType\\": \\"" + printPrimitive(retType.toString()) + "\\",");
                 System.out.print("\\"parameters\\": [");
                 //pairno parameter types kai ta typono me koma metaksi tous
-                Class[] paramTypes = methods[j].getParameterTypes();
+                Type[] paramTypes = methods[j].getGenericParameterTypes();
                 for (int k = 0; k < paramTypes.length; k++) {
                     if (k > 0) System.out.print(", ");
-                    System.out.print("\\"" + paramTypes[k].getName() + "\\"");
+                    System.out.print("\\"" + printPrimitive(paramTypes[k].toString()) + "\\"");
                 }
                 System.out.println("],");
                 System.out.println("\\"overrides\\": " + overrides);
@@ -153,7 +176,7 @@ export const detectJavaDesignPatternsTemp = (codeInput: string, classNames: stri
             }
             System.out.println("],");
         }
-
+    
         /**
          * Prints all fields of a class
          * @param cl a class
@@ -166,18 +189,13 @@ export const detectJavaDesignPatternsTemp = (codeInput: string, classNames: stri
                 if (j > 0) System.out.print(",");
                 System.out.print("{\\n");
                 //gia kathe field typono modifier type kai onoma
-                Class type = fields[j].getType();
-                String fieldType = type.getName();
-                if(fieldType.equals("java.util.List")){
-                    fieldType = fieldType+'<'+((Class<?>)((ParameterizedType)fields[j].getGenericType()).getActualTypeArguments()[0]).getName()+'>';
-                }
                 String name = fields[j].getName();
-
+                Type type = fields[j].getGenericType();
                 String modifiers = Modifier.toString(fields[j].getModifiers());
                 if (modifiers.length() > 0) System.out.println("\\"modifiers\\": [\\"" + String.join("\\",\\"",modifiers.split("\\\\|", -1)) + "\\"],");
                 else System.out.println("\\"modifiers\\": [],");
                 System.out.println("\\"name\\": \\""+name+"\\",");
-                System.out.println("\\"type\\": \\""+fieldType+"\\"");
+                System.out.println("\\"type\\": \\""+printPrimitive(type.toString())+"\\"");
                 System.out.println("}");
             }
             System.out.println("]");
