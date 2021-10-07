@@ -27,6 +27,8 @@ interface classesInfoField{
     type: string
 }
 
+
+
 export const detectSingleton = (classes: classesInfo[]) => {
     let found = false;
     //for each class
@@ -120,4 +122,10 @@ export const detectObserver = (classes: classesInfo[]) => {
             
     })
     return found;
+}
+
+export const detectDesignPattern = {
+    'singleton': detectSingleton,
+    'factory': detectFactory,
+    'observer': detectObserver
 }

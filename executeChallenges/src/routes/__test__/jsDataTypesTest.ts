@@ -6,7 +6,7 @@ export const jsDataTypesTest = [
         status: 'approved',
         startsAt: Date.now(),
         expiresAt: "2014-02-01T00:00:00",
-        tests: JSON.stringify({
+        expectedOutputTests: JSON.stringify({
             "challenge" : [
                 {
                     input: JSON.stringify(`solution([1,0,1,1])`),
@@ -22,6 +22,9 @@ export const jsDataTypesTest = [
                 }
             ]
         }),
+        
+        structureTests: '',
+        expectedDesignPatterns: [],
         language: "js"
     }
 ];

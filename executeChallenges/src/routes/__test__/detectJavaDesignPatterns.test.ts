@@ -1,11 +1,23 @@
 import request from 'supertest';
 import { app } from '../../app';
+import mongoose from 'mongoose';
+import {Challenge} from '../../models/Challenge';
 
 it('successfully detects all class names and interfaces', async()=>{
+    const challenge = new Challenge({
+        status: 'approved',
+        startsAt: Date.now(),
+        expiresAt: "2014-02-01T00:00:00",
+        expectedOutputTests: '',
+        language: "java",
+        structureTests: '[{"className":"mlkia$peops","modifiers":[],"superClass":"","interfaces":[],"constructors":[],"methods":[{"modifiers":[\"private\"],"name":"getPepe","returnType":"int","parameters":[]}],"fields":[{"modifiers":[\"private\"],"name":"pepe","type":"int"}]},{"className":"mlkia","modifiers":[],"superClass":"","interfaces":[],"constructors":[],"methods":[],"fields":[]}]',
+        expectedDesignPatterns: []
+    })
+    await challenge.save()
     const response = await request(app)
-        .post('/api/v1/compile/getJavaStructure')
+        .post(`/api/v1/compile/checkJavaStructure/${challenge.id}`)
         .send({
-            code: JSON.stringify(`class mlkia {
+            solution: JSON.stringify(`class mlkia {
                 class peops{
                     private int pepe=5;
                     private int getPepe(){
@@ -39,14 +51,24 @@ it('successfully detects all class names and interfaces', async()=>{
             }`)
         })
         .expect(200)
-    // console.log(response.body.data)
+    expect(response.body.data.structure).toEqual(true)
 })
 
 it('successfully detects all class names and interfaces 2', async()=>{
+    const challenge = new Challenge({
+        status: 'approved',
+        startsAt: Date.now(),
+        expiresAt: "2014-02-01T00:00:00",
+        expectedOutputTests: '',
+        language: "java",
+        structureTests: '[{"className":"TestEntity2","modifiers":[],"superClass":"TestEntitySuper","interfaces":["TestInt"],"constructors":[{"modifiers":[\"public\"],"parameters":[\"String\",\"int[]\",\"Map<String,Object>\"]}],"methods":[{"modifiers":[\"public\"],"name":"getM","returnType":"Map<String, Object>","parameters":[]},{"modifiers":[\"public\", \"static\"],"name":"testMethod","returnType":"void","parameters":[\"int\",\"String\",\"Integer\"]}],"fields":[{"modifiers":[\"private\"],"name":"m","type":"Map<String, Object>"},{"modifiers":[\"private static\"],"name":"peops","type":"TestEntity2"}]}]',
+        expectedDesignPatterns: []
+    })
+    await challenge.save()
     const response = await request(app)
-        .post('/api/v1/compile/getJavaStructure')
+        .post(`/api/v1/compile/checkJavaStructure/${challenge.id}`)
         .send({
-            code: JSON.stringify(`class TestEntity2 extends TestEntitySuper implements TestInt{
+            solution: JSON.stringify(`class TestEntity2 extends TestEntitySuper implements TestInt{
 
                 private Map<String, Object> m;
                 private String str;
@@ -119,14 +141,24 @@ it('successfully detects all class names and interfaces 2', async()=>{
             }`)
         })
         .expect(200)
-    // console.log(response.body.data)
+    expect(response.body.data.structure).toEqual(true)
 })
 
 it('successfully detects singleton', async()=>{
+    const challenge = new Challenge({
+        status: 'approved',
+        startsAt: Date.now(),
+        expiresAt: "2014-02-01T00:00:00",
+        expectedOutputTests: '',
+        language: "java",
+        structureTests: '[{"className":"TestEntity2","modifiers":[],"superClass":"TestEntitySuper","interfaces":["TestInt"],"constructors":[{"modifiers":[\"public\"],"parameters":[\"String\",\"int[]\",\"Map<String, Object>\"]}],"methods":[{"modifiers":[\"public\"],"name":"getM","returnType":"Map<String, Object>","parameters":[]},{"modifiers":[\"public\", \"static\"],"name":"testMethod","returnType":"void","parameters":[\"int\",\"String\",\"Integer\"]}],"fields":[{"modifiers":[\"private\"],"name":"m","type":"Map<String, Object>"},{"modifiers":[\"private static\"],"name":"peops","type":"TestEntity2"}]}]',
+        expectedDesignPatterns: []
+    })
+    await challenge.save()
     const response = await request(app)
-        .post('/api/v1/compile/getJavaStructure')
+        .post(`/api/v1/compile/checkJavaStructure/${challenge.id}`)
         .send({
-            code: JSON.stringify(`class mlkia {
+            solution: JSON.stringify(`class mlkia {
                 class peops{
                     private int pepe=5;
                     private int getPepe(){
@@ -170,16 +202,27 @@ it('successfully detects singleton', async()=>{
             }`)
         })
         .expect(200)
+    expect(response.body.data.structure).toEqual(false)
     expect(response.body.data.singleton).toEqual(true)
     expect(response.body.data.factory).toEqual(false)
     expect(response.body.data.observer).toEqual(false)
 })
 
 it('successfully detects factory', async()=>{
+    const challenge = new Challenge({
+        status: 'approved',
+        startsAt: Date.now(),
+        expiresAt: "2014-02-01T00:00:00",
+        expectedOutputTests: '',
+        language: "java",
+        structureTests: '[{"className":"TestEntity2","modifiers":[],"superClass":"TestEntitySuper","interfaces":["TestInt"],"constructors":[{"modifiers":[\"public\"],"parameters":[\"String\",\"int[]\",\"Map<String, Object>\"]}],"methods":[{"modifiers":[\"public\"],"name":"getM","returnType":"Map<String, Object>","parameters":[]},{"modifiers":[\"public\", \"static\"],"name":"testMethod","returnType":"void","parameters":[\"int\",\"String\",\"Integer\"]}],"fields":[{"modifiers":[\"private\"],"name":"m","type":"Map<String, Object>"},{"modifiers":[\"private static\"],"name":"peops","type":"TestEntity2"}]}]',
+        expectedDesignPatterns: []
+    })
+    await challenge.save()
     const response = await request(app)
-        .post('/api/v1/compile/getJavaStructure')
+        .post(`/api/v1/compile/checkJavaStructure/${challenge.id}`)
         .send({
-            code: JSON.stringify(`
+            solution: JSON.stringify(`
             class mlkia {
                 class peops{
                     private int pepe=5;
@@ -211,16 +254,27 @@ it('successfully detects factory', async()=>{
             `)
         })
         .expect(200)
+    expect(response.body.data.structure).toEqual(false)
     expect(response.body.data.factory).toEqual(true)
     expect(response.body.data.singleton).toEqual(false)
     expect(response.body.data.observer).toEqual(false)
 })
 
 it('successfully detects factory 2', async()=>{
+    const challenge = new Challenge({
+        status: 'approved',
+        startsAt: Date.now(),
+        expiresAt: "2014-02-01T00:00:00",
+        expectedOutputTests: '',
+        language: "java",
+        structureTests: '[{"className":"TestEntity2","modifiers":[],"superClass":"TestEntitySuper","interfaces":["TestInt"],"constructors":[{"modifiers":[\"public\"],"parameters":[\"String\",\"int[]\",\"Map<String, Object>\"]}],"methods":[{"modifiers":[\"public\"],"name":"getM","returnType":"Map<String, Object>","parameters":[]},{"modifiers":[\"public\", \"static\"],"name":"testMethod","returnType":"void","parameters":[\"int\",\"String\",\"Integer\"]}],"fields":[{"modifiers":[\"private\"],"name":"m","type":"Map<String, Object>"},{"modifiers":[\"private static\"],"name":"peops","type":"TestEntity2"}]}]',
+        expectedDesignPatterns: []
+    })
+    await challenge.save()
     const response = await request(app)
-        .post('/api/v1/compile/getJavaStructure')
+        .post(`/api/v1/compile/checkJavaStructure/${challenge.id}`)
         .send({
-            code: JSON.stringify(`
+            solution: JSON.stringify(`
             class mlkia {
                 class peops{
                     private int pepe=5;
@@ -252,16 +306,27 @@ it('successfully detects factory 2', async()=>{
             `)
         })
         .expect(200)
+    expect(response.body.data.structure).toEqual(false)
     expect(response.body.data.factory).toEqual(true)
     expect(response.body.data.singleton).toEqual(false)
     expect(response.body.data.observer).toEqual(false)
     })
 
-    it('successfully detects factory and singleton', async()=>{
-        const response = await request(app)
-            .post('/api/v1/compile/getJavaStructure')
+it('successfully detects factory and singleton', async()=>{
+    const challenge = new Challenge({
+        status: 'approved',
+        startsAt: Date.now(),
+        expiresAt: "2014-02-01T00:00:00",
+        expectedOutputTests: '',
+        language: "java",
+        structureTests: '[{"className":"Singleton","modifiers":[],"superClass":"","interfaces":[],"constructors":[{"modifiers":[\"private\"],"parameters":[]}],"methods":[{"modifiers":[\"public\", \"static\"],"name":"getSngl","returnType":"Singleton","parameters":[]}],"fields":[{"modifiers":[\"private static\"],"name":"sngl","type":"Singleton"}]}]',
+        expectedDesignPatterns: []
+    })
+    await challenge.save()
+    const response = await request(app)
+        .post(`/api/v1/compile/checkJavaStructure/${challenge.id}`)
             .send({
-                code: JSON.stringify(`
+                solution: JSON.stringify(`
                 class mlkia {
                     class peops{
                         private int pepe=5;
@@ -303,16 +368,27 @@ it('successfully detects factory 2', async()=>{
                 `)
             })
             .expect(200)
+        expect(response.body.data.structure).toEqual(true)
         expect(response.body.data.factory).toEqual(true)
         expect(response.body.data.singleton).toEqual(true)
         expect(response.body.data.observer).toEqual(false)
 })
 
 it('successfully detects factory and singleton', async()=>{
+    const challenge = new Challenge({
+        status: 'approved',
+        startsAt: Date.now(),
+        expiresAt: "2014-02-01T00:00:00",
+        expectedOutputTests: '',
+        language: "java",
+        structureTests: '[{"className":"TestEntity2","modifiers":[],"superClass":"TestEntitySuper","interfaces":["TestInt"],"constructors":[{"modifiers":[\"public\"],"parameters":[\"String\",\"int[]\",\"Map<String, Object>\"]}],"methods":[{"modifiers":[\"public\"],"name":"getM","returnType":"Map<String, Object>","parameters":[]},{"modifiers":[\"public\", \"static\"],"name":"testMethod","returnType":"void","parameters":[\"int\",\"String\",\"Integer\"]}],"fields":[{"modifiers":[\"private\"],"name":"m","type":"Map<String, Object>"},{"modifiers":[\"private static\"],"name":"peops","type":"TestEntity2"}]}]',
+        expectedDesignPatterns: []
+    })
+    await challenge.save()
     const response = await request(app)
-        .post('/api/v1/compile/getJavaStructure')
+        .post(`/api/v1/compile/checkJavaStructure/${challenge.id}`)
         .send({
-            code: JSON.stringify(`
+            solution: JSON.stringify(`
             class mlkia {
                 class peops{
                     private int pepe=5;
@@ -337,6 +413,7 @@ it('successfully detects factory and singleton', async()=>{
             `)
         })
         .expect(200)
+    expect(response.body.data.structure).toEqual(false)
     expect(response.body.data.factory).toEqual(false)
     expect(response.body.data.singleton).toEqual(false)
     expect(response.body.data.observer).toEqual(true)

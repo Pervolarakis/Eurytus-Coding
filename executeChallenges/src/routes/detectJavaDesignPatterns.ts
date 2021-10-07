@@ -2,15 +2,27 @@ import express, {Request,Response,NextFunction} from 'express';
 import {detectJavaDesignPatternsTemp} from '../templates/detectJavaDesignPatternsTemp';
 import {java} from 'compile-run'
 import { BasicCustomError, requireAuth } from '@eurytus/common';
-import { detectFactory, detectObserver, detectSingleton } from './designPatterns';
+import { detectDesignPattern } from './designPatterns';
 import { checkStructure } from './__test__/checkProgramStructure';
+import { Challenge } from '../models/Challenge';
 
 const router = express.Router();
 
-router.post('/api/v1/compile/getJavaStructure', async(req: Request, res: Response, next: NextFunction)=>{
+router.post('/api/v1/compile/checkJavaStructure/:id', async(req: Request, res: Response, next: NextFunction)=>{
     
-    const funct = JSON.parse(req.body.code);
-    
+    // console.log(req.params.id);
+    const challenge = await Challenge.findById(req.params.id);
+    // console.log(challenge);
+    if(!challenge || challenge.status==='deleted'){
+        return next(new BasicCustomError('This challenge doesnt exists', 400))
+    }
+
+    if(challenge.language !== "java"){
+        return next(new BasicCustomError('This language is not supported for this test', 400))
+    }
+
+    const funct = JSON.parse(req.body.solution);
+
     //(?<=class\\s).*(?=implements)|(?<=class\\s).*(?=extends)|(?<=class\\s).*(?={)|(?<=interface\\s).*(?=extends)|(?<=interface\\s).*(?={)
     //(?<=\\n|\\A)(?:public\\s)?(class|interface|enum)\s([^\\n\\s]*)
     
@@ -67,11 +79,15 @@ router.post('/api/v1/compile/getJavaStructure', async(req: Request, res: Respons
     .then((result) => {
         // console.log(classesInfo);
         // console.log(detectSingleton(classesInfo))
-        const sampleFromJSON = JSON.parse(`[{"className":"TestEntity2","modifiers":[],"superClass":"TestEntitySuper","interfaces":["TestInt"],"constructors":[{"modifiers":[\"public\"],"parameters":[\"String\",\"int[]\",\"Map<String, Object>\"]}],"methods":[{"modifiers":[\"public\"],"name":"getM","returnType":"Map<String, Object>","parameters":[]},{"modifiers":[\"public\", \"static\"],"name":"testMethod","returnType":"void","parameters":[\"int\",\"String\",\"Integer\"]}],"fields":[{"modifiers":[\"private\"],"name":"m","type":"Map<String, Object>"},{"modifiers":[\"private static\"],"name":"peops","type":"TestEntity2"}]}]`)
-        console.log(checkStructure(classesInfo, sampleFromJSON[0]))
-        res.status(200).json({success: true, data: {singleton: detectSingleton(classesInfo),
-                                                    factory: detectFactory(classesInfo),
-                                                    observer: detectObserver(classesInfo)}})
+        // const sampleFromJSON = JSON.parse(`[{"className":"TestEntity2","modifiers":[],"superClass":"TestEntitySuper","interfaces":["TestInt"],"constructors":[{"modifiers":[\"public\"],"parameters":[\"String\",\"int[]\",\"Map<String, Object>\"]}],"methods":[{"modifiers":[\"public\"],"name":"getM","returnType":"Map<String, Object>","parameters":[]},{"modifiers":[\"public\", \"static\"],"name":"testMethod","returnType":"void","parameters":[\"int\",\"String\",\"Integer\"]}],"fields":[{"modifiers":[\"private\"],"name":"m","type":"Map<String, Object>"},{"modifiers":[\"private static\"],"name":"peops","type":"TestEntity2"}]}]`)
+        // console.log('eftasa edo', challenge.structureTests);
+
+        res.status(200).json({success: true, data: {
+                                                    structure: checkStructure(classesInfo, JSON.parse(challenge.structureTests)),
+                                                    singleton: detectDesignPattern['singleton'](classesInfo),
+                                                    factory: detectDesignPattern['factory'](classesInfo),
+                                                    observer: detectDesignPattern['observer'](classesInfo),
+                                                }})
     })
     .catch(error => {res.status(200).json({success: false, compileError: error})})
 

@@ -5,7 +5,7 @@ export const advancedJavaChallenges = [
         status: 'approved',
         startsAt: Date.now(),
         expiresAt: "2014-02-01T00:00:00",
-        tests: JSON.stringify({
+        expectedOutputTests: JSON.stringify({
             "challenge" : [
                 {
                     input: JSON.stringify(`new Solution().solution("ab", ".*")`),
@@ -25,6 +25,8 @@ export const advancedJavaChallenges = [
                 },
             ]
         }),
+        structureTests: '',
+        expectedDesignPatterns: [],
         language: "java"
     },
     {
@@ -32,7 +34,7 @@ export const advancedJavaChallenges = [
         status: 'approved',
         startsAt: Date.now(),
         expiresAt: "2014-02-01T00:00:00",
-        tests: JSON.stringify({
+        expectedOutputTests: JSON.stringify({
             "challenge" : [
                 {
                     input: JSON.stringify(`new Solution().solution(new int[]{0,1,0,2,1,0,1,3,2,1,2,1})`),
@@ -44,6 +46,8 @@ export const advancedJavaChallenges = [
                 }
             ]
         }),
+        structureTests: '',
+        expectedDesignPatterns: [],
         language: "java"
     }
 ]
