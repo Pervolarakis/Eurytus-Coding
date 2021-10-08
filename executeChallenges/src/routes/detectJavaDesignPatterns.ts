@@ -82,11 +82,24 @@ router.post('/api/v1/compile/checkJavaStructure/:id', async(req: Request, res: R
         // const sampleFromJSON = JSON.parse(`[{"className":"TestEntity2","modifiers":[],"superClass":"TestEntitySuper","interfaces":["TestInt"],"constructors":[{"modifiers":[\"public\"],"parameters":[\"String\",\"int[]\",\"Map<String, Object>\"]}],"methods":[{"modifiers":[\"public\"],"name":"getM","returnType":"Map<String, Object>","parameters":[]},{"modifiers":[\"public\", \"static\"],"name":"testMethod","returnType":"void","parameters":[\"int\",\"String\",\"Integer\"]}],"fields":[{"modifiers":[\"private\"],"name":"m","type":"Map<String, Object>"},{"modifiers":[\"private static\"],"name":"peops","type":"TestEntity2"}]}]`)
         // console.log('eftasa edo', challenge.structureTests);
 
+        let designPatterns = {};
+        let designPatternsFound = 0;
+        if(challenge.expectedDesignPatterns){
+            challenge.expectedDesignPatterns.map((el,i)=>{
+                //@ts-ignore
+                if(detectDesignPattern[el](classesInfo)){
+                    designPatterns = {...designPatterns, [el]: true}
+                    designPatternsFound++;
+                }else{
+                    designPatterns = {...designPatterns, [el]: false}
+                }
+                
+            })
+        }
+
         res.status(200).json({success: true, data: {
-                                                    structure: checkStructure(classesInfo, JSON.parse(challenge.structureTests)),
-                                                    singleton: detectDesignPattern['singleton'](classesInfo),
-                                                    factory: detectDesignPattern['factory'](classesInfo),
-                                                    observer: detectDesignPattern['observer'](classesInfo),
+                                                    structure: (challenge.structureTests)?checkStructure(classesInfo, JSON.parse(challenge.structureTests)):null,
+                                                    designPatterns: designPatterns
                                                 }})
     })
     .catch(error => {res.status(200).json({success: false, compileError: error})})

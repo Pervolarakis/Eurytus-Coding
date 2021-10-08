@@ -152,7 +152,7 @@ it('successfully detects singleton', async()=>{
         expectedOutputTests: '',
         language: "java",
         structureTests: '[{"className":"TestEntity2","modifiers":[],"superClass":"TestEntitySuper","interfaces":["TestInt"],"constructors":[{"modifiers":[\"public\"],"parameters":[\"String\",\"int[]\",\"Map<String, Object>\"]}],"methods":[{"modifiers":[\"public\"],"name":"getM","returnType":"Map<String, Object>","parameters":[]},{"modifiers":[\"public\", \"static\"],"name":"testMethod","returnType":"void","parameters":[\"int\",\"String\",\"Integer\"]}],"fields":[{"modifiers":[\"private\"],"name":"m","type":"Map<String, Object>"},{"modifiers":[\"private static\"],"name":"peops","type":"TestEntity2"}]}]',
-        expectedDesignPatterns: []
+        expectedDesignPatterns: ['singleton', 'factory', 'observer']
     })
     await challenge.save()
     const response = await request(app)
@@ -203,9 +203,9 @@ it('successfully detects singleton', async()=>{
         })
         .expect(200)
     expect(response.body.data.structure).toEqual(false)
-    expect(response.body.data.singleton).toEqual(true)
-    expect(response.body.data.factory).toEqual(false)
-    expect(response.body.data.observer).toEqual(false)
+    expect(response.body.data.designPatterns.singleton).toEqual(true)
+    expect(response.body.data.designPatterns.factory).toEqual(false)
+    expect(response.body.data.designPatterns.observer).toEqual(false)
 })
 
 it('successfully detects factory', async()=>{
@@ -216,7 +216,7 @@ it('successfully detects factory', async()=>{
         expectedOutputTests: '',
         language: "java",
         structureTests: '[{"className":"TestEntity2","modifiers":[],"superClass":"TestEntitySuper","interfaces":["TestInt"],"constructors":[{"modifiers":[\"public\"],"parameters":[\"String\",\"int[]\",\"Map<String, Object>\"]}],"methods":[{"modifiers":[\"public\"],"name":"getM","returnType":"Map<String, Object>","parameters":[]},{"modifiers":[\"public\", \"static\"],"name":"testMethod","returnType":"void","parameters":[\"int\",\"String\",\"Integer\"]}],"fields":[{"modifiers":[\"private\"],"name":"m","type":"Map<String, Object>"},{"modifiers":[\"private static\"],"name":"peops","type":"TestEntity2"}]}]',
-        expectedDesignPatterns: []
+        expectedDesignPatterns: ['singleton', 'factory', 'observer']
     })
     await challenge.save()
     const response = await request(app)
@@ -255,9 +255,9 @@ it('successfully detects factory', async()=>{
         })
         .expect(200)
     expect(response.body.data.structure).toEqual(false)
-    expect(response.body.data.factory).toEqual(true)
-    expect(response.body.data.singleton).toEqual(false)
-    expect(response.body.data.observer).toEqual(false)
+    expect(response.body.data.designPatterns.factory).toEqual(true)
+    expect(response.body.data.designPatterns.singleton).toEqual(false)
+    expect(response.body.data.designPatterns.observer).toEqual(false)
 })
 
 it('successfully detects factory 2', async()=>{
@@ -268,7 +268,7 @@ it('successfully detects factory 2', async()=>{
         expectedOutputTests: '',
         language: "java",
         structureTests: '[{"className":"TestEntity2","modifiers":[],"superClass":"TestEntitySuper","interfaces":["TestInt"],"constructors":[{"modifiers":[\"public\"],"parameters":[\"String\",\"int[]\",\"Map<String, Object>\"]}],"methods":[{"modifiers":[\"public\"],"name":"getM","returnType":"Map<String, Object>","parameters":[]},{"modifiers":[\"public\", \"static\"],"name":"testMethod","returnType":"void","parameters":[\"int\",\"String\",\"Integer\"]}],"fields":[{"modifiers":[\"private\"],"name":"m","type":"Map<String, Object>"},{"modifiers":[\"private static\"],"name":"peops","type":"TestEntity2"}]}]',
-        expectedDesignPatterns: []
+        expectedDesignPatterns: ['factory', 'singleton']
     })
     await challenge.save()
     const response = await request(app)
@@ -307,9 +307,8 @@ it('successfully detects factory 2', async()=>{
         })
         .expect(200)
     expect(response.body.data.structure).toEqual(false)
-    expect(response.body.data.factory).toEqual(true)
-    expect(response.body.data.singleton).toEqual(false)
-    expect(response.body.data.observer).toEqual(false)
+    expect(response.body.data.designPatterns.factory).toEqual(true)
+    expect(response.body.data.designPatterns.singleton).toEqual(false)
     })
 
 it('successfully detects factory and singleton', async()=>{
@@ -320,7 +319,7 @@ it('successfully detects factory and singleton', async()=>{
         expectedOutputTests: '',
         language: "java",
         structureTests: '[{"className":"Singleton","modifiers":[],"superClass":"","interfaces":[],"constructors":[{"modifiers":[\"private\"],"parameters":[]}],"methods":[{"modifiers":[\"public\", \"static\"],"name":"getSngl","returnType":"Singleton","parameters":[]}],"fields":[{"modifiers":[\"private static\"],"name":"sngl","type":"Singleton"}]}]',
-        expectedDesignPatterns: []
+        expectedDesignPatterns: ['factory', 'singleton']
     })
     await challenge.save()
     const response = await request(app)
@@ -369,9 +368,8 @@ it('successfully detects factory and singleton', async()=>{
             })
             .expect(200)
         expect(response.body.data.structure).toEqual(true)
-        expect(response.body.data.factory).toEqual(true)
-        expect(response.body.data.singleton).toEqual(true)
-        expect(response.body.data.observer).toEqual(false)
+        expect(response.body.data.designPatterns.factory).toEqual(true)
+        expect(response.body.data.designPatterns.singleton).toEqual(true)
 })
 
 it('successfully detects factory and singleton', async()=>{
@@ -382,7 +380,7 @@ it('successfully detects factory and singleton', async()=>{
         expectedOutputTests: '',
         language: "java",
         structureTests: '[{"className":"TestEntity2","modifiers":[],"superClass":"TestEntitySuper","interfaces":["TestInt"],"constructors":[{"modifiers":[\"public\"],"parameters":[\"String\",\"int[]\",\"Map<String, Object>\"]}],"methods":[{"modifiers":[\"public\"],"name":"getM","returnType":"Map<String, Object>","parameters":[]},{"modifiers":[\"public\", \"static\"],"name":"testMethod","returnType":"void","parameters":[\"int\",\"String\",\"Integer\"]}],"fields":[{"modifiers":[\"private\"],"name":"m","type":"Map<String, Object>"},{"modifiers":[\"private static\"],"name":"peops","type":"TestEntity2"}]}]',
-        expectedDesignPatterns: []
+        expectedDesignPatterns: ['singleton', 'factory', 'observer']
     })
     await challenge.save()
     const response = await request(app)
@@ -414,7 +412,7 @@ it('successfully detects factory and singleton', async()=>{
         })
         .expect(200)
     expect(response.body.data.structure).toEqual(false)
-    expect(response.body.data.factory).toEqual(false)
-    expect(response.body.data.singleton).toEqual(false)
-    expect(response.body.data.observer).toEqual(true)
+    expect(response.body.data.designPatterns.factory).toEqual(false)
+    expect(response.body.data.designPatterns.singleton).toEqual(false)
+    expect(response.body.data.designPatterns.observer).toEqual(true)
 })
