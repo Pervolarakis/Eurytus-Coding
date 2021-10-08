@@ -10,7 +10,7 @@ it('successfully detects all class names and interfaces', async()=>{
         expiresAt: "2014-02-01T00:00:00",
         expectedOutputTests: '',
         language: "java",
-        structureTests: '[{"className":"mlkia$peops","modifiers":[],"superClass":"","interfaces":[],"constructors":[],"methods":[{"modifiers":[\"private\"],"name":"getPepe","returnType":"int","parameters":[]}],"fields":[{"modifiers":[\"private\"],"name":"pepe","type":"int"}]},{"className":"mlkia","modifiers":[],"superClass":"","interfaces":[],"constructors":[],"methods":[],"fields":[]}]',
+        expectedStructure: '[{"className":"mlkia$peops","modifiers":[],"superClass":"","interfaces":[],"constructors":[],"methods":[{"modifiers":[\"private\"],"name":"getPepe","returnType":"int","parameters":[]}],"fields":[{"modifiers":[\"private\"],"name":"pepe","type":"int"}]},{"className":"mlkia","modifiers":[],"superClass":"","interfaces":[],"constructors":[],"methods":[],"fields":[]}]',
         expectedDesignPatterns: []
     })
     await challenge.save()
@@ -61,7 +61,7 @@ it('successfully detects all class names and interfaces 2', async()=>{
         expiresAt: "2014-02-01T00:00:00",
         expectedOutputTests: '',
         language: "java",
-        structureTests: '[{"className":"TestEntity2","modifiers":[],"superClass":"TestEntitySuper","interfaces":["TestInt"],"constructors":[{"modifiers":[\"public\"],"parameters":[\"String\",\"int[]\",\"Map<String,Object>\"]}],"methods":[{"modifiers":[\"public\"],"name":"getM","returnType":"Map<String, Object>","parameters":[]},{"modifiers":[\"public\", \"static\"],"name":"testMethod","returnType":"void","parameters":[\"int\",\"String\",\"Integer\"]}],"fields":[{"modifiers":[\"private\"],"name":"m","type":"Map<String, Object>"},{"modifiers":[\"private static\"],"name":"peops","type":"TestEntity2"}]}]',
+        expectedStructure: '[{"className":"TestEntity2","modifiers":[],"superClass":"TestEntitySuper","interfaces":["TestInt"],"constructors":[{"modifiers":[\"public\"],"parameters":[\"String\",\"int[]\",\"Map<String,Object>\"]}],"methods":[{"modifiers":[\"public\"],"name":"getM","returnType":"Map<String, Object>","parameters":[]},{"modifiers":[\"public\", \"static\"],"name":"testMethod","returnType":"void","parameters":[\"int\",\"String\",\"Integer\"]}],"fields":[{"modifiers":[\"private\"],"name":"m","type":"Map<String, Object>"},{"modifiers":[\"private static\"],"name":"peops","type":"TestEntity2"}]}]',
         expectedDesignPatterns: []
     })
     await challenge.save()
@@ -151,7 +151,7 @@ it('successfully detects singleton', async()=>{
         expiresAt: "2014-02-01T00:00:00",
         expectedOutputTests: '',
         language: "java",
-        structureTests: '[{"className":"TestEntity2","modifiers":[],"superClass":"TestEntitySuper","interfaces":["TestInt"],"constructors":[{"modifiers":[\"public\"],"parameters":[\"String\",\"int[]\",\"Map<String, Object>\"]}],"methods":[{"modifiers":[\"public\"],"name":"getM","returnType":"Map<String, Object>","parameters":[]},{"modifiers":[\"public\", \"static\"],"name":"testMethod","returnType":"void","parameters":[\"int\",\"String\",\"Integer\"]}],"fields":[{"modifiers":[\"private\"],"name":"m","type":"Map<String, Object>"},{"modifiers":[\"private static\"],"name":"peops","type":"TestEntity2"}]}]',
+        expectedStructure: '[{"className":"TestEntity2","modifiers":[],"superClass":"TestEntitySuper","interfaces":["TestInt"],"constructors":[{"modifiers":[\"public\"],"parameters":[\"String\",\"int[]\",\"Map<String, Object>\"]}],"methods":[{"modifiers":[\"public\"],"name":"getM","returnType":"Map<String, Object>","parameters":[]},{"modifiers":[\"public\", \"static\"],"name":"testMethod","returnType":"void","parameters":[\"int\",\"String\",\"Integer\"]}],"fields":[{"modifiers":[\"private\"],"name":"m","type":"Map<String, Object>"},{"modifiers":[\"private static\"],"name":"peops","type":"TestEntity2"}]}]',
         expectedDesignPatterns: ['singleton', 'factory', 'observer']
     })
     await challenge.save()
@@ -215,7 +215,7 @@ it('successfully detects factory', async()=>{
         expiresAt: "2014-02-01T00:00:00",
         expectedOutputTests: '',
         language: "java",
-        structureTests: '[{"className":"TestEntity2","modifiers":[],"superClass":"TestEntitySuper","interfaces":["TestInt"],"constructors":[{"modifiers":[\"public\"],"parameters":[\"String\",\"int[]\",\"Map<String, Object>\"]}],"methods":[{"modifiers":[\"public\"],"name":"getM","returnType":"Map<String, Object>","parameters":[]},{"modifiers":[\"public\", \"static\"],"name":"testMethod","returnType":"void","parameters":[\"int\",\"String\",\"Integer\"]}],"fields":[{"modifiers":[\"private\"],"name":"m","type":"Map<String, Object>"},{"modifiers":[\"private static\"],"name":"peops","type":"TestEntity2"}]}]',
+        expectedStructure: '[{"className":"TestEntity2","modifiers":[],"superClass":"TestEntitySuper","interfaces":["TestInt"],"constructors":[{"modifiers":[\"public\"],"parameters":[\"String\",\"int[]\",\"Map<String, Object>\"]}],"methods":[{"modifiers":[\"public\"],"name":"getM","returnType":"Map<String, Object>","parameters":[]},{"modifiers":[\"public\", \"static\"],"name":"testMethod","returnType":"void","parameters":[\"int\",\"String\",\"Integer\"]}],"fields":[{"modifiers":[\"private\"],"name":"m","type":"Map<String, Object>"},{"modifiers":[\"private static\"],"name":"peops","type":"TestEntity2"}]}]',
         expectedDesignPatterns: ['singleton', 'factory', 'observer']
     })
     await challenge.save()
@@ -267,7 +267,7 @@ it('successfully detects factory 2', async()=>{
         expiresAt: "2014-02-01T00:00:00",
         expectedOutputTests: '',
         language: "java",
-        structureTests: '[{"className":"TestEntity2","modifiers":[],"superClass":"TestEntitySuper","interfaces":["TestInt"],"constructors":[{"modifiers":[\"public\"],"parameters":[\"String\",\"int[]\",\"Map<String, Object>\"]}],"methods":[{"modifiers":[\"public\"],"name":"getM","returnType":"Map<String, Object>","parameters":[]},{"modifiers":[\"public\", \"static\"],"name":"testMethod","returnType":"void","parameters":[\"int\",\"String\",\"Integer\"]}],"fields":[{"modifiers":[\"private\"],"name":"m","type":"Map<String, Object>"},{"modifiers":[\"private static\"],"name":"peops","type":"TestEntity2"}]}]',
+        expectedStructure: '[{"className":"TestEntity2","modifiers":[],"superClass":"TestEntitySuper","interfaces":["TestInt"],"constructors":[{"modifiers":[\"public\"],"parameters":[\"String\",\"int[]\",\"Map<String, Object>\"]}],"methods":[{"modifiers":[\"public\"],"name":"getM","returnType":"Map<String, Object>","parameters":[]},{"modifiers":[\"public\", \"static\"],"name":"testMethod","returnType":"void","parameters":[\"int\",\"String\",\"Integer\"]}],"fields":[{"modifiers":[\"private\"],"name":"m","type":"Map<String, Object>"},{"modifiers":[\"private static\"],"name":"peops","type":"TestEntity2"}]}]',
         expectedDesignPatterns: ['factory', 'singleton']
     })
     await challenge.save()
@@ -318,7 +318,7 @@ it('successfully detects factory and singleton', async()=>{
         expiresAt: "2014-02-01T00:00:00",
         expectedOutputTests: '',
         language: "java",
-        structureTests: '[{"className":"Singleton","modifiers":[],"superClass":"","interfaces":[],"constructors":[{"modifiers":[\"private\"],"parameters":[]}],"methods":[{"modifiers":[\"public\", \"static\"],"name":"getSngl","returnType":"Singleton","parameters":[]}],"fields":[{"modifiers":[\"private static\"],"name":"sngl","type":"Singleton"}]}]',
+        expectedStructure: '[{"className":"Singleton","modifiers":[],"superClass":"","interfaces":[],"constructors":[{"modifiers":[\"private\"],"parameters":[]}],"methods":[{"modifiers":[\"public\", \"static\"],"name":"getSngl","returnType":"Singleton","parameters":[]}],"fields":[{"modifiers":[\"private static\"],"name":"sngl","type":"Singleton"}]}]',
         expectedDesignPatterns: ['factory', 'singleton']
     })
     await challenge.save()
@@ -379,7 +379,7 @@ it('successfully detects factory and singleton', async()=>{
         expiresAt: "2014-02-01T00:00:00",
         expectedOutputTests: '',
         language: "java",
-        structureTests: '[{"className":"TestEntity2","modifiers":[],"superClass":"TestEntitySuper","interfaces":["TestInt"],"constructors":[{"modifiers":[\"public\"],"parameters":[\"String\",\"int[]\",\"Map<String, Object>\"]}],"methods":[{"modifiers":[\"public\"],"name":"getM","returnType":"Map<String, Object>","parameters":[]},{"modifiers":[\"public\", \"static\"],"name":"testMethod","returnType":"void","parameters":[\"int\",\"String\",\"Integer\"]}],"fields":[{"modifiers":[\"private\"],"name":"m","type":"Map<String, Object>"},{"modifiers":[\"private static\"],"name":"peops","type":"TestEntity2"}]}]',
+        expectedStructure: '[{"className":"TestEntity2","modifiers":[],"superClass":"TestEntitySuper","interfaces":["TestInt"],"constructors":[{"modifiers":[\"public\"],"parameters":[\"String\",\"int[]\",\"Map<String, Object>\"]}],"methods":[{"modifiers":[\"public\"],"name":"getM","returnType":"Map<String, Object>","parameters":[]},{"modifiers":[\"public\", \"static\"],"name":"testMethod","returnType":"void","parameters":[\"int\",\"String\",\"Integer\"]}],"fields":[{"modifiers":[\"private\"],"name":"m","type":"Map<String, Object>"},{"modifiers":[\"private static\"],"name":"peops","type":"TestEntity2"}]}]',
         expectedDesignPatterns: ['singleton', 'factory', 'observer']
     })
     await challenge.save()

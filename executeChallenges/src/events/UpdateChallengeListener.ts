@@ -7,7 +7,9 @@ export class UpdateChallengeListener extends Listener<UpdateChallengeEventData>{
     QueueGroup = 'executechallenge-service'
     async onMessage(data: UpdateChallengeEventData["data"], msg: Message){
         let challenge = await Challenge.findOneAndUpdate({_id: data.id, version: data.version-1}, {
-            tests: data.tests,
+            expectedOutputTests: data.expectedOutputTests,
+            expectedDesignPatterns: data.expectedDesignPatterns,
+            expectedStructure: data.expectedStructure,
             status: data.status,
             expiresAt: data.expiresAt,
             startsAt: data.startsAt,

@@ -10,7 +10,7 @@ const router = express.Router();
 
 router.post('/api/v1/challenges/new', requireAuth,  createChallengeSchema, validateRequestSchema, async(req: Request,res: Response,next: NextFunction)=>{
     
-    const {name, description, difficulty, isPublic, startsAt, expiresAt, tests, language, template} = req.body;
+    const {name, description, difficulty, isPublic, startsAt, expiresAt, expectedOutputTests, expectedStructure, expectedDesignPatterns, language, template} = req.body;
     
     try{
         
@@ -37,7 +37,9 @@ router.post('/api/v1/challenges/new', requireAuth,  createChallengeSchema, valid
             startsAt: startsAt,
             expiresAt: expiresAt,
             creatorId: req.currentUser!.id,
-            tests: tests,
+            expectedOutputTests: expectedOutputTests, 
+            expectedStructure: expectedStructure, 
+            expectedDesignPatterns: expectedDesignPatterns,
             template: template,
             language: language
         })
@@ -45,7 +47,9 @@ router.post('/api/v1/challenges/new', requireAuth,  createChallengeSchema, valid
 
         new CreateChallengePublisher(natsWrapper.client).publish({
             id: challenge.id,
-            tests: challenge.tests,
+            expectedOutputTests: challenge.expectedOutputTests, 
+            expectedStructure: challenge.expectedStructure, 
+            expectedDesignPatterns: challenge.expectedDesignPatterns,
             status: challenge.status,
             startsAt: challenge.startsAt,
             expiresAt: challenge.expiresAt,

@@ -26,7 +26,7 @@ it('successfully runs tests', async()=>{
             ]
         }),
         language: "java",
-        structureTests: '',
+        expectedStructure: '',
         expectedDesignPatterns: []
     })
     await challenge.save()
@@ -64,7 +64,7 @@ it('successfully runs tests 2', async()=>{
             ]
         }),
         language: "java",
-        structureTests: '',
+        expectedStructure: '',
         expectedDesignPatterns: []
     })
     await challenge.save()
@@ -101,7 +101,7 @@ it('throws error if it cant compile', async()=>{
                 }
             ]
         }),
-        structureTests: '',
+        expectedStructure: '',
         expectedDesignPatterns: [],
         language: "java"
     })
@@ -140,7 +140,7 @@ it('fails if challenge doesnt support this language', async()=>{
             ]
         }),
         language: "js",
-        structureTests: '',
+        expectedStructure: '',
         expectedDesignPatterns: []
     })
     await challenge.save()
@@ -217,7 +217,7 @@ it('fails if challenge is deleted', async()=>{
                 }
             ]
         }),
-        structureTests: '',
+        expectedStructure: '',
         expectedDesignPatterns: [],
         language: "java"
     })

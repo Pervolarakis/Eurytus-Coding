@@ -24,7 +24,7 @@ it('successfully runs tests', async()=>{
                 }
             ]
         }),
-        structureTests: '',
+        expectedStructure: '',
         expectedDesignPatterns: [],
         language: "js"
     })
@@ -62,7 +62,7 @@ it('successfully runs tests 2', async()=>{
                 }
             ]
         }),
-        structureTests: '',
+        expectedStructure: '',
         expectedDesignPatterns: [],
         language: "js"
     })
@@ -100,7 +100,7 @@ it('throws error if it cant compile', async()=>{
                 }
             ]
         }),
-        structureTests: '',
+        expectedStructure: '',
         expectedDesignPatterns: [],
         language: "js"
     })
@@ -138,7 +138,7 @@ it('fails if challenge doesnt support this language', async()=>{
                 }
             ]
         }),
-        structureTests: '',
+        expectedStructure: '',
         expectedDesignPatterns: [],
         language: "java"
     })
@@ -174,7 +174,7 @@ it('fails if challenge is deleted', async()=>{
                 }
             ]
         }),
-        structureTests: '',
+        expectedStructure: '',
         expectedDesignPatterns: [],
         language: "js"
     })

@@ -15,7 +15,7 @@ it('creates Challenge successfully', async()=>{
             startsAt: "2014-02-01T00:00:00",
             isPublic: true,
             expiresAt: "2014-02-01T00:00:00",
-            tests: JSON.stringify({
+            expectedOutputTests: JSON.stringify({
                 "challenge" : [
                     {
                         input: JSON.stringify(`5,10,15`),
@@ -28,7 +28,9 @@ it('creates Challenge successfully', async()=>{
                 ]
             }),
             template: 'solution(a,b,c){}',
-            language: 'js'
+            language: 'js',
+            expectedStructure: '',
+            expectedDesignPatterns: []  
         })
         .expect(201)
 })
@@ -42,7 +44,7 @@ it('fails if user is not authenticated', async()=>{
             difficulty: 1,
             isPublic: true,
             expiresAt: "2014-02-01T00:00:00",
-            tests: JSON.stringify({
+            expectedOutputTests: JSON.stringify({
                 "challenge" : [
                     {
                         input: JSON.stringify(`5,10,15`),
@@ -55,7 +57,9 @@ it('fails if user is not authenticated', async()=>{
                 ]
             }),
             template: 'solution(a,b,c){}',
-            language: 'js'
+            language: 'js',
+            expectedStructure: '',
+            expectedDesignPatterns: []
         })
         .expect(401)
 })
@@ -70,7 +74,7 @@ it('fails if fields are missing', async()=>{
             description: "Write a function that sums 3 numbers",
             isPublic: true,
             expiresAt: "2014-02-01T00:00:00",
-            tests: JSON.stringify({
+            expectedOutputTests: JSON.stringify({
                 "challenge" : [
                     {
                         input: JSON.stringify(`5,10,15`),
@@ -83,7 +87,9 @@ it('fails if fields are missing', async()=>{
                 ]
             }),
             template: 'solution(a,b,c){}',
-            language: 'js'
+            language: 'js',
+            expectedStructure: '',
+            expectedDesignPatterns: []
         })
         .expect(400)
 })
@@ -100,7 +106,7 @@ it('successfully published a create new challenge event', async()=>{
             difficulty: 1,
             startsAt: "2014-02-01T00:00:00",
             expiresAt: "2014-02-01T00:00:00",
-            tests: JSON.stringify({
+            expectedOutputTests: JSON.stringify({
                 "challenge" : [
                     {
                         input: JSON.stringify(`5,10,15`),
@@ -113,7 +119,9 @@ it('successfully published a create new challenge event', async()=>{
                 ]
             }),
             template: '',
-            language: 'js'
+            language: 'js',
+            expectedStructure: '',
+            expectedDesignPatterns: []
         })
         .expect(201)
     expect(natsWrapper.client.publish).toHaveBeenCalled();

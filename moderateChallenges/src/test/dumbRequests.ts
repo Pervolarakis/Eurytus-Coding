@@ -26,7 +26,10 @@ export const dumbRequests = [
                     }
                 ]
             }),
-            language: 'java'
+            template: 'solution(a,b,c){}',
+            language: 'java',
+            expectedStructure: '',
+            expectedDesignPatterns: []
         }),
         message: 'this is going to be a perfect new challenge'
     },
@@ -63,7 +66,10 @@ export const dumbRequests = [
                     }
                 ]
             }),
-            language: 'c'
+            language: 'c',
+            template: 'solution(a,b,c){}',
+            expectedStructure: '',
+            expectedDesignPatterns: []
         }),
         message: 'please create this new challenge'
     },

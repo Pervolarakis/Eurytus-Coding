@@ -15,7 +15,7 @@ const setup = async()=>{
         expiresAt: "2014-02-01T00:00:00",
         status: 'approved',
         startsAt: Date.now(),
-        tests: JSON.stringify({
+        expectedOutputTests: JSON.stringify({
             "challenge" : [
                 {
                     input: [5,10,2],
@@ -27,7 +27,9 @@ const setup = async()=>{
                 }
             ]
         }),
-        language: "js"
+        language: "js",
+        expectedDesignPatterns: [],
+        expectedStructure: ''
     })
 
     await challenge.save();
@@ -38,7 +40,7 @@ const setup = async()=>{
         expiresAt: new Date("2015-02-01T00:00:00"),
         status: 'approved',
         startsAt: new Date(),
-        tests: JSON.stringify({
+        expectedOutputTests: JSON.stringify({
             "challenge" : [
                 {
                     input: [5,10,2],
@@ -50,7 +52,9 @@ const setup = async()=>{
                 }
             ]
         }),
-        language: "js"
+        language: "js",
+        expectedDesignPatterns: [],
+        expectedStructure: ''
     }    
     
     //@ts-ignore

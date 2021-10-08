@@ -5,7 +5,7 @@ const supportedDesignPatterns = ["singleton", "factory", "observer"];
 
 interface ChallengeDoc extends mongoose.Document{
     expectedOutputTests: string;
-    structureTests: string;
+    expectedStructure: string;
     expectedDesignPatterns: string[];
     status: string;
     startsAt: Date;
@@ -18,7 +18,7 @@ const challengeSchema = new mongoose.Schema({
     expectedOutputTests: {
         type: String
     },
-    structureTests: {
+    expectedStructure: {
         type: String
     },
     expectedDesignPatterns: {

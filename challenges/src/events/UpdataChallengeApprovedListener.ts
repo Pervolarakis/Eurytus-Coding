@@ -16,7 +16,9 @@ export class UpdateChallengeApprovedListener extends Listener<UpdateChallengeApp
         await challenge?.save();
         new UpdateChallengePublisher(natsWrapper.client).publish({
             id: challenge?.id!,
-            tests: challenge?.tests!,
+            expectedOutputTests: challenge?.expectedOutputTests!,
+            expectedStructure: challenge?.expectedStructure!,
+            expectedDesignPatterns: challenge?.expectedDesignPatterns!,
             status: challenge?.status!,
             startsAt: challenge?.startsAt!,
             expiresAt: challenge?.expiresAt!,

@@ -25,7 +25,7 @@ export const advancedJavaChallenges = [
                 },
             ]
         }),
-        structureTests: '',
+        expectedStructure: '',
         expectedDesignPatterns: [],
         language: "java"
     },
@@ -46,7 +46,7 @@ export const advancedJavaChallenges = [
                 }
             ]
         }),
-        structureTests: '',
+        expectedStructure: '',
         expectedDesignPatterns: [],
         language: "java"
     }

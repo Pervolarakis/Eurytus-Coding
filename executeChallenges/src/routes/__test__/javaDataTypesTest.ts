@@ -47,7 +47,7 @@ export const javaDataTypesTest = [
                 }
             ]
         }),
-        structureTests: '',
+        expectedStructure: '',
         expectedDesignPatterns: [],
         language: "java"
     },
@@ -68,7 +68,7 @@ export const javaDataTypesTest = [
                 }
             ]
         }),
-        structureTests: '',
+        expectedStructure: '',
         expectedDesignPatterns: [],
         language: "java"
     },
@@ -89,7 +89,7 @@ export const javaDataTypesTest = [
                 }
             ]
         }),
-        structureTests: '',
+        expectedStructure: '',
         expectedDesignPatterns: [],
         language: "java"
     },
@@ -119,7 +119,7 @@ export const javaDataTypesTest = [
                 }
             ]
         }),
-        structureTests: '',
+        expectedStructure: '',
         expectedDesignPatterns: [],
         language: "java"
     },
@@ -136,7 +136,7 @@ export const javaDataTypesTest = [
                 }
             ]
         }),
-        structureTests: '',
+        expectedStructure: '',
         expectedDesignPatterns: [],
         language: "java"
     },

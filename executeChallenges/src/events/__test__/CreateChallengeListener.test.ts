@@ -12,7 +12,7 @@ const setup = async()=>{
         expiresAt: new Date(),
         status: 'approved',
         startsAt: new Date(),
-        tests: JSON.stringify({
+        expectedOutputTests: JSON.stringify({
             "challenge" : [
                 {
                     input: [5,10,2],
@@ -24,7 +24,9 @@ const setup = async()=>{
                 }
             ]
         }),
-        language: "java"
+        language: "java",
+        expectedDesignPatterns: [],
+        expectedStructure: ''
     }
 
     //@ts-ignore

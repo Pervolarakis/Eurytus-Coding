@@ -41,12 +41,15 @@ export const createChallengeSchema = [
         .bail()
         .custom(value => Date.parse(value))
         .withMessage('Expires at has to be a valid date'),
-    body('tests')
-        .exists({checkFalsy: true})
-        .withMessage("Tests cant be empty")
-        .bail()
-        .trim()
-        .isLength({min: 6}),
+    body('expectedOutputTests')
+        .exists()
+        .withMessage("Template is required"),
+    body('expectedStructure')
+        .exists()
+        .withMessage("Template is required"),
+    body('expectedDesignPatterns')
+        .exists()
+        .withMessage("Template is required"),
     body('language')
         .exists({checkFalsy: true})
         .withMessage("Language cant be empty")

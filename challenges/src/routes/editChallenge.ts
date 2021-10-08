@@ -40,7 +40,9 @@ router.put('/api/v1/challenges/update/:id', requireAuth, editChallengeSchema, va
         await newChallenge?.save();
         new UpdateChallengePublisher(natsWrapper.client).publish({
             id: newChallenge?.id!,
-            tests: newChallenge?.tests!,
+            expectedOutputTests: challenge?.expectedOutputTests, 
+            expectedStructure: challenge?.expectedStructure, 
+            expectedDesignPatterns: challenge?.expectedDesignPatterns,
             status: newChallenge?.status!,
             startsAt: newChallenge?.startsAt!,
             expiresAt: newChallenge?.expiresAt!,
