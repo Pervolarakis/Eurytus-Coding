@@ -5,7 +5,7 @@ export interface UpdateChallengeEventData{
     data: {
         id: string,
         expectedOutputTests: string,
-        structureTests: string,
+        expectedStructure: string,
         expectedDesignPatterns: string[],
         status: string,
         startsAt: Date,
