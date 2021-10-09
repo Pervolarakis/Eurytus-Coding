@@ -38,11 +38,12 @@ router.put('/api/v1/challenges/update/:id', requireAuth, editChallengeSchema, va
             useFindAndModify: false
         });
         await newChallenge?.save();
+        
         new UpdateChallengePublisher(natsWrapper.client).publish({
             id: newChallenge?.id!,
-            expectedOutputTests: challenge?.expectedOutputTests, 
-            expectedStructure: challenge?.expectedStructure, 
-            expectedDesignPatterns: challenge?.expectedDesignPatterns,
+            expectedOutputTests: newChallenge?.expectedOutputTests!, 
+            expectedStructure: newChallenge?.expectedStructure!, 
+            expectedDesignPatterns: newChallenge?.expectedDesignPatterns!,
             status: newChallenge?.status!,
             startsAt: newChallenge?.startsAt!,
             expiresAt: newChallenge?.expiresAt!,

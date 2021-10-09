@@ -43,13 +43,13 @@ export const createChallengeSchema = [
         .withMessage('Expires at has to be a valid date'),
     body('expectedOutputTests')
         .exists()
-        .withMessage("Template is required"),
+        .withMessage("expectedOutputTests is required"),
     body('expectedStructure')
         .exists()
-        .withMessage("Template is required"),
+        .withMessage("expectedStructure is required"),
     body('expectedDesignPatterns')
         .exists()
-        .withMessage("Template is required"),
+        .withMessage("expectedDesignPatterns is required"),
     body('language')
         .exists({checkFalsy: true})
         .withMessage("Language cant be empty")
