@@ -7,8 +7,9 @@ import { BasicCustomError, requireAuth } from '@eurytus/common';
 const router = express.Router();
 
 router.post('/api/v1/compile/challengejava/:id', requireAuth, async(req: Request, res: Response, next: NextFunction)=>{
+    
     const challenge = await Challenge.findById(req.params.id);
-
+    
     if(!challenge || challenge.status==='deleted'){
         return next(new BasicCustomError('This challenge doesnt exists', 400))
     }
@@ -22,42 +23,33 @@ router.post('/api/v1/compile/challengejava/:id', requireAuth, async(req: Request
     const tests = JSON.parse(challenge?.expectedOutputTests!);
 
     let successfulTests = 0;
+    
+    const final = ""+tests["challenge"].map((el:any)=>{
+        return "if(check.checkEquality("+JSON.parse(el.input)+","+JSON.parse(el.output)+")) testsPassed++;\n"
+    }).join('')+""; 
 
-    let runningTests = []
-    
-    for(let i=0; i<tests["challenge"].length; i++){
+    // console.log(final);
+
+    new Promise((resolve, reject)=>java.runSource(javaTemp(final ,funct),{timeout: 4000, compileTimeout: 4000 })
+        .then(result => {
+            if(result.stderr){
+                console.log('compile mlkia')
+                reject(result.stderr)
+            }
+            //console.log(javaTemp(JSON.parse(currentChallenge.input),funct))
         
-        const currentChallenge = tests["challenge"][i];
-        runningTests.push(new Promise((resolve, reject)=>java.runSource(javaTemp(JSON.parse(currentChallenge.input),funct, JSON.parse(currentChallenge.output)),{timeout: 4000, compileTimeout: 4000 })
-            .then(result => {
-                if(result.stderr){
-                    //console.log('compile mlkia')
-                    reject(result.stderr)
-                }
-                //console.log(javaTemp(JSON.parse(currentChallenge.input),funct))
-            
-                let stdOut = result.stdout;
-                // if(stdOut.indexOf('[')>-1){
-                //     stdOut = stdOut.split(/\s/).join('');
-                // }
-                //console.log(stdOut.trim().split(/\s/).join('') + " : "+ JSON.parse(currentChallenge.output).trim().replaceAll(`"`,``).replaceAll(`'`,``).split(/\s/).join(''))
-                if(stdOut.trim().split(/\s/).join('') == 'true'){
-                    successfulTests++;
-                }
-                resolve('done');
-            })
-            .catch(err => {
-                console.log(err);
-                resolve('done');
-            })));
-    }
-    Promise.all(runningTests)
-        .then((result) => {
-            res.status(200).json({success: true, data: {totalTestsDone: tests["challenge"].length, successfulTests: successfulTests}})
+            let stdOut = result.stdout;
+            successfulTests = parseInt(stdOut.trim().split(/\s/).join(''));
+            resolve('done');
         })
-        .catch(error => {res.status(200).json({success: false, compileError: error})})
-    
-    
+        .catch(err => {
+            console.log(err);
+            resolve('done');
+        }))
+            .then((result) => {
+            res.status(200).json({success: true, data: {totalTestsDone: tests["challenge"].length, successfulTests: successfulTests}})
+            })
+            .catch(error => {res.status(200).json({success: false, compileError: error})})
 
 })
 
