@@ -19,7 +19,7 @@ router.post('/api/v1/compile/challengec/:id', requireAuth, async(req: Request, r
 
     const funct = JSON.parse(req.body.solution);
 
-    const tests = JSON.parse(challenge?.tests!);
+    const tests = JSON.parse(challenge?.expectedOutputTests!);
     
     let successfulTests = 0;
 

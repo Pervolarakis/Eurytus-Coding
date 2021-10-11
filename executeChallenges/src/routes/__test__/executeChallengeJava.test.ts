@@ -13,7 +13,7 @@ it('successfully runs tests', async()=>{
         status: 'approved',
         startsAt: Date.now(),
         expiresAt: "2014-02-01T00:00:00",
-        tests: JSON.stringify({
+        expectedOutputTests: JSON.stringify({
             "challenge" : [
                 {
                     input: JSON.stringify(`new Solution().solution(5,10,15)`),
@@ -25,7 +25,9 @@ it('successfully runs tests', async()=>{
                 }
             ]
         }),
-        language: "java"
+        language: "java",
+        structureTests: '',
+        expectedDesignPatterns: []
     })
     await challenge.save()
     const result = await request(app)
@@ -45,7 +47,7 @@ it('successfully runs tests 2', async()=>{
         status: 'approved',
         startsAt: Date.now(),
         expiresAt: "2014-02-01T00:00:00",
-        tests: JSON.stringify({
+        expectedOutputTests: JSON.stringify({
             "challenge" : [
                 {
                     input: JSON.stringify(`new Solution().solution(5,10,15)`),
@@ -61,7 +63,9 @@ it('successfully runs tests 2', async()=>{
                 }
             ]
         }),
-        language: "java"
+        language: "java",
+        structureTests: '',
+        expectedDesignPatterns: []
     })
     await challenge.save()
     const result = await request(app)
@@ -81,7 +85,7 @@ it('throws error if it cant compile', async()=>{
         status: 'approved',
         startsAt: Date.now(),
         expiresAt: "2014-02-01T00:00:00",
-        tests: JSON.stringify({
+        expectedOutputTests: JSON.stringify({
             "challenge" : [
                 {
                     input: JSON.stringify(`new Solution().solution(5,10,15)`),
@@ -97,6 +101,8 @@ it('throws error if it cant compile', async()=>{
                 }
             ]
         }),
+        structureTests: '',
+        expectedDesignPatterns: [],
         language: "java"
     })
     await challenge.save()
@@ -117,7 +123,7 @@ it('fails if challenge doesnt support this language', async()=>{
         status: 'approved',
         startsAt: Date.now(),
         expiresAt: "2014-02-01T00:00:00",
-        tests: JSON.stringify({
+        expectedOutputTests: JSON.stringify({
             "challenge" : [
                 {
                     input: JSON.stringify(`new Solution().solution(5,10,15)`),
@@ -133,7 +139,9 @@ it('fails if challenge doesnt support this language', async()=>{
                 }
             ]
         }),
-        language: "js"
+        language: "js",
+        structureTests: '',
+        expectedDesignPatterns: []
     })
     await challenge.save()
     const result = await request(app)
@@ -156,7 +164,7 @@ it('compiles advanced java test', async()=>{
             solution: advancedJavaChallengesSolutions[0]
         })
         .expect(200)
-        expect(result.body.data.successfulTests).toEqual(JSON.parse(advancedJavaChallenges[0].tests)["challenge"].length)
+        expect(result.body.data.successfulTests).toEqual(JSON.parse(advancedJavaChallenges[0].expectedOutputTests)["challenge"].length)
 })
 
 it('compiles advanced java test', async()=>{
@@ -170,7 +178,7 @@ it('compiles advanced java test', async()=>{
             solution: advancedJavaChallengesSolutions[0]
         })
         .expect(200)
-        expect(result.body.data.successfulTests).toEqual(JSON.parse(advancedJavaChallenges[0].tests)["challenge"].length)
+        expect(result.body.data.successfulTests).toEqual(JSON.parse(advancedJavaChallenges[0].expectedOutputTests)["challenge"].length)
 })
 
 it('compiles advanced java test2', async()=>{
@@ -184,7 +192,7 @@ it('compiles advanced java test2', async()=>{
             solution: advancedJavaChallengesSolutions[1]
         })
         .expect(200)
-    expect(result.body.data.successfulTests).toEqual(JSON.parse(advancedJavaChallenges[1].tests)["challenge"].length)
+    expect(result.body.data.successfulTests).toEqual(JSON.parse(advancedJavaChallenges[1].expectedOutputTests)["challenge"].length)
 })
 
 it('fails if challenge is deleted', async()=>{
@@ -193,7 +201,7 @@ it('fails if challenge is deleted', async()=>{
         status: 'deleted',
         startsAt: Date.now(),
         expiresAt: "2014-02-01T00:00:00",
-        tests: JSON.stringify({
+        expectedOutputTests: JSON.stringify({
             "challenge" : [
                 {
                     input: JSON.stringify(`5,10,15`),
@@ -209,6 +217,8 @@ it('fails if challenge is deleted', async()=>{
                 }
             ]
         }),
+        structureTests: '',
+        expectedDesignPatterns: [],
         language: "java"
     })
     await challenge.save()
@@ -233,7 +243,7 @@ it('returns arrays', async()=>{
             solution: javaDataTypesTestSolutions[0]
         })
         .expect(200)
-    expect(result.body.data.successfulTests).toEqual(JSON.parse(javaDataTypesTest[0].tests)["challenge"].length)
+    expect(result.body.data.successfulTests).toEqual(JSON.parse(javaDataTypesTest[0].expectedOutputTests)["challenge"].length)
 })
 
 it('returns lists', async()=>{
@@ -247,7 +257,7 @@ it('returns lists', async()=>{
             solution: javaDataTypesTestSolutions[2]
         })
         .expect(200)
-    expect(result.body.data.successfulTests).toEqual(JSON.parse(javaDataTypesTest[2].tests)["challenge"].length)
+    expect(result.body.data.successfulTests).toEqual(JSON.parse(javaDataTypesTest[2].expectedOutputTests)["challenge"].length)
 })
 
 it('returns map', async()=>{
@@ -261,6 +271,6 @@ it('returns map', async()=>{
             solution: javaDataTypesTestSolutions[3]
         })
         .expect(200)
-    expect(result.body.data.successfulTests).toEqual(JSON.parse(javaDataTypesTest[3].tests)["challenge"].length)
+    expect(result.body.data.successfulTests).toEqual(JSON.parse(javaDataTypesTest[3].expectedOutputTests)["challenge"].length)
 })
 

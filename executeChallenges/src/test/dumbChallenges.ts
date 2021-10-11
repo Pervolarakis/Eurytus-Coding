@@ -6,7 +6,7 @@ export const dumbChallenges = [
         status: 'approved',
         startsAt: Date.now(),
         expiresAt: "2014-02-01T00:00:00",
-        tests: JSON.stringify({
+        expectedOutputTests: JSON.stringify({
             "challenge" : [
                 {
                     input: JSON.stringify(`5,10,15`),
@@ -18,6 +18,8 @@ export const dumbChallenges = [
                 }
             ]
         }),
+        structureTests: '',
+        expectedDesignPatterns: [],
         language: "java"
     },
     {
@@ -25,7 +27,7 @@ export const dumbChallenges = [
         expiresAt: "2014-02-01T00:00:00",
         status: 'approved',
         startsAt: Date.now(),
-        tests: JSON.stringify({
+        expectedOutputTests: JSON.stringify({
             "challenge" : [
                 {
                     input: JSON.stringify(`5,10,2`),
@@ -37,6 +39,8 @@ export const dumbChallenges = [
                 }
             ]
         }),
+        structureTests: '',
+        expectedDesignPatterns: [],
         language: "js"
     },
     {
@@ -44,7 +48,7 @@ export const dumbChallenges = [
         expiresAt: "2014-02-01T00:00:00",
         status: 'pending',
         startsAt: Date.now(),
-        tests: JSON.stringify({
+        expectedOutputTests: JSON.stringify({
             "challenge" : [
                 {
                     input: JSON.stringify(`5,10,2`),
@@ -56,6 +60,8 @@ export const dumbChallenges = [
                 }
             ]
         }),
+        structureTests: '',
+        expectedDesignPatterns: [],
         language: "java"
     },
 ]

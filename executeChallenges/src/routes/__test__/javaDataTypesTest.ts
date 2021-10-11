@@ -6,7 +6,7 @@ export const javaDataTypesTest = [
         status: 'approved',
         startsAt: Date.now(),
         expiresAt: "2014-02-01T00:00:00",
-        tests: JSON.stringify({
+        expectedOutputTests: JSON.stringify({
             "challenge" : [
                 {
                     input: JSON.stringify(`new Solution().solution(new Integer[]{0,1,0,2,1,0,1,3,2,1,2,1})`),
@@ -47,6 +47,8 @@ export const javaDataTypesTest = [
                 }
             ]
         }),
+        structureTests: '',
+        expectedDesignPatterns: [],
         language: "java"
     },
     {
@@ -54,7 +56,7 @@ export const javaDataTypesTest = [
         status: 'approved',
         startsAt: Date.now(),
         expiresAt: "2014-02-01T00:00:00",
-        tests: JSON.stringify({
+        expectedOutputTests: JSON.stringify({
             "challenge" : [
                 {
                     input: JSON.stringify(`new Solution().solution(new int[]{0,1,0,2,1,0,1,3,2,1,2,1})`),
@@ -66,6 +68,8 @@ export const javaDataTypesTest = [
                 }
             ]
         }),
+        structureTests: '',
+        expectedDesignPatterns: [],
         language: "java"
     },
     {
@@ -73,7 +77,7 @@ export const javaDataTypesTest = [
         status: 'approved',
         startsAt: Date.now(),
         expiresAt: "2014-02-01T00:00:00",
-        tests: JSON.stringify({
+        expectedOutputTests: JSON.stringify({
             "challenge" : [
                 {
                     input: JSON.stringify(`new Solution().solution(new ArrayList() {{add("mike");add("nick");add("15");}})`),
@@ -85,6 +89,8 @@ export const javaDataTypesTest = [
                 }
             ]
         }),
+        structureTests: '',
+        expectedDesignPatterns: [],
         language: "java"
     },
     {
@@ -92,7 +98,7 @@ export const javaDataTypesTest = [
         status: 'approved',
         startsAt: Date.now(),
         expiresAt: "2014-02-01T00:00:00",
-        tests: JSON.stringify({
+        expectedOutputTests: JSON.stringify({
             "challenge" : [
                 {
                     input: JSON.stringify(`new Solution().solution(new HashMap<String, Integer>() {{put("key1", 5);put("key2", 5);}})`),
@@ -113,6 +119,8 @@ export const javaDataTypesTest = [
                 }
             ]
         }),
+        structureTests: '',
+        expectedDesignPatterns: [],
         language: "java"
     },
     {
@@ -120,7 +128,7 @@ export const javaDataTypesTest = [
         status: 'approved',
         startsAt: Date.now(),
         expiresAt: "2014-02-01T00:00:00",
-        tests: JSON.stringify({
+        expectedOutputTests: JSON.stringify({
             "challenge" : [
                 {
                     input: JSON.stringify(`new Solution().solution(Set.of("foo", "bar", "baz"))`),
@@ -128,6 +136,8 @@ export const javaDataTypesTest = [
                 }
             ]
         }),
+        structureTests: '',
+        expectedDesignPatterns: [],
         language: "java"
     },
 ]

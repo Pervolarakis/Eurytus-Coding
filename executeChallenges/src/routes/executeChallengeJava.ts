@@ -19,7 +19,7 @@ router.post('/api/v1/compile/challengejava/:id', requireAuth, async(req: Request
 
     const funct = JSON.parse(req.body.solution);
     // console.log(funct)
-    const tests = JSON.parse(challenge?.tests!);
+    const tests = JSON.parse(challenge?.expectedOutputTests!);
 
     let successfulTests = 0;
 
