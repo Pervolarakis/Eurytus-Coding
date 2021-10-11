@@ -32,8 +32,12 @@ router.post('/api/v1/compile/challengejs/:id',requireAuth, async(req: Request, r
     new Promise((resolve, reject)=>node.runSource(jsTemp(final,funct))
         .then(result => {
             if(result.stderr){
-                console.log('compile mlkia')
-                reject(result.stderr)
+                let formattedError = result.stderr;
+                tests["challenge"].map((el:any)=>{
+                    formattedError = formattedError.replace(JSON.parse(el.input), '***').replace(JSON.parse(el.output), '***')
+                });
+                // console.log(formattedError)
+                reject(formattedError)
             }
             
             let stdOut = result.stdout;

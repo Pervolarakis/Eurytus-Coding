@@ -267,7 +267,7 @@ it('successfully detects factory 2', async()=>{
         expiresAt: "2014-02-01T00:00:00",
         expectedOutputTests: '',
         language: "java",
-        expectedStructure: '[{"className":"TestEntity2","modifiers":[],"superClass":"TestEntitySuper","interfaces":["TestInt"],"constructors":[{"modifiers":[\"public\"],"parameters":[\"String\",\"int[]\",\"Map<String, Object>\"]}],"methods":[{"modifiers":[\"public\"],"name":"getM","returnType":"Map<String, Object>","parameters":[]},{"modifiers":[\"public\", \"static\"],"name":"testMethod","returnType":"void","parameters":[\"int\",\"String\",\"Integer\"]}],"fields":[{"modifiers":[\"private\"],"name":"m","type":"Map<String, Object>"},{"modifiers":[\"private static\"],"name":"peops","type":"TestEntity2"}]}]',
+        expectedStructure: '[{"className":"Furniture","modifiers":[\"abstract interface\"],"superClass":"","interfaces":[],"constructors":[],"methods":[],"fields":[]},{"className":"furnitureFactory","modifiers":[\"abstract interface\"],"superClass":"","interfaces":[],"constructors":[],"methods":[{"modifiers":[\"public\", \"abstract\"],"name":"getFurniture","returnType":"Furniture","parameters":[]}],"fields":[]},{"className":"Chair","modifiers":[],"superClass":"","interfaces":["Furniture"],"constructors":[{"modifiers":[],"parameters":[]}],"methods":[],"fields":[]}]',
         expectedDesignPatterns: ['factory', 'singleton']
     })
     await challenge.save()
@@ -306,7 +306,7 @@ it('successfully detects factory 2', async()=>{
             `)
         })
         .expect(200)
-    expect(response.body.data.structure).toEqual(false)
+    expect(response.body.data.structure).toEqual(true)
     expect(response.body.data.designPatterns.factory).toEqual(true)
     expect(response.body.data.designPatterns.singleton).toEqual(false)
     })

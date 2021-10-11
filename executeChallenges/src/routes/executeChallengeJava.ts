@@ -33,8 +33,12 @@ router.post('/api/v1/compile/challengejava/:id', requireAuth, async(req: Request
     new Promise((resolve, reject)=>java.runSource(javaTemp(final ,funct),{timeout: 4000, compileTimeout: 4000 })
         .then(result => {
             if(result.stderr){
-                console.log('compile mlkia')
-                reject(result.stderr)
+                let formattedError = result.stderr;
+                tests["challenge"].map((el:any)=>{
+                    formattedError = formattedError.replace(JSON.parse(el.input), '***').replace(JSON.parse(el.output), '***')
+                });
+                // console.log(formattedError)
+                reject(formattedError)
             }
             //console.log(javaTemp(JSON.parse(currentChallenge.input),funct))
         
