@@ -18,12 +18,12 @@ it('creates Challenge successfully', async()=>{
             tests: JSON.stringify({
                 "challenge" : [
                     {
-                        input: [5,10,15],
-                        output: [30]
+                        input: JSON.stringify(`5,10,15`),
+                        output: JSON.stringify(`30`)
                     },
                     {
-                        input: [10,40,5],
-                        output: [55]
+                        input: JSON.stringify(`40,10,5`),
+                        output: JSON.stringify(`55`)
                     }
                 ]
             }),
@@ -44,12 +44,12 @@ it('fails if user is not authenticated', async()=>{
             tests: JSON.stringify({
                 "challenge" : [
                     {
-                        input: [5,10,15],
-                        output: [30]
+                        input: JSON.stringify(`5,10,15`),
+                        output: JSON.stringify(`30`)
                     },
                     {
-                        input: [10,40,5],
-                        output: [55]
+                        input: JSON.stringify(`40,10,5`),
+                        output: JSON.stringify(`55`)
                     }
                 ]
             }),
@@ -71,12 +71,12 @@ it('fails if fields are missing', async()=>{
             tests: JSON.stringify({
                 "challenge" : [
                     {
-                        input: [5,10,15],
-                        output: [30]
+                        input: JSON.stringify(`5,10,15`),
+                        output: JSON.stringify(`30`)
                     },
                     {
-                        input: [10,40,5],
-                        output: [55]
+                        input: JSON.stringify(`40,10,5`),
+                        output: JSON.stringify(`55`)
                     }
                 ]
             }),
@@ -100,12 +100,12 @@ it('successfully published a create new challenge event', async()=>{
             tests: JSON.stringify({
                 "challenge" : [
                     {
-                        input: [5,10,15],
-                        output: [30]
+                        input: JSON.stringify(`5,10,15`),
+                        output: JSON.stringify(`30`)
                     },
                     {
-                        input: [10,40,5],
-                        output: [55]
+                        input: JSON.stringify(`40,10,5`),
+                        output: JSON.stringify(`55`)
                     }
                 ]
             }),

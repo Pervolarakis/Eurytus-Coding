@@ -10,4 +10,5 @@ var Subjects;
     Subjects["CreateChallenge"] = "challenge:create";
     Subjects["UpdateChallenge"] = "challenge:update";
     Subjects["DeleteChallenge"] = "challenge:delete";
+    Subjects["CreateHistory"] = "history:create";
 })(Subjects = exports.Subjects || (exports.Subjects = {}));

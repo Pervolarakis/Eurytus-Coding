@@ -13,12 +13,12 @@ export const dumbChallenges = [
         tests: JSON.stringify({
             "challenge" : [
                 {
-                    input: [5,10,15],
-                    output: [30]
+                    input: JSON.stringify(`5,10,15`),
+                    output: JSON.stringify(`30`)
                 },
                 {
-                    input: [10,40,5],
-                    output: [55]
+                    input: JSON.stringify(`40,10,5`),
+                    output: JSON.stringify(`55`)
                 }
             ]
         }),
@@ -37,16 +37,64 @@ export const dumbChallenges = [
         tests: JSON.stringify({
             "challenge" : [
                 {
-                    input: [5,10,2],
-                    output: [100]
+                    input: JSON.stringify(`5,10,2`),
+                    output: JSON.stringify(`30`)
                 },
                 {
-                    input: [10,5,3],
-                    output: [150]
+                    input: JSON.stringify(`4,5,2`),
+                    output: JSON.stringify(`40`)
                 }
             ]
         }),
         language: 'js'
+    },
+    {
+        _id: new mongoose.Types.ObjectId(),
+        name: "Multiply Challenge",
+        description: "Write a challenge that multiplies 3 numbers",
+        difficulty: 1,
+        isPublic: true,
+        expiresAt: "2014-02-01T00:00:00",
+        status: 'approved',
+        startsAt: Date.now(),
+        creatorId: new mongoose.Types.ObjectId(),
+        tests: JSON.stringify({
+            "challenge" : [
+                {
+                    input: JSON.stringify(`5,10,2`),
+                    output: JSON.stringify(`30`)
+                },
+                {
+                    input: JSON.stringify(`4,5,2`),
+                    output: JSON.stringify(`40`)
+                }
+            ]
+        }),
+        language: 'c'
+    },
+    {
+        _id: new mongoose.Types.ObjectId(),
+        name: "Multiply Challenge",
+        description: "Write a challenge that multiplies 3 numbers",
+        difficulty: 1,
+        isPublic: true,
+        expiresAt: "2014-02-01T00:00:00",
+        status: 'approved',
+        startsAt: Date.now(),
+        creatorId: new mongoose.Types.ObjectId(),
+        tests: JSON.stringify({
+            "challenge" : [
+                {
+                    input: JSON.stringify(`5,10,2`),
+                    output: JSON.stringify(`30`)
+                },
+                {
+                    input: JSON.stringify(`4,5,2`),
+                    output: JSON.stringify(`40`)
+                }
+            ]
+        }),
+        language: 'java'
     },
     {
         _id: new mongoose.Types.ObjectId(),
@@ -61,12 +109,12 @@ export const dumbChallenges = [
         tests: JSON.stringify({
             "challenge" : [
                 {
-                    input: [5,10,2],
-                    output: [100]
+                    input: JSON.stringify(`5,10,2`),
+                    output: JSON.stringify(`30`)
                 },
                 {
-                    input: [10,5,3],
-                    output: [150]
+                    input: JSON.stringify(`4,5,2`),
+                    output: JSON.stringify(`40`)
                 }
             ]
         }),

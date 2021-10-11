@@ -9,7 +9,7 @@ const router = express.Router();
 router.post('/api/v1/compile/challengec/:id', requireAuth, async(req: Request, res: Response, next: NextFunction)=>{
     const challenge = await Challenge.findById(req.params.id);
     
-    if(!challenge){
+    if(!challenge || challenge.status==='deleted'){
         return next(new BasicCustomError('This challenge doesnt exists', 400))
     }
 
@@ -30,6 +30,9 @@ router.post('/api/v1/compile/challengec/:id', requireAuth, async(req: Request, r
         const currentChallenge = tests["challenge"][i];
         runningTests.push(c.runSource(cTemp(JSON.parse(currentChallenge.input),funct))
             .then(result => {
+                // if(result.stderr){
+                //     Promise.reject(result.stderr)
+                // }
                 if(result.stdout.trim()==JSON.parse(currentChallenge.output).trim().replaceAll(`"`,``)){
                     successfulTests++;
                 }
@@ -38,8 +41,12 @@ router.post('/api/v1/compile/challengec/:id', requireAuth, async(req: Request, r
                 console.log(err);
             }));
     }
-    await Promise.all(runningTests)
-    res.status(200).json({success: true, data: {totalTestsDone: tests["challenge"].length, successfulTests: successfulTests}})
+    Promise.all(runningTests)
+        .then((result) => {
+            console.log('pipikos')
+            res.status(200).json({success: true, data: {totalTestsDone: tests["challenge"].length, successfulTests: successfulTests}})
+        })
+        .catch(error => {console.log('eixame thema');res.status(200).json({success: false, compileError: error})})
     
 
 })

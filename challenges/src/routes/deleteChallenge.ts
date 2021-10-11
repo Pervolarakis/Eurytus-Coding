@@ -17,7 +17,7 @@ router.delete('/api/v1/challenges/delete/:id', requireAuth, async(req: Request, 
         return next(new YouDontOwnThisError('Challenge'));
     }
     try{
-        if(req.currentUser!.role!=='admin'){
+        if(req.currentUser!.role!=='admin' && challenge.isPublic ===true){
             const message = req.body.message;
             delete req.body.message
             new ChallengeNewRequestPublisher(natsWrapper.client).publish({
@@ -29,17 +29,17 @@ router.delete('/api/v1/challenges/delete/:id', requireAuth, async(req: Request, 
             res.status(201).json({success: true, data: 'Request submited'})
             return next();
         }
-        const challenge = await Challenge.findByIdAndUpdate(req.params.id,{status: 'deleted'},{
+        const newChallenge = await Challenge.findByIdAndUpdate(req.params.id,{status: 'deleted'},{
             new: true,
             runValidators: true,
             useFindAndModify: false
         })
-        await challenge?.save();
+        await newChallenge?.save();
         new DeleteChallengePublisher(natsWrapper.client).publish({
-            id: challenge?.id,
-            version: challenge?.version!
+            id: newChallenge?.id,
+            version: newChallenge?.version!
         })
-        res.status(200).json({success: true, data: challenge});
+        res.status(200).json({success: true, data: newChallenge});
     }catch(err){
         return next(new BasicCustomError(err,400));
     }

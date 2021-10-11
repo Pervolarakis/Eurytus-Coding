@@ -9,7 +9,7 @@ const router = express.Router();
 router.post('/api/v1/compile/challengejs/:id',requireAuth, async(req: Request, res: Response, next: NextFunction)=>{
     const challenge = await Challenge.findById(req.params.id);
 
-    if(!challenge){
+    if(!challenge || challenge.status==='deleted'){
         return next(new BasicCustomError('This challenge doesnt exists', 400))
     }
 
@@ -29,18 +29,29 @@ router.post('/api/v1/compile/challengejs/:id',requireAuth, async(req: Request, r
         
         const currentChallenge = tests["challenge"][i];
     
-        runningTests.push(node.runSource(jsTemp(JSON.parse(currentChallenge.input),funct))
+        runningTests.push(new Promise((resolve, reject)=>node.runSource(jsTemp(JSON.parse(currentChallenge.input),funct))
             .then(result => {
-                if(result.stdout.trim()==JSON.parse(currentChallenge.output).trim().replaceAll(`"`,``)){
+                if(result.stderr){
+                    console.log('compile mlkia')
+                    reject(result.stderr)
+                }
+                let stdOut = result.stdout;
+                // console.log(stdOut.trim().split(/\s|\"|\'/).join('') + ' : ' + JSON.parse(currentChallenge.output).trim().replaceAll(`"`,``).replaceAll(`'`,``).split(/\s/).join(''));
+                if(stdOut.trim().split(/\s|\"|\'/).join('') == JSON.parse(currentChallenge.output).trim().replaceAll(`"`,``).replaceAll(`'`,``).split(/\s/).join('')){
                     successfulTests++;
                 }
+                resolve('done');
             })
             .catch(err => {
                 console.log(err);
-            }));
+                resolve('done');
+            })));
     }
-    await Promise.all(runningTests)
-    res.status(200).json({success: true, data: {totalTestsDone: tests["challenge"].length, successfulTests: successfulTests}})
+    Promise.all(runningTests)
+        .then((result) => {
+            res.status(200).json({success: true, data: {totalTestsDone: tests["challenge"].length, successfulTests: successfulTests}})
+        })
+        .catch(error => res.status(200).json({success: false, compileError: error}))
     
 
 })
