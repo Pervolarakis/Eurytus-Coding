@@ -6,7 +6,15 @@ export class CreateChallengeListener extends Listener<CreateChallengeEventData>{
     subject: Subjects.CreateChallenge = Subjects.CreateChallenge;
     QueueGroup = 'executechallenge-service'
     async onMessage(data: CreateChallengeEventData["data"], msg: Message){
-        const challenge = new Challenge({_id: data.id, tests: data.tests, expiresAt: data.expiresAt, startsAt: data.startsAt, status: data.status, language: data.language});
+        const challenge = new Challenge({
+            _id: data.id, 
+            expectedOutputTests: data.expectedOutputTests,
+            expectedDesignPatterns: data.expectedDesignPatterns,
+            expectedStructure: data.expectedStructure, 
+            expiresAt: data.expiresAt, 
+            startsAt: data.startsAt, 
+            status: data.status, 
+            language: data.language});
         await challenge.save();
         msg.ack();
     }

@@ -10,7 +10,7 @@ export const dumbChallenges = [
         status: 'approved',
         startsAt: Date.now(),
         creatorId: new mongoose.Types.ObjectId(),
-        tests: JSON.stringify({
+        expectedOutputTests: JSON.stringify({
             "challenge" : [
                 {
                     input: JSON.stringify(`5,10,15`),
@@ -23,7 +23,9 @@ export const dumbChallenges = [
             ]
         }),
         template: 'solution(a,b,c){}',
-        language: 'c'
+        language: 'c',
+        expectedStructure: '',
+        expectedDesignPatterns: []
     },
     {
         _id: new mongoose.Types.ObjectId(),
@@ -35,7 +37,7 @@ export const dumbChallenges = [
         status: 'approved',
         startsAt: Date.now(),
         creatorId: new mongoose.Types.ObjectId(),
-        tests: JSON.stringify({
+        expectedOutputTests: JSON.stringify({
             "challenge" : [
                 {
                     input: JSON.stringify(`5,10,2`),
@@ -48,7 +50,9 @@ export const dumbChallenges = [
             ]
         }),
         template: 'solution(a,b,c){}',
-        language: 'js'
+        language: 'js',
+        expectedStructure: '',
+        expectedDesignPatterns: []
     },
     {
         _id: new mongoose.Types.ObjectId(),
@@ -60,7 +64,7 @@ export const dumbChallenges = [
         status: 'approved',
         startsAt: Date.now(),
         creatorId: new mongoose.Types.ObjectId(),
-        tests: JSON.stringify({
+        expectedOutputTests: JSON.stringify({
             "challenge" : [
                 {
                     input: JSON.stringify(`5,10,2`),
@@ -72,7 +76,10 @@ export const dumbChallenges = [
                 }
             ]
         }),
-        language: 'c'
+        language: 'c',
+        template: 'solution(a,b,c){}',
+        expectedStructure: '',
+        expectedDesignPatterns: []
     },
     {
         _id: new mongoose.Types.ObjectId(),
@@ -84,7 +91,7 @@ export const dumbChallenges = [
         status: 'approved',
         startsAt: Date.now(),
         creatorId: new mongoose.Types.ObjectId(),
-        tests: JSON.stringify({
+        expectedOutputTests: JSON.stringify({
             "challenge" : [
                 {
                     input: JSON.stringify(`5,10,2`),
@@ -96,7 +103,10 @@ export const dumbChallenges = [
                 }
             ]
         }),
-        language: 'java'
+        language: 'java',
+        template: 'solution(a,b,c){}',
+        expectedStructure: '',
+        expectedDesignPatterns: []
     },
     {
         _id: new mongoose.Types.ObjectId(),
@@ -108,7 +118,7 @@ export const dumbChallenges = [
         status: 'pending',
         startsAt: Date.now(),
         creatorId: new mongoose.Types.ObjectId(),
-        tests: JSON.stringify({
+        expectedOutputTests: JSON.stringify({
             "challenge" : [
                 {
                     input: JSON.stringify(`5,10,2`),
@@ -121,6 +131,8 @@ export const dumbChallenges = [
             ]
         }),
         template: 'solution(a,b,c){}',
-        language: 'java'
+        language: 'java',
+        expectedStructure: '',
+        expectedDesignPatterns: []
     },
 ]

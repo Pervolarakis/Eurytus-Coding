@@ -48,7 +48,7 @@ it('successfully publishes delete event if user owns the challenge', async()=>{
         status: 'approved',
         startsAt: Date.now(),
         creatorId: userOne,
-        tests: JSON.stringify({
+        expectedOutputTests: JSON.stringify({
             "challenge" : [
                 {
                     input: JSON.stringify(`5,10,15`),
@@ -61,7 +61,9 @@ it('successfully publishes delete event if user owns the challenge', async()=>{
             ]
         }),
         template: 'solution(a,b,c){}',
-        language: 'js'
+        language: 'js',
+        expectedStructure: '',
+        expectedDesignPatterns: []
     })
     await challenge.save();
     await request(app)
@@ -82,7 +84,7 @@ it('successfully deletes challenge if user owns the challenge and challenge is p
         status: 'approved',
         startsAt: Date.now(),
         creatorId: userOne,
-        tests: JSON.stringify({
+        expectedOutputTests: JSON.stringify({
             "challenge" : [
                 {
                     input: JSON.stringify(`5,10,15`),
@@ -95,7 +97,9 @@ it('successfully deletes challenge if user owns the challenge and challenge is p
             ]
         }),
         template: 'solution(a,b,c){}',
-        language: 'js'
+        language: 'js',
+        expectedStructure: '',
+        expectedDesignPatterns: []
     })
     await challenge.save();
     await request(app)

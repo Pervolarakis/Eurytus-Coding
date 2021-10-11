@@ -15,7 +15,7 @@ it('successfully returns challenges created by the user', async()=>{
         status: 'approved',
         startsAt: Date.now(),
         creatorId: user,
-        tests: JSON.stringify({
+        expectedOutputTests: JSON.stringify({
             "challenge" : [
                 {
                     input: JSON.stringify(`5,10,15`),
@@ -28,7 +28,9 @@ it('successfully returns challenges created by the user', async()=>{
             ]
         }),
         template: 'solution(a,b,c){}',
-        language: 'c'
+        language: 'c',
+        expectedStructure: '',
+        expectedDesignPatterns: []
     })
     const challenge2= new Challenge({
         _id: new mongoose.Types.ObjectId(),
@@ -40,7 +42,7 @@ it('successfully returns challenges created by the user', async()=>{
         status: 'approved',
         startsAt: Date.now(),
         creatorId: user,
-        tests: JSON.stringify({
+        expectedOutputTests: JSON.stringify({
             "challenge" : [
                 {
                     input: JSON.stringify(`5,10,15,2`),
@@ -53,7 +55,9 @@ it('successfully returns challenges created by the user', async()=>{
             ]
         }),
         template: 'solution(a,b,c){}',
-        language: 'c'
+        language: 'c',
+        expectedStructure: '',
+        expectedDesignPatterns: []
     })
     await challenge1.save();
     await challenge2.save();

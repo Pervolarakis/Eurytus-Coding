@@ -31,7 +31,10 @@ const setup = async()=>{
                     }
                 ]
             }),
-            language: 'js'
+            template: 'solution(a,b,c){}',
+            language: 'js',
+            expectedStructure: '',
+            expectedDesignPatterns: []
         }),
         ownerId: new mongoose.Types.ObjectId().toString(),
         message: 'please create this new challenge'

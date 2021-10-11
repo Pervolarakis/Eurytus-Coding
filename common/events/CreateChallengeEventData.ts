@@ -4,7 +4,9 @@ export interface CreateChallengeEventData{
     subject: Subjects.CreateChallenge;
     data: {
         id: string,
-        tests: string,
+        expectedOutputTests: string;
+        expectedStructure: string;
+        expectedDesignPatterns: string[];
         status: string,
         startsAt: Date,
         expiresAt: Date,

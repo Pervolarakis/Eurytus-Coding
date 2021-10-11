@@ -1,6 +1,8 @@
 import mongoose from 'mongoose';
 import {updateIfCurrentPlugin} from 'mongoose-update-if-current'
 
+const supportedDesignPatterns = ["singleton", "factory", "observer"];
+
 interface ChallengeDoc extends mongoose.Document{
     name: string;
     description: string;
@@ -10,7 +12,9 @@ interface ChallengeDoc extends mongoose.Document{
     status: string;
     startsAt: Date;
     expiresAt: Date;
-    tests: string;
+    expectedOutputTests: string;
+    expectedStructure: string;
+    expectedDesignPatterns: string[];
     version: number;
     language: string
 }
@@ -48,9 +52,15 @@ const challengeSchma  = new mongoose.Schema({
         type: Date,
         required: true
     },
-    tests: {
-        type: String,
-        required: true
+    expectedOutputTests: {
+        type: String
+    },
+    expectedStructure: {
+        type: String
+    },
+    expectedDesignPatterns: {
+        type: [String],
+        enum: supportedDesignPatterns
     },
     language: {
         type: String,

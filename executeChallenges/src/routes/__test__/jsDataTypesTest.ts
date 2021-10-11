@@ -23,7 +23,7 @@ export const jsDataTypesTest = [
             ]
         }),
         
-        structureTests: '',
+        expectedStructure: '',
         expectedDesignPatterns: [],
         language: "js"
     }

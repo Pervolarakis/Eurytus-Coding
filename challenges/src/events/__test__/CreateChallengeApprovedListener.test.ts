@@ -17,7 +17,7 @@ const setup = async()=>{
             status: 'pending',
             startsAt: Date.now(),
             creatorId: new mongoose.Types.ObjectId(),
-            tests: JSON.stringify({
+            expectedOutputTests: JSON.stringify({
                 "challenge" : [
                     {
                         input: [5,10,2],
@@ -30,7 +30,9 @@ const setup = async()=>{
                 ]
             }),
             template: 'solution(a,b,c){}',
-            language: 'js'
+            language: 'js',
+            expectedStructure: '',
+            expectedDesignPatterns: []
         })
     }
 

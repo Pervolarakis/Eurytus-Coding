@@ -80,7 +80,7 @@ router.post('/api/v1/compile/checkJavaStructure/:id', async(req: Request, res: R
         // console.log(classesInfo);
         // console.log(detectSingleton(classesInfo))
         // const sampleFromJSON = JSON.parse(`[{"className":"TestEntity2","modifiers":[],"superClass":"TestEntitySuper","interfaces":["TestInt"],"constructors":[{"modifiers":[\"public\"],"parameters":[\"String\",\"int[]\",\"Map<String, Object>\"]}],"methods":[{"modifiers":[\"public\"],"name":"getM","returnType":"Map<String, Object>","parameters":[]},{"modifiers":[\"public\", \"static\"],"name":"testMethod","returnType":"void","parameters":[\"int\",\"String\",\"Integer\"]}],"fields":[{"modifiers":[\"private\"],"name":"m","type":"Map<String, Object>"},{"modifiers":[\"private static\"],"name":"peops","type":"TestEntity2"}]}]`)
-        // console.log('eftasa edo', challenge.structureTests);
+        // console.log('eftasa edo', challenge.expectedStructure);
 
         let designPatterns = {};
         let designPatternsFound = 0;
@@ -98,7 +98,7 @@ router.post('/api/v1/compile/checkJavaStructure/:id', async(req: Request, res: R
         }
 
         res.status(200).json({success: true, data: {
-                                                    structure: (challenge.structureTests)?checkStructure(classesInfo, JSON.parse(challenge.structureTests)):null,
+                                                    structure: (challenge.expectedStructure)?checkStructure(classesInfo, JSON.parse(challenge.expectedStructure)):null,
                                                     designPatterns: designPatterns
                                                 }})
     })

@@ -18,7 +18,7 @@ export const dumbChallenges = [
                 }
             ]
         }),
-        structureTests: '',
+        expectedStructure: '',
         expectedDesignPatterns: [],
         language: "java"
     },
@@ -39,7 +39,7 @@ export const dumbChallenges = [
                 }
             ]
         }),
-        structureTests: '',
+        expectedStructure: '',
         expectedDesignPatterns: [],
         language: "js"
     },
@@ -60,7 +60,7 @@ export const dumbChallenges = [
                 }
             ]
         }),
-        structureTests: '',
+        expectedStructure: '',
         expectedDesignPatterns: [],
         language: "java"
     },

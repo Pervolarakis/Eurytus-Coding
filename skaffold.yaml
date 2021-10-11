@@ -40,3 +40,11 @@ build:
         manual:
           - src: 'src/**/*.ts'
             dest: .
+    - image: pervolarakis/history
+      context: history
+      docker:
+          dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: 'src/**/*.ts'
+            dest: .
