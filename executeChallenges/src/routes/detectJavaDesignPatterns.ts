@@ -67,7 +67,7 @@ router.post('/api/v1/compile/getJavaStructure', async(req: Request, res: Respons
     .then((result) => {
         // console.log(classesInfo);
         // console.log(detectSingleton(classesInfo))
-        const sampleFromJSON = JSON.parse(`[{"className":"TestEntity2","modifiers":[],"superClass":"TestEntitySuper","interfaces":["TestInt"],"constructors":[{"modifiers":[\"public\"],"parameters":[\"java.lang.String\",\"[I\",\"java.util.Map\"]}],"methods":[{"modifiers":[\"public\"],"name":"getStr","returnType":"java.lang.String","parameters":[]},{"modifiers":[\"public\",\"static\"],"name":"testMethod","returnType":"void","parameters":[\"int\",\"java.lang.Integer\",\"java.lang.String\"]}],"fields":[{"modifiers":[\"private\"],"type":"java.util.Map","name":"m"},{"modifiers":[\"private\"],"type":"java.lang.String","name":"str"}]}]`)
+        const sampleFromJSON = JSON.parse(`[{"className":"TestEntity2","modifiers":[],"superClass":"TestEntitySuper","interfaces":["TestInt"],"constructors":[{"modifiers":[\"public\"],"parameters":[\"String\",\"int[]\",\"Map<String, Object>\"]}],"methods":[{"modifiers":[\"public\"],"name":"getM","returnType":"Map<String, Object>","parameters":[]},{"modifiers":[\"public\", \"static\"],"name":"testMethod","returnType":"void","parameters":[\"int\",\"String\",\"Integer\"]}],"fields":[{"modifiers":[\"private\"],"name":"m","type":"Map<String, Object>"},{"modifiers":[\"private static\"],"name":"peops","type":"TestEntity2"}]}]`)
         console.log(checkStructure(classesInfo, sampleFromJSON[0]))
         res.status(200).json({success: true, data: {singleton: detectSingleton(classesInfo),
                                                     factory: detectFactory(classesInfo),
