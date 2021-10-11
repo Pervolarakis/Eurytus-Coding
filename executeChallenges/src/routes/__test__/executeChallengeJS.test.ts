@@ -15,11 +15,11 @@ it('successfully runs tests', async()=>{
         tests: JSON.stringify({
             "challenge" : [
                 {
-                    input: JSON.stringify(`5,10,15`),
+                    input: JSON.stringify(`solution(5,10,15)`),
                     output: JSON.stringify(`30`)
                 },
                 {
-                    input: JSON.stringify(`10,40,5`),
+                    input: JSON.stringify(`solution(10,40,5)`),
                     output: JSON.stringify(`55`)
                 }
             ]
@@ -47,16 +47,16 @@ it('successfully runs tests 2', async()=>{
         tests: JSON.stringify({
             "challenge" : [
                 {
-                    input: JSON.stringify(`5,10,15`),
+                    input: JSON.stringify(`solution(5,10,15)`),
                     output: JSON.stringify(`30`)
                 },
                 {
-                    input: JSON.stringify(`10,40,5`),
+                    input: JSON.stringify(`solution(10,40,5)`),
                     output: JSON.stringify(`55`)
                 },
                 {
-                    input: JSON.stringify(`10,40,12`),
-                    output: JSON.stringify(`55`)
+                    input: JSON.stringify(`solution(10,40,12)`),
+                    output: JSON.stringify(`59`)
                 }
             ]
         }),
@@ -83,15 +83,15 @@ it('throws error if it cant compile', async()=>{
         tests: JSON.stringify({
             "challenge" : [
                 {
-                    input: JSON.stringify(`5,10,15`),
+                    input: JSON.stringify(`solution(5,10,15)`),
                     output: JSON.stringify(`30`)
                 },
                 {
-                    input: JSON.stringify(`10,40,5`),
+                    input: JSON.stringify(`solution(10,40,5)`),
                     output: JSON.stringify(`55`)
                 },
                 {
-                    input: JSON.stringify(`10,40,12`),
+                    input: JSON.stringify(`solution(10,40,12)`),
                     output: JSON.stringify(`55`)
                 }
             ]
@@ -119,15 +119,15 @@ it('fails if challenge doesnt support this language', async()=>{
         tests: JSON.stringify({
             "challenge" : [
                 {
-                    input: JSON.stringify(`5,10,15`),
+                    input: JSON.stringify(`solution(5,10,15)`),
                     output: JSON.stringify(`30`)
                 },
                 {
-                    input: JSON.stringify(`10,40,5`),
+                    input: JSON.stringify(`solution(10,40,5)`),
                     output: JSON.stringify(`55`)
                 },
                 {
-                    input: JSON.stringify(`10,40,12`),
+                    input: JSON.stringify(`solution(10,40,12)`),
                     output: JSON.stringify(`55`)
                 }
             ]
@@ -153,15 +153,15 @@ it('fails if challenge is deleted', async()=>{
         tests: JSON.stringify({
             "challenge" : [
                 {
-                    input: JSON.stringify(`5,10,15`),
+                    input: JSON.stringify(`solution(5,10,15)`),
                     output: JSON.stringify(`30`)
                 },
                 {
-                    input: JSON.stringify(`10,40,5`),
+                    input: JSON.stringify(`solution(10,40,5)`),
                     output: JSON.stringify(`55`)
                 },
                 {
-                    input: JSON.stringify(`10,40,12`),
+                    input: JSON.stringify(`solution(10,40,12)`),
                     output: JSON.stringify(`55`)
                 }
             ]

@@ -54,6 +54,9 @@ export const createChallengeSchema = [
         .trim()
         .isIn(['c','js','java'])
         .withMessage('Language should be one of the supported languages'),
+    body('template')
+        .exists()
+        .withMessage("Template is required"),
     body('message')
         .optional()
         .exists({checkFalsy: true})

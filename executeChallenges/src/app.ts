@@ -7,6 +7,7 @@ import { executeJSRouter } from './routes/executeChallengeJS'
 import { compileCRouter } from './routes/compileC'
 import { compileJSRouter } from './routes/compileJS'
 import { compileJavaRouter } from './routes/compileJava'
+import { detectJavaDesignPatternsRouter } from './routes/detectJavaDesignPatterns'
 
 const app = express()
 
@@ -18,12 +19,13 @@ app.use(cookieSession({
 
 app.use(currentUser);
 
-app.use(executeCRouter);
+//app.use(executeCRouter);
 app.use(executeJavaRouter);
 app.use(executeJSRouter);
 app.use(compileCRouter);
 app.use(compileJSRouter);
 app.use(compileJavaRouter);
+app.use(detectJavaDesignPatternsRouter);
 
 app.use(ErrorHandler);
 

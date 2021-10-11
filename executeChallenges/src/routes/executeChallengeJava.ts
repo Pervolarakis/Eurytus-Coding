@@ -28,7 +28,7 @@ router.post('/api/v1/compile/challengejava/:id', requireAuth, async(req: Request
     for(let i=0; i<tests["challenge"].length; i++){
         
         const currentChallenge = tests["challenge"][i];
-        runningTests.push(new Promise((resolve, reject)=>java.runSource(javaTemp(JSON.parse(currentChallenge.input),funct))
+        runningTests.push(new Promise((resolve, reject)=>java.runSource(javaTemp(JSON.parse(currentChallenge.input),funct, JSON.parse(currentChallenge.output)),{timeout: 4000, compileTimeout: 4000 })
             .then(result => {
                 if(result.stderr){
                     //console.log('compile mlkia')
@@ -41,7 +41,7 @@ router.post('/api/v1/compile/challengejava/:id', requireAuth, async(req: Request
                 //     stdOut = stdOut.split(/\s/).join('');
                 // }
                 //console.log(stdOut.trim().split(/\s/).join('') + " : "+ JSON.parse(currentChallenge.output).trim().replaceAll(`"`,``).replaceAll(`'`,``).split(/\s/).join(''))
-                if(stdOut.trim().split(/\s|\"|\'/).join('') == JSON.parse(currentChallenge.output).trim().replaceAll(`"`,``).replaceAll(`'`,``).split(/\s/).join('')){
+                if(stdOut.trim().split(/\s/).join('') == 'true'){
                     successfulTests++;
                 }
                 resolve('done');
