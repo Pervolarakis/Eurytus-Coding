@@ -1,7 +1,7 @@
 import express from 'express'
 import { currentUser, ErrorHandler } from '@eurytus/common'
 import cookieSession from 'cookie-session'
-import { executeCRouter } from './routes/executeChallengeC'
+// import { executeCRouter } from './routes/executeChallengeC'
 import { executeJavaRouter } from './routes/executeChallengeJava'
 import { executeJSRouter } from './routes/executeChallengeJS'
 import { compileCRouter } from './routes/compileC'

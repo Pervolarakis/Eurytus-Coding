@@ -1,4 +1,6 @@
 export const jsTemp = (args: string, func: string) => `
     ${func}
-    console.log(${args});
+    let testsPassed=0;
+    ${args}
+    console.log(testsPassed);
 `

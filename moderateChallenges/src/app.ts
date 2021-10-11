@@ -4,6 +4,7 @@ import { currentUser,ErrorHandler } from '@eurytus/common';
 import { getAllRequestsRouter } from './routes/getAllRequests';
 import { approveRequestRouter } from './routes/approveRequest';
 import { rejectRequestRouter } from './routes/rejectRequest';
+import { getUserRequestsRouter } from './routes/getUserRequests';
 
 const app = express();
 
@@ -18,6 +19,7 @@ app.use(currentUser)
 app.use(getAllRequestsRouter);
 app.use(approveRequestRouter);
 app.use(rejectRequestRouter);
+app.use(getUserRequestsRouter);
 
 app.use(ErrorHandler);
 

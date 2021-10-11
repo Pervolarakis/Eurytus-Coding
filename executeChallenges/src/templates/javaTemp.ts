@@ -1,4 +1,4 @@
-export const javaTemp = (args: string, func:string, expectedOutput:string) => `
+export const javaTemp = (args: string, func:string) => `
 
     import java.util.*;
     import java.io.*;
@@ -7,7 +7,9 @@ export const javaTemp = (args: string, func:string, expectedOutput:string) => `
     public class SimpleClass {
     
         public static void main(String[] args) {
-            System.out.println(check.checkEquality(${expectedOutput}, ${args}));
+            int testsPassed = 0;
+            ${args}
+            System.out.println(testsPassed);
         }
 
     }
