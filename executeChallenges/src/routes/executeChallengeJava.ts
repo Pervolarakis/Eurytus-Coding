@@ -21,8 +21,6 @@ router.post('/api/v1/compile/challengejava/:id', requireAuth, async(req: Request
     const funct = JSON.parse(req.body.solution);
     // console.log(funct)
     const tests = JSON.parse(challenge?.expectedOutputTests!);
-
-    let successfulTests = 0;
     
     const final = ""+tests["challenge"].map((el:any)=>{
         return "if(check.checkEquality("+JSON.parse(el.input)+","+JSON.parse(el.output)+")) testsPassed++;\n"
@@ -35,23 +33,23 @@ router.post('/api/v1/compile/challengejava/:id', requireAuth, async(req: Request
             if(result.stderr){
                 let formattedError = result.stderr;
                 tests["challenge"].map((el:any)=>{
-                    formattedError = formattedError.replace(JSON.parse(el.input), '***').replace(JSON.parse(el.output), '***')
+                    const inputRegexp = new RegExp(JSON.parse(el.input), 'g');
+                    const outputRegexp = new RegExp(JSON.parse(el.output), 'g');
+                    formattedError = formattedError.replace(inputRegexp, '***').replace(outputRegexp, '***');
                 });
                 // console.log(formattedError)
                 reject(formattedError)
             }
             //console.log(javaTemp(JSON.parse(currentChallenge.input),funct))
         
-            let stdOut = result.stdout;
-            successfulTests = parseInt(stdOut.trim().split(/\s/).join(''));
-            resolve('done');
+            resolve(parseInt(result.stdout.trim().split(/\s/).join('')));
         })
         .catch(err => {
             console.log(err);
-            resolve('done');
+            reject("Can't compile right now. The error is probably on our end.");
         }))
             .then((result) => {
-            res.status(200).json({success: true, data: {totalTestsDone: tests["challenge"].length, successfulTests: successfulTests}})
+            res.status(200).json({success: true, data: {totalTestsDone: tests["challenge"].length, successfulTests: result}})
             })
             .catch(error => {res.status(200).json({success: false, compileError: error})})
 
