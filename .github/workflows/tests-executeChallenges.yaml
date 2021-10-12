@@ -27,4 +27,4 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: Install dependencies and run tests
-        run: cd challenges && npm install && npm run test:ci
+        run: cd executeChallenges && npm install && npm run test:ci
