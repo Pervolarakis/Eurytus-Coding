@@ -202,3 +202,42 @@ it('returns any data type', async()=>{
         .expect(200)
     expect(result.body.data.successfulTests).toEqual(JSON.parse(jsDataTypesTest[0].expectedOutputTests)["challenge"].length)
 })
+
+it('successfully hides arguments from errors', async()=>{
+    const user = new mongoose.Types.ObjectId()
+    const challenge = new Challenge({
+        status: 'approved',
+        startsAt: Date.now(),
+        expiresAt: "2014-02-01T00:00:00",
+        expectedOutputTests: JSON.stringify({
+            "challenge" : [
+                {
+                    input: JSON.stringify(`5,'a',15`),
+                    output: JSON.stringify(`30`)
+                },
+                {
+                    input: JSON.stringify(`10,40,5`),
+                    output: JSON.stringify(`55`)
+                },
+                {
+                    input: JSON.stringify(`10,40,12`),
+                    output: JSON.stringify(`55`)
+                }
+            ]
+        }),
+        expectedStructure: '',
+        expectedDesignPatterns: [],
+        language: "js"
+    })
+    await challenge.save()
+    const result = await request(app)
+        .post(`/api/v1/compile/challengejs/${challenge.id}`)
+        .set('Cookie', global.signin(user,'user'))
+        .send({
+            solution: JSON.stringify(`function solution(a,c){return(a+b+c)}`)
+        })
+        .expect(200)
+    expect(result.body.success).toEqual(false);
+    expect(result.body.compileError).not.toMatch(/(5,'a',15|30|10,40,5|55|10,40,12)/i)
+
+})
