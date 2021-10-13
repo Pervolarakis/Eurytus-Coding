@@ -1,8 +1,8 @@
 <p align="center">
   <img src = "logo.svg" alt="LOGO SVG"/>
-  <h3>Eurytus</h3>
-  <p>Eurytus is an open-source tool that aims to automate the process of code grading.</p>
 </p>
+<h1 align="center">Eurytus</h1>
+<p align="center">Eurytus is an open-source tool that aims to automate the process of code grading.</p>
 
 
 ## Features
