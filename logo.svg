@@ -6,12 +6,11 @@
 	</defs>
 	<style>
 		tspan { white-space:pre }
-		.shp0 { fill: #393939 } 
-		path {
-            fill: #000;
+		.shp0 {
+            fill: #393939;
         }
         @media (prefers-color-scheme: dark) {
-            path {
+            .shp0 {
                 fill: #fff;
             }
         }
