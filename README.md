@@ -1,15 +1,15 @@
-![logo](logo.svg)
-
-# Eurytus
-
-Eurytus is an open-source tool that aims to automate the process of code grading. 
+<p align="center">
+  <img src = "logo.svg" alt="LOGO SVG"/>
+</p>
+<h1 align="center">Eurytus</h1>
+<p align="center">Eurytus is an open-source tool that aims to automate the process of code grading.</p>
 
 
 ## Features
 
 ![alt text](./features.svg)
 
-So far we only provide support for Java and JavaScript with the main focus being on Java since we can do more tests such as structure and design patterns detection.
+So far we only provide support for `Java` and `JavaScript` with the main focus being on Java since we can do more tests such as structure and design pattern detection.
  
 ## Run Locally
 In order to run this project you need to install `Node`, `Docker` and `Kubernetes`.
@@ -59,7 +59,7 @@ Create a kubernetes secret for your JWT Key secret
 
 ```
 
-Finaly, in order to start the services you can either use:
+Finally, in order to start the services you can either use:
 
 ```bash
 kubectl apply -f file-name.yaml
@@ -73,7 +73,7 @@ However, for development purposes we recommend using [Skaffold](https://skaffold
 skaffold dev
 ```
 
-In the parrent direcotry.
+In the parent directory.
 
 ## Contributing
 
