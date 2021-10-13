@@ -73,7 +73,7 @@ However, for development purposes we recommend using [Skaffold](https://skaffold
 skaffold dev
 ```
 
-In the parrent direcotry.
+In the parent directory.
 
 ## Contributing
 
