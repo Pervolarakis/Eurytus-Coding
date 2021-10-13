@@ -1,4 +1,6 @@
-![logo](logo.svg)
+<p align="center">
+  ![logo](logo.svg)
+</p>
 
 # Eurytus
 
@@ -9,7 +11,7 @@ Eurytus is an open-source tool that aims to automate the process of code grading
 
 ![alt text](./features.svg)
 
-So far we only provide support for Java and JavaScript with the main focus being on Java since we can do more tests such as structure and design patterns detection.
+So far we only provide support for `Java` and `JavaScript` with the main focus being on Java since we can do more tests such as structure and design pattern detection.
  
 ## Run Locally
 In order to run this project you need to install `Node`, `Docker` and `Kubernetes`.
@@ -59,7 +61,7 @@ Create a kubernetes secret for your JWT Key secret
 
 ```
 
-Finaly, in order to start the services you can either use:
+Finally, in order to start the services you can either use:
 
 ```bash
 kubectl apply -f file-name.yaml
