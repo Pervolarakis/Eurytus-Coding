@@ -3,6 +3,10 @@ import { Challenge } from '../models/Challenge';
 import {javaTemp} from '../templates/javaTemp';
 import {java} from 'compile-run'
 import { BasicCustomError, requireAuth } from '@eurytus/common';
+import { checkEquality } from '../templates/CheckEqualityLogic';
+import { detectClassesMain, detectClassesLogic } from '../templates/ClassDiagramTemplate';
+import { detectDesignPattern } from './designPatterns';
+import { checkStructure } from './__test__/checkProgramStructure';
 
 const router = express.Router();
 
@@ -18,40 +22,116 @@ router.post('/api/v1/compile/challengejava/:id', requireAuth, async(req: Request
         return next(new BasicCustomError('This language is not supported for this test', 400))
     }
 
-    const funct = JSON.parse(req.body.solution);
+    const userFunction = JSON.parse(req.body.solution);
     // console.log(funct)
-    const tests = JSON.parse(challenge?.expectedOutputTests!);
     
-    const final = ""+tests["challenge"].map((el:any)=>{
-        return "if(check.checkEquality("+JSON.parse(el.input)+","+JSON.parse(el.output)+")) testsPassed++;\n"
-    }).join('')+""; 
+    let outPutFunctionCalls = '';  
+    let checkEqualityLogic = ''; 
+    let detectClassesMainLocal = ''; 
+    let detectClassesLogicLocal = ''
 
-    // console.log(final);
+    if(challenge?.expectedOutputTests!.length){
+        const tests = JSON.parse(challenge?.expectedOutputTests!);
+        outPutFunctionCalls = "int testsPassed = 0;\n"+tests["challenge"].map((el:any)=>{
+            return "if(check.checkEquality("+JSON.parse(el.input)+","+JSON.parse(el.output)+")) testsPassed++;\n"
+        }).join('')+'\nSystem.out.println(" \\"testsPassed\\":"+ testsPassed);'; 
+        checkEqualityLogic = checkEquality;
+    }
 
-    new Promise((resolve, reject)=>java.runSource(javaTemp(final ,funct),{timeout: 4000, compileTimeout: 4000 })
-        .then(result => {
-            if(result.stderr){
-                let formattedError = result.stderr;
-                tests["challenge"].map((el:any)=>{
-                    const inputRegexp = new RegExp(JSON.parse(el.input), 'g');
-                    const outputRegexp = new RegExp(JSON.parse(el.output), 'g');
-                    formattedError = formattedError.replace(inputRegexp, '***').replace(outputRegexp, '***');
-                });
-                // console.log(formattedError)
-                reject(formattedError)
-            }
-            //console.log(javaTemp(JSON.parse(currentChallenge.input),funct))
-        
-            resolve(parseInt(result.stdout.trim().split(/\s/).join('')));
-        })
-        .catch(err => {
-            console.log(err);
-            reject("Can't compile right now. The error is probably on our end.");
-        }))
-            .then((result) => {
-            res.status(200).json({success: true, data: {totalTestsDone: tests["challenge"].length, successfulTests: result}})
+    if(challenge.expectedStructure.length || challenge.expectedDesignPatterns.length){
+        const str = userFunction.split(/\s|\"|\'/).join('');
+        const regExp = /(?<=class|interface).*?(?=extends|{|implements)/g;
+        const classAndInterfaceNames = str.match(regExp);
+        detectClassesMainLocal = detectClassesMain("\"" + classAndInterfaceNames.join("\",\"") + "\"");
+        detectClassesLogicLocal = detectClassesLogic;
+    }
+
+    interface classDiagram{
+        className: string,
+        modifiers: string[],
+        superClass: string,
+        interfaces: string[],
+        constructors: {
+            modifiers: string[],
+            parameters: string[]
+        }[],
+        methods: {
+            name: string,
+            modifiers: string[],
+            returnType: string,
+            parameters: string[],
+            overrides: string|boolean
+        }[],
+        fields: {
+            modifiers: string[],
+            name: string,
+            type: string
+        }[]
+    };
+
+    interface compileOutput {
+        classDiagram: classDiagram[],
+        testsPassed: number
+    }
+
+    // console.log(javaTemp(outPutFunctionCalls, userFunction, checkEqualityLogic, detectClassesMainLocal, detectClassesLogicLocal))
+    new Promise((resolve, reject)=>
+        java.runSource(javaTemp(outPutFunctionCalls, userFunction, checkEqualityLogic, detectClassesMainLocal, detectClassesLogicLocal),{timeout: 4000, compileTimeout: 4000, stdoutLimit: 50000, stderrLimit: 50000 })
+            .then(result => {
+                if(result.stderr){
+                    let formattedError = result.stderr;
+                    if(challenge?.expectedOutputTests!.length){
+                        const tests = JSON.parse(challenge?.expectedOutputTests!);
+                        tests["challenge"].map((el:any)=>{
+                            const inputRegexp = new RegExp(JSON.parse(el.input), 'g');
+                            const outputRegexp = new RegExp(JSON.parse(el.output), 'g');
+                            formattedError = formattedError.replace(inputRegexp, '***').replace(outputRegexp, '***');
+                        });
+                    }
+                    // console.log(formattedError)
+                    return reject(formattedError)
+                }
+                //console.log(javaTemp(JSON.parse(currentChallenge.input),funct))
+                // console.log(result.stdout)
+                const output = JSON.parse(result.stdout);
+                // parseInt(result.stdout.trim().split(/\s/).join(''))
+                return resolve(output);
             })
-            .catch(error => {res.status(200).json({success: false, compileError: error})})
+            .catch(err => {
+                console.log(err);
+                return reject("Can't compile right now. The error is probably on our end.");
+            }))
+        .then((result: any) => {
+            let designPatterns = {};
+            let designPatternsFound = 0;
+            if(challenge.expectedStructure.length || challenge.expectedDesignPatterns.length){
+                if(challenge.expectedDesignPatterns){
+                    challenge.expectedDesignPatterns.map((el,i)=>{
+                        //@ts-ignore
+                        if(detectDesignPattern[el](result.classDiagram)){
+                            designPatterns = {...designPatterns, [el]: true}
+                            designPatternsFound++;
+                        }else{
+                            designPatterns = {...designPatterns, [el]: false}
+                        }
+                        
+                    })
+                }
+            }
+            let totalTestsDone = 0;
+            let successfulTests = 0
+            if(challenge?.expectedOutputTests!.length){
+                const tests = JSON.parse(challenge?.expectedOutputTests!);
+                totalTestsDone = tests["challenge"].length;
+                successfulTests = result.testsPassed;
+            }
+            res.status(200).json({success: true, data: {
+                structure: (challenge.expectedStructure)?checkStructure(result.classDiagram, JSON.parse(challenge.expectedStructure)):null,
+                designPatterns: designPatterns,
+                totalTestsDone: totalTestsDone,
+                successfulTests: successfulTests}})
+        })
+        .catch(error => {res.status(200).json({success: false, compileError: error})})
 
 })
 

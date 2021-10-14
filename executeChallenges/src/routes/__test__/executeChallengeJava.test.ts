@@ -312,3 +312,97 @@ it('successfully hides arguments from errors', async()=>{
     expect(result.body.compileError).not.toMatch(/(5,'a',15|30|10,40,5|55|10,40,12)/i)
 
 })
+
+it('successfully detects all class names and interfaces 2', async()=>{
+    const user = new mongoose.Types.ObjectId()
+    const challenge = new Challenge({
+        status: 'approved',
+        startsAt: Date.now(),
+        expiresAt: "2014-02-01T00:00:00",
+        expectedOutputTests: '',
+        language: "java",
+        expectedStructure: '[{"className":"TestEntity2","modifiers":[],"superClass":"TestEntitySuper","interfaces":["TestInt"],"constructors":[{"modifiers":[\"public\"],"parameters":[\"String\",\"int[]\",\"Map<String,Object>\"]}],"methods":[{"modifiers":[\"public\"],"name":"getM","returnType":"Map<String, Object>","parameters":[]},{"modifiers":[\"public\", \"static\"],"name":"testMethod","returnType":"void","parameters":[\"int\",\"String\",\"Integer\"]}],"fields":[{"modifiers":[\"private\"],"name":"m","type":"Map<String, Object>"},{"modifiers":[\"private static\"],"name":"peops","type":"TestEntity2"}]}]',
+        expectedDesignPatterns: ['singleton', 'factory']
+    })
+    await challenge.save()
+    const response = await request(app)
+        .post(`/api/v1/compile/challengejava/${challenge.id}`)
+        .set('Cookie', global.signin(user,'user'))
+        .send({
+            solution: JSON.stringify(`class TestEntity2 extends TestEntitySuper implements TestInt{
+
+                private Map<String, Object> m;
+                private String str;
+                private int num[];
+                private TestEntity2 next;
+                private static TestEntity2 peops;
+            
+                public TestEntity2(String strArg, int[] numArg, Map<String, Object> mArg){
+                    this.str=strArg;
+                    this.num=numArg;
+                    this.m=mArg;
+                }
+            
+                public TestEntity2(){
+                }
+            
+                public void setNext(TestEntity2 next) {
+                    this.next = next;
+                }
+            
+                public Map<String, Object> getM() {
+                    return m;
+                }
+            
+                public String getStr() {
+                    return str;
+                }
+            
+                public int[] getNum() {
+                    return num;
+                }
+            
+                public TestEntity2 getNext() {
+                    return next;
+                }
+            
+                @Override
+                public int getNumber() {
+                    return 1;
+                }
+            
+            
+            
+                public static void testMethod(int malaka, Integer mlk2, String pipi){}
+            
+                @Override
+                public void returnShit2() {
+                    System.out.println("shit2");
+                }
+            
+                @Override
+                public void returnShit() {
+            
+                }
+            }
+            
+            abstract class TestEntitySuper implements TestInt2{
+                public abstract int getNumber();
+                public void getPipi(){
+                    System.out.println("pipi");
+                }
+            }
+            
+            interface TestInt2{
+                public void returnShit();
+            }
+            
+            interface TestInt{
+                public void returnShit2();
+            }`)
+        })
+        .expect(200)
+    expect(response.body.data.structure).toEqual(true)
+    expect(response.body.data.designPatterns.singleton).toEqual(false)
+    expect(response.body.data.designPatterns.factory).toEqual(false)
+})
