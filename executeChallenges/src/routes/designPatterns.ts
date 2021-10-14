@@ -1,35 +1,6 @@
-interface classesInfo{
-    className: string,
-    modifiers: string[],
-    superClass: string,
-    interfaces: string[],
-    constructors: classesInfoConstructor[],
-    methods: classesInfoMethod[],
-    fields: classesInfoField[]
-};
+import {classDiagram} from './interfaces/CompileOutputInterface'
 
-interface classesInfoConstructor{
-    modifiers: string[],
-    parameters: string[]
-}
-
-interface classesInfoMethod{
-    name: string,
-    modifiers: string[],
-    returnType: string,
-    parameters: string[],
-    overrides: string|boolean
-}
-
-interface classesInfoField{
-    modifiers: string[],
-    name: string,
-    type: string
-}
-
-
-
-export const detectSingleton = (classes: classesInfo[]) => {
+export const detectSingleton = (classes: classDiagram[]) => {
     let found = false;
     //for each class
     classes.map((currentClass,index)=>{
@@ -56,7 +27,7 @@ export const detectSingleton = (classes: classesInfo[]) => {
     return found;
 }
 
-export const detectFactory = (classes: classesInfo[]) => {
+export const detectFactory = (classes: classDiagram[]) => {
     let found = false;
     //for each class
     classes.map((currentClass,index)=>{
@@ -92,7 +63,7 @@ export const detectFactory = (classes: classesInfo[]) => {
     return found;
 }
 
-export const detectObserver = (classes: classesInfo[]) => {
+export const detectObserver = (classes: classDiagram[]) => {
     let found = false;
     //for each class
     classes.map((currentClass,index)=>{

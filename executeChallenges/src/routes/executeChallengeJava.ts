@@ -7,6 +7,7 @@ import { checkEquality } from '../templates/CheckEqualityLogic';
 import { detectClassesMain, detectClassesLogic } from '../templates/ClassDiagramTemplate';
 import { detectDesignPattern } from './designPatterns';
 import { checkStructure } from './__test__/checkProgramStructure';
+import { compileOutput } from './interfaces/CompileOutputInterface';
 
 const router = express.Router();
 
@@ -28,13 +29,13 @@ router.post('/api/v1/compile/challengejava/:id', requireAuth, async(req: Request
     let outPutFunctionCalls = '';  
     let checkEqualityLogic = ''; 
     let detectClassesMainLocal = ''; 
-    let detectClassesLogicLocal = ''
+    let detectClassesLogicLocal = '';
 
     if(challenge?.expectedOutputTests!.length){
         const tests = JSON.parse(challenge?.expectedOutputTests!);
         outPutFunctionCalls = "int testsPassed = 0;\n"+tests["challenge"].map((el:any)=>{
             return "if(check.checkEquality("+JSON.parse(el.input)+","+JSON.parse(el.output)+")) testsPassed++;\n"
-        }).join('')+'\nSystem.out.println(" \\"testsPassed\\":"+ testsPassed);'; 
+        }).join('')+`\nSystem.out.println(" \\"testsPassed\\":"+ testsPassed + ${(challenge.expectedStructure.length || challenge.expectedDesignPatterns.length)?"\",\"":"\"\""});`;
         checkEqualityLogic = checkEquality;
     }
 
@@ -46,36 +47,8 @@ router.post('/api/v1/compile/challengejava/:id', requireAuth, async(req: Request
         detectClassesLogicLocal = detectClassesLogic;
     }
 
-    interface classDiagram{
-        className: string,
-        modifiers: string[],
-        superClass: string,
-        interfaces: string[],
-        constructors: {
-            modifiers: string[],
-            parameters: string[]
-        }[],
-        methods: {
-            name: string,
-            modifiers: string[],
-            returnType: string,
-            parameters: string[],
-            overrides: string|boolean
-        }[],
-        fields: {
-            modifiers: string[],
-            name: string,
-            type: string
-        }[]
-    };
-
-    interface compileOutput {
-        classDiagram: classDiagram[],
-        testsPassed: number
-    }
-
     // console.log(javaTemp(outPutFunctionCalls, userFunction, checkEqualityLogic, detectClassesMainLocal, detectClassesLogicLocal))
-    new Promise((resolve, reject)=>
+    new Promise<compileOutput>((resolve, reject)=>
         java.runSource(javaTemp(outPutFunctionCalls, userFunction, checkEqualityLogic, detectClassesMainLocal, detectClassesLogicLocal),{timeout: 4000, compileTimeout: 4000, stdoutLimit: 50000, stderrLimit: 50000 })
             .then(result => {
                 if(result.stderr){
@@ -101,20 +74,17 @@ router.post('/api/v1/compile/challengejava/:id', requireAuth, async(req: Request
                 console.log(err);
                 return reject("Can't compile right now. The error is probably on our end.");
             }))
-        .then((result: any) => {
+        .then((result) => {
             let designPatterns = {};
-            let designPatternsFound = 0;
             if(challenge.expectedStructure.length || challenge.expectedDesignPatterns.length){
                 if(challenge.expectedDesignPatterns){
                     challenge.expectedDesignPatterns.map((el,i)=>{
                         //@ts-ignore
                         if(detectDesignPattern[el](result.classDiagram)){
                             designPatterns = {...designPatterns, [el]: true}
-                            designPatternsFound++;
                         }else{
                             designPatterns = {...designPatterns, [el]: false}
                         }
-                        
                     })
                 }
             }
