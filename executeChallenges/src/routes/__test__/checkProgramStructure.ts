@@ -28,12 +28,12 @@ export const checkStructure = (classes: classDiagram[], expectedClasses: classDi
                         // console.log('idio modifiers')
                         if(currentClass.superClass===targetClass.superClass){
                             // console.log('idio superclass')
-                            console.log(targetClass.methods);
-                            console.log(currentClass.methods);
+                            // console.log(targetClass.methods);
+                            // console.log(currentClass.methods);
                             if(targetClass.methods.every(el=>currentClass.methods.some(method=>method.name===el.name && compareArrays(method.modifiers,el.modifiers) && method.returnType===el.returnType && compareArrays(method.parameters,el.parameters)))){
-                                console.log('idio methods')
-                                // console.log(targetClass.constructors)
-                                // console.log(currentClass.constructors)
+                                // console.log('idio methods')
+                                // console.log(index +" "+targetClass.constructors)
+                                // console.log(index +" "+currentClass.constructors)
                                 if(targetClass.constructors.every(el=>currentClass.constructors.some(constructor=> compareArrays(el.modifiers,constructor.modifiers)&& compareArrays(el.parameters,constructor.parameters)))){
                                     // console.log('idio constructors')
                                     // console.log(targetClass.fields)

@@ -96,7 +96,7 @@ router.post('/api/v1/compile/challengejava/:id', async(req: Request, res: Respon
                 totalTestsDone = tests["challenge"].length;
                 successfulTests = result.testsPassed;
             }
-            // console.log(convertStructureFormat(challenge.expectedStructure));
+            // console.log(result.classDiagram);
             res.status(200).json({success: true, data: {
                 structure: (challenge.expectedStructure)?checkStructure(result.classDiagram, convertStructureFormat(challenge.expectedStructure)):null,
                 designPatterns: designPatterns,

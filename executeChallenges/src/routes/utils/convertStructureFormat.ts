@@ -34,9 +34,8 @@ const printClass = (el:any):any=>{
         }
         if(el.children[child].blockType==='method'){
             let modifiers = el.children[child].modifiers;
-            console.log(el.children[child].modifiers==='["public"]')
-            if(el.blockType === 'interface' && el.children[child].modifiers==='["public"]'){
-                modifiers = '["public", "abstract"]'
+            if(el.blockType === 'interface' && JSON.stringify(el.children[child].modifiers)==='["public"]'){
+                modifiers = ['public', 'abstract']
             }
             //@ts-ignore
             tempObj.methods.push({modifiers: modifiers, name: el.children[child].name, returnType: el.children[child].returnType, parameters: (el.children[child].children && el.children[child].children.length)?el.children[child].children.map(a=>a.name).join(',').split(','):[]})
@@ -51,8 +50,8 @@ const printClass = (el:any):any=>{
         }
         
     }
-    
-    if(tempObj.constructors.length===0 && tempObj.modifiers!=='["abstract interface"]'){
+   
+    if(tempObj.constructors.length===0 && JSON.stringify(tempObj.modifiers)!=='["abstract interface"]'){
         //@ts-ignore
         tempObj.constructors.push({ modifiers: [], parameters: [] })
     }
