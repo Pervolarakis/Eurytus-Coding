@@ -1,4 +1,4 @@
-import { BasicCustomError, NotAnAdminError, requireAuth } from '@eurytus/common';
+import { BasicCustomError, requireAuth } from '@eurytus/common';
 import express, {Request, Response, NextFunction} from 'express';
 import { PendingRequest } from '../models/PendingRequests';
 
@@ -8,7 +8,11 @@ router.get('/api/v1/moderate/requests/:id', requireAuth, async(req: Request, res
     
     const request = await PendingRequest.findById(req.params.id);
 
-    if(!request || (req.currentUser?.role!=='admin' && request?.ownerId!==req.currentUser?.id)){
+    if(!request){
+        return next(new BasicCustomError('This request doesnt exist',400))
+    }
+
+    if(req.currentUser?.role!=='admin' && request?.ownerId!==req.currentUser?.id){
         return next(new BasicCustomError('You cant view this request',403));
     }
 
