@@ -35,6 +35,7 @@ it('Successfully deletes pending request', async()=>{
             expectedDesignPatterns: []
         }),
         ownerId: userId,
+        created_at: new Date().toISOString(),
         message: 'please create this new challenge'
         
     })
@@ -79,6 +80,7 @@ it('fails if user doesnt own the challenge', async()=>{
             expectedDesignPatterns: []
         }),
         ownerId: userId,
+        created_at: new Date().toISOString(),
         message: 'please create this new challenge'
         
     })

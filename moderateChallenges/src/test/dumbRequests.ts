@@ -31,6 +31,7 @@ export const dumbRequests = [
             expectedStructure: '',
             expectedDesignPatterns: []
         }),
+        created_at: new Date().toISOString(),
         message: 'this is going to be a perfect new challenge'
     },
     {
@@ -38,7 +39,8 @@ export const dumbRequests = [
         kind: 'delete',
         ownerId: new mongoose.Types.ObjectId(),
         challengeId: new mongoose.Types.ObjectId(),
-        message: 'please delete this challenge'
+        message: 'please delete this challenge',
+        created_at: new Date().toISOString(),
     },
     {
         _id: new mongoose.Types.ObjectId(),
@@ -71,7 +73,8 @@ export const dumbRequests = [
             expectedStructure: '',
             expectedDesignPatterns: []
         }),
-        message: 'please create this new challenge'
+        message: 'please create this new challenge',
+        created_at: new Date().toISOString(),
     },
     {
         _id: new mongoose.Types.ObjectId(),
@@ -82,6 +85,7 @@ export const dumbRequests = [
             name: "Multiply Challenge2",
             description: "Write a challenge that multiplies 3 numbers"
         }),
-        message: 'update my challenge'
+        message: 'update my challenge',
+        created_at: new Date().toISOString()
     },
 ]

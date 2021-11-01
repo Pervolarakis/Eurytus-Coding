@@ -21,6 +21,10 @@ const pendingRequestSchema = new mongoose.Schema({
         type: String,
         required: false
     },
+    created_at: {
+        type: String,
+        required: true
+    },
     challengeId: {
         type: String,
         required: false

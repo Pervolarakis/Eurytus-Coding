@@ -24,7 +24,8 @@ router.delete('/api/v1/challenges/delete/:id', requireAuth, async(req: Request, 
                 kind: 'delete',
                 challengeId: req.params.id,
                 message: message,
-                ownerId: req.currentUser?.id!
+                ownerId: req.currentUser?.id!,
+                created_at: new Date().toISOString()
             })
             res.status(201).json({success: true, data: 'Request submited'})
             return next();

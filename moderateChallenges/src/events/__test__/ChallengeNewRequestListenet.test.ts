@@ -36,6 +36,7 @@ const setup = async()=>{
             expectedStructure: '',
             expectedDesignPatterns: []
         }),
+        created_at: new Date().toISOString(),
         ownerId: new mongoose.Types.ObjectId().toString(),
         message: 'please create this new challenge'
         

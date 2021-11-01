@@ -35,6 +35,7 @@ it('successfully returns user requests', async()=>{
             expectedStructure: '',
             expectedDesignPatterns: []
         }),
+        created_at: new Date().toISOString(),
         message: 'please create this new challenge'
     });
     const request2 = new PendingRequest({
@@ -45,7 +46,8 @@ it('successfully returns user requests', async()=>{
             name: "Multiply Challenge2",
             description: "Write a challenge that multiplies 3 numbers"
         }),
-        message: 'update my challenge'
+        message: 'update my challenge',
+        created_at: new Date().toISOString(),
     })
     await request1.save();
     await request2.save();
