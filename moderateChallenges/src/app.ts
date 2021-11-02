@@ -7,6 +7,7 @@ import { rejectRequestRouter } from './routes/rejectRequest';
 import { getUserRequestsRouter } from './routes/getUserRequests';
 import { cancelUserRequestRouter } from './routes/cancelUserRequest';
 import { getRequestRouter } from './routes/getRequestById';
+import { getLatestRequestByChallengeIdRouter } from './routes/getLatestRequestByChallengeId';
 
 const app = express();
 
@@ -24,6 +25,7 @@ app.use(rejectRequestRouter);
 app.use(getUserRequestsRouter);
 app.use(cancelUserRequestRouter);
 app.use(getRequestRouter);
+app.use(getLatestRequestByChallengeIdRouter);
 
 app.use(ErrorHandler);
 
