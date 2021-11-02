@@ -26,9 +26,9 @@ router.post('/api/v1/moderate/approve/:id', requireAuth, async(req: Request, res
                 creatorId: request.ownerId
             })
         })
-        await PendingRequest.findByIdAndRemove(req.params.id,{
-            useFindAndModify: false
-        });
+        // await PendingRequest.findByIdAndRemove(req.params.id,{
+        //     useFindAndModify: false
+        // });
         res.status(201).json({success: true, data: request.data});
     }
     if(request.kind==='update'){
@@ -36,9 +36,9 @@ router.post('/api/v1/moderate/approve/:id', requireAuth, async(req: Request, res
             data: request.data!,
             challengeId: request.challengeId!
         })
-        await PendingRequest.findByIdAndRemove(req.params.id,{
-            useFindAndModify: false
-        });
+        // await PendingRequest.findByIdAndRemove(req.params.id,{
+        //     useFindAndModify: false
+        // });
         res.status(201).json({success: true, data: request.data});
     }
 
@@ -46,11 +46,14 @@ router.post('/api/v1/moderate/approve/:id', requireAuth, async(req: Request, res
         new DeleteChallengeApprovedPublisher(natsWrapper.client).publish({
             challengeId: request.challengeId!
         })
-        await PendingRequest.findByIdAndRemove(req.params.id,{
-            useFindAndModify: false
-        });
+        // await PendingRequest.findByIdAndRemove(req.params.id,{
+        //     useFindAndModify: false
+        // });
         res.status(201).json({success: true, data: request.challengeId});
     }
+    await PendingRequest.deleteMany({created_at: {$lte: request.created_at}, challengeId: request.challengeId},{
+        useFindAndModify: false
+    });
     
 })
 
