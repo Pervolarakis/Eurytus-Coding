@@ -4,7 +4,11 @@ interface historyDoc extends mongoose.Document{
     userId: string,
     challengeId: string,
     challengeName: string,
-    score: string
+    completionDate: string,
+    saveFileId: string,
+    outputTestsPassedScore: number | null,
+    requiredStructureFound: boolean | null,
+    designPatternsFound: string | null,
 }
 
 const historySchema = new mongoose.Schema({
@@ -20,10 +24,23 @@ const historySchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    score: {
+    completionDate: {
         type: String,
         required: true
-    }
+    },
+    saveFileId:{
+        type: String,
+        required: true
+    },
+    outputTestsPassedScore: {
+        type: Number
+    },
+    requiredStructureFound: {
+        type: Boolean
+    },
+    designPatternsFound: {
+        type: String
+    },
 })
 
 const History = mongoose.model<historyDoc>('History', historySchema);

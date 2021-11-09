@@ -11,15 +11,23 @@ const setup = async()=>{
     const history = new History({
         userId: new mongoose.Types.ObjectId(),
         challengeId: new mongoose.Types.ObjectId(),
-        challengeName: 'Multiplication challenge',
-        score: '5/8'
+        challengeName: 'Dumb challenge 3',
+        completionDate: new Date().toISOString(),
+        saveFileId: '9995552333444',
+        outputTestsPassedScore: 33.33,
+        requiredStructureFound: null,
+        designPatternsFound: null
     })
     await history.save();
     const data: CreateHistoryEventData["data"] = {
         userId: history.userId,
         challengeId: history.challengeId,
         challengeName: history.challengeName,
-        score: history.score
+        completionDate: history.completionDate,
+        saveFileId: history.saveFileId,
+        outputTestsPassedScore: history.outputTestsPassedScore,
+        requiredStructureFound: history.requiredStructureFound,
+        designPatternsFound: history.designPatternsFound
     }    
     
     //@ts-ignore

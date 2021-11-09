@@ -6,15 +6,28 @@ import {History} from '../../models/History';
 it('successfully returns all history for specific user', async()=>{
     const user = new mongoose.Types.ObjectId();
     const history1 = new History({
-        playerId: user,
-        testId: new mongoose.Types.ObjectId(),
-        testName: 'test name 1',
-        score: '5/10'})
+        userId: user,
+        challengeId: new mongoose.Types.ObjectId(),
+        challengeName: 'Dumb challenge 1',
+        completionDate: new Date().toISOString(),
+        saveFileId: '11112222333444',
+        outputTestsPassedScore: 50,
+        requiredStructureFound: true,
+        designPatternsFound: JSON.stringify({
+            singleton: true,
+            factory: false,
+            observer: true
+        })})
     const history2 = new History({
-        playerId: user,
-        testId: new mongoose.Types.ObjectId(),
-        testName: 'test name 2',
-        score: '6/5'})
+        userId: user,
+        challengeId: new mongoose.Types.ObjectId(),
+        challengeName: 'Dumb challenge 3',
+        completionDate: new Date().toISOString(),
+        saveFileId: '9995552333444',
+        outputTestsPassedScore: 33.33,
+        requiredStructureFound: null,
+        designPatternsFound: null
+    })
     await history1.save();
     await history2.save();
     const result = await request(app)
