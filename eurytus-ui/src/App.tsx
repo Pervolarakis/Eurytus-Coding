@@ -1,7 +1,8 @@
-import logo from './logo.svg';
 import './App.css';
 import NavBar from './Components/NavBar';
 import Auth from './Components/Auth/Auth';
+import ListAll from './Components/Challenges/ListAll/ListAll';
+
 import {
   Routes,
   Route
@@ -13,6 +14,7 @@ function App() {
       <NavBar/>
       <Routes>
         <Route path="/auth" element={<Auth />}/>
+        <Route path="/challenges" element={<ListAll />}/>
       </Routes>
     </div>
   );
