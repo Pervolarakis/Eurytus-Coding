@@ -5,25 +5,25 @@ import ChallengeListItem from './ChallengeListItem';
 
 const ListAll = () => {
     return(
-        <div className="container flex max-w-screen-xl mx-auto px-4 sm:px-6 md:px-6 lg:px-8 xl:px-7 2xl:px-3 flex-col items-start">
+        <div className="responsive-container">
             <h1 className="mt-6 font-bold text-2xl">Challenges</h1>
             <div className="flex w-full justify-between mt-6 flex-col md:flex-row gap-4">
                 <div className="h-36 w-full md:w-4/12 bg-gradient-to-r from-classes-class1-left to-classes-class1-right flex flex-row rounded-2xl shadow-xl px-8 py-4">
-                    <img src={codeBrackets} alt="code brackets" />
-                    <div className="flex items-center">
-                        <p className="font-bold text-white text-4xl pl-8">Browse all Challenges!</p>
+                    <img className="w-1/4" src={codeBrackets} alt="code brackets" />
+                    <div className="flex items-center w-3/4">
+                        <p className="font-bold text-white text-4xl pl-8 md:text-2xl md:px-4 xl:text-4xl xl:pl-8">Browse all Challenges!</p>
                     </div>
                 </div>
                 <div className="h-36 w-full md:w-4/12  bg-gradient-to-r from-classes-class2-left to-classes-class2-right flex flex-row rounded-2xl shadow-xl px-8 py-4">
-                    <img src={javaIcon} alt="code brackets" />
-                    <div className="flex items-center">
-                        <h1 className="font-bold text-white text-4xl pl-8">Learn Java!</h1>
+                    <img className="w-1/4" src={javaIcon} alt="code brackets" />
+                    <div className="flex items-center w-3/4">
+                        <h1 className="font-bold text-white text-4xl pl-8 md:text-2xl md:px-4 xl:text-4xl xl:pl-8">Learn Java!</h1>
                     </div>
                 </div>
                 <div className="h-36 w-full md:w-4/12 bg-gradient-to-r from-classes-class3-left to-classes-class3-right flex flex-row rounded-2xl shadow-xl px-8 py-4">
-                <img src={jsIcon} alt="code brackets" />
-                    <div className="flex items-center">
-                        <h1 className="font-bold text-white text-4xl pl-8">Learn JavaScript!</h1>
+                    <img className="w-1/4" src={jsIcon} alt="code brackets" />
+                    <div className="flex items-center w-3/4">
+                        <h1 className="font-bold text-white text-4xl pl-8 md:text-2xl md:px-4 xl:text-4xl xl:pl-8">Learn JavaScript!</h1>
                     </div>
                 </div>
             </div>
