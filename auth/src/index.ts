@@ -1,5 +1,6 @@
 import {app} from './app';
 import mongoose from 'mongoose';
+import { initializeDb } from './initializedb';
 
 const start = async () =>{
     try{
@@ -12,6 +13,7 @@ const start = async () =>{
             useCreateIndex: true
         })
         console.log("connected to db")
+        initializeDb();
     }catch(err){
         console.log(err)
     }
