@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import { User } from './models/UserModel';
 
-export const initializeDb = () => {
+export const initializeDb = async () => {
     console.log('TO DELETE --- Initializing Auth Service!')
     const users = [{
         _id: new mongoose.Types.ObjectId('56cb91bdc3464f14678934ca'),
@@ -76,8 +76,11 @@ export const initializeDb = () => {
         role: 'user'
     },
     ]
-    users.map(async (el,index)=>{
-        const user = new User({_id: el._id, email: el.email, password: el.password, firstName: el.firstName, lastName: el.lastName, role: el.role});
-        await user.save()
-    })
+    const user = await User.findById('56cb91bdc3464f14678934ca');
+    if(!user){
+        users.map(async (el,index)=>{
+            const user = new User({_id: el._id, email: el.email, password: el.password, firstName: el.firstName, lastName: el.lastName, role: el.role});
+            await user.save()
+        })
+    }
 }
