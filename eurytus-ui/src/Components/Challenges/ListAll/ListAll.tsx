@@ -18,7 +18,7 @@ const ListAll = () => {
     const [challenges, setChallenges] = useState<challenge[]>();
 
     useEffect(()=>{
-        axios.get('http://eurytus.com/api/v1/challenges/',{withCredentials: true})
+        axios.get('http://eurytus.com/api/v1/challenges/')
         .then((res)=>setChallenges(res.data.data))
     },[])
 

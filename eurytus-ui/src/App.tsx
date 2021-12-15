@@ -20,7 +20,7 @@ function App() {
   const [user,setUser] = useState(null)
 
   useEffect(()=>{
-    axios.get('http://eurytus.com/api/v1/users/auth/currentuser', {withCredentials: true})
+    axios.get('http://eurytus.com/api/v1/users/auth/currentuser')
         .then((res)=>setUser(res.data.data||null))
   },[])
 
@@ -32,7 +32,7 @@ function App() {
             (user)?
             <Routes>
               <Route path="/challenges" element={<ListAll />}/>
-              <Route path="/solve/:id" element={<SolveChallenge />}/>
+              <Route path="/solve/:challengeId" element={<SolveChallenge />}/>
             </Routes>:
             <Routes>
               <Route path="/auth" element={<Auth />}/>

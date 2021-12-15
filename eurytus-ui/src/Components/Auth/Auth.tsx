@@ -18,10 +18,10 @@ function Auth() {
     axios.post('http://eurytus.com/api/v1/users/auth/login',{
       email: logInMail,
       password: logInPass
-    },{withCredentials: true})
+    })
     .then((res)=>{
       console.log(res)
-      axios.get('http://eurytus.com/api/v1/users/auth/currentuser', {withCredentials: true})
+      axios.get('http://eurytus.com/api/v1/users/auth/currentuser')
         .then((res)=>{setUser(res.data.data); navigate('/challenges')})
     })
     .catch((err)=>console.log(err))
