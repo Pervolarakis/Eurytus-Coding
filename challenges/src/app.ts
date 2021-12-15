@@ -7,8 +7,13 @@ import { editChallengeRouter } from './routes/editChallenge';
 import { deleteChallengeRouter } from './routes/deleteChallenge';
 import { getUserChallengesRouter } from './routes/getUserChallenges';
 import { getChallengeById } from './routes/getChallengeById';
+import cors from 'cors'
 
 const app = express();
+
+app.use(cors({
+    origin: ['http://eurytus.com:3000'],
+    credentials: true }))
 
 app.use(express.json());
 

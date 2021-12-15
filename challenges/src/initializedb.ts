@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import { Challenge } from './models/challengeModel';
 
-export const initializeDb = () => {
+export const initializeDb = async () => {
     console.log('TO DELETE --- Initializing Challenge Service!')
     const challenges = [
         {
@@ -205,24 +205,26 @@ export const initializeDb = () => {
             template: ''
         }
     ]
-
-    challenges.map(async (el,index)=>{
-        const challenge = new Challenge({
-            _id: el._id, 
-            name: el.name, 
-            description: el.description, 
-            difficulty: el.difficulty, 
-            isPublic: el.isPublic, 
-            expiresAt: el.expiresAt, 
-            status: el.status, 
-            startsAt: el.startsAt,
-            creatorId: el.creatorId,
-            expectedOutputTests: el.expectedOutputTests,
-            expectedStructure: el.expectedStructure,
-            expectedDesignPatterns: el.expectedDesignPatterns,
-            language: el.language,
-            template: el.template
+    const challenge = await Challenge.findById('61b07f82c2d7ad3a19087d2f');
+    if(!challenge){
+        challenges.map(async (el,index)=>{
+            const challenge = new Challenge({
+                _id: el._id, 
+                name: el.name, 
+                description: el.description, 
+                difficulty: el.difficulty, 
+                isPublic: el.isPublic, 
+                expiresAt: el.expiresAt, 
+                status: el.status, 
+                startsAt: el.startsAt,
+                creatorId: el.creatorId,
+                expectedOutputTests: el.expectedOutputTests,
+                expectedStructure: el.expectedStructure,
+                expectedDesignPatterns: el.expectedDesignPatterns,
+                language: el.language,
+                template: el.template
+            })
+            await challenge.save();
         })
-        await challenge.save();
-    })
+    }
 }

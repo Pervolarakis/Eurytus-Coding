@@ -5,22 +5,40 @@ import ListAll from './Components/Challenges/ListAll/ListAll';
 import SolveChallenge from './Components/Challenges/SolveChallenge/SolveChallenge';
 import axios from 'axios';
 
+
 import {
   Routes,
   Route
 } from "react-router-dom";
+import { UserContext } from './Contexts/UserContext';
+import { useEffect, useState } from 'react';
 
 axios.defaults.withCredentials = true;
 
 function App() {
+
+  const [user,setUser] = useState(null)
+
+  useEffect(()=>{
+    axios.get('http://eurytus.com/api/v1/users/auth/currentuser', {withCredentials: true})
+        .then((res)=>setUser(res.data.data||null))
+  },[])
+
   return (
     <div className="App h-full">
-      <NavBar/>
-      <Routes>
-        <Route path="/auth" element={<Auth />}/>
-        <Route path="/challenges" element={<ListAll />}/>
-        <Route path="/solve/:id" element={<SolveChallenge />}/>
-      </Routes>
+      <UserContext.Provider value={{user, setUser}}>
+        <NavBar/>
+          {
+            (user)?
+            <Routes>
+              <Route path="/challenges" element={<ListAll />}/>
+              <Route path="/solve/:id" element={<SolveChallenge />}/>
+            </Routes>:
+            <Routes>
+              <Route path="/auth" element={<Auth />}/>
+            </Routes>
+          }
+      </UserContext.Provider>
     </div>
   );
 }
