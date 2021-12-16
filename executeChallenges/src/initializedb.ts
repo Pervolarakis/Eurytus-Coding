@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import { Challenge } from './models/Challenge';
 
-export const initializeDb = () => {
+export const initializeDb = async () => {
     console.log('TO DELETE --- Initializing Execute Challenge Service!')
 
     const challenges = [
@@ -170,19 +170,21 @@ export const initializeDb = () => {
             expectedDesignPatterns: []
         },
     ]
-
-    challenges.map(async (el,index)=>{
-        const challenge = new Challenge({
-            _id: el._id, 
-            expiresAt: el.expiresAt, 
-            status: el.status, 
-            startsAt: el.startsAt,
-            expectedOutputTests: el.expectedOutputTests,
-            expectedStructure: el.expectedStructure,
-            expectedDesignPatterns: el.expectedDesignPatterns,
-            language: el.language,
-            
+    const challenge = await Challenge.findById('61b07f82c2d7ad3a19087d2f');
+    if(!challenge){
+        challenges.map(async (el,index)=>{
+            const challenge = new Challenge({
+                _id: el._id, 
+                expiresAt: el.expiresAt, 
+                status: el.status, 
+                startsAt: el.startsAt,
+                expectedOutputTests: el.expectedOutputTests,
+                expectedStructure: el.expectedStructure,
+                expectedDesignPatterns: el.expectedDesignPatterns,
+                language: el.language,
+                
+            })
+            await challenge.save();
         })
-        await challenge.save();
-    })
+    }
 }

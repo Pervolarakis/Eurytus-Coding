@@ -3,7 +3,7 @@ import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { MenuIcon, XIcon } from '@heroicons/react/outline'
 import { createAvatar } from '@dicebear/avatars';
 import * as style from '@dicebear/avatars-gridy-sprites';
-import { UserContext } from '../Contexts/UserContext';
+import { UserContext } from '../../Contexts/UserContext';
 
 
 const navigation = [

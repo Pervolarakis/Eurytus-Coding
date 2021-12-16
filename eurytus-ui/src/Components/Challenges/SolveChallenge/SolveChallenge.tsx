@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Ide from "../../Ide/Ide";
 import ChallengeDescription from "./ChallengeDescription";
-import SubmitChallenge from "./SubmitChallenge";
+import SubmitChallenge, {executionMessage} from "./SubmitChallenge";
 
 interface challenge {
     name: string,
@@ -18,21 +18,31 @@ interface challenge {
 const SolveChallenge = () => {
 
     const {challengeId} = useParams();
-    const [challenge,setChallenge] = useState<challenge>();
     
+    const [ challenge,setChallenge ] = useState<challenge>();
+    const [ ideValue, setIdeValue ] = useState('');
+    const [ executionMessage, setExecutionMessage ] = useState<executionMessage>();
+
     useEffect(()=>{
         axios.get(`http://eurytus.com/api/v1/challenges/${challengeId}`)
-            .then((res)=>{setChallenge(res.data.data);console.log(res.data)})
+            .then((res)=>{setChallenge(res.data.data);setIdeValue(res.data.data.template)})
     },[challengeId])
 
+    const onCodeRun = () => {
+        axios.post(`http://eurytus.com/api/v1/compile/challenge${challenge!.language}/${challengeId}`,{
+            solution: JSON.stringify(ideValue)
+        })
+        .then((res)=>{setExecutionMessage(res.data)})
+    }
+
     return(
-        <div>
+        <div className="w-full" id="solvechallenge">
             {(challenge)?
-            <div className="flex w-full h-full">
-                <ChallengeDescription name={challenge.name} description={challenge.description} difficulty={challenge.difficulty} creator={challenge.creatorId}/>
+            <div className="flex w-full h-full ">
+                <ChallengeDescription name={challenge.name} description={challenge.description} difficulty={challenge.difficulty} language={challenge.language}/>
                 <div className="w-4/6">
-                    <Ide language={(challenge.language==='js')?'javascript':challenge.language} template={challenge.template}/>
-                    <SubmitChallenge/>
+                    <Ide language={(challenge.language==='js')?'javascript':challenge.language} value={ideValue} changeValue={(val)=>setIdeValue(val)}/>
+                    <SubmitChallenge onCodeRun={()=>onCodeRun()} executionMessage={executionMessage}/>
                 </div>
             </div>:null}
         </div>

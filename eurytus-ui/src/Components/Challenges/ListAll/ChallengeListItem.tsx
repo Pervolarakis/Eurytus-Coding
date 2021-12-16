@@ -26,7 +26,7 @@ const ChallengeListItem = ({name, description, difficulty, language, id}: Challe
     },[difficulty])
 
     return(
-        <div className="w-full h-48 md:h-24 rounded-lg shadow-lg border p-3 overflow-hidden flex flex-col md:flex-row">
+        <div className="w-full h-48 md:h-36 rounded-lg shadow-lg border-2 p-3 overflow-hidden flex flex-col md:flex-row">
             <div className="w-full md:w-3/4 flex flex-col items-start overflow-hidden">
                 <div className="flex justify-between w-full">
                     <h1 className="font-bold capitalize text-xl">{name}</h1>
@@ -39,7 +39,7 @@ const ChallengeListItem = ({name, description, difficulty, language, id}: Challe
                 </div>
                 <p className="text-left">{description}</p>
             </div>
-            <div className="w-full md:w-1/4 flex justify-between items-center md:justify-center mt-3">
+            <div className="w-full md:w-1/4 flex justify-between items-center md:justify-center mt-auto md:m-auto">
                 <div className="flex md:hidden">
                     <h1 className="font-bold capitalize">{language}</h1>
                     <div className="flex gap-1 items-center ml-4">

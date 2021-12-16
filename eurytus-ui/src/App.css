@@ -34,6 +34,10 @@ html, body, #root {
   color: #61dafb;
 }
 
+#solvechallenge{
+  height: calc(100% - 80px);
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

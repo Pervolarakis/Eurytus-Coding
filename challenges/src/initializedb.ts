@@ -81,7 +81,7 @@ export const initializeDb = async () => {
                 ]
             }),
             language: "java",
-            template: JSON.stringify(`class Solution {}`),
+            template: `class Solution {}`,
             expectedStructure: '[{"blockType":"Base","expanded":true,"children":[{"title":"Interface","className":"furnitureFactory","blockType":"interface","superClass":"","modifiers":[\"abstract interface\"],"expanded":true,"children":[{"title":"Method","blockType":"method","modifiers":[\"public\"],"parameters":"","returnType":"Furniture","name":"getFurniture"}]},{"title":"Class","blockType":"class","modifiers":[],"className":"factorySubClass","superClass":"","name":"","interfaces":"","expanded":true,"children":[{"title":"Implements","blockType":"implements","className":"furnitureFactory","expanded":true},{"title":"Method","blockType":"method","modifiers":[\"public\"],"parameters":"","returnType":"Furniture","name":"getFurniture"}]},{"title":"Interface","className":"Furniture","blockType":"interface","superClass":"","modifiers":[\"abstract interface\"]},{"title":"Class","blockType":"class","modifiers":[],"className":"Chair","superClass":"","name":"","interfaces":"","expanded":true,"children":[{"title":"Implements","blockType":"implements","className":"Furniture"}]}]}]',
             expectedDesignPatterns: []
         },
@@ -113,7 +113,7 @@ export const initializeDb = async () => {
             }),
             language: "java",
             expectedStructure: '',
-            template: JSON.stringify(`class Solution {}`),
+            template: `class Solution {}`,
             expectedDesignPatterns: ['factory']
         },
         {
@@ -168,7 +168,7 @@ export const initializeDb = async () => {
                 ]
             }),
             expectedStructure: '',
-            template: JSON.stringify(`class Solution {}`),
+            template: `class Solution {}`,
             expectedDesignPatterns: [],
             language: "java"
         },
