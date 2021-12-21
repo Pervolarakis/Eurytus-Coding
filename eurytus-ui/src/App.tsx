@@ -4,7 +4,7 @@ import Auth from './Components/Auth/Auth';
 import ListAll from './Components/Challenges/ListAll/ListAll';
 import SolveChallenge from './Components/Challenges/SolveChallenge/SolveChallenge';
 import axios from 'axios';
-
+import CreateChallenge from './Components/Challenges/CreateChallenge/CreateChallenge';
 
 import {
   Routes,
@@ -33,6 +33,7 @@ function App() {
             <Routes>
               <Route path="/challenges" element={<ListAll />}/>
               <Route path="/solve/:challengeId" element={<SolveChallenge />}/>
+              <Route path="/createchallenge" element={<CreateChallenge />}/>
             </Routes>:
             <Routes>
               <Route path="/auth" element={<Auth />}/>
