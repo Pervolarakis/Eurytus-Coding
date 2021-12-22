@@ -1,0 +1,158 @@
+.constructor div {
+    font-family: sans-serif;
+    text-align: center;
+    color: white;
+    background-color: #FF7435 !important;
+    border-radius: 10px;
+}
+  
+.class div {
+  font-family: sans-serif;
+  text-align: center;
+  color: white;
+  background-color: #D82735 !important;
+  border-radius: 10px;
+}
+
+.method div {
+  font-family: sans-serif;
+  text-align: center;
+  color: white;
+  background-color: #0079e7 !important;
+  border-radius: 10px;
+}
+
+.field div {
+  font-family: sans-serif;
+  text-align: center;
+  color: white;
+  background-color: #009E37 !important;
+  border-radius: 10px;
+}
+
+.implements div {
+  font-family: sans-serif;
+  text-align: center;
+  color: white;
+  background-color: #7D3CB5 !important;
+  border-radius: 10px;
+}
+
+.interface div {
+  font-family: sans-serif;
+  text-align: center;
+  color: white;
+  background-color: rgb(194, 63, 118) !important;
+  border-radius: 10px;
+}
+
+.argument div {
+  font-family: sans-serif;
+  text-align: center;
+  color: white;
+  background-color: #996017 !important;
+  border-radius: 10px;
+}
+
+.argument div input{
+  color: black !important;
+  font-family: sans-serif;
+  text-align: center;
+  margin-left: 5px;
+  background-color: white !important;
+  border-radius: 5px;
+}
+
+.interface div input{
+  color: black !important;
+  font-family: sans-serif;
+  text-align: center;
+  margin-left: 5px;
+  background-color: white !important;
+  border-radius: 5px;
+}
+
+.implements div input{
+  color: black !important;
+  font-family: sans-serif;
+  text-align: center;
+  margin-left: 5px;
+  background-color: white !important;
+  border-radius: 5px;
+}
+
+.field div input{
+  color: black !important;
+  font-family: sans-serif;
+  text-align: center;
+  margin-left: 5px;
+  background-color: white !important;
+  border-radius: 5px;
+}
+
+.field div select{
+  color: black !important;
+  font-size: 1.1rem;
+  font-family: sans-serif;
+  text-align: center;
+  margin-left: 5px;
+  background-color: white !important;
+  border-radius: 5px;
+}
+
+.class div input{
+  color: black !important;
+  font-family: sans-serif;
+  text-align: center;
+  margin-left: 5px;
+  background-color: white !important;
+  border-radius: 5px;
+}
+
+.class div select{
+  color: black !important;
+  font-size: 1.1rem;
+  font-family: sans-serif;
+  text-align: center;
+  margin-left: 5px;
+  background-color: white !important;
+  border-radius: 5px;
+}
+
+.constructor div input{
+  color: black !important;
+  font-family: sans-serif;
+  text-align: center;
+  margin-left: 5px;
+  background-color: white !important;
+  border-radius: 5px;
+}
+
+.constructor div select{
+  color: black !important;
+  font-size: 1.1rem;
+  font-family: sans-serif;
+  text-align: center;
+  margin-left: 5px;
+  background-color: white !important;
+  border-radius: 5px;
+}
+
+.method div input{
+  color: black !important;
+  font-family: sans-serif;
+  text-align: center;
+  margin-left: 5px;
+  background-color: white !important;
+  border-radius: 5px;
+}
+
+.method div select{
+  color: black !important;
+  font-size: 1.1rem;
+  font-family: sans-serif;
+  text-align: center;
+  margin-left: 5px;
+  background-color: white !important;
+  border-radius: 5px;
+}

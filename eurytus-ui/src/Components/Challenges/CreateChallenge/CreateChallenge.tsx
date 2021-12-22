@@ -1,8 +1,14 @@
 import { Tab } from '@headlessui/react'
+import { useState } from 'react'
+import Ide from '../../Ide/Ide'
+import ClassBuilder from '../../ClassBuilder/ClassBuilder'
 
 const CreateChallenge = () => {
+
+    const [template, setTemplate] = useState('')
+
     return(
-        <div>
+        <div className='h-full'>
             <div className='bg-black flex justify-between items-center h-12 p-4'>
                 <h1 className="text-white text-2xl font-bold">Create Challenge</h1>
                 <button className="h-10 bg-yellow-300 w-40 text-2xl font-bold text-white rounded-lg">Submit</button>
@@ -17,9 +23,9 @@ const CreateChallenge = () => {
                             <Tab className="bg-yellow-300 flex-1">Tab 2</Tab>
                             <Tab className="bg-yellow-300 flex-1">Tab 3</Tab>
                         </Tab.List>
-                        <Tab.Panels>
-                            <Tab.Panel>Content 1</Tab.Panel>
-                            <Tab.Panel>Content 2</Tab.Panel>
+                        <Tab.Panels className="h-full mt-2">
+                            <Tab.Panel className="h-full"><Ide value={template} changeValue={(e)=>setTemplate(e)} language='java'/></Tab.Panel>
+                            <Tab.Panel><ClassBuilder/></Tab.Panel>
                             <Tab.Panel>Content 3</Tab.Panel>
                         </Tab.Panels>
                     </Tab.Group>

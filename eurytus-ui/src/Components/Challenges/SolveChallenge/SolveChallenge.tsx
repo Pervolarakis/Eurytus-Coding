@@ -25,7 +25,7 @@ const SolveChallenge = () => {
 
     useEffect(()=>{
         axios.get(`http://eurytus.com/api/v1/challenges/${challengeId}`)
-            .then((res)=>{setChallenge(res.data.data);setIdeValue(res.data.data.template)})
+            .then((res)=>{setChallenge(res.data.data);setIdeValue(JSON.parse(res.data.data.template))})
     },[challengeId])
 
     const onCodeRun = () => {
