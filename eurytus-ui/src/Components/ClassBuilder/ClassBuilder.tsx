@@ -1,4 +1,4 @@
-import "./ClassBuilder.css";
+// import "./ClassBuilder.css";
 import SortableTree, { changeNodeAtPath, removeNodeAtPath, TreeItem } from "react-sortable-tree";
 import { Children, useEffect, useState } from "react";
 import 'react-sortable-tree/style.css';
@@ -99,10 +99,9 @@ const ClassBuilder = () => {
         
         return connectDragSource(
         <div
-            className={node.blockType}
-            style={{flex: 1, margin: '4px'}}
+            className={`${node.blockType!=='constructor'?node.blockType:'constr'} draggableBlock flex-1 m-1`}
         >
-            <div style={{height: '48px', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+            <div className="h-12 flex justify-center items-center">
             {node.title}
             </div>
             
@@ -159,8 +158,8 @@ const ClassBuilder = () => {
         <>
             <div>
             <DndProvider backend={HTML5Backend}>
-                <div style={{display: 'flex', flexDirection: 'column'}}>
-                    <div style={{height: '100%', width: '100%', display: 'flex'}}>
+                <div className="flex flex-col">
+                    <div className="h-full w-full flex">
                         <YourExternalNodeComponent node={{ title: "Class", blockType: "class", modifiers: "[]", className: "", superClass: "",name: "", interfaces: ""}}/>
                         <YourExternalNodeComponent node={{ title: "Constructor", blockType: "constructor",parameters: "",modifiers:'["public"]' }} />
                         <YourExternalNodeComponent node={{ title: "Method", blockType: "method",modifiers: '["private", "static"]', parameters: "", returnType: "", name: "" }} />
@@ -169,7 +168,7 @@ const ClassBuilder = () => {
                         <YourExternalNodeComponent node={{ title: "Interface", className: "", blockType: "interface", superClass: "", modifiers: '["abstract interface"]'}} /> 
                         <YourExternalNodeComponent node={{ title: "Argument", name: "", blockType: "argument"}} />                 
                     </div>
-                    <div style={{ height: 300 }} className="pipis">
+                    <div className="h-80">
                     <SortableTree
                         treeData={treeData}
                         dndType={externalNodeType}
@@ -184,7 +183,7 @@ const ClassBuilder = () => {
                             return false;
                         }}
                         generateNodeProps={({ node, path }) => ({
-                        className: node.blockType,
+                        className: `${node.blockType!=='constructor'?node.blockType:'constr'} draggableBlock`,
                         
                         title: getBlock(node, path, node.blockType),
                         buttons: (node.blockType!=='Base')?[

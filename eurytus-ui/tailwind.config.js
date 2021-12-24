@@ -15,7 +15,14 @@ module.exports = {
           'class2-right': '#E4B726',
           'class3-left': '#2031FF',
           'class3-right': '#07B8FA'
-        }
+        },
+        constructor: '#FF7435',
+        class: '#D82735',
+        method: '#0079e7',
+        field: '#009E37',
+        implements: '#7D3CB5',
+        interface: 'rgb(194, 63, 118)',
+        argument: '#996017'
       }
     },
   },
