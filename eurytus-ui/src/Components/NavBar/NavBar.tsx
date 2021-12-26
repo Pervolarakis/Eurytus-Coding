@@ -69,7 +69,7 @@ const NavBar = () => {
                     <div className="flex space-x-4 h-full">
                       {navigation.map((item) => (
                         <div className={classNames(
-                            item.current ? 'border-b-4 border-secondary' : '',
+                            item.current ? 'border-b-4 border-secondary' : 'border-b-4 border-primary',
                             'flex flex-wrap content-center h-full'
                           )} key={item.name}>
                         <a

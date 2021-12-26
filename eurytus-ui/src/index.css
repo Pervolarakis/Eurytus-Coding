@@ -20,10 +20,10 @@
         @apply font-sans text-center rounded-lg text-white
     }
     .draggableBlock div input{
-        @apply text-black font-sans text-center ml-1 bg-white rounded-md
+        @apply text-black font-sans text-center mx-1 bg-white rounded-md
     }
     .draggableBlock div select{
-        @apply text-black text-lg font-sans text-center ml-1 bg-white rounded-md
+        @apply text-black text-lg font-sans text-center mx-1 bg-white rounded-md
     }
     .Base div {
         @apply text-black

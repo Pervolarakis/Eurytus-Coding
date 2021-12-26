@@ -15,69 +15,13 @@ import InterfaceBlock from "./Blocks/InterfaceBlock";
 import ArgumentBlock from "./Blocks/argumentBlock";
 
 
-const ClassBuilder = () => {
+interface ClassBuilderProps {
+    treeData: TreeItem[],
+    setTreeData: (val: React.SetStateAction<TreeItem[]>)=>void
+}
 
-    const [treeData, setTreeData] = useState<TreeItem[]>([
-        {
-            blockType: "Base",
-            expanded: true,
-            children: [{
-                modifiers: '[]',
-                className: "",
-                blockType: "class",
-                superClass: "",
-                interfaces: [],
-                expanded: true,
-                children: [
-                {
-                    className: "",
-                    blockType: "implements"
-                },
-                {
-                    name: "",
-                    blockType: "field",
-                    modifiers: '["public"]',
-                    type: ""
-                },
-                {
-                    name: "",
-                    blockType: "field",
-                    modifiers: '["public"]',
-                    type: ""
-                },
-                {
-                    parameters: "",
-                    blockType: "constructor",
-                    modifiers: '["public"]',
-                    expanded: true,
-                    children: [{
-                        name: "",
-                        blockType: "argument"}
-                    ]
-                },
-                {
-                    modifiers: '["public"]',
-                    name: "",
-                    returnType: "",
-                    blockType: "method",
-                    parameters: "",
-                    expanded: true,
-                    children: [{
-                    name: "",
-                    blockType: "argument"}
-                    ]
-                },
-                { name: "", blockType: "method", modifiers: '["public", "static"]',returnType: "", parameters: "", expanded: true, children: [{
-                    name: "",
-                    blockType: "argument"}
-                    ]}]
-        
-            },{
-                className: "",
-                blockType: "interface",
-                superClass: "",
-                modifiers: '["abstract interface"]'
-            }]}])
+const ClassBuilder = ({treeData, setTreeData}: ClassBuilderProps) => {
+
     const externalNodeType = "yourNodeType";
 
     const externalNodeSpec = {
@@ -96,24 +40,24 @@ const ClassBuilder = () => {
     });
     const getNodeKey = ({ treeIndex }:any) => treeIndex;
     const externalNodeBaseComponent = ({ connectDragSource, node }:any) => {
-        
         return connectDragSource(
-        <div
-            className={`${node.blockType!=='constructor'?node.blockType:'constr'} draggableBlock flex-1 m-1`}
-        >
-            <div className="h-12 flex justify-center items-center">
-            {node.title}
-            </div>
-            
-        </div>,
-        { dropEffect: "copy" }
+            <div
+                className={`${node.blockType!=='constructor'?node.blockType:'constr'} draggableBlock flex-1 m-1`}
+            >
+                <div className="h-12 flex justify-center items-center">
+                {node.title}
+                </div>
+                
+            </div>,
+            { dropEffect: "copy" }
         );
         
-        }
-        externalNodeBaseComponent.propTypes = {
+    }
+
+    externalNodeBaseComponent.propTypes = {
         node: PropTypes.shape({ title: PropTypes.string }).isRequired,
         connectDragSource: PropTypes.func.isRequired
-        };
+    };
     
     const YourExternalNodeComponent = DragSource(
         externalNodeType,
@@ -145,14 +89,6 @@ const ClassBuilder = () => {
         }
         return <ConstructorBlock node={node} path={path} setTreeData={(data: TreeItem[])=>setTreeData(data)} treeData={treeData}/>
     }
-
-
-    const transformData = () => {
-        console.log(JSON.stringify(treeData).replaceAll("\"[\\\"","[\\\"").replaceAll("\\\"]\"","\\\"]").replaceAll("\" ","\"").replaceAll(" \"","\"").replaceAll("\"[]\"","[]"));
-    }
-
-    useEffect(()=>{transformData()},[treeData])
-
 
     return(
         <>
