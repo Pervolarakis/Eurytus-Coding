@@ -1,5 +1,6 @@
 module.exports = {
-  purge: ['./src/**/*.{js,jsx,ts,tsx}', './public/index.html'],
+  mode: 'jit',
+  purge: ['./src/**/*.{js,jsx,ts,tsx}', './public/**/*.html'],
   darkMode: false, // or 'media' or 'class'
   theme: {
     extend: {
@@ -16,7 +17,7 @@ module.exports = {
           'class3-left': '#2031FF',
           'class3-right': '#07B8FA'
         },
-        constructor: '#FF7435',
+        constru: '#FF7435',
         class: '#D82735',
         method: '#0079e7',
         field: '#009E37',

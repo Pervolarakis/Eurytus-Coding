@@ -28,8 +28,8 @@
     .Base div {
         @apply text-black
     }
-    .constr div {
-        @apply bg-constructor
+    .construBlock div {
+        @apply bg-constru
     }  
     .class div {
         @apply bg-class

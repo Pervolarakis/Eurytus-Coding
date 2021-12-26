@@ -42,7 +42,7 @@ const ClassBuilder = ({treeData, setTreeData}: ClassBuilderProps) => {
     const externalNodeBaseComponent = ({ connectDragSource, node }:any) => {
         return connectDragSource(
             <div
-                className={`${node.blockType!=='constructor'?node.blockType:'constr'} draggableBlock flex-1 m-1`}
+                className={`${node.blockType!=='constructor'?node.blockType:'construBlock'} draggableBlock flex-1 m-1`}
             >
                 <div className="h-12 flex justify-center items-center">
                 {node.title}
@@ -119,7 +119,7 @@ const ClassBuilder = ({treeData, setTreeData}: ClassBuilderProps) => {
                             return false;
                         }}
                         generateNodeProps={({ node, path }) => ({
-                        className: `${node.blockType!=='constructor'?node.blockType:'constr'} draggableBlock`,
+                        className: `${node.blockType!=='constructor'?node.blockType:'construBlock'} draggableBlock`,
                         
                         title: getBlock(node, path, node.blockType),
                         buttons: (node.blockType!=='Base')?[
