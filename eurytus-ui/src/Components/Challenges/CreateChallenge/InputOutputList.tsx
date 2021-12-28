@@ -61,7 +61,7 @@ const InputOutputList = ({testList, setTestList}: InputOutputListProps) => {
                     </div>
                 )
             })}
-            <button className="bg-primary text-white text-xl font-bold py-2 px-4 rounded mt-4" onClick={()=>addNewTest()}>Add More</button>
+            <button className="bg-primary text-white text-xl font-bold py-2 px-4 rounded mt-4 focus:ring focus:ring-primary" onClick={()=>addNewTest()}>Add More</button>
         </div>
     )
 }

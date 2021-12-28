@@ -15,7 +15,7 @@ const Ide = ({language, value, changeValue}: IdeProps) => {
             theme = "vs-dark"
             value={value}
             onChange={(e)=>changeValue(e!)}
-            height="83%"
+            height="95%"
         />
     )
 }

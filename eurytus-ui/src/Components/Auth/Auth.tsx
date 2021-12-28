@@ -29,7 +29,7 @@ function Auth() {
 
   return (
     <div className="flex justify-center flex-column align-middle mt-6">
-      <div className="bg-white hidden shadow-xl max-h-[600px] m-auto w-6/12 xl:w-8/12 2xl:w-7/12 lg:w-9/12 md:w-11/12 md:flex justify-center flex-column relative align-middle rounded-2xl overflow-hidden">
+      <div className="bg-white hidden shadow-xl max-h-[600px] m-auto w-6/12 xl:w-8/12 2xl:w-7/12 3xl:w-6/12 lg:w-9/12 md:w-11/12 md:flex justify-center flex-column relative align-middle rounded-2xl overflow-hidden">
         <div className={`w-2/4 py-14 px-7 ${rightPanelActive? 'transform -translate-x-0 duration-500 z-10': 'transform translate-x-full duration-500 opacity-0 z-0'}`}>
           <SignInForm logInMail={logInMail} logInPass={logInPass} setLogInMail={(mail)=> setLogInMail(mail)} setLogInPass={(pass)=> setLogInPass(pass)} logIn={logIn}/>
         </div>

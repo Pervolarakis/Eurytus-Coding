@@ -33,9 +33,10 @@ function App() {
             <Routes>
               <Route path="/challenges" element={<ListAll />}/>
               <Route path="/solve/:challengeId" element={<SolveChallenge />}/>
-              <Route path="/createchallenge" element={<CreateChallenge />}/>
+              
             </Routes>:
             <Routes>
+              <Route path="/createchallenge" element={<CreateChallenge />}/>
               <Route path="/auth" element={<Auth />}/>
             </Routes>
           }

@@ -36,6 +36,8 @@ html, body, #root {
 
 #solvechallenge{
   height: calc(100% - 80px);
+  display: flex;
+  flex-direction: column;
 }
 
 @keyframes App-logo-spin {
