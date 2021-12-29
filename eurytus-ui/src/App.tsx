@@ -32,11 +32,10 @@ function App() {
             (user)?
             <Routes>
               <Route path="/challenges" element={<ListAll />}/>
+              <Route path="/createchallenge" element={<CreateChallenge />}/>
               <Route path="/solve/:challengeId" element={<SolveChallenge />}/>
-              
             </Routes>:
             <Routes>
-              <Route path="/createchallenge" element={<CreateChallenge />}/>
               <Route path="/auth" element={<Auth />}/>
             </Routes>
           }

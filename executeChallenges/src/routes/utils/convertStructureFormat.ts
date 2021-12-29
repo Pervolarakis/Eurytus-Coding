@@ -1,5 +1,5 @@
 export const convertStructureFormat = (treeDataArg: any) => {
-    const treeData = JSON.parse(treeDataArg);
+    const treeData = JSON.parse(treeDataArg.replaceAll('\\\"','\"'));
     // console.log(treeData.replaceAll("\"[\"","[\"").replaceAll("\"]\"","\"]").replaceAll("\" ","\"").replaceAll(" \"","\""));
     let tempClass = [];
     for(let el in treeData[0].children){
