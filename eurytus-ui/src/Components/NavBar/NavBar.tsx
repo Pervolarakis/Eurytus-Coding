@@ -4,12 +4,12 @@ import { MenuIcon, XIcon } from '@heroicons/react/outline'
 import { createAvatar } from '@dicebear/avatars';
 import * as style from '@dicebear/avatars-gridy-sprites';
 import { UserContext } from '../../Contexts/UserContext';
-
+import { NavLink } from 'react-router-dom';
 
 const navigation = [
-    { name: 'Practice', href: '#', current: true },
-    { name: 'Create Exam', href: '#', current: false },
-    { name: 'Join Exam', href: '#', current: false },
+    { name: 'Practice', href: '/challenges', current: true },
+    { name: 'Create Exam', href: '/createchallenge', current: false },
+    { name: 'Join Exam', href: '/joinchallenge', current: false },
   ]
 
 function classNames(...classes: string[]) {
@@ -68,24 +68,15 @@ const NavBar = () => {
                   <div className="hidden sm:block sm:ml-6">
                     <div className="flex space-x-4 h-full">
                       {navigation.map((item) => (
-                        <div className={classNames(
-                            item.current ? 'border-b-4 border-secondary' : 'border-b-4 border-primary',
-                            'flex flex-wrap content-center h-full'
-                          )} key={item.name}>
-                        <a
-                          
-                          href={item.href}
-                          className={classNames(
-                            item.current ? ' text-white font-bold' : 'text-gray-300 hover:bg-gray-700 hover:text-white font-bold',
-                            'text-md font-medium'
-                          )}
-                          aria-current={item.current ? 'page' : undefined}
+                        <NavLink
+                          to={item.href}
+                          className={({ isActive }) =>
+                            isActive ? ' text-white font-bold border-b-4 border-secondary flex flex-wrap content-center h-full' : 'border-b-4 border-primary text-gray-300 hover:bg-gray-700 hover:text-white font-bold flex flex-wrap content-center h-full'
+                          }
                         >
                           {item.name}
                           
-                        </a>
-                        
-                        </div>
+                        </NavLink>
                       ))}
                     </div>
                   </div>

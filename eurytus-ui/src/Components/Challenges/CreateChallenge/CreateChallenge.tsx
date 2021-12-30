@@ -104,7 +104,7 @@ const CreateChallenge = () => {
                             }>Input Output</Tab>
                         </Tab.List>
                         <Tab.Panels className="h-full">
-                            <Tab.Panel className="h-full"><Ide value={template} changeValue={(e)=>setTemplate(e)} language='java'/></Tab.Panel>
+                            <Tab.Panel className="h-full overflow-y-hidden"><Ide value={template} changeValue={(e)=>setTemplate(e)} language='java'/></Tab.Panel>
                             <Tab.Panel className="h-full overflow-y-scroll"><ClassBuilder treeData={classDiagram} setTreeData={(val)=>setClassDiagram(val)}/></Tab.Panel>
                             <Tab.Panel className="h-full overflow-y-scroll"><InputOutputList testList={inputTests} setTestList={(val)=>setInputTests(val)}/></Tab.Panel>
                         </Tab.Panels>

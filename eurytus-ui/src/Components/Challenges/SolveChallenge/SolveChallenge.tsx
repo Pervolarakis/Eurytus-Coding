@@ -41,8 +41,13 @@ const SolveChallenge = () => {
             <div className="flex w-full h-full ">
                 <ChallengeDescription name={challenge.name} description={challenge.description} difficulty={challenge.difficulty} language={challenge.language}/>
                 <div className="w-4/6">
-                    <Ide language={(challenge.language==='js')?'javascript':challenge.language} value={ideValue} changeValue={(val)=>setIdeValue(val)}/>
-                    <SubmitChallenge onCodeRun={()=>onCodeRun()} executionMessage={executionMessage}/>
+                    <div className="h-5/6">
+                        <Ide language={(challenge.language==='js')?'javascript':challenge.language} value={ideValue} changeValue={(val)=>setIdeValue(val)}/>
+                    </div>
+                    <div className="h-1/6">
+                        <SubmitChallenge onCodeRun={()=>onCodeRun()} executionMessage={executionMessage}/>
+                    </div>
+                    
                 </div>
             </div>:null}
         </div>

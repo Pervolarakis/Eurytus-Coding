@@ -45,7 +45,7 @@ const InputOutputList = ({testList, setTestList}: InputOutputListProps) => {
         <div className="h-full w-full flex items-center flex-col">
             {testList["challenge"].map((el, index)=>{
                 return(
-                    <div className="w-10/12 h-40 bg-white rounded-xl p-5 flex flex-col" key={index}>
+                    <div className="w-10/12 h-40 bg-white rounded-xl p-5 flex flex-col mt-4" key={index}>
                         <div className="flex justify-between">
                             <h1 className="font-bold text-xl">Test {index+1}</h1>
                             <RiDeleteBin6Line
@@ -61,7 +61,7 @@ const InputOutputList = ({testList, setTestList}: InputOutputListProps) => {
                     </div>
                 )
             })}
-            <button className="bg-primary text-white text-xl font-bold py-2 px-4 rounded focus:ring focus:ring-primary" onClick={()=>addNewTest()}>Add More</button>
+            <button className="bg-primary text-white text-xl my-4 font-bold py-2 px-4 rounded focus:ring focus:ring-primary" onClick={()=>addNewTest()}>Add More</button>
         </div>
     )
 }
