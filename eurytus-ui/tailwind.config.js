@@ -17,6 +17,9 @@ module.exports = {
           'class3-left': '#2031FF',
           'class3-right': '#07B8FA'
         },
+        basicColor1: '#6B58E4',
+        basicColor2: '#E4587E',
+        basicColor3: '#E4D358',
         constru: '#FF7435',
         class: '#D82735',
         method: '#0079e7',

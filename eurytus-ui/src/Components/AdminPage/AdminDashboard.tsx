@@ -1,6 +1,9 @@
 import { NavLink } from "react-router-dom";
 import ChallengesTable from "./Tables/ChallengesTable";
 import PendingRequestsTable from "./Tables/PendingRequestsTable";
+import {MdPendingActions} from 'react-icons/md'
+import {HiOutlineDocumentReport} from 'react-icons/hi'
+import {AiOutlineFileDone} from 'react-icons/ai'
 
 const AdminDashboard = () => {
     const challenges = [
@@ -72,16 +75,37 @@ const AdminDashboard = () => {
 
     return(
         <div>
-            <div className="flex justify-between">
-                <div className="h-36 w-1/4 bg-white rounded-md shadow">
-                    <h1>Pending Requests</h1>
+            <div className="flex justify-between gap-16">
+                <div className="h-36 w-1/3 bg-white rounded-md shadow p-4 px-7">
+                    <div className="flex">
+                        <MdPendingActions 
+                            size={80}
+                            className="text-basicColor1"
+                        />
+                        <h1 className="flex-grow my-auto text-3xl font-bold">{requests.length}</h1>
+                    </div>
+                    <h1 className="text-basicColor1 font-bold text-xl text-left ml-3">Pending Requests</h1>
                 </div>
-                <div className="h-36 w-1/4 bg-white rounded-md shadow">
-                    <h1>Challenges Completed</h1>
+                <div className="h-36 w-1/3 bg-white rounded-md shadow p-4 px-7">
+                    <div className="flex">
+                        <AiOutlineFileDone 
+                            size={80}
+                            color="#E4587E"
+                        />
+                        <h1 className="flex-grow my-auto text-3xl font-bold">{challenges.length}</h1>
+                    </div>
+                    <h1 className="text-basicColor2 font-bold text-xl text-left ml-3">Challenges Completed</h1>
                 </div>
-                <div className="h-36 w-1/4 bg-white rounded-md shadow">
-                    <h1>Pending Requests</h1>
-                </div>
+                <div className="h-36 w-1/3 bg-white rounded-md shadow p-4 px-7">
+                    <div className="flex">
+                        <HiOutlineDocumentReport 
+                            size={80}
+                            className="text-basicColor3"
+                        />
+                        <h1 className="flex-grow my-auto text-3xl font-bold">{requests.length}</h1>
+                    </div>
+                    <h1 className="text-basicColor3 font-bold text-xl text-left ml-3">New Challenges</h1>
+                </div>         
             </div>
             <div className="flex flex-col">
                 <div className="flex justify-between items-center mt-6">
@@ -94,7 +118,7 @@ const AdminDashboard = () => {
                     <h1 className="text-lg font-semibold">Challenges</h1>
                     <NavLink to="/admin/requests" className="text-indigo-600">All Challenges</NavLink>
                 </div>
-                <ChallengesTable challenges={challenges}/>
+                <ChallengesTable challenges={challenges} fixed={true}/>
                 
             </div>
         </div>
