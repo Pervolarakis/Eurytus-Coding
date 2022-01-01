@@ -12,6 +12,10 @@ import {
 } from "react-router-dom";
 import { UserContext } from './Contexts/UserContext';
 import { useEffect, useState } from 'react';
+import AdminPage from './Components/AdminPage/AdminPage';
+import AdminDashboard from './Components/AdminPage/AdminDashboard';
+import AdminAllChallenges from './Components/AdminPage/AdminAllChallenges';
+import AdminPendingRequests from './Components/AdminPage/AdminPendingRequests';
 
 axios.defaults.withCredentials = true;
 
@@ -34,10 +38,17 @@ function App() {
               <Route path="/challenges" element={<ListAll />}/>
               <Route path="/createchallenge" element={<CreateChallenge />}/>
               <Route path="/solve/:challengeId" element={<SolveChallenge />}/>
-            </Routes>:
+            </Routes>:<>
             <Routes>
               <Route path="/auth" element={<Auth />}/>
             </Routes>
+            <AdminPage>
+              <Routes>
+                <Route path="/admin" element={<AdminDashboard/>}/>
+                <Route path="/admin/challenges" element={<AdminAllChallenges/>}/>
+                <Route path="/admin/requests" element={<AdminPendingRequests/>}/>
+              </Routes>
+          </AdminPage></>
           }
       </UserContext.Provider>
     </div>
