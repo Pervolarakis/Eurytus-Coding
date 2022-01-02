@@ -3,7 +3,7 @@ import jsIcon from '../../../Assets/jsIcon.svg';
 import codeBrackets from '../../../Assets/codeBrackets.svg'
 import ChallengeListItem from './ChallengeListItem';
 import { useEffect, useState } from 'react';
-import axios from 'axios';
+import {axios} from '../../../Api/eurytusInstance';
 
 const ListAll = () => {
 
@@ -18,7 +18,7 @@ const ListAll = () => {
     const [challenges, setChallenges] = useState<challenge[]>();
 
     useEffect(()=>{
-        axios.get('http://eurytus.com/api/v1/challenges/')
+        axios.get('/challenges/')
         .then((res)=>setChallenges(res.data.data))
     },[])
 

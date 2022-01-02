@@ -1,4 +1,4 @@
-import axios from "axios";
+import {axios} from "../../../Api/eurytusInstance";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Ide from "../../Ide/Ide";
@@ -24,12 +24,12 @@ const SolveChallenge = () => {
     const [ executionMessage, setExecutionMessage ] = useState<executionMessage>();
 
     useEffect(()=>{
-        axios.get(`http://eurytus.com/api/v1/challenges/${challengeId}`)
+        axios.get(`/challenges/${challengeId}`)
             .then((res)=>{setChallenge(res.data.data);setIdeValue(JSON.parse(res.data.data.template))})
     },[challengeId])
 
     const onCodeRun = () => {
-        axios.post(`http://eurytus.com/api/v1/compile/challenge${challenge!.language}/${challengeId}`,{
+        axios.post(`/compile/challenge${challenge!.language}/${challengeId}`,{
             solution: JSON.stringify(ideValue)
         })
         .then((res)=>{setExecutionMessage(res.data)})

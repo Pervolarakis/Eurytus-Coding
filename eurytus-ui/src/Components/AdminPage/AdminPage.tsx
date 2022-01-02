@@ -1,4 +1,4 @@
-import axios from 'axios';
+import {axios} from '../../Api/eurytusInstance';
 import { useContext, useEffect, useState } from 'react';
 import { Outlet, NavLink } from 'react-router-dom';
 import { ChallengesContext } from '../../Contexts/ChallengesContext';
@@ -12,9 +12,9 @@ const AdminPage = () => {
     const [challenges,setChallenges] = useState(null)
 
     useEffect(()=>{
-        axios.get('http://eurytus.com/api/v1/moderate/requests')
+        axios.get('/moderate/requests')
             .then((res)=>setRequests(res.data.data||null))
-        axios.get('http://eurytus.com/api/v1/challenges/')
+        axios.get('/api/v1/challenges/')
             .then((res)=>setChallenges(res.data.data||null))
     },[])
 

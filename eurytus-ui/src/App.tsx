@@ -3,13 +3,9 @@ import NavBar from './Components/NavBar/NavBar';
 import Auth from './Components/Auth/Auth';
 import ListAll from './Components/Challenges/ListAll/ListAll';
 import SolveChallenge from './Components/Challenges/SolveChallenge/SolveChallenge';
-import axios from 'axios';
+import {axios} from './Api/eurytusInstance';
 import CreateChallenge from './Components/Challenges/CreateChallenge/CreateChallenge';
-
-import {
-  Routes,
-  Route
-} from "react-router-dom";
+import { Routes,Route } from "react-router-dom";
 import { UserContext } from './Contexts/UserContext';
 import { useEffect, useState } from 'react';
 import AdminPage from './Components/AdminPage/AdminPage';
@@ -17,14 +13,14 @@ import AdminDashboard from './Components/AdminPage/AdminDashboard';
 import AdminAllChallenges from './Components/AdminPage/AdminAllChallenges';
 import AdminPendingRequests from './Components/AdminPage/AdminPendingRequests';
 
-axios.defaults.withCredentials = true;
+
 
 function App() {
 
   const [user,setUser] = useState(null)
 
   useEffect(()=>{
-    axios.get('http://eurytus.com/api/v1/users/auth/currentuser')
+    axios.get('/users/auth/currentuser')
         .then((res)=>setUser(res.data.data||null))
   },[])
 

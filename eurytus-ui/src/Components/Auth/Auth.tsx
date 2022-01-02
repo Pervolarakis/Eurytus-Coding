@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import SignInForm from "./AuthForms/SignInForm";
 import SignUpForm from "./AuthForms/SignUpForm";
-import axios from "axios";
+import {axios} from '../../Api/eurytusInstance';
 import { UserContext } from "../../Contexts/UserContext";
 import {useNavigate} from 'react-router-dom'
 
@@ -15,13 +15,13 @@ function Auth() {
   const [logInPass, setLogInPass] = useState('');
 
   const logIn = () => {
-    axios.post('http://eurytus.com/api/v1/users/auth/login',{
+    axios.post('/users/auth/login',{
       email: logInMail,
       password: logInPass
     })
     .then((res)=>{
       // console.log(res)
-      axios.get('http://eurytus.com/api/v1/users/auth/currentuser')
+      axios.get('/users/auth/currentuser')
         .then((res)=>{setUser(res.data.data); navigate('/challenges')})
     })
     .catch((err)=>console.log(err))

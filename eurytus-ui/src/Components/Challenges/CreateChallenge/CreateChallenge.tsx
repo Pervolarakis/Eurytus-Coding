@@ -5,7 +5,7 @@ import ClassBuilder from '../../ClassBuilder/ClassBuilder'
 import InputOutputList from './InputOutputList'
 import {TreeItem } from "react-sortable-tree";
 import ChallengeDetails from './ChallengeDetails'
-import axios from 'axios';
+import {axios} from '../../../Api/eurytusInstance';
 
 interface challengeTest {
     input: string; 
@@ -64,7 +64,7 @@ const CreateChallenge = () => {
     },[challengeDetails.language])
 
     const createChallenge = () => {
-        axios.post('http://eurytus.com/api/v1/challenges/new', {
+        axios.post('/challenges/new', {
             ...challengeDetails,
             expectedOutputTests: JSON.stringify(inputTests),
             expectedStructure: transformData(),     
