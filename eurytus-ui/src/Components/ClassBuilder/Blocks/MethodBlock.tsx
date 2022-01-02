@@ -8,7 +8,7 @@ const MethodBlock = ({ node, path, setTreeData, treeData }: {node: TreeItem, pat
         <div>
             <form>
                 <select
-                    value={node.modifiers}
+                    value={(typeof(node.modifiers)=='string')?node.modifiers:JSON.stringify(node.modifiers)}
                     onChange={(event)=>{
                         const modifiers = event.target.value;
                         setTreeData(changeNodeAtPath({

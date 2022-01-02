@@ -1,6 +1,5 @@
-import { useState } from 'react';
 import DateTimePicker from 'react-datetime-picker';
-import { fieldType } from './CreateChallenge';
+import { fieldType } from './PreviewChallenge';
 
 interface ChallengeDetailsProps {
     challengeDetails: fieldType,
@@ -18,7 +17,7 @@ const ChallengeDetails = ({challengeDetails, updateField}: ChallengeDetailsProps
         }
         updateField({expectedDesignPatterns: patternsCopy})
     }
-
+    // console.log(typeof challengeDetails.isPublic)
     return(
         <div className="flex flex-col items-center h-full p-8">
             <div className="flex w-full justify-between">
@@ -40,7 +39,7 @@ const ChallengeDetails = ({challengeDetails, updateField}: ChallengeDetailsProps
             </div>
             <div className="flex w-full justify-between mt-4">
                 <div className="flex items-center">
-                    <input type="checkbox" className='h-5 w-5' onChange={(e)=>updateField({isPublic: !challengeDetails.isPublic})} checked={challengeDetails.isPublic}/>
+                    <input type="checkbox" className='h-5 w-5' onChange={(e)=>updateField({isPublic: !challengeDetails.isPublic})} checked={((typeof(challengeDetails.isPublic)=='string')?(challengeDetails.isPublic==='true'):challengeDetails.isPublic)}/>
                     <h1 className="text-lg font-semibold ml-4">Public</h1>
                 </div>
                 <div className="flex items-center">
@@ -58,7 +57,7 @@ const ChallengeDetails = ({challengeDetails, updateField}: ChallengeDetailsProps
                 <div className="flex items-center">
                     <h1 className="text-lg font-semibold mr-4">Start Date</h1>
                     <DateTimePicker
-                        disabled={challengeDetails.isPublic}
+                        disabled={((typeof(challengeDetails.isPublic)=='string')?(challengeDetails.isPublic==='true'):challengeDetails.isPublic)}
                         onChange={(val)=>updateField({startsAt: val})}
                         value={challengeDetails.startsAt}
                     />
@@ -66,7 +65,7 @@ const ChallengeDetails = ({challengeDetails, updateField}: ChallengeDetailsProps
                 <div className="flex items-center">
                     <h1 className="text-lg font-semibold mr-4">End Date</h1>
                     <DateTimePicker
-                        disabled={challengeDetails.isPublic}
+                        disabled={((typeof(challengeDetails.isPublic)=='string')?(challengeDetails.isPublic==='true'):challengeDetails.isPublic)}
                         onChange={(val)=>updateField({expiresAt: val})}
                         value={challengeDetails.expiresAt}
                     />

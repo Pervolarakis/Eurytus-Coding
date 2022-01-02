@@ -13,8 +13,6 @@ const TablePagination = ({totalRows, currentPage, rowsPerPage, setCurrentPage}: 
     const firstRowIndex = (currentPage-1)*rowsPerPage
     const finalPage = Math.ceil(totalRows/rowsPerPage);
 
-    console.log(finalPage)
-
     return(
         <div className="flex justify-between h-6 sm:px-6 lg:px-8 items-center">
             <p className="text-base text-gray-700">

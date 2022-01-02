@@ -13,7 +13,7 @@ router.post('/api/v1/challenges/new', requireAuth,  createChallengeSchema, valid
     const {name, description, difficulty, isPublic, startsAt, expiresAt, expectedOutputTests, expectedStructure, expectedDesignPatterns, language, template} = req.body;
     
     try{
-        
+        // console.log(req.body)
         if(req.currentUser!.role !== 'admin' && isPublic==="true"){
             console.log("edo")
             const message = req.body.message;

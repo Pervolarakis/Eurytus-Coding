@@ -12,6 +12,7 @@ import AdminPage from './Components/AdminPage/AdminPage';
 import AdminDashboard from './Components/AdminPage/AdminDashboard';
 import AdminAllChallenges from './Components/AdminPage/AdminAllChallenges';
 import AdminPendingRequests from './Components/AdminPage/AdminPendingRequests';
+import PreviewCreateChallengeRequest from './Components/AdminPage/ModerateChallenges/PreviewCreateChallengeRequest';
 
 
 
@@ -39,6 +40,7 @@ function App() {
                 <Route path="/admin" element={<AdminDashboard/>}/>
                 <Route path="/admin/requests" element={<AdminPendingRequests/>}/>
               </Route>
+              <Route path="/admin/review/create/:requestId" element={<PreviewCreateChallengeRequest/>}/>
             </Routes>:<>
             <Routes>
               <Route path="/auth" element={<Auth />}/>

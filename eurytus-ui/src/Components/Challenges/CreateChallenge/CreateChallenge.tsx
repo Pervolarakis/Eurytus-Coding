@@ -1,27 +1,9 @@
-import { Tab } from '@headlessui/react'
 import { useEffect, useState } from 'react'
-import Ide from '../../Ide/Ide'
-import ClassBuilder from '../../ClassBuilder/ClassBuilder'
-import InputOutputList from './InputOutputList'
 import {TreeItem } from "react-sortable-tree";
-import ChallengeDetails from './ChallengeDetails'
 import {axios} from '../../../Api/eurytusInstance';
+import PreviewChallenge from '../PreviewChallenge/PreviewChallenge'
+import {challengeTest, fieldType} from '../PreviewChallenge/PreviewChallenge';
 
-interface challengeTest {
-    input: string; 
-    output: string
-}
-
-export interface fieldType {
-    name: string,
-    description: string,
-    difficulty: number,
-    startsAt: Date,
-    isPublic: boolean,
-    expiresAt: Date,
-    language: string,
-    expectedDesignPatterns: string[]
-}
 
 const CreateChallenge = () => {
 
@@ -69,8 +51,9 @@ const CreateChallenge = () => {
             expectedOutputTests: JSON.stringify(inputTests),
             expectedStructure: transformData(),     
             template: JSON.stringify(template),
-            
+            message: 'aaaafdsfsdfdssfdsfdsdf'
         })
+        .catch((err)=>console.log(err.response ))
     }
 
     const updateField = (change: Partial<fieldType>) => {
@@ -86,31 +69,7 @@ const CreateChallenge = () => {
                 <h1 className="text-white text-2xl font-bold">Create Challenge</h1>
                 <button className="h-10 bg-yellow-300 w-40 text-2xl font-bold text-white rounded-lg" onClick={()=>createChallenge()}>Submit</button>
             </div>
-            <div className="h-full w-full flex flex-row">
-                <div className="w-1/2 h-full">
-                    <ChallengeDetails challengeDetails={challengeDetails} updateField={updateField}/>
-                </div>
-                <div className="w-1/2 border-l border-gray-500 flex flex-col">
-                    <Tab.Group>
-                        <Tab.List className="h-14 bg-white flex justify-between">
-                            <Tab className={({ selected }) =>
-                                selected ? 'border-b-4 border-secondary  flex-1 font-bold h-14' : 'flex-1 border-b-4 border-white h-14'
-                            }>Template</Tab>
-                            <Tab disabled={challengeDetails.language!=='java'} className={({ selected }) =>
-                                selected ? 'border-b-4 border-secondary  flex-1 font-bold h-14' : 'flex-1 border-b-4 border-white h-14'
-                            }>Structure</Tab>
-                            <Tab className={({ selected }) =>
-                                selected ? 'border-b-4 border-secondary  flex-1 font-bold h-14' : 'flex-1 border-b-4 border-white h-14'
-                            }>Input Output</Tab>
-                        </Tab.List>
-                        <Tab.Panels className="h-full">
-                            <Tab.Panel className="h-full overflow-y-hidden"><Ide value={template} changeValue={(e)=>setTemplate(e)} language='java'/></Tab.Panel>
-                            <Tab.Panel className="h-full overflow-y-scroll"><ClassBuilder treeData={classDiagram} setTreeData={(val)=>setClassDiagram(val)}/></Tab.Panel>
-                            <Tab.Panel className="h-full overflow-y-scroll"><InputOutputList testList={inputTests} setTestList={(val)=>setInputTests(val)}/></Tab.Panel>
-                        </Tab.Panels>
-                    </Tab.Group>
-                </div>
-            </div>
+            <PreviewChallenge template={template} setTemplate={setTemplate} classDiagram={classDiagram} setClassDiagram={setClassDiagram} challengeDetails={challengeDetails} updateField={updateField} inputTests={inputTests} setInputTests={setInputTests}/>
         </div>
     )
 }

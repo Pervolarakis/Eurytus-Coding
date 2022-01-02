@@ -14,8 +14,10 @@ const AdminPage = () => {
     useEffect(()=>{
         axios.get('/moderate/requests')
             .then((res)=>setRequests(res.data.data||null))
-        axios.get('/api/v1/challenges/')
+            .catch(err=>console.log(err))
+        axios.get('/challenges/')
             .then((res)=>setChallenges(res.data.data||null))
+
     },[])
 
     return(
