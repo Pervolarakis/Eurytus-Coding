@@ -41,14 +41,13 @@ function App() {
             </Routes>:<>
             <Routes>
               <Route path="/auth" element={<Auth />}/>
-            </Routes>
-            <AdminPage>
-              <Routes>
-                <Route path="/admin" element={<AdminDashboard/>}/>
+              <Route path="/admin" element={<AdminPage/>}>
                 <Route path="/admin/challenges" element={<AdminAllChallenges/>}/>
+                <Route path="/admin" element={<AdminDashboard/>}/>
                 <Route path="/admin/requests" element={<AdminPendingRequests/>}/>
-              </Routes>
-          </AdminPage></>
+              </Route>
+            </Routes>
+          </>
           }
       </UserContext.Provider>
     </div>

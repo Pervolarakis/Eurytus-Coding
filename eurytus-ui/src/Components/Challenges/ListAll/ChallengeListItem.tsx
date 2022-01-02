@@ -29,7 +29,7 @@ const ChallengeListItem = ({name, description, difficulty, language, id}: Challe
         <div className="w-full h-48 md:h-28 rounded-md shadow-sm border p-4 overflow-hidden flex flex-col md:flex-row bg-white">
             <div className="w-full md:w-3/4 flex flex-col items-start overflow-hidden">
                 <div className="flex justify-between w-full">
-                    <h1 className="font-bold capitalize text-xl">{name}</h1>
+                    <h1 className="text-base font-medium text-gray-900 capitalize">{name}</h1>
                     <div className="hidden md:flex md:items-center">
                         <span className={`px-2 inline-flex text-xs leading-5 h-5 font-semibold rounded-full ${(language==='java')?'text-pink-800 bg-pink-100': 'text-blue-800 bg-blue-100'}`}>
                             {(language==='java')?'Java':'Javascript'}
@@ -39,7 +39,7 @@ const ChallengeListItem = ({name, description, difficulty, language, id}: Challe
                         </div>
                     </div>
                 </div>
-                <p className="text-left text-gray-900 font-medium">{description}</p>
+                <p className="text-left mt-1 text-base text-gray-600">{description}</p>
             </div>
             <div className="w-full md:w-1/4 flex justify-between items-center md:justify-center mt-auto md:m-auto">
                 <div className="flex md:hidden">

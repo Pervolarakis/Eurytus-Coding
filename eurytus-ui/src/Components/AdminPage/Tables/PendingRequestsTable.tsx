@@ -51,7 +51,7 @@ const PendingRequestsTable = ({requests, fixed}:{requests: PendingRequest[], fix
                     </div>
                 </td>
                 <td className="px-6 py-3 whitespace-nowrap text-left">
-                    <div className="text-sm text-gray-900">{request.name}...</div>
+                    <div className="text-sm text-gray-900">{request.name}</div>
                 </td>
                 <td className="px-6 py-3 whitespace-nowrap">
                     <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${request.kind? 'text-green-800 bg-green-100': 'text-yellow-800 bg-yellow-100'}`}>
