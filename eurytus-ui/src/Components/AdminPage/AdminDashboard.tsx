@@ -8,7 +8,7 @@ import {AiOutlineFileDone} from 'react-icons/ai'
 const AdminDashboard = () => {
     const challenges = [
         {
-            id: '324432432342',
+            id: '1',
             name: 'challenge 1 this is the challnge to be be',
             description: 'Regional Paradigm Technician gffddfd dddd dfdg fdgdgd gfdgd fdgg dfgdre er tetrerte dg df' ,
             isPublic: true,
@@ -16,7 +16,7 @@ const AdminDashboard = () => {
             participants: 103
         },
         {
-            id: '324432222342',
+            id: '2',
             name: 'challenge 1',
             description: 'Regional Paradigm Technician',
             isPublic: false,
@@ -24,7 +24,7 @@ const AdminDashboard = () => {
             participants: 103
         },
         {
-            id: '324432ssd222342',
+            id: '3',
             name: 'challenge 1',
             description: 'Regional Paradigm Technician',
             isPublic: false,
@@ -32,7 +32,7 @@ const AdminDashboard = () => {
             participants: 103
         },
         {
-            id: '324432ffff222342',
+            id: '4',
             name: 'challenge 1',
             description: 'Regional Paradigm Technician',
             isPublic: true,
@@ -43,28 +43,28 @@ const AdminDashboard = () => {
     
       const requests = [
         {
-            id: '324432432342',
+            id: '1',
             created_at: '2022-12-11',
             name: 'challenge 1' ,
             kind: 'edit',
             ownerId: '353dgdg533553gf'
         },
         {
-            id: '324432432342',
+            id: '2',
             created_at: '2022-12-11',
             name: 'challenge 1' ,
             kind: 'edit',
             ownerId: '353dgdg533553gf'
         },
         {
-            id: '324432432342',
+            id: '3',
             created_at: '2022-12-11',
             name: 'challenge 1' ,
             kind: 'edit',
             ownerId: '353dgdg533553gf'
         },
         {
-            id: '324432432342',
+            id: '4',
             created_at: '2022-12-11',
             name: 'challenge 1' ,
             kind: 'edit',
@@ -112,11 +112,11 @@ const AdminDashboard = () => {
                     <h1 className="text-lg font-semibold">Pending Requests</h1>
                     <NavLink to="/admin/requests" className="text-indigo-600">All Requests</NavLink>
                 </div>
-                <PendingRequestsTable requests={requests}/>
+                <PendingRequestsTable requests={requests} fixed={true}/>
                 {/* Challenges */}
                 <div className="flex justify-between items-center mt-6">
                     <h1 className="text-lg font-semibold">Challenges</h1>
-                    <NavLink to="/admin/requests" className="text-indigo-600">All Challenges</NavLink>
+                    <NavLink to="/admin/challenges" className="text-indigo-600">All Challenges</NavLink>
                 </div>
                 <ChallengesTable challenges={challenges} fixed={true}/>
                 
