@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import TablePagination from "./TablePagination";
+import {IoIosMan} from 'react-icons/io'
 
 interface Challenge {
     id: string,
@@ -42,8 +43,8 @@ const ChallengesTable = ({challenges, fixed}: {challenges: Challenge[], fixed?:b
         let startingIndex = 0
         let endingIndex = challenges.length
         if(!fixed){
-            startingIndex = (currentPage-1)*Math.floor(tableHeight/48.5)
-            endingIndex = currentPage*Math.floor(tableHeight/48.5)
+            startingIndex = (currentPage-1)*Math.floor(tableHeight/44.5)
+            endingIndex = currentPage*Math.floor(tableHeight/44.5)
         }
         challenges.slice(startingIndex,endingIndex).map((challenge) => tempTableRows.push(
             <tr key={challenge.id} className="even:bg-gray-100">
@@ -57,18 +58,18 @@ const ChallengesTable = ({challenges, fixed}: {challenges: Challenge[], fixed?:b
                 <td className="px-6 py-3 whitespace-nowrap text-left">
                 <div className="text-sm text-gray-900">{challenge.description.slice(0,60)}...</div>
                 </td>
-                <td className="px-6 py-3 whitespace-nowrap">
-                    <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${challenge.isPublic? 'text-green-800 bg-green-100': 'text-yellow-800 bg-yellow-100'}`}>
-                        {challenge.isPublic? 'isPublic': 'Private'}
-                    </span>
-                </td>
                 <td className="px-6 py-3 whitespace-nowrap text-sm text-gray-500">
                     <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${(challenge.language==='java')?'text-pink-800 bg-pink-100': 'text-blue-800 bg-blue-100'}`}>
                         {(challenge.language==='java')?'Java':'Javascript'}
                     </span>
                 </td>
                 <td className="px-6 py-3 whitespace-nowrap text-sm font-medium">
-                    <div className="text-sm text-gray-900">{challenge.participants}</div>
+                    <div className="text-sm text-gray-900 flex justify-center items-center"><IoIosMan/> {challenge.participants||100}</div>
+                </td>
+                <td className="px-6 py-3 whitespace-nowrap text-sm font-medium">
+                    <a href="#" className="text-indigo-600 hover:text-indigo-900">
+                        Inspect
+                    </a>
                 </td>
             </tr>
         ))
@@ -100,16 +101,13 @@ const ChallengesTable = ({challenges, fixed}: {challenges: Challenge[], fixed?:b
                                 scope="col"
                                 className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider"
                             >
-                                isPublic
-                            </th>
-                            <th
-                                scope="col"
-                                className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider"
-                            >
                                 Language
                             </th>
                             <th scope="col" className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">
                                 Participants
+                            </th>
+                            <th scope="col" className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Action
                             </th>
                             </tr>
                         </thead>
@@ -119,7 +117,7 @@ const ChallengesTable = ({challenges, fixed}: {challenges: Challenge[], fixed?:b
                     </table>
                 </div>
             </div>
-            {!fixed?<TablePagination totalRows={challenges.length} currentPage={currentPage} setCurrentPage={setCurrentPage} rowsPerPage={Math.floor(tableHeight/48.5)}/>:null}
+            {!fixed?<TablePagination totalRows={challenges.length} currentPage={currentPage} setCurrentPage={setCurrentPage} rowsPerPage={Math.floor(tableHeight/44.5)}/>:null}
         </div>
     )
 }

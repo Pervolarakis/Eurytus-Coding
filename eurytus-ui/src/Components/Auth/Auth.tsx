@@ -20,7 +20,7 @@ function Auth() {
       password: logInPass
     })
     .then((res)=>{
-      console.log(res)
+      // console.log(res)
       axios.get('http://eurytus.com/api/v1/users/auth/currentuser')
         .then((res)=>{setUser(res.data.data); navigate('/challenges')})
     })

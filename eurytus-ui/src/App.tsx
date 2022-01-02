@@ -38,14 +38,14 @@ function App() {
               <Route path="/challenges" element={<ListAll />}/>
               <Route path="/createchallenge" element={<CreateChallenge />}/>
               <Route path="/solve/:challengeId" element={<SolveChallenge />}/>
-            </Routes>:<>
-            <Routes>
-              <Route path="/auth" element={<Auth />}/>
               <Route path="/admin" element={<AdminPage/>}>
                 <Route path="/admin/challenges" element={<AdminAllChallenges/>}/>
                 <Route path="/admin" element={<AdminDashboard/>}/>
                 <Route path="/admin/requests" element={<AdminPendingRequests/>}/>
               </Route>
+            </Routes>:<>
+            <Routes>
+              <Route path="/auth" element={<Auth />}/>
             </Routes>
           </>
           }

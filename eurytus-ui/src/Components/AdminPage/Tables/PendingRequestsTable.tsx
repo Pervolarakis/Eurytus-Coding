@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import TablePagination from './TablePagination';
 
 interface PendingRequest {
+    _id: string,
     id: string,
     created_at: string,
     name: string,
@@ -51,11 +52,11 @@ const PendingRequestsTable = ({requests, fixed}:{requests: PendingRequest[], fix
                     </div>
                 </td>
                 <td className="px-6 py-3 whitespace-nowrap text-left">
-                    <div className="text-sm text-gray-900">{request.name}</div>
+                    <div className="text-sm text-gray-900">{request._id}</div>
                 </td>
                 <td className="px-6 py-3 whitespace-nowrap">
-                    <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${request.kind? 'text-green-800 bg-green-100': 'text-yellow-800 bg-yellow-100'}`}>
-                        {request.kind? 'isPublic': 'Private'}
+                    <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${request.kind==='create'? 'text-green-800 bg-green-100': (request.kind==='update')? 'text-yellow-800 bg-yellow-100': 'text-red-800 bg-red-100'}`}>
+                        {request.kind}
                     </span>
                 </td>
                 <td className="px-6 py-2 whitespace-nowrap flex justify-center">
@@ -95,7 +96,7 @@ const PendingRequestsTable = ({requests, fixed}:{requests: PendingRequest[], fix
                                 scope="col"
                                 className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                             >
-                                created_at
+                                created at
                             </th>
                             <th
                                 scope="col"

@@ -1,6 +1,23 @@
+import axios from 'axios';
+import { useContext, useEffect, useState } from 'react';
 import { Outlet, NavLink } from 'react-router-dom';
+import { ChallengesContext } from '../../Contexts/ChallengesContext';
+import { RequestsContext } from '../../Contexts/RequestsContext';
 
 const AdminPage = () => {
+    
+    // const {challenges, setChallenges} = useContext(ChallengesContext);
+    // const {request, setRequests} = useContext(RequestsContext);
+    const [requests,setRequests] = useState(null)
+    const [challenges,setChallenges] = useState(null)
+
+    useEffect(()=>{
+        axios.get('http://eurytus.com/api/v1/moderate/requests')
+            .then((res)=>setRequests(res.data.data||null))
+        axios.get('http://eurytus.com/api/v1/challenges/')
+            .then((res)=>setChallenges(res.data.data||null))
+    },[])
+
     return(
         <div id="solvechallenge">
             <div className="w-full flex h-full">
@@ -27,7 +44,11 @@ const AdminPage = () => {
                     </NavLink>
                 </div>
                 <div className="w-5/6 p-14">
-                    <Outlet/>
+                    <ChallengesContext.Provider value={{challenges,setChallenges}}>
+                        <RequestsContext.Provider value={{requests, setRequests}}>
+                            <Outlet/>
+                        </RequestsContext.Provider>
+                    </ChallengesContext.Provider>
                 </div>
             </div>
         </div>

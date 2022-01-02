@@ -17,6 +17,7 @@ router.get('/api/v1/moderate/requests', requireAuth, async(req: Request, res: Re
         { 
             $group: { 
                 _id: '$challengeId',
+                id: {$last: '$_id'},
                 kind: {$last: '$kind'},
                 ownerId: {$last: '$ownerId'},
                 data: {$last: '$data'},
@@ -25,7 +26,7 @@ router.get('/api/v1/moderate/requests', requireAuth, async(req: Request, res: Re
             }
         },
     ]);
-
+    
     res.status(200).json({success: true, data: requests})
 
 
