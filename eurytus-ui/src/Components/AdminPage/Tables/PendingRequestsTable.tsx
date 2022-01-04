@@ -64,7 +64,7 @@ const PendingRequestsTable = ({requests, fixed}:{requests: PendingRequest[], fix
                     <img className="h-7 w-7 rounded-full" src={getUserImage(request.ownerId)} alt="" />
                 </td>
                 <td className="px-6 py-3 whitespace-nowrap text-sm font-medium">
-                    <NavLink to={`/admin/review/create/${request._id}`} className="text-indigo-600 hover:text-indigo-900">
+                    <NavLink to={`/admin/review/${request.kind}/${request._id}`} className="text-indigo-600 hover:text-indigo-900">
                         Inspect
                     </NavLink>
                 </td>
