@@ -6,7 +6,7 @@ import TablePagination from './TablePagination';
 
 interface PendingRequest {
     _id: string,
-    id: string,
+    challengeId: string,
     created_at: string,
     name: string,
     kind: string,
@@ -44,7 +44,7 @@ const PendingRequestsTable = ({requests, fixed}:{requests: PendingRequest[], fix
             endingIndex = currentPage*Math.floor(tableHeight/48.5)
         }
         requests.slice(startingIndex,endingIndex).map((request) => tempTableRows.push(
-            <tr key={request.id} className="even:bg-gray-100">
+            <tr key={request._id} className="even:bg-gray-100">
                 <td className="px-6 py-3 whitespace-nowrap text-left">
                     <div className="flex items-center">
                         <div className="text-left">
@@ -53,7 +53,7 @@ const PendingRequestsTable = ({requests, fixed}:{requests: PendingRequest[], fix
                     </div>
                 </td>
                 <td className="px-6 py-3 whitespace-nowrap text-left">
-                    <div className="text-sm text-gray-900">{request._id}</div>
+                    <div className="text-sm text-gray-900">{request.challengeId}</div>
                 </td>
                 <td className="px-6 py-3 whitespace-nowrap">
                     <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${request.kind==='create'? 'text-green-800 bg-green-100': (request.kind==='update')? 'text-yellow-800 bg-yellow-100': 'text-red-800 bg-red-100'}`}>
@@ -64,7 +64,7 @@ const PendingRequestsTable = ({requests, fixed}:{requests: PendingRequest[], fix
                     <img className="h-7 w-7 rounded-full" src={getUserImage(request.ownerId)} alt="" />
                 </td>
                 <td className="px-6 py-3 whitespace-nowrap text-sm font-medium">
-                    <NavLink to={`/admin/review/create/${request.id}`} className="text-indigo-600 hover:text-indigo-900">
+                    <NavLink to={`/admin/review/create/${request._id}`} className="text-indigo-600 hover:text-indigo-900">
                         Inspect
                     </NavLink>
                 </td>

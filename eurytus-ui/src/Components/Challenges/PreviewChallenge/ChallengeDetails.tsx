@@ -3,10 +3,12 @@ import { fieldType } from './PreviewChallenge';
 
 interface ChallengeDetailsProps {
     challengeDetails: fieldType,
-    updateField: (change: Partial<fieldType>)=>void
+    updateField: (change: Partial<fieldType>)=>void,
+    message: string,
+    setMessage: (newMessage: string) => void
 }
 
-const ChallengeDetails = ({challengeDetails, updateField}: ChallengeDetailsProps) => {
+const ChallengeDetails = ({challengeDetails, updateField, message, setMessage}: ChallengeDetailsProps) => {
 
     const selectDesignPattern = (pattern: string) => {
         const patternsCopy = [...challengeDetails.expectedDesignPatterns]
@@ -82,6 +84,10 @@ const ChallengeDetails = ({challengeDetails, updateField}: ChallengeDetailsProps
                     <h1 className="text-lg font-semibold ml-2">Singleton</h1>
                 </div>
             </div>
+            {challengeDetails.isPublic? <div className='w-full flex flex-col items-start mt-4'>
+                <h1 className="text-lg font-semibold mr-4 mb-1">Message</h1>
+                <textarea value={message} onChange={(e)=>setMessage(e.target.value)} className='h-60 w-full border text-xl rounded-lg p-2 focus:outline-none selection:bg-secondary selection:text-white focus:border-secondary' placeholder='Why should we approve this?'/>
+            </div>: null}
         </div>
     )
 }

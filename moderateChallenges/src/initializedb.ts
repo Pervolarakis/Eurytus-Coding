@@ -6,7 +6,6 @@ export const initializeDb = () => {
     const pendingRequests = [
         {
             kind: 'create',
-            challengeId: new mongoose.Types.ObjectId('61b08ad1a75d6eacb7880b24').toString(),
             data: JSON.stringify({
                 name: "Multiply Challenge2",
                 description: "Write a function that multiplies 3 numbers",
@@ -16,7 +15,7 @@ export const initializeDb = () => {
                 status: 'pending',
                 startsAt: Date.now(),
                 creatorId: new mongoose.Types.ObjectId('56cb91bdc3464f14678934ca'),
-                tests: JSON.stringify({
+                expectedOutputTests: JSON.stringify({
                     "challenge" : [
                         {
                             input: JSON.stringify(`solution(5,10,15)`),
@@ -39,7 +38,6 @@ export const initializeDb = () => {
         },
         {
             kind: 'create',
-            challengeId: new mongoose.Types.ObjectId('61b07a4e8ac34e37f17e97b5').toString(),
             data: JSON.stringify({
                 name: "Sum Challenge2",
                 description: "Write a function that takes 2 numbers as arguments and divides the first one by the second one",
@@ -49,7 +47,7 @@ export const initializeDb = () => {
                 status: 'pending',
                 startsAt: Date.now(),
                 creatorId: new mongoose.Types.ObjectId('56cb91bdc3464f14678934ca'),
-                tests: JSON.stringify({
+                expectedOutputTests: JSON.stringify({
                     "challenge" : [
                         {
                             input: JSON.stringify(`solution(10,2)`),

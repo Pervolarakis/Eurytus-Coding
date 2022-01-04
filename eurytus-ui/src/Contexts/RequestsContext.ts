@@ -3,7 +3,7 @@ import { createContext, Dispatch, SetStateAction } from "react";
 interface RequestContextArgs {
     requests: {
         _id: string,
-        id: string,
+        challengeId: string,
         created_at: string,
         name: string,
         kind: string,

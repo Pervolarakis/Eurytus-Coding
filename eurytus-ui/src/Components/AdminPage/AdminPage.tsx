@@ -20,6 +20,8 @@ const AdminPage = () => {
 
     },[])
 
+    useEffect(()=>{console.log(requests)},[requests])
+
     return(
         <div id="solvechallenge">
             <div className="w-full flex h-full">
