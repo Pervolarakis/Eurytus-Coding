@@ -1,10 +1,10 @@
-import { NotAnAdminError, requireAuth } from '@eurytus/common';
+import { NotAnAdminError, requireAuth, asyncHandler } from '@eurytus/common';
 import express, {Request, Response, NextFunction} from 'express';
 import { PendingRequest } from '../models/PendingRequests';
 
 const router = express.Router();
 
-router.get('/api/v1/moderate/requests', requireAuth, async(req: Request, res: Response, next: NextFunction)=>{
+router.get('/api/v1/moderate/requests', requireAuth, asyncHandler(async(req: Request, res: Response, next: NextFunction)=>{
     
     if(req.currentUser?.role!=='admin'){
         return next(new NotAnAdminError());
@@ -53,6 +53,6 @@ router.get('/api/v1/moderate/requests', requireAuth, async(req: Request, res: Re
     res.status(200).json({success: true, data: requests})
 
 
-})
+}))
 
 export {router as getAllRequestsRouter}

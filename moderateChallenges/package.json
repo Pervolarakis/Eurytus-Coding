@@ -19,7 +19,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@eurytus/common": "^1.0.39",
+    "@eurytus/common": "^1.0.40",
     "@types/cookie-session": "^2.0.43",
     "@types/cors": "^2.8.12",
     "@types/express": "^4.17.13",

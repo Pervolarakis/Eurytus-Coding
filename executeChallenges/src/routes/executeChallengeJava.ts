@@ -2,7 +2,7 @@ import express, {Request,Response,NextFunction} from 'express';
 import { Challenge } from '../models/Challenge';
 import {javaTemp} from '../templates/javaTemp';
 import {java} from 'compile-run'
-import { BasicCustomError, requireAuth } from '@eurytus/common';
+import { BasicCustomError, asyncHandler, requireAuth } from '@eurytus/common';
 import { checkEquality } from '../templates/CheckEqualityLogic';
 import { detectClassesMain, detectClassesLogic } from '../templates/ClassDiagramTemplate';
 import { detectDesignPattern } from './designPatterns';
@@ -12,7 +12,7 @@ import { convertStructureFormat } from './utils/convertStructureFormat';
 
 const router = express.Router();
 
-router.post('/api/v1/compile/challengejava/:id', async(req: Request, res: Response, next: NextFunction)=>{
+router.post('/api/v1/compile/challengejava/:id',requireAuth, asyncHandler(async(req: Request, res: Response, next: NextFunction)=>{
     
     const challenge = await Challenge.findById(req.params.id);
     
@@ -105,6 +105,6 @@ router.post('/api/v1/compile/challengejava/:id', async(req: Request, res: Respon
         })
         .catch(error => {res.status(200).json({success: false, compileError: error})})
 
-})
+}))
 
 export {router as executeJavaRouter}

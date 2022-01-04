@@ -1,10 +1,10 @@
-import { requireAuth } from '@eurytus/common';
+import { requireAuth, asyncHandler } from '@eurytus/common';
 import express, {Request, Response, NextFunction} from 'express';
 import { PendingRequest } from '../models/PendingRequests';
 
 const router = express.Router();
 
-router.get('/api/v1/moderate/myrequests', requireAuth, async(req: Request, res: Response, next: NextFunction)=>{ 
+router.get('/api/v1/moderate/myrequests', requireAuth, asyncHandler(async(req: Request, res: Response, next: NextFunction)=>{ 
 
     const requests = await PendingRequest.aggregate([
         {
@@ -28,6 +28,6 @@ router.get('/api/v1/moderate/myrequests', requireAuth, async(req: Request, res: 
 
     res.status(200).json({success: true, data: requests})
 
-})
+}))
 
 export {router as getUserRequestsRouter}

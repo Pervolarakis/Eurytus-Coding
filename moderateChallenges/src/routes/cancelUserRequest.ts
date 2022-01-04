@@ -1,10 +1,10 @@
-import { BasicCustomError, requireAuth, YouDontOwnThisError } from '@eurytus/common';
+import { BasicCustomError, requireAuth, YouDontOwnThisError, asyncHandler } from '@eurytus/common';
 import express, {Request, Response, NextFunction} from 'express'
 import { PendingRequest } from '../models/PendingRequests';
 
 const router = express.Router();
 
-router.delete('/api/v1/moderate/cancel/:id',requireAuth, async(req: Request, res: Response, next: NextFunction)=>{
+router.delete('/api/v1/moderate/cancel/:id',requireAuth, asyncHandler(async(req: Request, res: Response, next: NextFunction)=>{
     
     const request = await PendingRequest.findById(req.params.id);
 
@@ -22,6 +22,6 @@ router.delete('/api/v1/moderate/cancel/:id',requireAuth, async(req: Request, res
 
     res.status(200).json({success: true, data: request.data});
 
-})
+}))
 
 export {router as cancelUserRequestRouter};

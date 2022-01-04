@@ -1,10 +1,10 @@
 import express, {Request,Response, NextFunction} from 'express';
-import { BasicCustomError, NotAnAdminError, requireAuth } from '@eurytus/common';
+import { BasicCustomError, NotAnAdminError, requireAuth, asyncHandler } from '@eurytus/common';
 import { PendingRequest } from '../models/PendingRequests';
 
 const router = express.Router();
 
-router.delete('/api/v1/moderate/reject/:id', requireAuth, async(req: Request, res: Response, next: NextFunction)=>{
+router.delete('/api/v1/moderate/reject/:id', requireAuth, asyncHandler(async(req: Request, res: Response, next: NextFunction)=>{
     if(req.currentUser?.role!=='admin'){
         return next(new NotAnAdminError());
     }
@@ -18,6 +18,6 @@ router.delete('/api/v1/moderate/reject/:id', requireAuth, async(req: Request, re
     catch(err){
         return next(new BasicCustomError(err,400));
     }
-})
+}))
 
 export {router as rejectRequestRouter}

@@ -19,3 +19,4 @@ export * from './middlewares/currentUser';
 export * from './middlewares/errorHandler';
 export * from './middlewares/requireAuth';
 export * from './middlewares/validateRequestSchema';
+export * from './middlewares/asyncHandler';
