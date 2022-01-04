@@ -1,7 +1,6 @@
-import { createAvatar } from '@dicebear/avatars';
-import * as style from '@dicebear/avatars-gridy-sprites';
 import { useEffect, useRef, useState } from 'react';
 import { NavLink } from 'react-router-dom';
+import { getUserAvatar } from '../../../Utils/getUserAvatar';
 import TablePagination from './TablePagination';
 
 interface PendingRequest {
@@ -61,7 +60,7 @@ const PendingRequestsTable = ({requests, fixed}:{requests: PendingRequest[], fix
                     </span>
                 </td>
                 <td className="px-6 py-2 whitespace-nowrap flex justify-center">
-                    <img className="h-7 w-7 rounded-full" src={getUserImage(request.ownerId)} alt="" />
+                    <img className="h-7 w-7 rounded-full" src={getUserAvatar(request.ownerId)} alt="" />
                 </td>
                 <td className="px-6 py-3 whitespace-nowrap text-sm font-medium">
                     <NavLink to={`/admin/review/${request.kind}/${request._id}`} className="text-indigo-600 hover:text-indigo-900">
@@ -75,17 +74,6 @@ const PendingRequestsTable = ({requests, fixed}:{requests: PendingRequest[], fix
         // console.log('last index ',(currentPage)*Math.floor(tableHeight/48.5))
     },[currentPage, tableHeight])
 
-    const getUserImage = (userId: string) => {
-        let svg = createAvatar(style, {
-            seed: userId,
-            // ... and other options
-        });
-
-        var svg64 = btoa(unescape(encodeURIComponent(svg)));
-        var image64 = "data:image/svg+xml;base64," + svg64;
-        return image64
-
-    }
     return (
         <div className="overflow-x-auto sm:-mx-6 lg:-mx-8 h-full" ref={tableRef}>
             <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">

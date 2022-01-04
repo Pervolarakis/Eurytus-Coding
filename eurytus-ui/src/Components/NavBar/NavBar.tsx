@@ -1,10 +1,9 @@
 import { Fragment, useContext, useEffect, useState } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { MenuIcon, XIcon } from '@heroicons/react/outline'
-import { createAvatar } from '@dicebear/avatars';
-import * as style from '@dicebear/avatars-gridy-sprites';
 import { UserContext } from '../../Contexts/UserContext';
 import { NavLink } from 'react-router-dom';
+import { getUserAvatar } from '../../Utils/getUserAvatar';
 
 const navigation = [
     { name: 'Practice', href: '/challenges', current: true },
@@ -20,20 +19,6 @@ function classNames(...classes: string[]) {
 const NavBar = () => {
     
     const {user, setUser} = useContext(UserContext);
-    const [userImage, setUserImage] = useState('')
-
-    useEffect(()=>{
-      let svg = createAvatar(style, {
-        seed: user?.id,
-        // ... and other options
-      });
-
-      var svg64 = btoa(unescape(encodeURIComponent(svg)));
-      var image64 = "data:image/svg+xml;base64," + svg64;
-      setUserImage(image64);
-    },[user])
-    
-    // console.log(image64)
 
     return(
         <Disclosure as="nav" className="bg-primary">
@@ -92,7 +77,7 @@ const NavBar = () => {
                       <span className="sr-only">Open user menu</span>
                       <img
                         className="h-8 w-8 rounded-full"
-                        src={userImage}
+                        src={getUserAvatar(user.id)}
                         alt=""
                       />
                     </Menu.Button>

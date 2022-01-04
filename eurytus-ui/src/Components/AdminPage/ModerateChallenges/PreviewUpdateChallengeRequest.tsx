@@ -1,37 +1,15 @@
 import { Tab } from "@headlessui/react";
 import { useEffect, useState } from "react";
+import { SiGooglemessages } from "react-icons/si";
 import { useParams } from "react-router-dom";
-import { TreeItem } from "react-sortable-tree";
 import { axios } from "../../../Api/eurytusInstance";
 import ChallengeDetails from "../../Challenges/PreviewChallenge/ChallengeDetails";
 import InputOutputList from "../../Challenges/PreviewChallenge/InputOutputList";
-import { challengeTest, fieldType } from "../../Challenges/PreviewChallenge/PreviewChallenge";
 import ClassBuilder from "../../ClassBuilder/ClassBuilder";
 import Ide from "../../Ide/Ide";
-
-interface requestChallengeProperties {
-    template: string;
-    classDiagram: TreeItem[];
-    inputTests: {"challenge": challengeTest[]}
-    challengeDetails: fieldType
-    message?: string
-}
-
-interface fetchedDataType {
-    creatorId: string
-    description: string
-    difficulty: number
-    expectedDesignPatterns: string[]
-    expectedStructure: string
-    expiresAt: string
-    isPublic: boolean
-    language: string
-    name: string
-    startsAt: number
-    status: string
-    template: string
-    expectedOutputTests: string
-}
+import BasicModal from "../../Modals/RequestReviewMessageModal";
+import { fetchedDataType, requestChallengeProperties } from "./ReviewRequestInterfaces";
+import { BsCardText } from "react-icons/bs";
 
 const PreviewUpdateChallengeRequest = () => {
     const {requestId} = useParams();
@@ -40,12 +18,15 @@ const PreviewUpdateChallengeRequest = () => {
     const [message, setMessage] = useState('');
     const [challengeAfterChanges, setChallengeAfterChanges] = useState<requestChallengeProperties>()
     const [challengeBeforeChanges, setChallengeBeforeChanges] = useState<requestChallengeProperties>()
+    const [showModal, toggleShowModal] = useState(true)
+    const [user, setUser] = useState('')
 
     useEffect(()=>{
         axios.get(`/moderate/requests/${requestId}`)
             .then((res)=>{
                 setChanges({...JSON.parse(res.data.data.data)})
                 setMessage(res.data.data.message)
+                setUser(res.data.data.ownerId)
                 // console.log(JSON.parse(res.data.data.data))
                 axios.get(`/challenges/${res.data.data.challengeId}`)
                     .then((res)=>{
@@ -105,15 +86,14 @@ const PreviewUpdateChallengeRequest = () => {
         // console.log(challengeBeforeChanges)
     },[challengeBeforeChanges, changes, message])
 
-    useEffect(()=>{
-        console.log(challengeBeforeChanges)
-        console.log(challengeAfterChanges)
-    },[challengeAfterChanges])
-
     return (
         <div id='solvechallenge'>
+            <BasicModal show={showModal} toggleShow={()=>toggleShowModal(false)} message={message} userId={user}/>
             <div className='bg-black flex justify-between items-center h-12 p-4'>
                 <h1 className="text-white text-2xl font-bold">Review Update Challenge</h1>
+                <button onClick={()=>toggleShowModal(true)}>
+                    <BsCardText color="white" size={40}/>
+                </button>
                 <div>
                     <button className="h-10 border border-red-600 w-40 text-2xl font-bold text-red-600 rounded-md" onClick={()=>null}>Decline</button>
                     <button className="h-10 bg-green-500 w-40 text-2xl font-bold text-white rounded-md ml-4" onClick={()=>null}>Approve</button>
@@ -142,7 +122,7 @@ const PreviewUpdateChallengeRequest = () => {
                                 <ChallengeDetails challengeDetails={challengeBeforeChanges.challengeDetails} updateField={()=>null} message={''} setMessage={()=>null}/>
                             </div>
                             <div className="w-1/2 overflow-x-scroll">
-                                <ChallengeDetails challengeDetails={challengeAfterChanges.challengeDetails} updateField={()=>null} message={message} setMessage={()=>null}/>
+                                <ChallengeDetails challengeDetails={challengeAfterChanges.challengeDetails} updateField={()=>null} message={''} setMessage={()=>null}/>
                             </div>
                         </div>
                     </Tab.Panel>
