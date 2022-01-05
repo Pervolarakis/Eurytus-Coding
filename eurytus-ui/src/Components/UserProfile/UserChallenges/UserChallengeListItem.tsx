@@ -4,11 +4,13 @@ import {BiDotsHorizontalRounded} from 'react-icons/bi'
 import {BsLink45Deg} from 'react-icons/bs'
 import {MdOutlineEdit, MdDeleteOutline} from 'react-icons/md'
 import { useEffect, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const UserChallengeListItem = ({listItem}: {listItem: fetchedDataType}) => {
 
     const [showMenu, toggleShowMenu] = useState(false)
     const menuRef = useRef() as React.MutableRefObject<HTMLInputElement>;
+    const navigate = useNavigate();
 
     useEffect(()=>{
         const mouseClick = (event: MouseEvent) => {
@@ -27,7 +29,7 @@ const UserChallengeListItem = ({listItem}: {listItem: fetchedDataType}) => {
             <div>
                 {showMenu?<div className='z-10 absolute w-44 h-24 rounded shadow right-0 -top-20 bg-white overflow-hidden' ref={menuRef}>
                     <button className='h-1/3 w-full hover:bg-gray-100 flex items-center p-3'> <BsLink45Deg className='mr-2'/> Copy link </button>
-                    <button className='h-1/3 w-full hover:bg-gray-100 flex items-center p-3'> <MdOutlineEdit className='mr-2'/> Edit </button>
+                    <button className='h-1/3 w-full hover:bg-gray-100 flex items-center p-3' onClick={()=>navigate(`/editchallenge/${listItem.id}`)}> <MdOutlineEdit className='mr-2'/> Edit </button>
                     <button className='h-1/3 w-full hover:bg-gray-100 flex items-center p-3'> <MdDeleteOutline className='mr-2'/> Delete </button>
                 </div>:null}
                 <div className="flex justify-between items-center">

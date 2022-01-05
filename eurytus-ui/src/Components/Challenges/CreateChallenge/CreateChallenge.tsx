@@ -32,7 +32,7 @@ const CreateChallenge = () => {
         expectedDesignPatterns: [],
     })
 
-    const [message, setMessage] = useState('');
+    const [message, setMessage] = useState('εεε');
     
     const transformData = () => {
         if(classDiagram[0].children?.length!==0 && challengeDetails.language!=='js'){

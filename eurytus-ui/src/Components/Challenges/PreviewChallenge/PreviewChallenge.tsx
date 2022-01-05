@@ -4,6 +4,8 @@ import InputOutputList from '../PreviewChallenge/InputOutputList'
 import ChallengeDetails from '../PreviewChallenge/ChallengeDetails'
 import { Tab } from '@headlessui/react'
 import { TreeItem } from 'react-sortable-tree'
+import { SetStateAction } from 'react'
+import { requestChallengeProperties } from '../../AdminPage/ModerateChallenges/ReviewRequestInterfaces'
 
 export interface fieldType {
     name: string,
@@ -25,7 +27,7 @@ interface PreviewChallengeProps {
     template: string
     setTemplate: (template: string)=>void;
     classDiagram: TreeItem[]
-    setClassDiagram: (val: React.SetStateAction<TreeItem[]>)=>void;
+    setClassDiagram: (val: TreeItem[])=>void;
     challengeDetails: fieldType;
     updateField:(change: Partial<fieldType>) => void;
     inputTests: {"challenge": challengeTest[]}

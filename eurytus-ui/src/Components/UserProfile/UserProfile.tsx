@@ -37,7 +37,7 @@ const UserProfile = () => {
             </div>
             <div className="flex justify-start w-full md:w-10/12 flex-col">
                 <h1 className="my-8 text-left">Recent Exams</h1>
-                <div>Commint soon</div>
+                <div>Comming soon</div>
             </div>
             <div className="flex justify-start w-full md:w-10/12 flex-col">
                 <h1 className="my-8 text-left text-md font-medium">My Challenges</h1>
@@ -51,7 +51,7 @@ const UserProfile = () => {
             </div>
             <div className="flex justify-start w-full md:w-10/12 flex-col h-96">
                 <h1 className="mt-8 mb-6 text-left text-md font-medium">Pending Requests</h1>
-                {userRequests?<PendingRequestsTable requests={userRequests}/>:null}
+                {userRequests.length?<PendingRequestsTable requests={userRequests}/>:<h1>No pending request yet!</h1>}
             </div>
         </div>
     )

@@ -1,6 +1,5 @@
 import { Tab } from "@headlessui/react";
 import { useEffect, useState } from "react";
-import { SiGooglemessages } from "react-icons/si";
 import { useParams } from "react-router-dom";
 import { axios } from "../../../Api/eurytusInstance";
 import ChallengeDetails from "../../Challenges/PreviewChallenge/ChallengeDetails";
