@@ -15,6 +15,7 @@ import AdminPendingRequests from './Components/AdminPage/AdminPendingRequests';
 import PreviewCreateChallengeRequest from './Components/AdminPage/ModerateChallenges/PreviewCreateChallengeRequest';
 import PreviewUpdateChallengeRequest from './Components/AdminPage/ModerateChallenges/PreviewUpdateChallengeRequest';
 import PreviewDeleteChallengeRequest from './Components/AdminPage/ModerateChallenges/PreviewDeleteChallengeRequest';
+import UserProfile from './Components/UserProfile/UserProfile';
 
 
 
@@ -37,6 +38,7 @@ function App() {
               <Route path="/challenges" element={<ListAll />}/>
               <Route path="/createchallenge" element={<CreateChallenge />}/>
               <Route path="/solve/:challengeId" element={<SolveChallenge />}/>
+              <Route path="/profile" element={<UserProfile />}/>
               <Route path="/admin" element={<AdminPage/>}>
                 <Route path="/admin/challenges" element={<AdminAllChallenges/>}/>
                 <Route path="/admin" element={<AdminDashboard/>}/>

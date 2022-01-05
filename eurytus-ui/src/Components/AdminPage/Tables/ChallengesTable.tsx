@@ -76,7 +76,7 @@ const ChallengesTable = ({challenges, fixed}: {challenges: Challenge[], fixed?:b
         setTableRows(tempTableRows);
         // console.log('first index ',(currentPage-1)*Math.floor(tableHeight/48.5))
         // console.log('last index ',(currentPage)*Math.floor(tableHeight/48.5))
-    },[currentPage, tableHeight])
+    },[currentPage, tableHeight, challenges])
 
     return (
         <div className="overflow-x-auto sm:-mx-6 lg:-mx-8 h-full" ref={tableRef}>
