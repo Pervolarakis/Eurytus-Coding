@@ -5,6 +5,7 @@ import { currentUserRouter } from './routes/currentUser';
 import { ErrorHandler } from '@eurytus/common';
 import cookieSession from 'cookie-session';
 import cors from 'cors'
+import { signOutRouter } from './routes/logOut';
 
 const app = express();
 
@@ -22,6 +23,7 @@ app.use(express.json())
 app.use(currentUserRouter)
 app.use(signUpRouter);
 app.use(signInRouter);
+app.use(signOutRouter);
 app.use(ErrorHandler);
 
 
