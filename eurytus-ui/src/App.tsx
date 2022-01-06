@@ -50,7 +50,7 @@ function App() {
               <Route path="/admin/review/delete/:requestId" element={<PreviewDeleteChallengeRequest/>}/>
             </Routes>:<>
             <Routes>
-              <Route path="/auth" element={<Auth />}/>
+              <Route path="/auth/:page" element={<Auth />}/>
             </Routes>
           </>
           }

@@ -14,13 +14,20 @@ const navigation = [
 
 function classNames(...classes: string[]) {
     return classes.filter(Boolean).join(' ')
-  }
-
-
+}
 
 const NavBar = () => {
     
     const {user, setUser} = useContext(UserContext);
+
+    const navigation = user?[
+      { name: 'Practice', href: '/challenges', current: true },
+      { name: 'Create Exam', href: '/createchallenge', current: false },
+      { name: 'Join Exam', href: '/joinchallenge', current: false },
+    ]: [
+      { name: 'Login', href: '/auth/login', current: true },
+      { name: 'Register', href: '/auth/register', current: false },
+    ]
 
     const signOut = () => {
       axios.post('/users/auth/logout')
@@ -57,10 +64,12 @@ const NavBar = () => {
                       alt="Workflow"
                     />
                   </div>
+                  {(user)?
                   <div className="hidden sm:block sm:ml-6">
                     <div className="flex space-x-2 h-full">
                       {navigation.map((item) => (
                         <NavLink
+                          key={item.name}
                           to={item.href}
                           className={({ isActive }) =>
                             isActive ? ' text-white font-bold border-b-4 border-secondary flex flex-wrap content-center h-full px-2' : 'px-2 border-b-4 border-primary text-gray-300 hover:bg-gray-700 hover:text-white font-bold flex flex-wrap content-center h-10 my-auto rounded-md'
@@ -71,7 +80,7 @@ const NavBar = () => {
                         </NavLink>
                       ))}
                     </div>
-                  </div>
+                  </div>:null}
                 </div>
                 {(user)?
                 <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
@@ -79,7 +88,7 @@ const NavBar = () => {
                 {/* Profile dropdown */}
                 <Menu as="div" className="ml-3 relative z-10">
                   <div className="flex flex-wrap flex-column">
-                    <p className='text-white font-bold mr-4'>{user.email}</p>
+                    <p className='hidden md:text-white md:font-bold md:mr-4 md:block'>{user.email}</p>
                     <Menu.Button className="bg-sky-400 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
                       <span className="sr-only">Open user menu</span>
                       <img
@@ -100,16 +109,28 @@ const NavBar = () => {
                   >
                     <Menu.Items className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
                       <Menu.Item>
-                        {({ active }) => (
-                          <a
-                            href="#"
-                            className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
+                          <NavLink
+                            to={'/profile'}
+                            className={({ isActive }) =>
+                              isActive ? ' block px-4 py-2 text-sm text-gray-700 w-full bg-gray-100' : 'block px-4 py-2 text-sm text-gray-700 w-full hover:bg-gray-100'
+                            }
                           >
                             Your Profile
-                          </a>
-                        )}
+                        </NavLink>
                       </Menu.Item>
-
+                      {
+                        user.role==='admin'?
+                        <Menu.Item>
+                        <NavLink
+                          to={'/admin'}
+                          className={({ isActive }) =>
+                            isActive ? ' block px-4 py-2 text-sm text-gray-700 w-full bg-gray-100' : 'block px-4 py-2 text-sm text-gray-700 w-full hover:bg-gray-100'
+                          }
+                        >
+                          Admin Panel
+                        </NavLink>
+                      </Menu.Item>:null
+                      }
                       <Menu.Item>
                           <button
                             onClick={()=>signOut()}
@@ -121,7 +142,12 @@ const NavBar = () => {
                     </Menu.Items>
                   </Transition>
                 </Menu>
-              </div>:null}
+              </div>:
+              <div className="hidden absolute inset-y-0 right-0 md:flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+                <NavLink to="/auth/register" className='border border-white w-24 py-2 rounded text-white font-medium hover:bg-white hover:text-primary'>Register</NavLink>
+                <NavLink to="/auth/login" className='ml-3 border-secondary bg-secondary hover:bg-secondary_dark border hover:border-secondary_dark w-24 py-2 rounded text-white font-medium'>Login</NavLink>
+              </div>
+              }
                 
               </div>
             </div>
@@ -129,18 +155,18 @@ const NavBar = () => {
             <Disclosure.Panel className="sm:hidden">
               <div className="px-2 pt-2 pb-3 space-y-1">
                 {navigation.map((item) => (
-                  <Disclosure.Button
+                  <NavLink
                     key={item.name}
-                    as="a"
-                    href={item.href}
-                    className={classNames(
-                      item.current ? 'border-b-4 border-secondary text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                    to={item.href}
+                    className={({ isActive }) =>
+                    classNames(
+                      isActive ? 'border-b-4 border-secondary text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
                       'block px-3 py-2 text-base font-medium'
-                    )}
-                    aria-current={item.current ? 'page' : undefined}
+                    )
+                    }
                   >
                     {item.name}
-                  </Disclosure.Button>
+                  </NavLink>
                 ))}
               </div>
             </Disclosure.Panel>

@@ -24,6 +24,7 @@ const ChallengesTable = ({challenges, fixed}: {challenges: Challenge[], fixed?:b
             getWindowHeight()
             window.addEventListener("resize", getWindowHeight);
         }
+        return window.removeEventListener("resize", getWindowHeight);
     }, []);
 
     const getWindowHeight = () => {

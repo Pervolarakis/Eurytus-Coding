@@ -24,6 +24,7 @@ const PendingRequestsTable = ({requests, fixed, userProfile}:{requests: PendingR
             getWindowHeight()
             window.addEventListener("resize", getWindowHeight);
         }
+        return window.removeEventListener("resize", getWindowHeight);
     }, []);
 
     const getWindowHeight = () => {
