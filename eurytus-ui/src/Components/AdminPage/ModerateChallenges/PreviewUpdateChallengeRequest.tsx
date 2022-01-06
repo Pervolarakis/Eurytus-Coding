@@ -76,10 +76,10 @@ const PreviewUpdateChallengeRequest = () => {
                     <Tab.Panel className="h-full overflow-y-hidden">
                         <div className="w-full h-full flex flex-row">
                             <div className="w-1/2 overflow-x-scroll">
-                                <ChallengeDetails challengeDetails={challengeBeforeChanges.challengeDetails} updateField={()=>null} message={''} setMessage={()=>null}/>
+                                <ChallengeDetails challengeDetails={challengeBeforeChanges.challengeDetails} updateField={()=>null}/>
                             </div>
                             <div className="w-1/2 overflow-x-scroll">
-                                <ChallengeDetails challengeDetails={challengeAfterChanges.challengeDetails} updateField={()=>null} message={''} setMessage={()=>null}/>
+                                <ChallengeDetails challengeDetails={challengeAfterChanges.challengeDetails} updateField={()=>null}/>
                             </div>
                         </div>
                     </Tab.Panel>

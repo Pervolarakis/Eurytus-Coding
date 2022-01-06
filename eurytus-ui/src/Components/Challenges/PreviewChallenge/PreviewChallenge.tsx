@@ -4,8 +4,6 @@ import InputOutputList from '../PreviewChallenge/InputOutputList'
 import ChallengeDetails from '../PreviewChallenge/ChallengeDetails'
 import { Tab } from '@headlessui/react'
 import { TreeItem } from 'react-sortable-tree'
-import { SetStateAction } from 'react'
-import { requestChallengeProperties } from '../../AdminPage/ModerateChallenges/ReviewRequestInterfaces'
 
 export interface fieldType {
     name: string,
@@ -32,15 +30,13 @@ interface PreviewChallengeProps {
     updateField:(change: Partial<fieldType>) => void;
     inputTests: {"challenge": challengeTest[]}
     setInputTests: (newTestList: {"challenge": challengeTest[]})=>void
-    message: string,
-    setMessage: (newMessage: string) => void
 }
 
-const PreviewChallenge = ({message, setMessage, template, setTemplate, classDiagram, setClassDiagram, challengeDetails, updateField, inputTests, setInputTests}: PreviewChallengeProps) => {
+const PreviewChallenge = ({template, setTemplate, classDiagram, setClassDiagram, challengeDetails, updateField, inputTests, setInputTests}: PreviewChallengeProps) => {
     return (
         <div className="h-full w-full flex flex-row">
             <div className="w-1/2 h-full">
-                <ChallengeDetails message={message} setMessage={setMessage} challengeDetails={challengeDetails} updateField={updateField}/>
+                <ChallengeDetails challengeDetails={challengeDetails} updateField={updateField}/>
             </div>
             <div className="w-1/2 border-l border-gray-500 flex flex-col">
                 <Tab.Group>

@@ -4,11 +4,12 @@ import {axios} from '../../../Api/eurytusInstance';
 import { requestChallengeProperties } from '../../AdminPage/ModerateChallenges/ReviewRequestInterfaces';
 import PreviewChallenge from '../PreviewChallenge/PreviewChallenge'
 import {fieldType} from '../PreviewChallenge/PreviewChallenge';
-
+import SetRequestMessageModal from '../../Modals/SetRequestMessageModal';
 
 const CreateChallenge = () => {
     let navigate = useNavigate();
 
+    const [showRequestModal, toggleRequestModal] = useState(false);
     const [challenge, setChallenge] = useState<requestChallengeProperties>({
         template: '',
         classDiagram: [
@@ -32,7 +33,7 @@ const CreateChallenge = () => {
         }
     })
 
-    const [message, setMessage] = useState('εεε');
+    const [message, setMessage] = useState('');
     
     const transformData = () => {
         if(challenge.classDiagram[0].children?.length!==0 && challenge.challengeDetails.language!=='js'){
@@ -80,11 +81,12 @@ const CreateChallenge = () => {
 
     return(
         <div id='solvechallenge'>
+            <SetRequestMessageModal show={showRequestModal} toggleShow={()=>toggleRequestModal(false)} submitRequest={()=>createChallenge()} message={message} setMessage={setMessage} />
             <div className='bg-black flex justify-between items-center h-12 p-4'>
                 <h1 className="text-white text-2xl font-bold">Create Challenge</h1>
-                <button className="h-10 bg-yellow-300 w-40 text-2xl font-bold text-white rounded-lg" onClick={()=>createChallenge()}>Submit</button>
+                <button className="h-10 bg-yellow-300 w-40 text-2xl font-bold text-white rounded-lg" onClick={challenge.challengeDetails.isPublic?()=>toggleRequestModal(true):()=>createChallenge()}>Submit</button>
             </div>
-            <PreviewChallenge template={challenge.template} message={(challenge.message)?challenge.message:''} setMessage={(val)=>updateField({message: val})} setTemplate={(val)=>updateField({template: val})} classDiagram={challenge.classDiagram} setClassDiagram={(val)=>updateField({classDiagram: val})} challengeDetails={challenge.challengeDetails} updateField={updateChallengeDetails} inputTests={challenge.inputTests} setInputTests={(val)=>updateField({inputTests: val})}/>
+            <PreviewChallenge template={challenge.template} setTemplate={(val)=>updateField({template: val})} classDiagram={challenge.classDiagram} setClassDiagram={(val)=>updateField({classDiagram: val})} challengeDetails={challenge.challengeDetails} updateField={updateChallengeDetails} inputTests={challenge.inputTests} setInputTests={(val)=>updateField({inputTests: val})}/>
         </div>
     )
 }
