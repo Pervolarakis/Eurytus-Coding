@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { axios } from "../../../Api/eurytusInstance";
 import PreviewChallenge  from "../../Challenges/PreviewChallenge/PreviewChallenge";
 import BasicModal from "../../Modals/RequestReviewMessageModal";
+import { setChallengeStateAfterFetch } from "../ChallengeUtils/ChallengeUitls";
 import { fetchedDataType, requestChallengeProperties } from "./ReviewRequestInterfaces";
 
 
@@ -20,33 +21,7 @@ const PreviewCreateChallengeRequest = () => {
             .then((res)=>{
                 const challengeData = JSON.parse(res.data.data.data) as fetchedDataType
                 setUser(res.data.data.ownerId)
-                // console.log(JSON.parse(challengeData.expectedStructure.replaceAll('\\"','\"')))
-                setFetchedChallenge(
-                    {
-                        template: JSON.parse(challengeData.template),
-                        classDiagram: (challengeData.expectedStructure.length>0?JSON.parse(challengeData.expectedStructure.replaceAll('\\\"','\"')):[
-                            {
-                                blockType: "Base",
-                                expanded: true,
-                                children: []
-                            
-                            }
-                        ]),
-                        inputTests: JSON.parse(challengeData.expectedOutputTests),
-                        challengeDetails: {
-                            name: challengeData.name,
-                            description: challengeData.description,
-                            difficulty: challengeData.difficulty,
-                            startsAt: new Date(challengeData.startsAt),
-                            isPublic: challengeData.isPublic,
-                            expiresAt: new Date(challengeData.expiresAt),
-                            language: challengeData.language,
-                            expectedDesignPatterns: challengeData.expectedDesignPatterns,
-                        },
-                        message: res.data.data.message
-                        
-                    }
-                )
+                setFetchedChallenge( setChallengeStateAfterFetch(challengeData, res.data.data.message) )
             })
     },[])
 

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { TreeItem } from "react-sortable-tree";
 import { axios } from "../../../Api/eurytusInstance";
+import { combineChallengeDataWithIncomingChanges, setChallengeStateAfterFetch } from "../../AdminPage/ChallengeUtils/ChallengeUitls";
 import { requestChallengeProperties } from "../../AdminPage/ModerateChallenges/ReviewRequestInterfaces";
 import ChallengeDetails from "../../Challenges/PreviewChallenge/ChallengeDetails";
 import PreviewChallenge, { challengeTest, fieldType } from "../../Challenges/PreviewChallenge/PreviewChallenge";
@@ -57,28 +58,7 @@ const EditChallenge = () => {
         axios.get(`/challenges/${challengeId}`)
             .then((res)=>{
                 const oldChallengeData = res.data.data;
-                setInitialChallenge({
-                    template: JSON.parse(oldChallengeData.template),
-                    classDiagram: (oldChallengeData.expectedStructure.length>0?JSON.parse(oldChallengeData.expectedStructure.replaceAll('\\\"','\"')):[
-                        {
-                            blockType: "Base",
-                            expanded: true,
-                            children: []
-                        
-                        }
-                    ]),
-                    inputTests: JSON.parse(oldChallengeData.expectedOutputTests),
-                    challengeDetails: {
-                        name: oldChallengeData.name,
-                        description: oldChallengeData.description,
-                        difficulty: oldChallengeData.difficulty,
-                        startsAt: new Date(oldChallengeData.startsAt),
-                        isPublic: oldChallengeData.isPublic,
-                        expiresAt: new Date(oldChallengeData.expiresAt),
-                        language: oldChallengeData.language,
-                        expectedDesignPatterns: oldChallengeData.expectedDesignPatterns,
-                    }
-                })        
+                setInitialChallenge(setChallengeStateAfterFetch(oldChallengeData))       
             })  
     },[])
 
@@ -89,30 +69,9 @@ const EditChallenge = () => {
 
 
     const changeDataToLatestRequest = () => {
-        if(previousRequest){
+        if(previousRequest && challengeBeforeChanges){
             const prevRequestData = JSON.parse(previousRequest.data!);
-            setChallengeBeforeChanges({
-                template: (prevRequestData.template!) ? JSON.parse(prevRequestData.template!) : challengeBeforeChanges!.template,
-                classDiagram: prevRequestData.expectedStructure? (prevRequestData.expectedStructure.length>0?JSON.parse(prevRequestData.expectedStructure.replaceAll('\\\"','\"')):[
-                    {
-                        blockType: "Base",
-                        expanded: true,
-                        children: []
-                    
-                    }
-                ]): challengeBeforeChanges!.classDiagram,
-                inputTests: (prevRequestData.expectedOutputTests)? JSON.parse(prevRequestData.expectedOutputTests) : challengeBeforeChanges!.inputTests,
-                challengeDetails: {
-                    name: prevRequestData.name || challengeBeforeChanges!.challengeDetails.name,
-                    description: prevRequestData.description || challengeBeforeChanges!.challengeDetails.description,
-                    difficulty: prevRequestData.difficulty || challengeBeforeChanges!.challengeDetails.difficulty,
-                    startsAt: prevRequestData.startsAt? new Date(prevRequestData.startsAt) : new Date(challengeBeforeChanges!.challengeDetails.startsAt),
-                    isPublic: prevRequestData.isPublic || challengeBeforeChanges!.challengeDetails.isPublic,
-                    expiresAt: prevRequestData.expiresAt? new Date(prevRequestData.expiresAt) : new Date(challengeBeforeChanges!.challengeDetails.expiresAt),
-                    language: prevRequestData.language || challengeBeforeChanges!.challengeDetails.language,
-                    expectedDesignPatterns: prevRequestData.expectedDesignPatterns || challengeBeforeChanges!.challengeDetails.expectedDesignPatterns,
-                },
-            })
+            setChallengeBeforeChanges(combineChallengeDataWithIncomingChanges(challengeBeforeChanges, prevRequestData))
             toggleEditModal(false);
         }
     }

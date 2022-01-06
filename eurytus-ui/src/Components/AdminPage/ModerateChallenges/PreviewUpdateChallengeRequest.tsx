@@ -9,6 +9,7 @@ import Ide from "../../Ide/Ide";
 import BasicModal from "../../Modals/RequestReviewMessageModal";
 import { fetchedDataType, requestChallengeProperties } from "./ReviewRequestInterfaces";
 import { BsCardText } from "react-icons/bs";
+import { combineChallengeDataWithIncomingChanges, setChallengeStateAfterFetch } from "../ChallengeUtils/ChallengeUitls";
 
 const PreviewUpdateChallengeRequest = () => {
     const {requestId} = useParams();
@@ -30,59 +31,16 @@ const PreviewUpdateChallengeRequest = () => {
                 axios.get(`/challenges/${res.data.data.challengeId}`)
                     .then((res)=>{
                         const oldChallengeData = res.data.data;
-                        setChallengeBeforeChanges({
-                            template: JSON.parse(oldChallengeData.template),
-                            classDiagram: (oldChallengeData.expectedStructure.length>0?JSON.parse(oldChallengeData.expectedStructure.replaceAll('\\\"','\"')):[
-                                {
-                                    blockType: "Base",
-                                    expanded: true,
-                                    children: []
-                                
-                                }
-                            ]),
-                            inputTests: JSON.parse(oldChallengeData.expectedOutputTests),
-                            challengeDetails: {
-                                name: oldChallengeData.name,
-                                description: oldChallengeData.description,
-                                difficulty: oldChallengeData.difficulty,
-                                startsAt: new Date(oldChallengeData.startsAt),
-                                isPublic: oldChallengeData.isPublic,
-                                expiresAt: new Date(oldChallengeData.expiresAt),
-                                language: oldChallengeData.language,
-                                expectedDesignPatterns: oldChallengeData.expectedDesignPatterns,
-                            }
-                        })
+                        setChallengeBeforeChanges(setChallengeStateAfterFetch(oldChallengeData))
                     })
             })
     },[])
 
     useEffect(()=>{
         if(challengeBeforeChanges && changes && message){
-            setChallengeAfterChanges({
-                template: (changes.template!) ? JSON.parse(changes.template!) : challengeBeforeChanges.template,
-                classDiagram: changes.expectedStructure? (changes.expectedStructure.length>0?JSON.parse(changes.expectedStructure.replaceAll('\\\"','\"')):[
-                    {
-                        blockType: "Base",
-                        expanded: true,
-                        children: []
-                    
-                    }
-                ]): challengeBeforeChanges.classDiagram,
-                inputTests: (changes.expectedOutputTests)? JSON.parse(changes.expectedOutputTests) : challengeBeforeChanges.inputTests,
-                challengeDetails: {
-                    name: changes.name || challengeBeforeChanges.challengeDetails.name,
-                    description: changes.description || challengeBeforeChanges.challengeDetails.description,
-                    difficulty: changes.difficulty || challengeBeforeChanges.challengeDetails.difficulty,
-                    startsAt: changes.startsAt? new Date(changes.startsAt) : new Date(challengeBeforeChanges.challengeDetails.startsAt),
-                    isPublic: changes.isPublic || challengeBeforeChanges.challengeDetails.isPublic,
-                    expiresAt: changes.expiresAt? new Date(changes.expiresAt) : new Date(challengeBeforeChanges.challengeDetails.expiresAt),
-                    language: changes.language || challengeBeforeChanges.challengeDetails.language,
-                    expectedDesignPatterns: changes.expectedDesignPatterns || challengeBeforeChanges.challengeDetails.expectedDesignPatterns,
-                },
-                message: message
-            })
-        }
+            setChallengeAfterChanges(combineChallengeDataWithIncomingChanges(challengeBeforeChanges,changes))
         // console.log(challengeBeforeChanges)
+        }
     },[challengeBeforeChanges, changes, message])
 
     return (
