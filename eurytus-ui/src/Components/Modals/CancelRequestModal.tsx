@@ -1,16 +1,20 @@
 import { Fragment, useRef, useState } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import {BsExclamationTriangle} from 'react-icons/bs';
-import {useNavigate} from 'react-router-dom';
 
+interface ModalProps {
+    show: boolean,
+    toggleShow: ()=>void,
+    deleteRequest: ()=>void
+}
 
-const DeleteRequestExistsModal = () => {
+const CancelRequestModal = ({show, toggleShow, deleteRequest}: ModalProps) => {
+
   const cancelButtonRef = useRef(null)
-  const navigate = useNavigate();
 
   return (
-    <Transition.Root show={true} as={Fragment}>
-      <Dialog as="div" className="fixed z-10 inset-0 overflow-y-auto" initialFocus={cancelButtonRef} onClose={()=>navigate('/profile')}>
+    <Transition.Root show={show} as={Fragment}>
+      <Dialog as="div" className="fixed z-10 inset-0 overflow-y-auto" initialFocus={cancelButtonRef} onClose={toggleShow}>
         <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
           <Transition.Child
             as={Fragment}
@@ -45,12 +49,11 @@ const DeleteRequestExistsModal = () => {
                   </div>
                   <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
                     <Dialog.Title as="h3" className="text-lg leading-6 font-medium text-gray-900">
-                      Delete request exists!
+                      Cancel request!
                     </Dialog.Title>
                     <div className="mt-2">
                       <p className="text-sm text-gray-500">
-                        There is a pending delete request for this challenge. If you want to edit this challenge go back and cancel
-                        the delete request. 
+                        Are you sure you want to cancel this request? You wont be able to restore it.
                       </p>
                     </div>
                   </div>
@@ -61,10 +64,17 @@ const DeleteRequestExistsModal = () => {
                   type="button"
                   ref={cancelButtonRef}
                   className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm"
-                  onClick={()=>navigate('/profile')}
+                  onClick={()=>deleteRequest()}
                 >
-                  Back to profile
+                  Delete
                 </button>
+                <button
+                  type="button"
+                  className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
+                  onClick={toggleShow}
+                >
+                  Cancel
+                </button> 
               </div>
             </div>
           </Transition.Child>
@@ -74,4 +84,4 @@ const DeleteRequestExistsModal = () => {
   )
 }
 
-export default DeleteRequestExistsModal
+export default CancelRequestModal

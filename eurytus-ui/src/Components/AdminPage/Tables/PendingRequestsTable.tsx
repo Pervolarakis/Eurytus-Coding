@@ -12,7 +12,7 @@ interface PendingRequest {
     ownerId: string
 } 
 
-const PendingRequestsTable = ({requests, fixed}:{requests: PendingRequest[], fixed?:boolean}) => {
+const PendingRequestsTable = ({requests, fixed, userProfile}:{requests: PendingRequest[], fixed?:boolean, userProfile?: (id:string)=>void}) => {
     
     const tableRef = useRef() as React.MutableRefObject<HTMLInputElement>;;
     const [tableHeight, setTableHeight] = useState(0);
@@ -59,13 +59,13 @@ const PendingRequestsTable = ({requests, fixed}:{requests: PendingRequest[], fix
                         {request.kind}
                     </span>
                 </td>
-                <td className="px-6 py-2 whitespace-nowrap flex justify-center">
+                {(!userProfile)?<td className="px-6 py-2 whitespace-nowrap flex justify-center">
                     <img className="h-7 w-7 rounded-full" src={getUserAvatar(request.ownerId)} alt="" />
-                </td>
+                </td>:null}
                 <td className="px-6 py-3 whitespace-nowrap text-sm font-medium">
-                    <NavLink to={`/admin/review/${request.kind}/${request._id}`} className="text-indigo-600 hover:text-indigo-900">
+                    {(!userProfile)?<NavLink to={`/admin/review/${request.kind}/${request._id}`} className="text-indigo-600 hover:text-indigo-900">
                         Inspect
-                    </NavLink>
+                    </NavLink>:<button className="font-medium text-red-600 hover:text-red-900" onClick={()=>userProfile(request._id)}>Cancel</button>}
                 </td>
             </tr>
         ))
@@ -99,12 +99,12 @@ const PendingRequestsTable = ({requests, fixed}:{requests: PendingRequest[], fix
                             >
                                 kind
                             </th>
-                            <th
+                            {(!userProfile)?<th
                                 scope="col"
                                 className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider"
                             >
                                 User
-                            </th>
+                            </th>:null}
                             <th scope="col" className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">
                                 Action
                             </th>

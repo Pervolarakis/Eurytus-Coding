@@ -7,7 +7,7 @@ import { DeleteChallengePublisher} from '../events/DeleteChallengePublisher'
 
 const router = express.Router();
 
-router.delete('/api/v1/challenges/delete/:id', requireAuth, asyncHandler(async(req: Request, res: Response, next: NextFunction)=>{
+router.put('/api/v1/challenges/delete/:id', requireAuth, asyncHandler(async(req: Request, res: Response, next: NextFunction)=>{
     
     const challenge = await Challenge.findById(req.params.id);
     if(!challenge){
