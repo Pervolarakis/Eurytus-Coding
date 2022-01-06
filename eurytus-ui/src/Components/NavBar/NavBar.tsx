@@ -51,12 +51,12 @@ const NavBar = () => {
                     />
                   </div>
                   <div className="hidden sm:block sm:ml-6">
-                    <div className="flex space-x-4 h-full">
+                    <div className="flex space-x-2 h-full">
                       {navigation.map((item) => (
                         <NavLink
                           to={item.href}
                           className={({ isActive }) =>
-                            isActive ? ' text-white font-bold border-b-4 border-secondary flex flex-wrap content-center h-full' : 'border-b-4 border-primary text-gray-300 hover:bg-gray-700 hover:text-white font-bold flex flex-wrap content-center h-full'
+                            isActive ? ' text-white font-bold border-b-4 border-secondary flex flex-wrap content-center h-full px-2' : 'px-2 border-b-4 border-primary text-gray-300 hover:bg-gray-700 hover:text-white font-bold flex flex-wrap content-center h-10 my-auto rounded-md'
                           }
                         >
                           {item.name}

@@ -16,7 +16,7 @@ import PreviewCreateChallengeRequest from './Components/AdminPage/ModerateChalle
 import PreviewUpdateChallengeRequest from './Components/AdminPage/ModerateChallenges/PreviewUpdateChallengeRequest';
 import PreviewDeleteChallengeRequest from './Components/AdminPage/ModerateChallenges/PreviewDeleteChallengeRequest';
 import UserProfile from './Components/UserProfile/UserProfile';
-import EditChallenge from './Components/UserProfile/EditChallenge'
+import EditChallenge from './Components/UserProfile/EditChallenge/EditChallenge'
 
 
 function App() {

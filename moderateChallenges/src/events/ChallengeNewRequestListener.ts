@@ -10,8 +10,10 @@ export class ChallengeNewRequestListener extends Listener<ChallengeNewRequestEve
     async onMessage(data: ChallengeNewRequestEventData["data"], msg: Message){
         if(data.kind!=='create'){
             const request = await PendingRequest.find({challengeId: data.challengeId}).sort({created_at: -1}).limit(1);
-            if(request[0].kind==='delete'){
-                return msg.ack();
+            if(request.length){
+                if(request[0].kind==='delete'){
+                    return msg.ack();
+                }
             }
         }
         const request = new PendingRequest(data);

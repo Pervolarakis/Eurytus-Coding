@@ -63,7 +63,7 @@ const PreviewCreateChallengeRequest = () => {
                     <button className="h-10 bg-green-500 w-40 text-2xl font-bold text-white rounded-md ml-4" onClick={()=>null}>Approve</button>
                 </div>
             </div>
-            {fetchedChallenge?<PreviewChallenge message={fetchedChallenge.message!} setMessage={()=>null} template={fetchedChallenge.template} setTemplate={()=>null} classDiagram={fetchedChallenge.classDiagram} setClassDiagram={()=>null} challengeDetails={fetchedChallenge.challengeDetails} updateField={()=>null} inputTests={fetchedChallenge.inputTests} setInputTests={()=>null}/>:null}
+            {fetchedChallenge?<PreviewChallenge message={''} setMessage={()=>null} template={fetchedChallenge.template} setTemplate={()=>null} classDiagram={fetchedChallenge.classDiagram} setClassDiagram={()=>null} challengeDetails={fetchedChallenge.challengeDetails} updateField={()=>null} inputTests={fetchedChallenge.inputTests} setInputTests={()=>null}/>:null}
         </div>
     )
 }

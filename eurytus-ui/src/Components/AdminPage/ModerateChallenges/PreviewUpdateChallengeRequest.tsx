@@ -59,7 +59,7 @@ const PreviewUpdateChallengeRequest = () => {
     useEffect(()=>{
         if(challengeBeforeChanges && changes && message){
             setChallengeAfterChanges({
-                template: changes.template || challengeBeforeChanges.template,
+                template: (changes.template!) ? JSON.parse(changes.template!) : challengeBeforeChanges.template,
                 classDiagram: changes.expectedStructure? (changes.expectedStructure.length>0?JSON.parse(changes.expectedStructure.replaceAll('\\\"','\"')):[
                     {
                         blockType: "Base",

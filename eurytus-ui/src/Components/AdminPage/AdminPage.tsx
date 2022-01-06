@@ -20,7 +20,6 @@ const AdminPage = () => {
 
     },[])
 
-    useEffect(()=>{console.log(requests)},[requests])
 
     return(
         <div id="solvechallenge">
