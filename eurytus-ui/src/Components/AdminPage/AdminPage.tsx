@@ -1,8 +1,10 @@
 import {axios} from '../../Api/eurytusInstance';
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Outlet, NavLink } from 'react-router-dom';
 import { ChallengesContext } from '../../Contexts/ChallengesContext';
 import { RequestsContext } from '../../Contexts/RequestsContext';
+import { Disclosure } from '@headlessui/react';
+import {FaAngleUp, FaAngleDown} from 'react-icons/fa'
 
 const AdminPage = () => {
     
@@ -20,33 +22,68 @@ const AdminPage = () => {
 
     },[])
 
+    const routes = [
+        {name: 'Dashboard', to: '/admin'},
+        {name: 'Requests', to: '/admin/requests'},
+        {name: 'Challenges', to: '/admin/challenges'},
+    ]
 
     return(
         <div id="solvechallenge">
-            <div className="w-full flex h-full">
-                <div className="w-1/6 bg-white flex h-full shadow flex-col p-6">
+            <div className="w-full flex h-full flex-col md:flex-row">
+                <div className="hidden w-1/6 bg-white md:flex h-full shadow flex-col p-6">
                     <h1 className="my-6 text-secondary font-light text-3xl">Eurytus Admin</h1>
-                    <NavLink to="/admin" 
-                        className={({ isActive }) =>
-                            `${isActive ? 'text-white bg-secondary' : 'text-gray-900 hover:bg-gray-200'} rounded-lg p-3 text-sm mt-2 font-semibold`
-                        }
-                        end= {true}>
-                        Dashboard
-                    </NavLink>
-                    <NavLink to="/admin/requests" className={({ isActive }) =>
-                        `${isActive ? 'text-white bg-secondary' : 'text-gray-900 hover:bg-gray-200'} rounded-lg p-3 text-sm mt-2 font-semibold`
+                    {
+                        routes.map((el,index)=>{
+                            return (
+                                <NavLink to={el.to}
+                                    key={el.name} 
+                                    className={({ isActive }) =>
+                                        `${isActive ? 'text-white bg-secondary' : 'text-gray-900 hover:bg-gray-200'} rounded p-3 text-sm mt-2 font-semibold`
+                                    }
+                                    end= {true}>
+                                    {el.name}
+                                </NavLink>
+                            )
+                        })
                     }
-                    end= {true}>
-                        Requests
-                    </NavLink>
-                    <NavLink to="/admin/challenges" className={({ isActive }) =>
-                        `${isActive ? 'text-white bg-secondary' : 'text-gray-900 hover:bg-gray-200'} rounded-lg p-3 text-sm mt-2 font-semibold`
-                    }
-                    end= {true}>
-                        Challenges
-                    </NavLink>
                 </div>
-                <div className="w-5/6 p-14">
+                <Disclosure as="nav" className="md:hidden bg-white w-full z-10">
+                {({ open }) => (
+                    <>    
+                    <div className='flex w-full items-center shadow justify-center'>
+                        <h1 className="text-secondary font-light text-3xl text-center">Eurytus Admin</h1>
+                        <Disclosure.Button className={`right-0 h-14 ml-2`}>
+                            {open ? (
+                                <FaAngleUp className="h-6 w-6 text-secondary_dark" aria-hidden="true" />
+                                ) : (
+                                <FaAngleDown className="block h-6 w-6 text-secondary_dark" aria-hidden="true" />
+                            )}
+                        </Disclosure.Button>      
+                    </div>  
+                    <Disclosure.Panel className="md:hidden shadow">
+                        <div className={`px-2 pt-2 flex flex-col space-y-1 ${open? 'bg-white': ''}`}>
+                            {routes.map((item) => (
+                                
+                            <NavLink
+                                key={item.name}
+                                to={item.to}
+                                className={({ isActive }) =>
+                                    `${isActive ? 'text-white bg-secondary' : 'text-gray-900 hover:bg-gray-200'} rounded p-3 text-sm mt-2 font-semibold`
+                                
+                                }
+                                end= {true}
+                            >
+                                {item.name}
+                                
+                            </NavLink>
+                            ))}
+                        </div>
+                    </Disclosure.Panel>
+                    </>
+                )}
+                </Disclosure>
+                <div className="w-full p-4 md:w-5/6 md:p-14 h-full">
                     <ChallengesContext.Provider value={{challenges,setChallenges}}>
                         <RequestsContext.Provider value={{requests, setRequests}}>
                             <Outlet/>
