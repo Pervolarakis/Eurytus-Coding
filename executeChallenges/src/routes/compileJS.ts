@@ -1,4 +1,4 @@
-import {node} from 'compile-run';
+import {node} from '@eurytus/compile-run';
 import express, {Request, Response, NextFunction} from 'express';
 
 const router = express.Router();

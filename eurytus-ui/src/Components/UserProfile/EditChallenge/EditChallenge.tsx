@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { TreeItem } from "react-sortable-tree";
 import { axios } from "../../../Api/eurytusInstance";
 import { combineChallengeDataWithIncomingChanges, setChallengeStateAfterFetch } from "../../AdminPage/ChallengeUtils/ChallengeUitls";
 import { requestChallengeProperties } from "../../AdminPage/ModerateChallenges/ReviewRequestInterfaces";

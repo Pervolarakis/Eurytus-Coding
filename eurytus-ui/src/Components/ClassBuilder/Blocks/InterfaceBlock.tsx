@@ -1,4 +1,4 @@
-import {TreeItem, changeNodeAtPath} from "react-sortable-tree";
+import {TreeItem, changeNodeAtPath} from "ndanvers-react-sortable-tree";
 
 const InterfaceBlock = ({ node, path, setTreeData, treeData }: {node: TreeItem, path: (string | number)[], setTreeData(str: TreeItem[]):void, treeData: TreeItem[]}) => {
     

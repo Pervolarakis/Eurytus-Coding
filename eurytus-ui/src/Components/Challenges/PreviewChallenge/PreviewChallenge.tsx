@@ -3,7 +3,7 @@ import ClassBuilder from '../../ClassBuilder/ClassBuilder'
 import InputOutputList from '../PreviewChallenge/InputOutputList'
 import ChallengeDetails from '../PreviewChallenge/ChallengeDetails'
 import { Tab } from '@headlessui/react'
-import { TreeItem } from 'react-sortable-tree'
+import { TreeItem } from 'ndanvers-react-sortable-tree'
 
 export interface fieldType {
     name: string,
