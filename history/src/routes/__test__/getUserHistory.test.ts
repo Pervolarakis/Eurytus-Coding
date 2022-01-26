@@ -8,22 +8,24 @@ it('successfully returns all history for specific user', async()=>{
     const history1 = new History({
         userId: user,
         challengeId: new mongoose.Types.ObjectId(),
-        challengeName: 'Dumb challenge 1',
+        // challengeName: 'Dumb challenge 1',
         completionDate: new Date().toISOString(),
         saveFileId: '11112222333444',
         language: 'js',
+        userEmail: 'demomail3@gmail.com',
         outputTestsPassedScore: 50,
         requiredStructureFound: true,
-        designPatternsFound: JSON.stringify({
+        designPatternsFound: {
             singleton: true,
             factory: false,
             observer: true
-        })})
+        }})
     const history2 = new History({
         userId: user,
         challengeId: new mongoose.Types.ObjectId(),
-        challengeName: 'Dumb challenge 3',
+        // challengeName: 'Dumb challenge 3',
         language: 'java',
+        userEmail: 'demomail1@gmail.com',
         completionDate: new Date().toISOString(),
         saveFileId: '9995552333444',
         outputTestsPassedScore: 33.33,

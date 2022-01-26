@@ -9,8 +9,8 @@ export class CreateHistoryListener extends Listener<CreateHistoryEventData>{
         const history = new History({
             userId: data.userId, 
             challengeId: data.challengeId, 
-            challengeName: data.challengeName, 
-            completionDate: data.completionDate, 
+            completionDate: data.completionDate,
+            userEmail: data.userEmail, 
             saveFileId: data.saveFileId, 
             language: data.language,
             outputTestsPassedScore: data.outputTestsPassedScore,
