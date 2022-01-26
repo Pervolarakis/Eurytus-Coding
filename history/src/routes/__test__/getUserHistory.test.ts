@@ -11,6 +11,7 @@ it('successfully returns all history for specific user', async()=>{
         challengeName: 'Dumb challenge 1',
         completionDate: new Date().toISOString(),
         saveFileId: '11112222333444',
+        language: 'js',
         outputTestsPassedScore: 50,
         requiredStructureFound: true,
         designPatternsFound: JSON.stringify({
@@ -22,6 +23,7 @@ it('successfully returns all history for specific user', async()=>{
         userId: user,
         challengeId: new mongoose.Types.ObjectId(),
         challengeName: 'Dumb challenge 3',
+        language: 'java',
         completionDate: new Date().toISOString(),
         saveFileId: '9995552333444',
         outputTestsPassedScore: 33.33,

@@ -6,6 +6,7 @@ interface historyDoc extends mongoose.Document{
     challengeName: string,
     completionDate: string,
     saveFileId: string,
+    language: string,
     outputTestsPassedScore: number | null,
     requiredStructureFound: boolean | null,
     designPatternsFound: string | null,
@@ -29,6 +30,10 @@ const historySchema = new mongoose.Schema({
         required: true
     },
     saveFileId:{
+        type: String,
+        required: true
+    },
+    language: {
         type: String,
         required: true
     },

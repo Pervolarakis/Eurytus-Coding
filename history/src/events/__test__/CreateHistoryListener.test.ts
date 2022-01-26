@@ -14,6 +14,7 @@ const setup = async()=>{
         challengeName: 'Dumb challenge 3',
         completionDate: new Date().toISOString(),
         saveFileId: '9995552333444',
+        language: 'java',
         outputTestsPassedScore: 33.33,
         requiredStructureFound: null,
         designPatternsFound: null
@@ -21,6 +22,7 @@ const setup = async()=>{
     await history.save();
     const data: CreateHistoryEventData["data"] = {
         userId: history.userId,
+        language: history.language,
         challengeId: history.challengeId,
         challengeName: history.challengeName,
         completionDate: history.completionDate,

@@ -12,6 +12,7 @@ export class CreateHistoryListener extends Listener<CreateHistoryEventData>{
             challengeName: data.challengeName, 
             completionDate: data.completionDate, 
             saveFileId: data.saveFileId, 
+            language: data.language,
             outputTestsPassedScore: data.outputTestsPassedScore,
             requiredStructureFound: data.requiredStructureFound,
             designPatternsFound: data.designPatternsFound
