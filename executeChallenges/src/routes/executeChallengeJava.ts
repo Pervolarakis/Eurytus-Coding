@@ -7,7 +7,7 @@ import { checkEquality } from '../templates/CheckEqualityLogic';
 import { detectClassesMain, detectClassesLogic } from '../templates/ClassDiagramTemplate';
 import { detectDesignPattern } from './designPatterns';
 import { checkStructure } from './__test__/checkProgramStructure';
-import { compileOutput } from './interfaces/CompileOutputInterface';
+import { compileOutputJava } from './interfaces/CompileOutputInterface';
 import { convertStructureFormat } from './utils/convertStructureFormat';
 import { SubmitChallengePublisher } from '../events/SubmitChallengePublisher';
 import { natsWrapper } from '../events/NatsWrapper';
@@ -51,7 +51,7 @@ router.post('/api/v1/compile/challengejava/:id',requireAuth, asyncHandler(async(
     }
 
     // console.log(javaTemp(outPutFunctionCalls, userFunction, checkEqualityLogic, detectClassesMainLocal, detectClassesLogicLocal))
-    new Promise<compileOutput>((resolve, reject)=>
+    new Promise<compileOutputJava>((resolve, reject)=>
         java.runSource(javaTemp(outPutFunctionCalls, userFunction, checkEqualityLogic, detectClassesMainLocal, detectClassesLogicLocal),{timeout: 4000, compileTimeout: 4000, stdoutLimit: 50000, stderrLimit: 50000 })
             .then(result => {
                 if(result.stderr){
@@ -113,7 +113,7 @@ router.post('/api/v1/compile/challengejava/:id',requireAuth, asyncHandler(async(
                     saveFileId: result.file,
                     outputTestsPassedScore: (successfulTests/totalTestsDone) * 100,
                     requiredStructureFound: structureFound, 
-                    designPatternsFound: designPatterns
+                    designPatternsFound: (Object.keys(designPatterns).length)?designPatterns:null
                 })
                 // console.log(result);
             }
