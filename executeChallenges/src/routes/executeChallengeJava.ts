@@ -65,7 +65,7 @@ router.post('/api/v1/compile/challengejava/:id',requireAuth, asyncHandler(async(
                         });
                     }
                     // console.log(formattedError)
-                    return reject(formattedError)
+                    return reject({errorMessage: formattedError, file: result.file})
                 }
                 //console.log(javaTemp(JSON.parse(currentChallenge.input),funct))
                 // console.log(result.stdout)
@@ -99,26 +99,49 @@ router.post('/api/v1/compile/challengejava/:id',requireAuth, asyncHandler(async(
                 successfulTests = result.testsPassed;
             }
             // console.log(result.classDiagram);
+
+            const structureFound = (challenge.expectedStructure)?checkStructure(result.classDiagram, convertStructureFormat(challenge.expectedStructure)):null
+
             if(req.query.submit){
-                // new SubmitChallengePublisher(natsWrapper.client).publish({
-                //     userId: req.currentUser?.id!,
-                //     challengeId: challenge._id,
-                //     challengeName: 'tempname',
-                //     completionDate: new Date().toISOString(), 
-                //     saveFileId: result.file,
-                //     outputTestsPassedScore: number | null; 
-                //     requiredStructureFound: boolean | null; 
-                //     designPatternsFound: designPatterns
-                // })
+                new SubmitChallengePublisher(natsWrapper.client).publish({
+                    userId: req.currentUser?.id!,
+                    userEmail: req.currentUser?.email!,
+                    language: challenge.language,
+                    challengeId: challenge._id,
+                    running: true,
+                    completionDate: new Date().toISOString(), 
+                    saveFileId: result.file,
+                    outputTestsPassedScore: (successfulTests/totalTestsDone) * 100,
+                    requiredStructureFound: structureFound, 
+                    designPatternsFound: designPatterns
+                })
                 // console.log(result);
             }
             res.status(200).json({success: true, data: {
-                structure: (challenge.expectedStructure)?checkStructure(result.classDiagram, convertStructureFormat(challenge.expectedStructure)):null,
+                structure: structureFound,
                 designPatterns: designPatterns,
                 totalTestsDone: totalTestsDone,
                 successfulTests: successfulTests}})
         })
-        .catch(error => {res.status(200).json({success: false, compileError: error})})
+        .catch(error => {
+            if(req.query.submit){
+                new SubmitChallengePublisher(natsWrapper.client).publish({
+                    userId: req.currentUser?.id!,
+                    userEmail: req.currentUser?.email!,
+                    language: challenge.language,
+                    challengeId: challenge._id,
+                    running: false,
+                    completionDate: new Date().toISOString(), 
+                    saveFileId: error.file,
+                    outputTestsPassedScore: null,
+                    requiredStructureFound: null, 
+                    designPatternsFound: null
+                })
+                // console.log(result);
+            }
+            res.status(200).json({success: false, compileError: error.errorMessage})
+        
+        })
 
 }))
 
