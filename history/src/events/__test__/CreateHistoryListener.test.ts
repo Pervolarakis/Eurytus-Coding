@@ -16,6 +16,7 @@ const setup = async()=>{
         saveFileId: '9995552333444',
         language: 'java',
         outputTestsPassedScore: 33.33,
+        running: true,
         requiredStructureFound: null,
         designPatternsFound: null
     })
@@ -24,6 +25,7 @@ const setup = async()=>{
     const data: CreateHistoryEventData["data"] = {
         userId: history.userId,
         language: history.language,
+        running: history.running,
         userEmail: history.userEmail,
         challengeId: history.challengeId,
         completionDate: history.completionDate,
