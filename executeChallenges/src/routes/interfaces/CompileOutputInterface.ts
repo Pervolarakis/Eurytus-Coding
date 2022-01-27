@@ -23,5 +23,6 @@ export interface classDiagram{
 
 export interface compileOutput {
     classDiagram: classDiagram[],
-    testsPassed: number
+    testsPassed: number,
+    file: string
 }

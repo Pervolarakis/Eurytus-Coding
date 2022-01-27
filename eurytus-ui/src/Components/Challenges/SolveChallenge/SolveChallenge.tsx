@@ -35,6 +35,13 @@ const SolveChallenge = () => {
         .then((res)=>{setExecutionMessage(res.data)})
     }
 
+    const submitCode = () => {
+        axios.post(`/compile/challenge${challenge!.language}/${challengeId}?submit=true`,{
+            solution: JSON.stringify(ideValue)
+        })
+        .then((res)=>{setExecutionMessage(res.data)})
+    }
+
     return(
         <div className="w-full" id="solvechallenge">
             {(challenge)?
@@ -45,7 +52,7 @@ const SolveChallenge = () => {
                         <Ide language={(challenge.language==='js')?'javascript':challenge.language} value={ideValue} changeValue={(val)=>setIdeValue(val)}/>
                     </div>
                     <div className="h-1/6">
-                        <SubmitChallenge onCodeRun={()=>onCodeRun()} executionMessage={executionMessage}/>
+                        <SubmitChallenge onCodeRun={()=>onCodeRun()} submitCode={()=>submitCode()} executionMessage={executionMessage}/>
                     </div>
                     
                 </div>

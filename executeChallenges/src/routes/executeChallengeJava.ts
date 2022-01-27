@@ -9,6 +9,8 @@ import { detectDesignPattern } from './designPatterns';
 import { checkStructure } from './__test__/checkProgramStructure';
 import { compileOutput } from './interfaces/CompileOutputInterface';
 import { convertStructureFormat } from './utils/convertStructureFormat';
+import { SubmitChallengePublisher } from '../events/SubmitChallengePublisher';
+import { natsWrapper } from '../events/NatsWrapper';
 
 const router = express.Router();
 
@@ -69,7 +71,7 @@ router.post('/api/v1/compile/challengejava/:id',requireAuth, asyncHandler(async(
                 // console.log(result.stdout)
                 const output = JSON.parse(result.stdout);
                 // parseInt(result.stdout.trim().split(/\s/).join(''))
-                return resolve(output);
+                return resolve({...output, file: result.file});
             })
             .catch(err => {
                 console.log(err);
@@ -97,6 +99,19 @@ router.post('/api/v1/compile/challengejava/:id',requireAuth, asyncHandler(async(
                 successfulTests = result.testsPassed;
             }
             // console.log(result.classDiagram);
+            if(req.query.submit){
+                // new SubmitChallengePublisher(natsWrapper.client).publish({
+                //     userId: req.currentUser?.id!,
+                //     challengeId: challenge._id,
+                //     challengeName: 'tempname',
+                //     completionDate: new Date().toISOString(), 
+                //     saveFileId: result.file,
+                //     outputTestsPassedScore: number | null; 
+                //     requiredStructureFound: boolean | null; 
+                //     designPatternsFound: designPatterns
+                // })
+                // console.log(result);
+            }
             res.status(200).json({success: true, data: {
                 structure: (challenge.expectedStructure)?checkStructure(result.classDiagram, convertStructureFormat(challenge.expectedStructure)):null,
                 designPatterns: designPatterns,
