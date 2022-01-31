@@ -53,6 +53,7 @@ const historySchema = new mongoose.Schema({
         type: Boolean
     },
     designPatternsFound: {
+        _id: false,
         type: {
             singleton: Boolean,
             factory: Boolean,

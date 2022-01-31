@@ -26,4 +26,7 @@ spec:
             backend:
               serviceName: execute-challenges-cluster-srv
               servicePort: 4000
-            
+          - path: /api/v1/history/?(.*)
+            backend:
+              serviceName: history-cluster-srv
+              servicePort: 4000

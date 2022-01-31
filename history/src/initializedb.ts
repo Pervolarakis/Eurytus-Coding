@@ -1,9 +1,51 @@
 import mongoose from 'mongoose';
 import { History } from './models/History';
 
-export const initializeDb = () => {
+export const initializeDb = async () => {
     console.log('TO DELETE --- Initializing History Service!')
     const historyData = [
+        {
+            userId: new mongoose.Types.ObjectId('61b07d810d86f0c5529ba8dc'),
+            challengeId: new mongoose.Types.ObjectId('61b07f9453ac6a09dffd9705'),
+            // challengeName: 'Multiply Challenge',
+            userEmail: 'admin@gmail.com',
+            completionDate: new Date().toISOString(),
+            saveFileId: '11225552333444',
+            language: "java",
+            running: true,
+            outputTestsPassedScore: 90,
+            requiredStructureFound: true,
+            designPatternsFound: {
+                factory: true,
+                observer: false
+            }
+        },
+        {
+            userId: new mongoose.Types.ObjectId('61b07d810d86f0c5529ba8dc'),
+            challengeId: new mongoose.Types.ObjectId('61b07f82c2d7ad3a19087d2f'),
+            // challengeName: 'Sum Challenge',
+            completionDate: new Date().toISOString(),
+            saveFileId: '11115552333441',
+            language: 'js',
+            running: true,
+            userEmail: 'admin@gmail.com',
+            outputTestsPassedScore: 66.34,
+            requiredStructureFound: null,
+            designPatternsFound: null,
+        },
+        {
+            userId: new mongoose.Types.ObjectId('61b07d810d86f0c5529ba8dc'),
+            challengeId: new mongoose.Types.ObjectId('61b07f8a611ccb9622c258b4'),
+            // challengeName: 'Sum Challenge 2',
+            userEmail: 'admin@gmail.com',
+            completionDate: new Date().toISOString(),
+            saveFileId: '14115552333444',
+            language: "java",
+            running: true,
+            outputTestsPassedScore: 90,
+            requiredStructureFound: false,
+            designPatternsFound: null,
+        },
         //challenge 1
         {
             userId: new mongoose.Types.ObjectId('61b0a74bd429ce3a35373d5d'),
@@ -197,10 +239,13 @@ export const initializeDb = () => {
             designPatternsFound:  null,
         },
     ]
-    historyData.map(async(el, index)=>{
-        const history = new History(el);
-        await history.save()
-    })
+    const history = await History.findOne({userEmail: 'admin@gmail.com'});
+    if(!history){
+        historyData.map(async(el, index)=>{
+            const history = new History(el);
+            await history.save()
+        })
+    }
 }
 
 
