@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { BiError } from "react-icons/bi";
 import { axios } from "../../../Api/eurytusInstance";
 import { fetchedDataType } from "../../AdminPage/ModerateChallenges/ReviewRequestInterfaces";
 import Tooltip from "../../Tooltip/Tooltip";
@@ -40,7 +41,7 @@ const UserHistoryListItem = ({challengeId, completionDate, language, outputTests
                     <p className="text-left text-base text-gray-600 max-h-24 md:max-h-full overflow-hidden">{challenge.description.slice(0,150)}</p>
                     <p className="text-left text-xs text-gray-600">Completed: {new Date(completionDate).toLocaleString()}</p>
                 </div>
-                <div className="w-2/6">
+                {running?<div className="w-2/6">
                     <Tooltip tooltipText={`${outputTestsPassedScore!.toString()}%`}>
                         <>
                             <p className="text-sm text-left text-gray-800">Score</p>
@@ -71,7 +72,11 @@ const UserHistoryListItem = ({challengeId, completionDate, language, outputTests
                             </>
                         </Tooltip>:null
                     }
-                </div>
+                </div>:
+                <div>
+                    <div className="text-3xl font-bold text-red-500 flex justify-center items-center"><BiError size={30}/></div>
+                    <h1 className="text-xl font-bold text-red-500">Not Running</h1>
+                </div>}
             </div></>:<h1>Loading</h1>}
         </div>
     )

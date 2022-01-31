@@ -76,7 +76,7 @@ const ChallengeStats = () => {
                             <h1 className="text-xl font-bold text-basicColor3">Avg. Patterns</h1>
                         </div>:null}
                         <div>
-                        <div className="text-3xl font-bold text-red-500 flex justify-center items-center"><BiError size={30}/> {notRunnig}</div>
+                            <div className="text-3xl font-bold text-red-500 flex justify-center items-center"><BiError size={30}/> {notRunnig}</div>
                             <h1 className="text-xl font-bold text-red-500">Not Running</h1>
                         </div>
                     </div>
