@@ -12,13 +12,10 @@ export const initializeDb = async () => {
             completionDate: new Date().toISOString(),
             saveFileId: '11225552333444',
             language: "java",
-            running: true,
-            outputTestsPassedScore: 90,
-            requiredStructureFound: true,
-            designPatternsFound: {
-                factory: true,
-                observer: false
-            }
+            running: false,
+            outputTestsPassedScore: null,
+            requiredStructureFound: null,
+            designPatternsFound: null
         },
         {
             userId: new mongoose.Types.ObjectId('61b07d810d86f0c5529ba8dc'),

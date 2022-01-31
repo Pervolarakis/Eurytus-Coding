@@ -11,6 +11,9 @@ export interface userHistoryProps {
     outputTestsPassedScore: number | null,
     requiredStructureFound: boolean | null,
     running: boolean,
+    saveFileId?: string
+    userEmail?: string
+    userId?: string
     designPatternsFound: {
         singleton?: boolean,
         factory?: boolean,

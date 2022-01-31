@@ -29,7 +29,7 @@ const Tooltip = ({ children, tooltipText }:{children: JSX.Element, tooltipText: 
             >
                 <div
                     className="bg-black h-3 w-3 absolute"
-                    style={{ bottom: "-6px", transform: "rotate(45deg)" }}
+                    style={{ bottom: "-6px", left: '5px', transform: "rotate(45deg)" }}
                 />
                     {tooltipText}
                 
