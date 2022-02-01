@@ -184,6 +184,7 @@ export const initializeDb = async () => {
                 expiresAt: el.expiresAt, 
                 status: el.status, 
                 startsAt: el.startsAt,
+                ownerId: el.ownerId,
                 expectedOutputTests: el.expectedOutputTests,
                 expectedStructure: el.expectedStructure,
                 expectedDesignPatterns: el.expectedDesignPatterns,
