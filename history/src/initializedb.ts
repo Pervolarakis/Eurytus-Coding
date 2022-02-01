@@ -9,6 +9,7 @@ export const initializeDb = async () => {
             challengeId: new mongoose.Types.ObjectId('61b07f9453ac6a09dffd9705'),
             // challengeName: 'Multiply Challenge',
             userEmail: 'admin@gmail.com',
+            challengeOwnerId: new mongoose.Types.ObjectId('56cb91bdc3464f14678934ca'),
             completionDate: new Date().toISOString(),
             saveFileId: '11225552333444',
             language: "java",
@@ -20,6 +21,7 @@ export const initializeDb = async () => {
         {
             userId: new mongoose.Types.ObjectId('61b07d810d86f0c5529ba8dc'),
             challengeId: new mongoose.Types.ObjectId('61b07f82c2d7ad3a19087d2f'),
+            challengeOwnerId: new mongoose.Types.ObjectId('56cb91bdc3464f14678934ca'),
             // challengeName: 'Sum Challenge',
             completionDate: new Date().toISOString(),
             saveFileId: '11115552333441',
@@ -33,6 +35,7 @@ export const initializeDb = async () => {
         {
             userId: new mongoose.Types.ObjectId('61b07d810d86f0c5529ba8dc'),
             challengeId: new mongoose.Types.ObjectId('61b07f8a611ccb9622c258b4'),
+            challengeOwnerId: new mongoose.Types.ObjectId('61b07a4e8ac34e37f17e97b5'),
             // challengeName: 'Sum Challenge 2',
             userEmail: 'admin@gmail.com',
             completionDate: new Date().toISOString(),
@@ -47,6 +50,7 @@ export const initializeDb = async () => {
         {
             userId: new mongoose.Types.ObjectId('61b0a74bd429ce3a35373d5d'),
             challengeId: new mongoose.Types.ObjectId('61b07f82c2d7ad3a19087d2f'),
+            challengeOwnerId: new mongoose.Types.ObjectId('56cb91bdc3464f14678934ca'),
             // challengeName: 'Sum Challenge',
             completionDate: new Date().toISOString(),
             saveFileId: '11115552333441',
@@ -60,6 +64,7 @@ export const initializeDb = async () => {
         {
             userId: new mongoose.Types.ObjectId('61b0a750e2f7b22deacb807c'),
             challengeId: new mongoose.Types.ObjectId('61b07f82c2d7ad3a19087d2f'),
+            challengeOwnerId: new mongoose.Types.ObjectId('56cb91bdc3464f14678934ca'),
             // challengeName: 'Sum Challenge',
             completionDate: new Date().toISOString(),
             saveFileId: '11115552333442',
@@ -74,6 +79,7 @@ export const initializeDb = async () => {
         {
             userId: new mongoose.Types.ObjectId('61b0a74bd429ce3a35373d5d'),
             challengeId: new mongoose.Types.ObjectId('61b0a841dcfdddbcd35caba3'),
+            challengeOwnerId: new mongoose.Types.ObjectId('56cb91bdc3464f14678934ca'),
             // challengeName: 'Private Sum Challenge',
             completionDate: new Date().toISOString(),
             saveFileId: '11115552333443',
@@ -87,6 +93,7 @@ export const initializeDb = async () => {
         {
             userId: new mongoose.Types.ObjectId('61b0a770a4bdcd0c2b4f538a'),
             challengeId: new mongoose.Types.ObjectId('61b0a841dcfdddbcd35caba3'),
+            challengeOwnerId: new mongoose.Types.ObjectId('56cb91bdc3464f14678934ca'),
             // challengeName: 'Private Sum Challenge',
             completionDate: new Date().toISOString(),
             userEmail: 'demomail4@gmail.com',
@@ -101,6 +108,7 @@ export const initializeDb = async () => {
         {
             userId: new mongoose.Types.ObjectId('61b0a750e2f7b22deacb807c'),
             challengeId: new mongoose.Types.ObjectId('61b07f8a611ccb9622c258b4'),
+            challengeOwnerId: new mongoose.Types.ObjectId('61b07a4e8ac34e37f17e97b5'),
             // challengeName: 'Sum Challenge 2',
             userEmail: 'demomail2@gmail.com',
             completionDate: new Date().toISOString(),
@@ -114,6 +122,7 @@ export const initializeDb = async () => {
         {
             userId: new mongoose.Types.ObjectId(),
             challengeId: new mongoose.Types.ObjectId('61b07f8a611ccb9622c258b4'),
+            challengeOwnerId: new mongoose.Types.ObjectId('61b07a4e8ac34e37f17e97b5'),
             // challengeName: 'Sum Challenge 2',
             userEmail: 'aaa@aaa.com',
             completionDate: new Date().toISOString(),
@@ -127,6 +136,7 @@ export const initializeDb = async () => {
         {
             userId: new mongoose.Types.ObjectId('61b0a770a4bdcd0c2b4f538a'),
             challengeId: new mongoose.Types.ObjectId('61b07f8a611ccb9622c258b4'),
+            challengeOwnerId: new mongoose.Types.ObjectId('61b07a4e8ac34e37f17e97b5'),
             // challengeName: 'Sum Challenge 2',
             userEmail: 'demomail4@gmail.com',
             completionDate: new Date().toISOString(),
@@ -141,6 +151,7 @@ export const initializeDb = async () => {
         {
             userId: new mongoose.Types.ObjectId('61b0a750e2f7b22deacb807c'),
             challengeId: new mongoose.Types.ObjectId('61b07f9453ac6a09dffd9705'),
+            challengeOwnerId: new mongoose.Types.ObjectId('56cb91bdc3464f14678934ca'),
             // challengeName: 'Multiply Challenge',
             completionDate: new Date().toISOString(),
             userEmail: 'demomail2@gmail.com',
@@ -156,6 +167,7 @@ export const initializeDb = async () => {
         {
             userId: new mongoose.Types.ObjectId('61b0a75931ac8d42cd35c846'),
             challengeId: new mongoose.Types.ObjectId('61b07f9453ac6a09dffd9705'),
+            challengeOwnerId: new mongoose.Types.ObjectId('56cb91bdc3464f14678934ca'),
             // challengeName: 'Multiply Challenge',
             userEmail: 'demomail3@gmail.com',
             completionDate: new Date().toISOString(),
@@ -172,6 +184,7 @@ export const initializeDb = async () => {
         {
             userId: new mongoose.Types.ObjectId('61b0a774e21abd04b27098e8'),
             challengeId: new mongoose.Types.ObjectId('61b07f9911b8e709381ca4ee'),
+            challengeOwnerId: new mongoose.Types.ObjectId('61b07a4e8ac34e37f17e97b5'),
             // challengeName: 'Array Data test',
             userEmail: 'demomail5@gmail.com',
             completionDate: new Date().toISOString(),
@@ -185,6 +198,7 @@ export const initializeDb = async () => {
         {
             userId: new mongoose.Types.ObjectId('61b0a75931ac8d42cd35c846'),
             challengeId: new mongoose.Types.ObjectId('61b07f9911b8e709381ca4ee'),
+            challengeOwnerId: new mongoose.Types.ObjectId('61b07a4e8ac34e37f17e97b5'),
             // challengeName: 'Array Data test',
             userEmail: 'demomail3@gmail.com',
             completionDate: new Date().toISOString(),
@@ -199,6 +213,7 @@ export const initializeDb = async () => {
         {
             userId: new mongoose.Types.ObjectId('61b0a77853ced44fbddc8506'),
             challengeId: new mongoose.Types.ObjectId('61b07f9f2d57ab33c622345b'),
+            challengeOwnerId: new mongoose.Types.ObjectId('61b07d810d86f0c5529ba8dc'),
             // challengeName: 'Array Data Test',
             userEmail: 'demomail6@gmail.com',
             completionDate: new Date().toISOString(),
@@ -212,6 +227,7 @@ export const initializeDb = async () => {
         {
             userId: new mongoose.Types.ObjectId('61b0a774e21abd04b27098e8'),
             challengeId: new mongoose.Types.ObjectId('61b07f9f2d57ab33c622345b'),
+            challengeOwnerId: new mongoose.Types.ObjectId('61b07d810d86f0c5529ba8dc'),
             // challengeName: 'Array Data Test',
             userEmail: 'demomail5@gmail.com',
             completionDate: new Date().toISOString(),
@@ -225,6 +241,7 @@ export const initializeDb = async () => {
         {
             userId: new mongoose.Types.ObjectId('61b0a75931ac8d42cd35c846'),
             challengeId: new mongoose.Types.ObjectId('61b07f9f2d57ab33c622345b'),
+            challengeOwnerId: new mongoose.Types.ObjectId('61b07d810d86f0c5529ba8dc'),
             // challengeName: 'Array Data Test',
             userEmail: 'demomail3@gmail.com',
             language: "js",

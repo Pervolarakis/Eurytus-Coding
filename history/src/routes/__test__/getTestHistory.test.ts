@@ -8,6 +8,7 @@ it('successfully returns all history for test', async()=>{
     const testHistory1 = new History({
         userId: new mongoose.Types.ObjectId(),
         challengeId: challengeId,
+        challengeOwnerId: new mongoose.Types.ObjectId(),
         completionDate: new Date().toISOString(),
         saveFileId: '11112222333444',
         language: 'java',
@@ -23,6 +24,7 @@ it('successfully returns all history for test', async()=>{
     const testHistory2 = new History({
         userId: new mongoose.Types.ObjectId(),
         challengeId: challengeId,
+        challengeOwnerId: new mongoose.Types.ObjectId(),
         completionDate: new Date().toISOString(),
         saveFileId: '11115552333444',
         language: 'js',
@@ -41,6 +43,7 @@ it('successfully returns all history for test', async()=>{
         challengeId: challengeId,
         language: 'java',
         running: true,
+        challengeOwnerId: new mongoose.Types.ObjectId(),
         userEmail: 'demomail9@gmail.com',
         completionDate: new Date().toISOString(),
         saveFileId: '66665552333444',

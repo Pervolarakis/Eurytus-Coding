@@ -8,6 +8,7 @@ export class CreateHistoryListener extends Listener<CreateHistoryEventData>{
     async onMessage(data: CreateHistoryEventData["data"], msg: Message){
         const history = new History({
             userId: data.userId, 
+            challengeOwnerId: data.challengeOwnerId,
             challengeId: data.challengeId, 
             completionDate: data.completionDate,
             userEmail: data.userEmail, 

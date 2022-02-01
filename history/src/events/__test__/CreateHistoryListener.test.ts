@@ -17,6 +17,7 @@ const setup = async()=>{
         language: 'java',
         outputTestsPassedScore: 33.33,
         running: true,
+        challengeOwnerId: new mongoose.Types.ObjectId(),
         requiredStructureFound: null,
         designPatternsFound: null
     })
@@ -27,6 +28,7 @@ const setup = async()=>{
         language: history.language,
         running: history.running,
         userEmail: history.userEmail,
+        challengeOwnerId: history.challengeOwnerId,
         challengeId: history.challengeId,
         completionDate: history.completionDate,
         saveFileId: history.saveFileId,
