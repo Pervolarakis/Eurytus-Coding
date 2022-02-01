@@ -4,6 +4,8 @@ import { currentUser,ErrorHandler } from '@eurytus/common';
 import { userHistoryRouter } from './routes/getUserHistory';
 import { getTestHistoryRouter } from './routes/getTestHistory';
 import cors from 'cors';
+import { getUserParticipants } from './routes/getUserChallengesParticipants';
+import { getAllParticipants } from './routes/getAllChallengesParticipants';
 
 const app = express();
 
@@ -19,6 +21,8 @@ app.use(cookieSession({
 
 app.use(currentUser)
 
+app.use(getAllParticipants);
+app.use(getUserParticipants);
 app.use(userHistoryRouter);
 app.use(getTestHistoryRouter);
 
