@@ -42,6 +42,7 @@ router.put('/api/v1/challenges/update/:id', requireAuth, editChallengeSchema, va
         
         new UpdateChallengePublisher(natsWrapper.client).publish({
             id: newChallenge?.id!,
+            ownerId: newChallenge?.creatorId!,
             expectedOutputTests: newChallenge?.expectedOutputTests!, 
             expectedStructure: newChallenge?.expectedStructure!, 
             expectedDesignPatterns: newChallenge?.expectedDesignPatterns!,

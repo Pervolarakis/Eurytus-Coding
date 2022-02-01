@@ -15,6 +15,7 @@ const setup = async()=>{
         expiresAt: "2014-02-01T00:00:00",
         status: 'approved',
         startsAt: Date.now(),
+        ownerId: new mongoose.Types.ObjectId().toString(),
         expectedOutputTests: JSON.stringify({
             "challenge" : [
                 {
@@ -37,6 +38,7 @@ const setup = async()=>{
     const data: UpdateChallengeEventData["data"] = {
         id: challengeId.toString(),
         version: 1,
+        ownerId: challenge.ownerId,
         expiresAt: new Date("2015-02-01T00:00:00"),
         status: 'approved',
         startsAt: new Date(),

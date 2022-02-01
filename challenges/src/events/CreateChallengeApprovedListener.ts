@@ -16,6 +16,7 @@ export class CreateChallengeApprovedListener extends Listener<CreateChallengeApp
             expectedStructure: challenge.expectedStructure,
             expectedDesignPatterns: challenge.expectedDesignPatterns,
             status: challenge.status,
+            ownerId: challenge.creatorId,
             startsAt: challenge.startsAt,
             expiresAt: challenge.expiresAt,
             language: challenge.language

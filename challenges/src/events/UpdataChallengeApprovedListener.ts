@@ -21,6 +21,7 @@ export class UpdateChallengeApprovedListener extends Listener<UpdateChallengeApp
             expectedDesignPatterns: challenge?.expectedDesignPatterns!,
             status: challenge?.status!,
             startsAt: challenge?.startsAt!,
+            ownerId: challenge?.creatorId!,
             expiresAt: challenge?.expiresAt!,
             version: challenge?.version!,
             language: challenge?.language!

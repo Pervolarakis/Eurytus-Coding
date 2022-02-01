@@ -15,6 +15,7 @@ const setup = async()=>{
         expiresAt: "2014-02-01T00:00:00",
         status: 'approved',
         startsAt: Date.now(),
+        ownerId: new mongoose.Types.ObjectId().toString(),
         tests: JSON.stringify({
             "challenge" : [
                 {

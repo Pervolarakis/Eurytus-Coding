@@ -6,6 +6,7 @@ export const javaDataTypesTest = [
         status: 'approved',
         startsAt: Date.now(),
         expiresAt: "2014-02-01T00:00:00",
+        ownerId: new mongoose.Types.ObjectId(),
         expectedOutputTests: JSON.stringify({
             "challenge" : [
                 {
@@ -56,6 +57,7 @@ export const javaDataTypesTest = [
         status: 'approved',
         startsAt: Date.now(),
         expiresAt: "2014-02-01T00:00:00",
+        ownerId: new mongoose.Types.ObjectId(),
         expectedOutputTests: JSON.stringify({
             "challenge" : [
                 {
@@ -77,6 +79,7 @@ export const javaDataTypesTest = [
         status: 'approved',
         startsAt: Date.now(),
         expiresAt: "2014-02-01T00:00:00",
+        ownerId: new mongoose.Types.ObjectId(),
         expectedOutputTests: JSON.stringify({
             "challenge" : [
                 {
@@ -97,6 +100,7 @@ export const javaDataTypesTest = [
         _id: new mongoose.Types.ObjectId(),
         status: 'approved',
         startsAt: Date.now(),
+        ownerId: new mongoose.Types.ObjectId(),
         expiresAt: "2014-02-01T00:00:00",
         expectedOutputTests: JSON.stringify({
             "challenge" : [
@@ -127,6 +131,7 @@ export const javaDataTypesTest = [
         _id: new mongoose.Types.ObjectId(),
         status: 'approved',
         startsAt: Date.now(),
+        ownerId: new mongoose.Types.ObjectId(),
         expiresAt: "2014-02-01T00:00:00",
         expectedOutputTests: JSON.stringify({
             "challenge" : [

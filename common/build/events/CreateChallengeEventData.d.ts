@@ -8,6 +8,7 @@ export interface CreateChallengeEventData {
         expectedDesignPatterns: string[];
         status: string;
         startsAt: Date;
+        ownerId: string;
         expiresAt: Date;
         language: string;
     };

@@ -12,6 +12,7 @@ it('successfully runs tests', async()=>{
     const challenge = new Challenge({
         status: 'approved',
         startsAt: Date.now(),
+        ownerId: new mongoose.Types.ObjectId(),
         expiresAt: "2014-02-01T00:00:00",
         expectedOutputTests: JSON.stringify({
             "challenge" : [
@@ -47,6 +48,7 @@ it('successfully runs tests 2', async()=>{
     const challenge = new Challenge({
         status: 'approved',
         startsAt: Date.now(),
+        ownerId: new mongoose.Types.ObjectId(),
         expiresAt: "2014-02-01T00:00:00",
         expectedOutputTests: JSON.stringify({
             "challenge" : [
@@ -85,6 +87,7 @@ it('throws error if it cant compile', async()=>{
     const user = new mongoose.Types.ObjectId()
     const challenge = new Challenge({
         status: 'approved',
+        ownerId: new mongoose.Types.ObjectId(),
         startsAt: Date.now(),
         expiresAt: "2014-02-01T00:00:00",
         expectedOutputTests: JSON.stringify({
@@ -123,6 +126,7 @@ it('fails if challenge doesnt support this language', async()=>{
     const user = new mongoose.Types.ObjectId()
     const challenge = new Challenge({
         status: 'approved',
+        ownerId: new mongoose.Types.ObjectId(),
         startsAt: Date.now(),
         expiresAt: "2014-02-01T00:00:00",
         expectedOutputTests: JSON.stringify({
@@ -202,6 +206,7 @@ it('fails if challenge is deleted', async()=>{
     const challenge = new Challenge({
         status: 'deleted',
         startsAt: Date.now(),
+        ownerId: new mongoose.Types.ObjectId(),
         expiresAt: "2014-02-01T00:00:00",
         expectedOutputTests: JSON.stringify({
             "challenge" : [
@@ -282,6 +287,7 @@ it('successfully hides arguments from errors', async()=>{
         status: 'approved',
         startsAt: Date.now(),
         expiresAt: "2014-02-01T00:00:00",
+        ownerId: new mongoose.Types.ObjectId(),
         expectedOutputTests: JSON.stringify({
             "challenge" : [
                 {
@@ -322,6 +328,7 @@ it('successfully detects all class names and interfaces 2', async()=>{
         startsAt: Date.now(),
         expiresAt: "2014-02-01T00:00:00",
         expectedOutputTests: '',
+        ownerId: new mongoose.Types.ObjectId(),
         language: "java",
         expectedStructure: '[{"blockType":"Base","expanded":true,"children":[{"title":"Class","blockType":"class","modifiers":[],"className":"TestEntity2","superClass":"TestEntitySuper","name":"","interfaces":"","expanded":true,"children":[{"title":"Implements","blockType":"implements","className":"TestInt"},{"title":"Field","blockType":"field","modifiers":[\"private\"],"type":"Map<String, Object>","name":"m"},{"title":"Field","blockType":"field","modifiers":[\"private static\"],"type":"TestEntity2","name":"peops","expanded":true},{"title":"Constructor","blockType":"constructor","parameters":"","modifiers":[\"public\"],"expanded":true,"children":[{"title":"Argument","name":"String","blockType":"argument","expanded":true},{"title":"Argument","name":"int[]","blockType":"argument"},{"title":"Argument","name":"Map<String, Object>","blockType":"argument"}]},{"title":"Method","blockType":"method","modifiers":[\"public\"],"parameters":"","returnType":"Map<String, Object>","name":"getM","expanded":true},{"title":"Method","blockType":"method","modifiers":[\"public\", \"static\"],"parameters":"","returnType":"void","name":"testMethod","expanded":true,"children":[{"title":"Argument","name":"int","blockType":"argument"},{"title":"Argument","name":"Integer","blockType":"argument"},{"title":"Argument","name":"String","blockType":"argument"}]}]}]}]',
         expectedDesignPatterns: []
@@ -415,6 +422,7 @@ it('successfully detects singleton', async()=>{
         expiresAt: "2014-02-01T00:00:00",
         expectedOutputTests: '',
         language: "java",
+        ownerId: new mongoose.Types.ObjectId(),
         expectedStructure: '',
         expectedDesignPatterns: ['singleton', 'factory', 'observer']
     })
@@ -478,6 +486,7 @@ it('successfully detects factory', async()=>{
         status: 'approved',
         startsAt: Date.now(),
         expiresAt: "2014-02-01T00:00:00",
+        ownerId: new mongoose.Types.ObjectId(),
         expectedOutputTests: '',
         language: "java",
         expectedStructure: '',
@@ -532,6 +541,7 @@ it('successfully detects factory 2', async()=>{
         startsAt: Date.now(),
         expiresAt: "2014-02-01T00:00:00",
         expectedOutputTests: '',
+        ownerId: new mongoose.Types.ObjectId(),
         language: "java",
         expectedStructure: '[{"blockType":"Base","expanded":true,"children":[{"title":"Interface","className":"furnitureFactory","blockType":"interface","superClass":"","modifiers":[\"abstract interface\"],"expanded":true,"children":[{"title":"Method","blockType":"method","modifiers":[\"public\"],"parameters":"","returnType":"Furniture","name":"getFurniture"}]},{"title":"Class","blockType":"class","modifiers":[],"className":"factorySubClass","superClass":"","name":"","interfaces":"","expanded":true,"children":[{"title":"Implements","blockType":"implements","className":"furnitureFactory","expanded":true},{"title":"Method","blockType":"method","modifiers":[\"public\"],"parameters":"","returnType":"Furniture","name":"getFurniture"}]},{"title":"Interface","className":"Furniture","blockType":"interface","superClass":"","modifiers":[\"abstract interface\"]},{"title":"Class","blockType":"class","modifiers":[],"className":"Chair","superClass":"","name":"","interfaces":"","expanded":true,"children":[{"title":"Implements","blockType":"implements","className":"Furniture"}]}]}]',
         expectedDesignPatterns: ['factory', 'singleton']
@@ -585,6 +595,7 @@ it('successfully detects factory and singleton', async()=>{
         startsAt: Date.now(),
         expiresAt: "2014-02-01T00:00:00",
         expectedOutputTests: '',
+        ownerId: new mongoose.Types.ObjectId(),
         language: "java",
         expectedStructure: '[{"blockType":"Base","expanded":true,"children":[{"title":"Class","blockType":"class","modifiers":[],"className":"Singleton","superClass":"","name":"","interfaces":"","expanded":true,"children":[{"title":"Field","blockType":"field","modifiers":[\"private static\"],"type":"Singleton","name":"sngl"},{"title":"Constructor","blockType":"constructor","parameters":"","modifiers":[\"private\"],"expanded":true},{"title":"Method","blockType":"method","modifiers":[\"public\", \"static\"],"parameters":"","returnType":"Singleton","name":"getSngl"}]},{"title":"Class","blockType":"class","modifiers":[],"className":"factorySubClass","superClass":"","name":"","interfaces":"","expanded":true,"children":[{"title":"Implements","blockType":"implements","className":"furnitureFactory"},{"title":"Method","blockType":"method","modifiers":[\"public\"],"parameters":"","returnType":"Furniture","name":"getFurniture"}]}]}]',
         expectedDesignPatterns: ['factory', 'singleton']
@@ -648,6 +659,7 @@ it('successfully detects factory and singleton', async()=>{
         startsAt: Date.now(),
         expiresAt: "2014-02-01T00:00:00",
         expectedOutputTests: '',
+        ownerId: new mongoose.Types.ObjectId(),
         language: "java",
         expectedStructure: '[{"blockType":"Base","expanded":true,"children":[{"title":"Class","blockType":"class","modifiers":[],"className":"TestEntity2","superClass":"TestEntitySuper","name":"","interfaces":"","expanded":true,"children":[{"title":"Implements","blockType":"implements","className":"TestInt"},{"title":"Field","blockType":"field","modifiers":[\"private\"],"type":"Map<String, Object>","name":"m"},{"title":"Field","blockType":"field","modifiers":[\"private static\"],"type":"TestEntity2","name":"peops","expanded":true},{"title":"Constructor","blockType":"constructor","parameters":"","modifiers":[\"public\"],"expanded":true,"children":[{"title":"Argument","name":"String","blockType":"argument","expanded":true},{"title":"Argument","name":"int[]","blockType":"argument"},{"title":"Argument","name":"Map<String, Object>","blockType":"argument"}]},{"title":"Method","blockType":"method","modifiers":[\"public\"],"parameters":"","returnType":"Map<String, Object>","name":"getM","expanded":true},{"title":"Method","blockType":"method","modifiers":[\"public\", \"static\"],"parameters":"","returnType":"void","name":"testMethod","expanded":true,"children":[{"title":"Argument","name":"int","blockType":"argument"},{"title":"Argument","name":"Integer","blockType":"argument"},{"title":"Argument","name":"String","blockType":"argument"}]}]}]}]',
         expectedDesignPatterns: ['singleton', 'factory', 'observer']

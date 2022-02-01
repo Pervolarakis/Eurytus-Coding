@@ -10,6 +10,7 @@ export interface UpdateChallengeEventData {
         startsAt: Date;
         expiresAt: Date;
         version: number;
+        ownerId: string;
         language: string;
     };
 }

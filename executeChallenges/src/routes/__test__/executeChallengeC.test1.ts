@@ -11,6 +11,7 @@ it('successfully runs tests', async()=>{
         status: 'approved',
         startsAt: Date.now(),
         expiresAt: "2014-02-01T00:00:00",
+        ownerId: new mongoose.Types.ObjectId(),
         tests: JSON.stringify({
             "challenge" : [
                 {
@@ -43,6 +44,7 @@ it('successfully runs tests 2', async()=>{
     const challenge = new Challenge({
         status: 'approved',
         startsAt: Date.now(),
+        ownerId: new mongoose.Types.ObjectId(),
         expiresAt: "2014-02-01T00:00:00",
         tests: JSON.stringify({
             "challenge" : [
@@ -75,6 +77,7 @@ it('successfully runs tests 2', async()=>{
     const challenge = new Challenge({
         status: 'approved',
         startsAt: Date.now(),
+        ownerId: new mongoose.Types.ObjectId(),
         expiresAt: "2014-02-01T00:00:00",
         tests: JSON.stringify({
             "challenge" : [
@@ -111,6 +114,7 @@ it('throws error if it cant compile', async()=>{
     const challenge = new Challenge({
         status: 'approved',
         startsAt: Date.now(),
+        ownerId: new mongoose.Types.ObjectId(),
         expiresAt: "2014-02-01T00:00:00",
         tests: JSON.stringify({
             "challenge" : [
@@ -147,6 +151,7 @@ it('fails if challenge doesnt support this language', async()=>{
     const challenge = new Challenge({
         status: 'approved',
         startsAt: Date.now(),
+        ownerId: new mongoose.Types.ObjectId(),
         expiresAt: "2014-02-01T00:00:00",
         tests: JSON.stringify({
             "challenge" : [
@@ -180,6 +185,7 @@ it('fails if challenge is deleted', async()=>{
     const user = new mongoose.Types.ObjectId();
     const challenge = new Challenge({
         status: 'deleted',
+        ownerId: new mongoose.Types.ObjectId(),
         startsAt: Date.now(),
         expiresAt: "2014-02-01T00:00:00",
         tests: JSON.stringify({

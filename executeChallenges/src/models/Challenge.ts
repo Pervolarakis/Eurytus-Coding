@@ -11,7 +11,8 @@ interface ChallengeDoc extends mongoose.Document{
     startsAt: Date;
     expiresAt: Date;
     version: number;
-    language: string
+    language: string;
+    ownerId: string;
 }
 
 const challengeSchema = new mongoose.Schema({
@@ -24,6 +25,10 @@ const challengeSchema = new mongoose.Schema({
     expectedDesignPatterns: {
         type: [String],
         enum: supportedDesignPatterns
+    },
+    ownerId: {
+        type: String,
+        required: true
     },
     status: {
         type: String,
