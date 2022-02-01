@@ -20,9 +20,7 @@ const Tooltip = ({ children, tooltipText }:{children: JSX.Element, tooltipText: 
         }
     }
     return (
-        <div
-            className="w-full"
-        >
+        <div>
             <div
                 className="hidden absolute whitespace-no-wrap bg-black text-white px-4 py-2 rounded  items-center transition-all duration-150"
                 ref={tipRef}
