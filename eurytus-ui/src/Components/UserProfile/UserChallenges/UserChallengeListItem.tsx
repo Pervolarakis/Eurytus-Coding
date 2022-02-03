@@ -68,7 +68,7 @@ const UserChallengeListItem = ({listItem, reloadData}: {listItem: fetchedDataTyp
                         {(listItem.isPublic===true)?'Public':'Private'}
                     </span>
                 </div>
-                <div className="text-sm text-gray-900 flex justify-center items-center"><IoIosMan/> {100}</div>
+                <div className="text-sm text-gray-900 flex justify-center items-center"><IoIosMan/> {listItem.participants}</div>
             </div>
         </div>
     )

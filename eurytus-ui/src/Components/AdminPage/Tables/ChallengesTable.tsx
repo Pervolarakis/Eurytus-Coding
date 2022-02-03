@@ -1,18 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 import TablePagination from "./TablePagination";
 import {IoIosMan} from 'react-icons/io'
-
-interface Challenge {
-    id: string,
-    name: string,
-    description: string,
-    isPublic: boolean,
-    language: string,
-    participants: number
-}
+import { fetchedDataType } from "../ModerateChallenges/ReviewRequestInterfaces";
 
 
-const ChallengesTable = ({challenges, fixed}: {challenges: Challenge[], fixed?:boolean}) => {
+const ChallengesTable = ({challenges, fixed}: {challenges: fetchedDataType[], fixed?:boolean}) => {
 
     const tableRef = useRef() as React.MutableRefObject<HTMLInputElement>;;
     const [tableHeight, setTableHeight] = useState(0);
