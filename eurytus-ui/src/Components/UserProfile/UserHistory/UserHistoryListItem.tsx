@@ -46,7 +46,7 @@ const UserHistoryListItem = ({challengeId, completionDate, language, outputTests
                         <>
                             <p className="text-sm text-left text-gray-800">Score</p>
                             <div className={`h-3 rounded border border-gray-300 overflow-hidden`}>
-                                <div className={`h-full w-${Math.floor(outputTestsPassedScore!/20)}/5 bg-basicColor1`}></div>
+                                <div className={`h-full ${Math.floor(outputTestsPassedScore!/20)===0? 'w-0': Math.floor(outputTestsPassedScore!/20)===1? 'w-1/5': Math.floor(outputTestsPassedScore!/20)===2? 'w-2/5': Math.floor(outputTestsPassedScore!/20)===3? 'w-3/5': Math.floor(outputTestsPassedScore!/20)===4? 'w-4/5': 'w-5/5'} bg-basicColor1`}></div>
                             </div>
                         </>
                     </Tooltip>
@@ -56,7 +56,7 @@ const UserHistoryListItem = ({challengeId, completionDate, language, outputTests
                             <>
                             <p className="text-sm text-left text-gray-800">Structure</p>
                             <div className={`h-3 rounded border border-gray-300 overflow-hidden`}>
-                                <div className={`h-full w-${requiredStructureFound?'full':'0'} bg-basicColor2`}></div>
+                                <div className={`h-full ${requiredStructureFound?'w-full':'w-0'} bg-basicColor2`}></div>
                             </div>
                             </>
                         </Tooltip>:null

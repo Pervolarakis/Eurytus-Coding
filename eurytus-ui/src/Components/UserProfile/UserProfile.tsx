@@ -52,10 +52,6 @@ const UserProfile = () => {
         }
     },[participants, loaded])
 
-    useEffect(()=>{
-        console.log(userChallenges)
-    },[userChallenges])
-
     return (
         <div className="responsive-container items-center">
             <CancelRequestModal show={requestToDelete.length>0} toggleShow={()=>setRequestToDelete('')} deleteRequest={()=>deleteRequest()}/>

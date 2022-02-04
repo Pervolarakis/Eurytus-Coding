@@ -28,7 +28,7 @@ export const initializeDb = async () => {
                         }
                     ]
                 }),
-                template: 'solution(a,b,c){}',
+                template: JSON.stringify('solution(a,b,c){}'),
                 language: 'js',
                 expectedStructure: '',
                 expectedDesignPatterns: []
@@ -63,7 +63,7 @@ export const initializeDb = async () => {
                         }
                     ]
                 }),
-                template: 'solution(){}',
+                template: JSON.stringify('solution(){}'),
                 language: 'js',
                 expectedStructure: '',
                 expectedDesignPatterns: []
