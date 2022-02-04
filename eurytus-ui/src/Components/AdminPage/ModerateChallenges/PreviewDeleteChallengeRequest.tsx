@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { axios } from "../../../Api/eurytusInstance";
 import PreviewChallenge  from "../../Challenges/PreviewChallenge/PreviewChallenge";
-import BasicModal from "../../Modals/RequestReviewMessageModal";
+import RequestReviewMessageModal from "../../Modals/RequestReviewMessageModal";
 import { requestChallengeProperties } from "./ReviewRequestInterfaces";
 import { BsCardText } from "react-icons/bs";
 import { setChallengeStateAfterFetch } from "../ChallengeUtils/ChallengeUitls";
@@ -14,12 +14,12 @@ const PreviewDeleteChallengeRequest = () => {
     const [fetchedChallenge, setFetchedChallenge] = useState<requestChallengeProperties>()
     const [message, setMessage] = useState('')
     const [showModal, toggleShowModal] = useState(true)
-    const [user, setUser] = useState('')
+    const [user, setUser] = useState<{userId: string, userEmail: string}>({userId: '', userEmail: ''})
 
     useEffect(()=>{
         axios.get(`/moderate/requests/${requestId}`)
             .then((res)=>{
-                setUser(res.data.data.ownerId)
+                setUser({userId: res.data.data.ownerId, userEmail: res.data.data.ownerEmail})
                 axios.get(`/challenges/${res.data.data.challengeId}`)
                     .then((res)=>{
                         const challengeData = res.data.data;
@@ -31,7 +31,7 @@ const PreviewDeleteChallengeRequest = () => {
 
     return(
         <div id='solvechallenge'>
-            <BasicModal show={showModal} toggleShow={()=>toggleShowModal(false)} message={message} userId={user}/>
+            <RequestReviewMessageModal show={showModal} toggleShow={()=>toggleShowModal(false)} message={message} userId={user.userId} userEmail={user.userEmail}/>
             <div className='bg-black flex justify-between items-center h-12 p-4'>
                 <h1 className="text-white text-2xl font-bold">Review Delete Challenge</h1>
                 <button onClick={()=>toggleShowModal(true)}>

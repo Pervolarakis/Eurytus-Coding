@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { getUserAvatar } from '../../../Utils/getUserAvatar';
+import Tooltip from '../../Tooltip/Tooltip';
 import TablePagination from './TablePagination';
 
 interface PendingRequest {
@@ -9,7 +10,9 @@ interface PendingRequest {
     created_at: string,
     name: string,
     kind: string,
-    ownerId: string
+    ownerId: string,
+    ownerEmail: string,
+    challengeName: string
 } 
 
 const PendingRequestsTable = ({requests, fixed, userProfile}:{requests: PendingRequest[], fixed?:boolean, userProfile?: (id:string)=>void}) => {
@@ -43,6 +46,7 @@ const PendingRequestsTable = ({requests, fixed, userProfile}:{requests: PendingR
             startingIndex = (currentPage-1)*Math.floor(tableHeight/48.5)
             endingIndex = currentPage*Math.floor(tableHeight/48.5)
         }
+        
         requests.slice(startingIndex,endingIndex).map((request) => tempTableRows.push(
             <tr key={request._id} className="even:bg-gray-100">
                 <td className="px-6 py-3 whitespace-nowrap text-left">
@@ -53,7 +57,7 @@ const PendingRequestsTable = ({requests, fixed, userProfile}:{requests: PendingR
                     </div>
                 </td>
                 <td className="px-6 py-3 whitespace-nowrap text-left">
-                    <div className="text-sm text-gray-900">{request.challengeId}</div>
+                    <div className="text-sm text-gray-900">{request.challengeName}</div>
                 </td>
                 <td className="px-6 py-3 whitespace-nowrap">
                     <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${request.kind==='create'? 'text-green-800 bg-green-100': (request.kind==='update')? 'text-yellow-800 bg-yellow-100': 'text-red-800 bg-red-100'}`}>
@@ -61,7 +65,9 @@ const PendingRequestsTable = ({requests, fixed, userProfile}:{requests: PendingR
                     </span>
                 </td>
                 {(!userProfile)?<td className="px-6 py-2 whitespace-nowrap flex justify-center">
-                    <img className="h-7 w-7 rounded-full" src={getUserAvatar(request.ownerId)} alt="" />
+                    <Tooltip tooltipText={request.ownerEmail}>
+                        <img className="h-7 w-7 rounded-full" src={getUserAvatar(request.ownerId)} alt="" />
+                    </Tooltip>
                 </td>:null}
                 <td className="px-6 py-3 whitespace-nowrap text-sm font-medium">
                     {(!userProfile)?<NavLink to={`/admin/review/${request.kind}/${request._id}`} className="text-indigo-600 hover:text-indigo-900">
