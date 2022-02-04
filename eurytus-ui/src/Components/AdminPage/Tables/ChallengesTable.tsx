@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import TablePagination from "./TablePagination";
 import {IoIosMan} from 'react-icons/io'
 import { fetchedDataType } from "../ModerateChallenges/ReviewRequestInterfaces";
-
+import { NavLink } from "react-router-dom";
 
 const ChallengesTable = ({challenges, fixed}: {challenges: fetchedDataType[], fixed?:boolean}) => {
 
@@ -60,9 +60,9 @@ const ChallengesTable = ({challenges, fixed}: {challenges: fetchedDataType[], fi
                     <div className="text-sm text-gray-900 flex justify-center items-center"><IoIosMan/> {challenge.participants||100}</div>
                 </td>
                 <td className="px-6 py-3 whitespace-nowrap text-sm font-medium">
-                    <a href="#" className="text-indigo-600 hover:text-indigo-900">
+                    <NavLink to={`/challenge/${challenge.id}`} className="text-indigo-600 hover:text-indigo-900">
                         Inspect
-                    </a>
+                    </NavLink>
                 </td>
             </tr>
         ))

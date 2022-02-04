@@ -34,6 +34,27 @@ html, body, #root {
   color: #61dafb;
 }
 
+/* width */
+::-webkit-scrollbar {
+  width: 0.375rem !important;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: rgb(100 116 139/.16)!important;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: rgba(76, 84, 97, 0.5)!important;
+  border-radius: 0.25rem !important;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
 #solvechallenge{
   height: calc(100% - 80px);
   display: flex;

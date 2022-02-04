@@ -7,7 +7,7 @@ interface UserContextArgs {
         role: string, 
         iat: number
     }|null,
-    setUser:  Dispatch<SetStateAction<null>>
+    setUser:  Dispatch<SetStateAction<{ id: string; email: string; role: string; iat: number; } | null>>
 }
 
 export const UserContext = createContext<UserContextArgs>({} as UserContextArgs);
