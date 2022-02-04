@@ -36,7 +36,9 @@ it('Successfully returns pending request', async()=>{
         }),
         ownerId: userId,
         created_at: new Date().toISOString(),
-        message: 'please create this new challenge'
+        message: 'please create this new challenge',
+        ownerEmail: 'admin@gmail.com',
+        challengeName: "Multiply Challenge2"
         
     })
     await pendingReq.save();
@@ -80,7 +82,9 @@ it('fails if user doesnt own the challenge', async()=>{
         }),
         ownerId: userId,
         created_at: new Date().toISOString(),
-        message: 'please create this new challenge'
+        message: 'please create this new challenge',
+        ownerEmail: 'admin@gmail.com',
+        challengeName: "Multiply Challenge2"
         
     })
     await pendingReq.save();
@@ -123,7 +127,9 @@ it('Successfully returns pending request if user is admin', async()=>{
         }),
         ownerId: userId,
         created_at: new Date().toISOString(),
-        message: 'please create this new challenge'
+        message: 'please create this new challenge',
+        ownerEmail: 'admin@gmail.com',
+        challengeName: "Multiply Challenge2"
         
     })
     await pendingReq.save();

@@ -36,7 +36,9 @@ it('successfully returns user requests', async()=>{
             expectedDesignPatterns: []
         }),
         created_at: new Date().toISOString(),
-        message: 'please create this new challenge'
+        message: 'please create this new challenge',
+        ownerEmail: 'admin@gmail.com',
+        challengeName: "Multiply Challenge2"
     });
     const request2 = new PendingRequest({
         kind: 'update',
@@ -48,6 +50,8 @@ it('successfully returns user requests', async()=>{
         }),
         message: 'update my challenge',
         created_at: new Date().toISOString(),
+        ownerEmail: 'admin@gmail.com',
+        challengeName: "Multiply Challenge2"
     })
     await request1.save();
     await request2.save();
@@ -85,6 +89,8 @@ it('successfully returns user requests 3', async()=>{
         }),
         message: 'update my challenge',
         created_at: date.toISOString(),
+        ownerEmail: 'admin@gmail.com',
+        challengeName: "Multiply Challenge2"
     })
     const request2 = new PendingRequest({
         kind: 'update',
@@ -96,6 +102,8 @@ it('successfully returns user requests 3', async()=>{
         }),
         message: 'update my challenge',
         created_at: new Date().toISOString(),
+        ownerEmail: 'admin@gmail.com',
+        challengeName: "Multiply Challenge2"
     })
     const request3 = new PendingRequest({
         kind: 'update',
@@ -107,6 +115,8 @@ it('successfully returns user requests 3', async()=>{
         }),
         message: 'update my challenge',
         created_at: date2.toISOString(),
+        ownerEmail: 'admin@gmail.com',
+        challengeName: "Multiply Challenge2"
     })
     request1.save();
     request2.save();
@@ -143,6 +153,8 @@ it('successfully returns user requests 4', async()=>{
         }),
         message: 'update my challenge',
         created_at: date.toISOString(),
+        ownerEmail: 'admin@gmail.com',
+        challengeName: "Multiply Challenge2"
     })
     const request2 = new PendingRequest({
         kind: 'update',
@@ -154,6 +166,8 @@ it('successfully returns user requests 4', async()=>{
         }),
         message: 'update my challenge',
         created_at: new Date().toISOString(),
+        ownerEmail: 'admin@gmail.com',
+        challengeName: "Multiply Challenge2"
     })
     request1.save();
     request2.save();
@@ -189,6 +203,8 @@ it('successfully returns user requests 5', async()=>{
         }),
         message: 'update my challenge',
         created_at: date.toISOString(),
+        ownerEmail: 'admin@gmail.com',
+        challengeName: "Multiply Challenge2"
     })
     const request2 = new PendingRequest({
         kind: 'update',
@@ -200,6 +216,8 @@ it('successfully returns user requests 5', async()=>{
         }),
         message: 'update my challenge',
         created_at: new Date().toISOString(),
+        ownerEmail: 'admin@gmail.com',
+        challengeName: "Multiply Challenge2"
     })
     const request3 = new PendingRequest({
         kind: 'update',
@@ -211,6 +229,8 @@ it('successfully returns user requests 5', async()=>{
         }),
         message: 'update my challenge',
         created_at: date2.toISOString(),
+        ownerEmail: 'admin@gmail.com',
+        challengeName: "Multiply Challenge2"
     })
     request1.save();
     request2.save();

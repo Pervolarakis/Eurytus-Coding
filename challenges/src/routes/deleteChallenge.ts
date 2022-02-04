@@ -25,7 +25,9 @@ router.put('/api/v1/challenges/delete/:id', requireAuth, asyncHandler(async(req:
                 challengeId: req.params.id,
                 message: message,
                 ownerId: req.currentUser?.id!,
-                created_at: new Date().toISOString()
+                created_at: new Date().toISOString(),
+                ownerEmail: req.currentUser?.email!,
+                challengeName: challenge.name
             })
             res.status(201).json({success: true, data: 'Request submited'})
             return next();

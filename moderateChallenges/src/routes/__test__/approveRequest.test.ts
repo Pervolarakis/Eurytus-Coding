@@ -69,6 +69,8 @@ it('successfully approves and removes request', async()=>{
         }),
         message: 'update my challenge',
         created_at: date.toISOString(),
+        ownerEmail: 'admin@gmail.com',
+        challengeName: "Multiply Challenge2"
     })
     const request2 = new PendingRequest({
         kind: 'update',
@@ -80,6 +82,8 @@ it('successfully approves and removes request', async()=>{
         }),
         message: 'update my challenge',
         created_at: new Date().toISOString(),
+        ownerEmail: 'admin@gmail.com',
+        challengeName: "Multiply Challenge2"
     })
     const request3 = new PendingRequest({
         kind: 'update',
@@ -91,6 +95,8 @@ it('successfully approves and removes request', async()=>{
         }),
         message: 'update my challenge',
         created_at: date2.toISOString(),
+        ownerEmail: 'admin@gmail.com',
+        challengeName: "Multiply Challenge2"
     })
     request1.save();
     request2.save();
@@ -120,6 +126,8 @@ it('successfully approves and removes request 2', async()=>{
         }),
         message: 'update my challenge',
         created_at: date.toISOString(),
+        ownerEmail: 'admin@gmail.com',
+        challengeName: "Multiply Challenge2"
     })
     const request2 = new PendingRequest({
         kind: 'update',
@@ -131,6 +139,8 @@ it('successfully approves and removes request 2', async()=>{
         }),
         message: 'update my challenge',
         created_at: new Date().toISOString(),
+        ownerEmail: 'admin@gmail.com',
+        challengeName: "Multiply Challenge2"
     })
     const request3 = new PendingRequest({
         kind: 'update',
@@ -142,6 +152,8 @@ it('successfully approves and removes request 2', async()=>{
         }),
         message: 'update my challenge',
         created_at: date2.toISOString(),
+        ownerEmail: 'admin@gmail.com',
+        challengeName: "Multiply Challenge2"
     })
     request1.save();
     request2.save();
@@ -171,6 +183,8 @@ it('successfully approves and removes request 3', async()=>{
         }),
         message: 'update my challenge',
         created_at: date.toISOString(),
+        ownerEmail: 'admin@gmail.com',
+        challengeName: "Multiply Challenge2"
     })
     const request2 = new PendingRequest({
         kind: 'update',
@@ -182,6 +196,8 @@ it('successfully approves and removes request 3', async()=>{
         }),
         message: 'update my challenge',
         created_at: new Date().toISOString(),
+        ownerEmail: 'admin@gmail.com',
+        challengeName: "Multiply Challenge2"
     })
     const request3 = new PendingRequest({
         kind: 'update',
@@ -193,6 +209,8 @@ it('successfully approves and removes request 3', async()=>{
         }),
         message: 'update my challenge',
         created_at: date2.toISOString(),
+        ownerEmail: 'admin@gmail.com',
+        challengeName: "Multiply Challenge2"
     })
     request1.save();
     request2.save();

@@ -38,6 +38,8 @@ it('successfully returns latest request for each challenge', async()=>{
         }),
         message: 'update my challenge',
         created_at: date.toISOString(),
+        ownerEmail: 'admin@gmail.com',
+        challengeName: "Multiply Challenge2"
     })
     const request2 = new PendingRequest({
         kind: 'update',
@@ -49,6 +51,8 @@ it('successfully returns latest request for each challenge', async()=>{
         }),
         message: 'update my challenge',
         created_at: new Date().toISOString(),
+        ownerEmail: 'admin@gmail.com',
+        challengeName: "Multiply Challenge2"
     })
     const request3 = new PendingRequest({
         kind: 'update',
@@ -60,6 +64,8 @@ it('successfully returns latest request for each challenge', async()=>{
         }),
         message: 'update my challenge',
         created_at: date2.toISOString(),
+        ownerEmail: 'admin@gmail.com',
+        challengeName: "Multiply Challenge2"
     })
     request1.save();
     request2.save();

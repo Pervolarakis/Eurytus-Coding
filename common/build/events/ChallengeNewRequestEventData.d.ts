@@ -8,5 +8,7 @@ export interface ChallengeNewRequestEventData {
         created_at: string;
         message: string;
         ownerId: string;
+        challengeName: string;
+        ownerEmail: string;
     };
 }

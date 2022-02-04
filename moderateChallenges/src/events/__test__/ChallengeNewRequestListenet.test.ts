@@ -38,7 +38,9 @@ const setup = async()=>{
         }),
         created_at: new Date().toISOString(),
         ownerId: new mongoose.Types.ObjectId().toString(),
-        message: 'please create this new challenge'
+        message: 'please create this new challenge',
+        ownerEmail: 'admin@gmail.com',
+        challengeName: 'Multiply Challenge2'
         
     }
 
@@ -75,7 +77,9 @@ it('doesnt save request if last request is of type delete', async()=>{
         challengeId: challengeId,
         created_at: new Date().toISOString(),
         ownerId: userId,
-        message: 'please create this new challenge'
+        message: 'please create this new challenge',
+        ownerEmail: 'user@gmail.com',
+        challengeName: 'Multiply Challenge5'
     })
 
     await request.save()
@@ -88,7 +92,9 @@ it('doesnt save request if last request is of type delete', async()=>{
         }),
         created_at: new Date().toISOString(),
         ownerId: userId,
-        message: 'please update this challenge'
+        message: 'please update this challenge',
+        ownerEmail: 'user@gmail.com',
+        challengeName: 'Multiply Challenge5'
         
     }
 

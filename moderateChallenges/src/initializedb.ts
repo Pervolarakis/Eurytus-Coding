@@ -35,7 +35,9 @@ export const initializeDb = async () => {
             }),
             ownerId: new mongoose.Types.ObjectId('56cb91bdc3464f14678934ca'),
             created_at: new Date().toISOString(),
-            message: 'please create this new challenge'
+            message: 'please create this new challenge',
+            ownerEmail: 'test123@gmail.com',
+            challengeName: 'Multiply Challenge2'
         },
         {
             _id: new mongoose.Types.ObjectId('61d597ed9f8e1a6b026c0b04'),
@@ -68,7 +70,9 @@ export const initializeDb = async () => {
             }),
             ownerId: new mongoose.Types.ObjectId('56cb91bdc3464f14678934ca'),
             created_at: new Date().toISOString(),
-            message: 'please create this new challenge'
+            message: 'please create this new challenge',
+            ownerEmail: 'test123@gmail.com',
+            challengeName: "Sum Challenge2"
         },
         {
             _id: new mongoose.Types.ObjectId('61d597f6828c62e215558beb'),
@@ -79,7 +83,9 @@ export const initializeDb = async () => {
             }),
             ownerId: new mongoose.Types.ObjectId('61b07a4e8ac34e37f17e97b5'),
             created_at: new Date().toISOString(),
-            message: 'please create this new challenge'
+            message: 'please create this new challenge',
+            ownerEmail: 'test124@gmail.com',
+            challengeName: "Sum Challenge 2"
         },
         {
             _id: new mongoose.Types.ObjectId('61d598002fb4af4bd3c50171'),
@@ -87,7 +93,9 @@ export const initializeDb = async () => {
             challengeId: new mongoose.Types.ObjectId('61b07f82c2d7ad3a19087d2f').toString(),
             ownerId: new mongoose.Types.ObjectId('56cb91bdc3464f14678934ca'),
             created_at: new Date().toISOString(),
-            message: 'please create this new challenge'
+            message: 'please create this new challenge',
+            ownerEmail: 'test123@gmail.com',
+            challengeName: "Sum Challenge"
         }
     ]
     const request = await PendingRequest.findById('61d597f6828c62e215558beb');
