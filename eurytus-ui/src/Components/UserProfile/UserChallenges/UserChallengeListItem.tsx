@@ -7,6 +7,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import DeleteChallengeMessageModal from '../../Modals/DeleteChallengeMessageModal';
 import { axios } from '../../../Api/eurytusInstance';
+import { toast } from 'react-toastify';
 
 const UserChallengeListItem = ({listItem, reloadData}: {listItem: fetchedDataType, reloadData: ()=>void}) => {
 
@@ -36,12 +37,19 @@ const UserChallengeListItem = ({listItem, reloadData}: {listItem: fetchedDataTyp
         el.select();
         document.execCommand('copy');
         document.body.removeChild(el);
+        toast.info('Link copied!')
     }
 
     const deleteChallenge = () => {
         axios.put(`/challenges/delete/${listItem.id}`,{
             message: message
-        }).then((res)=>{toggleDeleteModal(false); reloadData()})
+        }).then((res)=>{
+            toast.success((listItem.isPublic)?'Request submitted!':'Challenge deleted!')
+            toggleDeleteModal(false); 
+            reloadData();})
+        .catch((err)=>{
+            toast.error('There was an error deleting this challenge. Please try again later.')
+        })
     }
 
     return(

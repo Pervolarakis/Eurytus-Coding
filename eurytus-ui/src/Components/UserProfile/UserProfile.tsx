@@ -1,4 +1,5 @@
 import { useContext, useEffect, useState } from "react";
+import { toast } from "react-toastify";
 import { axios } from "../../Api/eurytusInstance";
 import { UserContext } from "../../Contexts/UserContext";
 import { getUserAvatar } from "../../Utils/getUserAvatar";
@@ -40,13 +41,20 @@ const UserProfile = () => {
 
     const deleteRequest = () => {
         axios.delete(`/moderate/cancel/${requestToDelete}`)
-            .then((res)=>{setRequestToDelete('');fetchUserData()})
+            .then((res)=>{
+                setRequestToDelete('');
+                fetchUserData();
+                toast.success('Request Deleted!')
+            })
+            .catch((err)=>{
+                toast.error('There was an error deleting that request. Please try again later!')
+            })
     }
 
     useEffect(()=>{
         if(participants.length&&userChallenges.length&&loaded){
             let userChallengesTemp = [...userChallenges];
-            userChallengesTemp = userChallengesTemp.map(obj=> ({ ...obj, participants: participants.find(entry => entry._id === obj.id)!["count"]}))
+            userChallengesTemp = userChallengesTemp.map(obj=> ({ ...obj, participants: (participants.find(entry => entry._id === obj.id)!==undefined)?participants.find(entry => entry._id === obj.id)!["count"]:0}))
             setUserChallenges(userChallengesTemp);
             setLoaded(false);
         }

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { toast } from "react-toastify";
 import { axios } from "../../../Api/eurytusInstance";
 import { combineChallengeDataWithIncomingChanges, setChallengeStateAfterFetch } from "../../AdminPage/ChallengeUtils/ChallengeUitls";
 import { requestChallengeProperties } from "../../AdminPage/ModerateChallenges/ReviewRequestInterfaces";
@@ -50,7 +51,15 @@ const EditChallenge = () => {
         axios.put(`/challenges/update/${challengeId}`,{
             ...checkChangedFields(initialChallenge!, challenge!),
             ...(challenge!.challengeDetails.isPublic? {message: message} : {})
-        }).then((res)=>navigate('/profile'))
+        }).then((res)=>{
+            toast.success((challenge!.challengeDetails.isPublic===true)?'Request Submitted!':'Challenge Updated!');
+            navigate('/profile')
+        })
+        .catch((err)=>{
+            err.response.data.error.map((err:{message: string, field: string})=>{
+                toast.error(err.message);
+            })
+        })
     }
 
     useEffect(()=>{

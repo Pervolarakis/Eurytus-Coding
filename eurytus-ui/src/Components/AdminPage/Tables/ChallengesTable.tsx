@@ -57,7 +57,7 @@ const ChallengesTable = ({challenges, fixed}: {challenges: fetchedDataType[], fi
                     </span>
                 </td>
                 <td className="px-6 py-3 whitespace-nowrap text-sm font-medium">
-                    <div className="text-sm text-gray-900 flex justify-center items-center"><IoIosMan/> {challenge.participants||100}</div>
+                    <div className="text-sm text-gray-900 flex justify-center items-center"><IoIosMan/> {challenge.participants}</div>
                 </td>
                 <td className="px-6 py-3 whitespace-nowrap text-sm font-medium">
                     <NavLink to={`/challenge/${challenge.id}`} className="text-indigo-600 hover:text-indigo-900">

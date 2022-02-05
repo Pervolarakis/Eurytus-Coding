@@ -28,7 +28,7 @@ const AdminPage = () => {
     useEffect(()=>{
         if(loaded && participants.length && challenges.length){
             let userChallengesTemp = [...challenges];
-            userChallengesTemp = userChallengesTemp.map(obj=> ({ ...obj, participants: participants.find(entry => entry._id === obj.id)!["count"]}))
+            userChallengesTemp = userChallengesTemp.map(obj=> ({ ...obj, participants: (participants.find(entry => entry._id === obj.id)!==undefined)?participants.find(entry => entry._id === obj.id)!["count"]:0}))
             setChallenges(userChallengesTemp);
             setLoaded(false);
         }
