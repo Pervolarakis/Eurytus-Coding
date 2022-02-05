@@ -1,5 +1,6 @@
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import { axios } from "../../../Api/eurytusInstance";
 import { UserContext } from "../../../Contexts/UserContext";
 import FloatingLabel from "../../FloatingLabel/FloatingLabel";
@@ -21,8 +22,9 @@ const LoginForm = () => {
           // console.log(res)
           axios.get('/users/auth/currentuser')
             .then((res)=>{setUser(res.data.data); navigate('/challenges')})
+            .catch(err=>toast.error(err.response?.data.error||'There was an error fetching current user!'))
         })
-        .catch((err)=>console.log(err))
+        .catch(err=>toast.error(err.response?.data.error||'There was an error Logging in!'))
     }
     
     return(

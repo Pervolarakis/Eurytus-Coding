@@ -6,6 +6,7 @@ import RequestReviewMessageModal from "../../Modals/RequestReviewMessageModal";
 import { requestChallengeProperties } from "./ReviewRequestInterfaces";
 import { BsCardText } from "react-icons/bs";
 import { setChallengeStateAfterFetch } from "../ChallengeUtils/ChallengeUitls";
+import { toast } from "react-toastify";
 
 const PreviewDeleteChallengeRequest = () => {
 
@@ -25,8 +26,10 @@ const PreviewDeleteChallengeRequest = () => {
                         const challengeData = res.data.data;
                         setFetchedChallenge(setChallengeStateAfterFetch(challengeData))
                     })
+                    .catch(err=>toast.error(err.response?.data.error||'There was an error fetching challenge!'))
                 setMessage(res.data.data.message)
             })
+            .catch(err=>toast.error(err.response?.data.error||'There was an error fetching requests!'))
     },[])
 
     return(

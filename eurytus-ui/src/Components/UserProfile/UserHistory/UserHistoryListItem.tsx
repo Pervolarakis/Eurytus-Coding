@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { BiError } from "react-icons/bi";
+import { toast } from "react-toastify";
 import { axios } from "../../../Api/eurytusInstance";
 import { fetchedDataType } from "../../AdminPage/ModerateChallenges/ReviewRequestInterfaces";
 import Tooltip from "../../Tooltip/Tooltip";
@@ -28,7 +29,8 @@ const UserHistoryListItem = ({challengeId, completionDate, language, outputTests
 
     useEffect(()=>{
         axios.get(`/challenges/${challengeId}`)
-            .then((res)=>setChallenge(res.data.data));
+            .then((res)=>setChallenge(res.data.data))
+            .catch(err=>toast.error(err.response?.data.error||'There was an error fetching challenge!'))
     },[])
 
     return (

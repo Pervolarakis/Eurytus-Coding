@@ -31,12 +31,16 @@ const UserProfile = () => {
     const fetchUserData = () => {
         axios.get('/moderate/myrequests')
             .then((res)=>{setUserRequests(res.data.data)})
+            .catch(err=>toast.error(err.response?.data.error||'There was an error fetching requests!'))
         axios.get('/challenges/myChallenges')
             .then((res)=>{setUserChallenges(res.data.data);setLoaded(true)})
+            .catch(err=>toast.error(err.response?.data.error||'There was an error fetching challenges!'))
         axios.get('/history/user')
             .then((res)=>setHistory(res.data.data))
+            .catch(err=>toast.error(err.response?.data.error||'There was an error fetching user history!'))
         axios.get('/history/getuserparticipants')
             .then((res)=>setParticipants(res.data.data))
+            .catch(err=>toast.error(err.response?.data.error||'There was an error fetching participants!'))
     }
 
     const deleteRequest = () => {

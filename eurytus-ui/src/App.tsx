@@ -18,7 +18,7 @@ import PreviewDeleteChallengeRequest from './Components/AdminPage/ModerateChalle
 import UserProfile from './Components/UserProfile/UserProfile';
 import EditChallenge from './Components/UserProfile/EditChallenge/EditChallenge'
 import ChallengeStats from './Components/ChallengeStats/ChallengeStats';
-import { ToastContainer } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
@@ -33,6 +33,7 @@ function App() {
   useEffect(()=>{
     axios.get('/users/auth/currentuser')
         .then((res)=>setUser(res.data.data||null))
+        .catch(err=>toast.error(err.response?.data.error||'There was an error fetching current user!'))
   },[])
 
   return (

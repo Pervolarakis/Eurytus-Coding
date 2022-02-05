@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { BsCardText } from "react-icons/bs";
 import { useParams } from "react-router-dom";
+import { toast } from "react-toastify";
 import { axios } from "../../../Api/eurytusInstance";
 import PreviewChallenge  from "../../Challenges/PreviewChallenge/PreviewChallenge";
 import RequestReviewMessageModal from "../../Modals/RequestReviewMessageModal";
@@ -23,6 +24,7 @@ const PreviewCreateChallengeRequest = () => {
                 setUser({userId: res.data.data.ownerId, userEmail: res.data.data.ownerEmail})
                 setFetchedChallenge( setChallengeStateAfterFetch(challengeData, res.data.data.message) )
             })
+            .catch(err=>toast.error(err.response?.data.error||'There was an error fetching requests!'))
     },[])
 
     return(

@@ -10,6 +10,7 @@ import RequestReviewMessageModal from "../../Modals/RequestReviewMessageModal";
 import { fetchedDataType, requestChallengeProperties } from "./ReviewRequestInterfaces";
 import { BsCardText } from "react-icons/bs";
 import { combineChallengeDataWithIncomingChanges, setChallengeStateAfterFetch } from "../ChallengeUtils/ChallengeUitls";
+import { toast } from "react-toastify";
 
 const PreviewUpdateChallengeRequest = () => {
     const {requestId} = useParams();
@@ -33,7 +34,9 @@ const PreviewUpdateChallengeRequest = () => {
                         const oldChallengeData = res.data.data;
                         setChallengeBeforeChanges(setChallengeStateAfterFetch(oldChallengeData))
                     })
+                    .catch(err=>toast.error(err.response?.data.error||'There was an error fetching challenge!'))
             })
+            .catch(err=>toast.error(err.response?.data.error||'There was an error fetching requests!'))
     },[])
 
     useEffect(()=>{

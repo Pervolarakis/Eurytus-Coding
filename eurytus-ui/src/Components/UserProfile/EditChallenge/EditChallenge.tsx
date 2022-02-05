@@ -65,12 +65,13 @@ const EditChallenge = () => {
     useEffect(()=>{
         axios.get(`/moderate/getchallengelatestrequest/${challengeId}`)
             .then((res)=>{setPreviousRequest(res.data.data)})
-            
+            .catch(err=>toast.error(err.response?.data.error||'There was an error fetching challenge latest request!'))
         axios.get(`/challenges/${challengeId}`)
             .then((res)=>{
                 const oldChallengeData = res.data.data;
                 setInitialChallenge(setChallengeStateAfterFetch(oldChallengeData))       
             })  
+            .catch(err=>toast.error(err.response?.data.error||'There was an error fetching challenge!'))
     },[])
 
 

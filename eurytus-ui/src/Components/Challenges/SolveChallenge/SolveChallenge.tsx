@@ -27,6 +27,7 @@ const SolveChallenge = () => {
     useEffect(()=>{
         axios.get(`/challenges/${challengeId}`)
             .then((res)=>{setChallenge(res.data.data);setIdeValue(JSON.parse(res.data.data.template))})
+            .catch(err=>toast.error(err.response?.data.error||'There was an error fetching challenge!'))
     },[challengeId])
 
     const onCodeRun = () => {
