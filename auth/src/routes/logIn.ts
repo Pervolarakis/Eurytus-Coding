@@ -9,19 +9,19 @@ router.post('/api/v1/users/auth/login', async (req,res,next)=>{
     const {email, password} = req.body;
 
     if(!email || !password){
-        return next(new BasicCustomError('Invalid crendentials',400))
+        return next(new BasicCustomError('Invalid credentials',400))
     }
 
     const user = await User.findOne({email: email});
 
     if(!user){
-        return next(new BasicCustomError('Invalid crendentials',400))
+        return next(new BasicCustomError('Invalid credentials',400))
     }
 
     const comparison = await user.matchPasswords(password);
 
     if(!comparison){
-        return next(new BasicCustomError('Invalid crendentials',400))
+        return next(new BasicCustomError('Invalid credentials',400))
     }
 
     const token = user.getSignedJwtToken()

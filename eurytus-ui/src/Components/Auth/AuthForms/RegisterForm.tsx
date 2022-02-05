@@ -31,7 +31,7 @@ const RegisterForm = () => {
     }
 
     return (
-        <form className="flex flex-wrap flex-col align-middle justify-center">
+        <form className="flex flex-wrap flex-col align-middle justify-center" onSubmit={(e)=>{e.preventDefault();register()}}>
             <h1 className="font-bold text-4xl mb-3">Register</h1>
             <FloatingLabel name="First Name" type="text" value={firstName} onChange={(val)=>setFirstName(val)}/>
             <FloatingLabel name="Last Name" type="text" value={lastName} onChange={(val)=>setLastName(val)}/>
@@ -39,7 +39,7 @@ const RegisterForm = () => {
             <FloatingLabel name="Password" type="password" value={password} onChange={(val)=>setPassword(val)}/>
             <FloatingLabel name="Confirm Password" type="password" value={password} onChange={(val)=>setPassword(val)}/>
             <div className="w-full flex justify-center mt-4">
-                <button className="rounded-2xl border-solid bg-secondary text-white font-bold uppercase border py-3 px-11 md:w-6/12 transform transition duration-250 hover:scale-110" onClick={(e)=>{e.preventDefault();register()}}>Register</button>
+                <input type="submit" className="rounded-2xl border-solid bg-secondary text-white font-bold uppercase border py-3 px-11 md:w-6/12 transform transition duration-250 hover:scale-110" value="Register" />
             </div>
         </form>
     )

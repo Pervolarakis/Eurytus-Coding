@@ -33,7 +33,6 @@ function App() {
   useEffect(()=>{
     axios.get('/users/auth/currentuser')
         .then((res)=>setUser(res.data.data||null))
-        .catch(err=>toast.error(err.response?.data.error||'There was an error fetching current user!'))
   },[])
 
   return (

@@ -28,13 +28,13 @@ const LoginForm = () => {
     }
     
     return(
-        <form className="flex flex-wrap flex-col align-middle text-center justify-center">
+        <form className="flex flex-wrap flex-col align-middle text-center justify-center" onSubmit={(e)=>{e.preventDefault(); logIn()}}>
             <h1 className="font-bold text-4xl mb-3">Login</h1>
             <FloatingLabel name="Email" type="Email" value={logInMail} onChange={setLogInMail}/>
             <FloatingLabel name="Password" type="password" value={logInPass} onChange={setLogInPass}/>
             <a className="text-sm m-4" href="#">Forgot your password?</a>
             <div className="w-full flex justify-center">
-                <button className="rounded-2xl border-solid bg-secondary text-white font-bold uppercase border py-3 px-11 md:w-6/12 transform transition duration-250 hover:scale-110" onClick={(e)=>{e.preventDefault(); logIn()}}>Login</button>
+                <input type="submit" className="rounded-2xl border-solid bg-secondary text-white font-bold uppercase border py-3 px-11 md:w-6/12 transform transition duration-250 hover:scale-110" value="Login" />
             </div>
         </form>
     )
