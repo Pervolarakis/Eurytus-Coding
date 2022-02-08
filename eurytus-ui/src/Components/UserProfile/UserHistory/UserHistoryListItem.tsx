@@ -26,11 +26,15 @@ export interface userHistoryProps {
 const UserHistoryListItem = ({challengeId, completionDate, language, outputTestsPassedScore, requiredStructureFound, running, designPatternsFound}: userHistoryProps) => {
 
     const [challenge, setChallenge] = useState<fetchedDataType>();
+    const [percentageOfDpsFound, setPercentageOfDpsFound] = useState<number|null>(null)
 
     useEffect(()=>{
         axios.get(`/challenges/${challengeId}`)
             .then((res)=>setChallenge(res.data.data))
             .catch(err=>toast.error(err.response?.data.error||'There was an error fetching challenge!'))
+            if(designPatternsFound!==null){
+                setPercentageOfDpsFound(Object.values(designPatternsFound).reduce((a, item) => a + (item?1:0), 0)/Object.keys(designPatternsFound).length)
+            }
     },[])
 
     return (
@@ -64,12 +68,12 @@ const UserHistoryListItem = ({challengeId, completionDate, language, outputTests
                         </Tooltip>:null
                     }
                     {
-                        designPatternsFound!==null?
-                        <Tooltip tooltipText={`${Object.values(designPatternsFound).reduce((a, item) => a + (item?1:0), 0)}/${Object.keys(designPatternsFound).length}`}>
+                        percentageOfDpsFound!==null?
+                        <Tooltip tooltipText={`${Object.values(designPatternsFound!).reduce((a, item) => a + (item?1:0), 0)}/${Object.keys(designPatternsFound!).length}`}>
                             <>
                                 <p className="text-sm text-left text-gray-800">Design Patterns</p>
                                 <div className={`h-3 rounded border border-gray-300 overflow-hidden`}>
-                                    <div className={`h-full w-${Object.values(designPatternsFound).reduce((a, item) => a + (item?1:0), 0)}/${Object.keys(designPatternsFound).length} bg-basicColor3`}></div>
+                                    <div className={`h-full ${Math.floor(percentageOfDpsFound!*6)===0? 'w-0': Math.floor(percentageOfDpsFound!*6)===1? 'w-1/6': Math.floor(percentageOfDpsFound!*6)===2? 'w-2/6': Math.floor(percentageOfDpsFound!*6)===3? 'w-3/6': Math.floor(percentageOfDpsFound!*6)===4? 'w-4/6': Math.floor(percentageOfDpsFound!*6)===5? 'w-5/6': 'w-full'} bg-basicColor3`}></div>
                                 </div>
                             </>
                         </Tooltip>:null

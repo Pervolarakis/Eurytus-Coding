@@ -51,10 +51,10 @@ const printClass = (el:any):any=>{
         
     }
    
-    if(tempObj.constructors.length===0 && JSON.stringify(tempObj.modifiers)!=='["abstract interface"]'){
-        //@ts-ignore
-        tempObj.constructors.push({ modifiers: [], parameters: [] })
-    }
+    // if(tempObj.constructors.length===0 && JSON.stringify(tempObj.modifiers)!=='["abstract interface"]'){
+    //     //@ts-ignore
+    //     tempObj.constructors.push({ modifiers: [], parameters: [] })
+    // }
     tempArr.push(tempObj);
     return tempArr;
     

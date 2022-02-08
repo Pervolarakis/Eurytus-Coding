@@ -4,7 +4,7 @@ import {BiDotsHorizontalRounded} from 'react-icons/bi'
 import {BsLink45Deg} from 'react-icons/bs'
 import {MdOutlineEdit, MdDeleteOutline} from 'react-icons/md'
 import { useEffect, useRef, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import DeleteChallengeMessageModal from '../../Modals/DeleteChallengeMessageModal';
 import { axios } from '../../../Api/eurytusInstance';
 import { toast } from 'react-toastify';
@@ -62,22 +62,26 @@ const UserChallengeListItem = ({listItem, reloadData}: {listItem: fetchedDataTyp
                     <button className='h-1/3 w-full hover:bg-gray-100 flex items-center p-3' onClick={listItem.isPublic? ()=>toggleDeleteModal(true): ()=>deleteChallenge() }> <MdDeleteOutline className='mr-2'/> Delete </button>
                 </div>:null}
                 <div className="flex justify-between items-center">
-                    <h1 className="text-base font-medium text-gray-900 capitalize text-left">{listItem.name}</h1>
+                    <NavLink to={`/challenge/${listItem.id}`} className="text-base font-medium text-gray-900 capitalize text-left">{listItem.name}</NavLink>
                     <button onClick={()=>toggleShowMenu(!showMenu)}><BiDotsHorizontalRounded size={24}/></button>
                 </div>
-                <p className="text-left mt-1.5 text-base text-gray-600">{listItem.description}</p>
+                <NavLink to={`/challenge/${listItem.id}`}>
+                    <p className="text-left mt-1.5 text-base text-gray-600">{listItem.description}</p>
+                </NavLink>
             </div>
-            <div className="flex justify-between bottom-0">
-                <div>
-                    <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${(listItem.language==='java')?'text-pink-800 bg-pink-100': 'text-blue-800 bg-blue-100'}`}>
-                        {(listItem.language==='java')?'Java':'Javascript'}
-                    </span>
-                    <span className={`ml-3 px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${(listItem.isPublic===true)?'text-green-800 bg-green-100': 'text-yellow-800 bg-yellow-100'}`}>
-                        {(listItem.isPublic===true)?'Public':'Private'}
-                    </span>
+            <NavLink to={`/challenge/${listItem.id}`}>
+                <div className="flex justify-between bottom-0">
+                    <div>
+                        <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${(listItem.language==='java')?'text-pink-800 bg-pink-100': 'text-blue-800 bg-blue-100'}`}>
+                            {(listItem.language==='java')?'Java':'Javascript'}
+                        </span>
+                        <span className={`ml-3 px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${(listItem.isPublic===true)?'text-green-800 bg-green-100': 'text-yellow-800 bg-yellow-100'}`}>
+                            {(listItem.isPublic===true)?'Public':'Private'}
+                        </span>
+                    </div>
+                    <div className="text-sm text-gray-900 flex justify-center items-center"><IoIosMan/> {listItem.participants}</div>
                 </div>
-                <div className="text-sm text-gray-900 flex justify-center items-center"><IoIosMan/> {listItem.participants}</div>
-            </div>
+            </NavLink>
         </div>
     )
 }

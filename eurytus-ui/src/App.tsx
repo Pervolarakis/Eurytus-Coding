@@ -20,6 +20,7 @@ import EditChallenge from './Components/UserProfile/EditChallenge/EditChallenge'
 import ChallengeStats from './Components/ChallengeStats/ChallengeStats';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import HomePage from './Components/HomePage/HomePage';
 
 function App() {
 
@@ -39,9 +40,10 @@ function App() {
     <div className="App h-full">
       <UserContext.Provider value={{user, setUser}}>
         <NavBar/>
+          <Routes>
           {
             (user)?
-            <Routes>
+            <>
               <Route path="/challenges" element={<ListAll />}/>
               <Route path="/createchallenge" element={<CreateChallenge />}/>
               <Route path="/editchallenge/:challengeId" element={<EditChallenge />}/>
@@ -58,12 +60,12 @@ function App() {
               <Route path="/admin/review/create/:requestId" element={<PreviewCreateChallengeRequest/>}/>
               <Route path="/admin/review/update/:requestId" element={<PreviewUpdateChallengeRequest/>}/>
               <Route path="/admin/review/delete/:requestId" element={<PreviewDeleteChallengeRequest/>}/>
-            </Routes>:<>
-            <Routes>
+            </>:<>
               <Route path="/auth/:page" element={<Auth />}/>
-            </Routes>
           </>
           }
+            <Route path="/" element={<HomePage/>}/>
+          </Routes>
         <ToastContainer 
           position="top-right"
           autoClose={3000}
