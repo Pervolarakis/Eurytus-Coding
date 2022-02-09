@@ -16,9 +16,9 @@ export const javaTemp = (outPutFunctionCalls: string, userFunction:string, check
         ${detectClassesLogic}
 
     }
-    
+    /**user code starts here*/
     ${userFunction}
- 
+    /**user code ends here*/
     ${checkEqualityLogic}
 
 `

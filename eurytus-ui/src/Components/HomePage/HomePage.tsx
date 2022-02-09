@@ -14,8 +14,8 @@ const HomePage = () => {
                     </h1>
                     <button className="text-white w-56 h-12 bg-secondary shadow mt-8 rounded">JOIN NOW!</button>
                 </div>
-                <div className="w-full md:w-1/2 flex justify-end">
-                    <img className='w-full md:w-6/6 h-5/6 lg:w-5/6 2xl:w-4/6' src={homepageIllustration} alt="code brackets" />
+                <div className="w-full md:w-1/2 flex justify-end md:mt-12 lg:mt-6 xl:mt-8">
+                    <img className='w-5/6 md:w-6/6 h-5/6 lg:w-5/6 xl:w-9/12 2xl:w-4/6' src={homepageIllustration} alt="code brackets" />
                 </div>
             </div>
         </div>
