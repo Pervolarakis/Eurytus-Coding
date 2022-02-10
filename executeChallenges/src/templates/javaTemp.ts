@@ -1,4 +1,4 @@
-export const javaTemp = (outPutFunctionCalls: string, userFunction:string, checkEqualityLogic: string, detectClassesMain: string, detectClassesLogic: string) => `
+export const javaTemp = (outPutFunctionCalls: string, userFunction:string, checkEqualityLogic: string, detectClassesMain: string, detectClassesLogic: string, challengeOwner: string, challengeSolver: string) => `
 
     import java.util.*;
     import java.io.*;
@@ -16,9 +16,11 @@ export const javaTemp = (outPutFunctionCalls: string, userFunction:string, check
         ${detectClassesLogic}
 
     }
-    /**user code starts here*/
-    ${userFunction}
-    /**user code ends here*/
+    /**Challenge owner: ${challengeOwner}*/
+    /**Challenge solver: ${challengeSolver}*/
+/**user code starts here*/
+${userFunction}
+/**user code ends here*/
     ${checkEqualityLogic}
 
 `

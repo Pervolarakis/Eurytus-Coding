@@ -1,9 +1,27 @@
 import { BiError } from "react-icons/bi";
 import { IoMdDownload } from "react-icons/io";
+import { axios } from "../../Api/eurytusInstance";
 import Tooltip from "../Tooltip/Tooltip";
 import { userHistoryProps } from "../UserProfile/UserHistory/UserHistoryListItem";
 
 const UserSubmission = ({submissionData}:{submissionData: userHistoryProps}) => {
+
+    const getUserCode = () => {
+        axios.post('/compile/getcode', {fileRoute: submissionData.saveFileId})
+            .then((response) => {
+                var link = document.createElement("a");
+                link.href = window.URL.createObjectURL(
+                new Blob([response.data], { type: "application/octet-stream" })
+                );
+                link.download = `${submissionData._id}.${submissionData.language}`;
+            
+                document.body.appendChild(link);
+            
+                link.click();
+            })
+            .catch((err)=>console.log(err))
+    }
+
     return(
         <div className="w-full md:h-16 bg-white rounded shadow flex md:items-center md:px-10 p-5 md:justify-between flex-col md:flex-row">
             <h1 className="font-semibold w-1/6 text-left">{submissionData.userEmail}</h1>
@@ -27,7 +45,7 @@ const UserSubmission = ({submissionData}:{submissionData: userHistoryProps}) => 
                     <div className="md:text-3xl md:font-bold text-red-500 flex justify-center items-center"><BiError size={30}/></div>
                     <h1 className="md:text-xl md:font-bold text-red-500 ml-2 md:ml-0">Not Running</h1>
                 </div>}
-            <button className="hidden w-9 h-9 rounded-full bg-gray-300 md:flex justify-center items-center"><IoMdDownload size={24}/></button>
+            <button className="hidden w-9 h-9 rounded-full bg-gray-300 md:flex justify-center items-center" onClick={()=>getUserCode()}><IoMdDownload size={24}/></button>
         </div>
     )
 }

@@ -8,6 +8,7 @@ import { compileCRouter } from './routes/compileC'
 import { compileJSRouter } from './routes/compileJS'
 import { compileJavaRouter } from './routes/compileJava'
 import cors from 'cors'
+import { downloadSubmissionCode } from './routes/downloadSubmissionCode'
 
 const app = express();
 
@@ -29,6 +30,7 @@ app.use(executeJSRouter);
 app.use(compileCRouter);
 app.use(compileJSRouter);
 app.use(compileJavaRouter);
+app.use(downloadSubmissionCode);
 
 app.use(ErrorHandler);
 
