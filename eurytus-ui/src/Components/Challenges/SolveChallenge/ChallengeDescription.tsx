@@ -10,7 +10,7 @@ const ChallengeDescription = ({name, difficulty, language, description}: Challen
         <div className="w-2/6 bg-white h-full border-r-2">
             <div className="w-full h-1/6 border-b-2 border-solid border-black p-8 flex flex-col items-start">
                 <p className="font-bold text-2xl">{name}</p>
-                <p className="font-semibold text-xl mt-2">Difficulty: {difficulty} Laguage: {language}</p>
+                <p className="font-semibold text-xl mt-2">Difficulty: {difficulty} Language: {language}</p>
             </div>
             <div className="p-8 flex flex-col items-start">
                 <p className="font-semibold text-left text-lg">{description}</p>

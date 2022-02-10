@@ -1,5 +1,6 @@
 import { BiError } from "react-icons/bi";
 import { IoMdDownload } from "react-icons/io";
+import { toast } from "react-toastify";
 import { axios } from "../../Api/eurytusInstance";
 import Tooltip from "../Tooltip/Tooltip";
 import { userHistoryProps } from "../UserProfile/UserHistory/UserHistoryListItem";
@@ -19,7 +20,7 @@ const UserSubmission = ({submissionData}:{submissionData: userHistoryProps}) => 
             
                 link.click();
             })
-            .catch((err)=>console.log(err))
+            .catch((err)=>toast.error(err.response?.data.error||'There was an error downloading this file!'))
     }
 
     return(
