@@ -51,6 +51,7 @@ const CreateChallenge = () => {
     },[challenge.challengeDetails.language])
 
     const createChallenge = () => {
+        console.log(challenge.inputTests.challenge.filter((el)=>el.input!==JSON.stringify('')&&el.output!==JSON.stringify('')));
         axios.post('/challenges/new', {
             ...challenge.challengeDetails,
             isPublic: challenge.challengeDetails.isPublic===true? "true": "false",
