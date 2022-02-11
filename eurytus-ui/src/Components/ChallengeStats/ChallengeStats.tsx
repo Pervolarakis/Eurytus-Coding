@@ -41,7 +41,7 @@ const ChallengeStats = () => {
                     <div className="w-full flex flex-col gap-3">
                         {
                             challengeHistory.map((el,index)=>{
-                                return <UserSubmission  submissionData={el}/>
+                                return <UserSubmission  submissionData={el} key={JSON.stringify(el)}/>
                             })
                         }
                     </div>
