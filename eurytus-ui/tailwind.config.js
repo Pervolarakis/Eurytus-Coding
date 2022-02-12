@@ -29,6 +29,9 @@ module.exports = {
         implements: '#7D3CB5',
         interface: 'rgb(194, 63, 118)',
         argument: '#996017'
+      },
+      fontFamily: {
+        nunito: "'Nunito', sans-serif"
       }
     },
   },

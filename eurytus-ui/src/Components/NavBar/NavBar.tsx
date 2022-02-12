@@ -67,7 +67,7 @@ const NavBar = () => {
                           key={item.name}
                           to={item.href}
                           className={({ isActive }) =>
-                            isActive ? ' text-white font-bold border-b-4 border-secondary flex flex-wrap content-center h-full px-2' : 'px-2 border-b-4 border-primary text-gray-300 hover:bg-gray-700 hover:text-white font-bold flex flex-wrap content-center h-10 my-auto rounded-md'
+                            isActive ? ' text-white font-bold border-b-4 border-secondary flex flex-wrap content-center h-full px-2' : 'px-2 pb-1 border-primary text-gray-300 hover:bg-gray-800 hover:text-white font-bold flex flex-wrap content-center h-10 my-auto rounded'
                           }
                         >
                           {item.name}
