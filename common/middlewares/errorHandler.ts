@@ -9,9 +9,10 @@ export const ErrorHandler = (err: Error, req: Request, res: Response, next: Next
     }
     if(err instanceof RequestValidationError){
         res.status(err.errorCode).json({success: false, error: err.getFormatedMessage()});
+        return next();
     }
     else{
-        res.status(500).json({success: false, error: err.message})
+        res.status(400).json({success: false, error: 'An error occurred!'})
         return next();
     }
     
