@@ -4,9 +4,9 @@ import mongoose from 'mongoose';
 import {History} from '../../models/History';
 
 it('successfully returns challenge participations for all user challenges', async()=>{
-    const challengeId = new mongoose.Types.ObjectId();
-    const challengeId2 = new mongoose.Types.ObjectId();
-    const challengeId3 = new mongoose.Types.ObjectId();
+    const challengeId = new mongoose.Types.ObjectId('61b07d810d86f0c5529ba8dc');
+    const challengeId2 = new mongoose.Types.ObjectId('61b07f9453ac6a09dffd9705');
+    const challengeId3 = new mongoose.Types.ObjectId('56cb91bdc3464f14678934ca');
     const challengeId4 = new mongoose.Types.ObjectId();
     const user = new mongoose.Types.ObjectId();
     const user2 = new mongoose.Types.ObjectId();
@@ -157,12 +157,9 @@ it('successfully returns challenge participations for all user challenges', asyn
         .get('/api/v1/history/getuserparticipants')
         .set('Cookie', global.signin(user, 'user'))
         .expect(200)
-    // console.log(response.body.data);
-    // expect(response.body.data).toEqual(
-    //     expect.arrayContaining([
-    //         expect.objectContaining({_id: challengeId, count: 3}),
-    //         expect.objectContaining({_id: challengeId2, count: 2}),
-    //         expect.objectContaining({_id: challengeId3, count: 1})
-    //     ])
-    // )
+    
+    expect(response.body.data).toContainEqual({_id: '61b07d810d86f0c5529ba8dc', count: 3});
+    expect(response.body.data).toContainEqual({_id: '61b07f9453ac6a09dffd9705', count: 2});
+    expect(response.body.data).toContainEqual({_id: '56cb91bdc3464f14678934ca', count: 1});
+
 })
