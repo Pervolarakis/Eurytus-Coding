@@ -140,3 +140,43 @@ it('successfully updates challenge if user owns the challenge and challenge is p
     const updatedChallenge = await Challenge.findById(challenge.id);
     expect(updatedChallenge?.name).toEqual('new challenge 1 name')
 })
+
+it('publishes request if challenge is private and gets updated to public', async()=>{
+    const userOne = new mongoose.Types.ObjectId();
+    const challenge = new Challenge({
+        name: "Sum Challenge",
+        description: "Write a function that sums 3 numbers",
+        difficulty: 1,
+        isPublic: false,
+        expiresAt: "2014-02-01T00:00:00",
+        status: 'approved',
+        startsAt: Date.now(),
+        creatorId: userOne,
+        expectedOutputTests: JSON.stringify({
+            "challenge" : [
+                {
+                    input: JSON.stringify(`5,10,15`),
+                    output: JSON.stringify(`30`)
+                },
+                {
+                    input: JSON.stringify(`40,10,5`),
+                    output: JSON.stringify(`55`)
+                }
+            ]
+        }),
+        template: 'solution(a,b,c){}',
+        language: 'js',
+        expectedStructure: '',
+        expectedDesignPatterns: []
+    })
+    await challenge.save();
+    const response = await request(app)
+        .put(`/api/v1/challenges/update/${challenge.id}`)
+        .set('Cookie', global.signin(userOne, 'user'))
+        .send({
+            isPublic: 'true'
+        })
+        .expect(201);
+    expect(natsWrapper.client.publish).toHaveBeenCalled();
+    expect(response.body.data).toEqual('Request submited')
+})
