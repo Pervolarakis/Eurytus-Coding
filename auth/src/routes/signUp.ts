@@ -1,39 +1,32 @@
 import express, {Request, Response, NextFunction} from 'express';
-import { BasicCustomError } from '@eurytus/common';
+import { asyncHandler, BasicCustomError, validateRequestSchema } from '@eurytus/common';
 import { User } from '../models/UserModel';
+import { signUpSchema } from './requestSchemas/signUpSchema';
 
 const router = express.Router();
 
-router.post('/api/v1/users/auth/signup', async (req: Request, res: Response, next: NextFunction)=>{
+router.post('/api/v1/users/auth/signup', signUpSchema, validateRequestSchema, asyncHandler(async (req: Request, res: Response, next: NextFunction)=>{
     
     const {email, password, firstName, lastName} = req.body;
     
-    if(!email || !password || !firstName || !lastName){
-        return next(new BasicCustomError('Invalid Data', 400))
+    const existingUser = await User.findOne({email: email});
+
+    if(existingUser){
+        return next(new BasicCustomError('User already exists with this email address', 400));
     }
 
-    const user = await User.findOne({email: email});
+    const user = new User({email, password, firstName, lastName});
+    await user.save()
 
-    if(user){
-        return next(new BasicCustomError('User already exists', 400));
+    const token = user.getSignedJwtToken()
+
+    req.session={
+        jwt: token
     }
 
-    try{
-        const user = new User({email, password, firstName, lastName});
-        await user.save()
-
-        const token = user.getSignedJwtToken()
-
-        req.session={
-            jwt: token
-        }
-
-        res.status(201).json({success: true, data: user});
-    }catch{
-        return next(new BasicCustomError('Error creating user', 400))
-    }
-
-})
+    res.status(201).json({success: true, data: user});
+    
+}))
 
 export {router as signUpRouter}
 
