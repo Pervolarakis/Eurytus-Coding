@@ -51,13 +51,14 @@ it('fails challenge doesnt exist', async()=>{
 
 it('fails if data is not valid', async()=>{
     const userOne = new mongoose.Types.ObjectId();
-    await request(app)
+    const response = await request(app)
         .put(`/api/v1/challenges/update/${dumbChallenges[0]._id}`)
         .set('Cookie', global.signin(userOne, 'admin'))
         .send({
             isPublic: 'pipi'
         })
         .expect(400)
+    expect(response.body.error).toContainEqual({field: "isPublic", message: "Is public should be true or false"})
 })
 
 it('successfully publishes update event if user owns the challenge', async()=>{

@@ -1,11 +1,11 @@
-import express from 'express';
+import express, { NextFunction, Request, Response } from 'express';
 import { asyncHandler, BasicCustomError, validateRequestSchema } from '@eurytus/common';
 import { User } from '../models/UserModel';
 import { loginSchema } from './requestSchemas/loginSchema';
 
 const router = express.Router();
 
-router.post('/api/v1/users/auth/login', loginSchema, validateRequestSchema, asyncHandler( async (req,res,next)=>{
+router.post('/api/v1/users/auth/login', loginSchema, validateRequestSchema, asyncHandler( async (req: Request, res: Response, next: NextFunction)=>{
     
     const {email, password} = req.body;
 

@@ -67,3 +67,11 @@ it('successfully returns challenges created by the user', async()=>{
         .expect(200)
     expect(result.body.data).toHaveLength(2)
 })
+
+it('successfully returns empty array if user doesnt own any challenges', async()=>{
+    const response = await request(app)
+        .get('/api/v1/challenges/myChallenges')
+        .set('Cookie', global.signin(new mongoose.Types.ObjectId(), 'user'))
+        .expect(200)
+    expect(response.body.data).toHaveLength(0)
+})
