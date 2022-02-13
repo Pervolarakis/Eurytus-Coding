@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: eurytus-ui-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: eurytus-ui
+  template:
+    metadata:
+      labels:
+        app: eurytus-ui
+    spec:
+      containers:
+        - name: eurytus-ui
+          image: pervolarakis/eurytus-ui
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: eurytus-ui-cluster-srv
+spec:
+  selector:
+    app: eurytus-ui
+  ports:
+    - name: eurytus-ui
+      protocol: TCP
+      port: 3000
+      targetPort: 3000

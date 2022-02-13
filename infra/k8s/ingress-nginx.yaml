@@ -30,3 +30,7 @@ spec:
             backend:
               serviceName: history-cluster-srv
               servicePort: 4000
+          - path: /
+            backend:
+              serviceName: eurytus-ui-cluster-srv
+              servicePort: 3000
