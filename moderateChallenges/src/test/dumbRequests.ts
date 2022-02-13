@@ -3,7 +3,6 @@ export const dumbRequests = [
     {
         _id: new mongoose.Types.ObjectId(),
         kind: 'create',
-        challengeId: new mongoose.Types.ObjectId(),
         ownerId: new mongoose.Types.ObjectId(),
         data: JSON.stringify({
             name: "Sum Challenge",
@@ -50,7 +49,6 @@ export const dumbRequests = [
         _id: new mongoose.Types.ObjectId(),
         kind: 'create',
         ownerId: new mongoose.Types.ObjectId(),
-        challengeId: new mongoose.Types.ObjectId(),
         data: JSON.stringify({
             name: "Multiply Challenge2",
             description: "Write a challenge that multiplies 3 numbers",
