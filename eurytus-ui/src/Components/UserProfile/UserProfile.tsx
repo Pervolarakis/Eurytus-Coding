@@ -16,7 +16,7 @@ export interface particiants{
 
 const UserProfile = () => {
 
-    const {user, setUser} = useContext(UserContext);
+    const {user} = useContext(UserContext);
     const [userChallenges, setUserChallenges] = useState<fetchedDataType[]>([])
     const [userRequests, setUserRequests] = useState([])
     const [requestToDelete, setRequestToDelete] = useState('')
@@ -71,7 +71,7 @@ const UserProfile = () => {
                 <div className="h-full w-full" id="trapezoid">
                     <div className="absolute flex w-full h-full items-center ml-5 md:ml-28 ">
                         <div className="w-24 h-24 rounded-full bg-white">
-                            <img src={getUserAvatar(user!.id)}></img>
+                            <img alt="user pic" src={getUserAvatar(user!.id)}></img>
                         </div>
                         <div className="ml-10">
                             <h1 className="text-lg font-normal">{user?.email}</h1>

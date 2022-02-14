@@ -4,7 +4,7 @@ import PendingRequestsTable from "./Tables/PendingRequestsTable";
 
 const AdminPendingRequests = () => {
     
-    const {requests, setRequests} = useContext(RequestsContext)
+    const {requests} = useContext(RequestsContext)
     
     return(
         <div className="h-full">

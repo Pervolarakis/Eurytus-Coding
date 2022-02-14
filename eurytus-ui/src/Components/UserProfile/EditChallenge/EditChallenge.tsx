@@ -4,8 +4,7 @@ import { toast } from "react-toastify";
 import { axios } from "../../../Api/eurytusInstance";
 import { combineChallengeDataWithIncomingChanges, setChallengeStateAfterFetch } from "../../AdminPage/ChallengeUtils/ChallengeUitls";
 import { requestChallengeProperties } from "../../AdminPage/ModerateChallenges/ReviewRequestInterfaces";
-import ChallengeDetails from "../../Challenges/PreviewChallenge/ChallengeDetails";
-import PreviewChallenge, { challengeTest, fieldType } from "../../Challenges/PreviewChallenge/PreviewChallenge";
+import PreviewChallenge, { fieldType } from "../../Challenges/PreviewChallenge/PreviewChallenge";
 import DeleteRequestExistsModal from "../../Modals/DeleteRequestExistsModal";
 import EditChallengeExistsModal from "../../Modals/EditChallengeExistsModal";
 import SetRequestMessageModal from "../../Modals/SetRequestMessageModal";
@@ -56,9 +55,9 @@ const EditChallenge = () => {
             navigate('/profile')
         })
         .catch((err)=>{
-            err.response.data.error.map((err:{message: string, field: string})=>{
-                toast.error(err.message);
-            })
+            err.response.data.error.map((err:{message: string, field: string})=>
+                toast.error(err.message)
+            )
         })
     }
 

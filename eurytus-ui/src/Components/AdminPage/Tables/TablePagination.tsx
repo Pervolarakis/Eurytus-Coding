@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import {HiChevronLeft, HiChevronRight} from 'react-icons/hi'
 
 interface TablePaginationProps {

@@ -10,8 +10,8 @@ import { ChallengesContext } from "../../Contexts/ChallengesContext";
 
 const AdminDashboard = () => {
     
-    const {requests, setRequests} = useContext(RequestsContext)
-    const {challenges, setChallenges} = useContext(ChallengesContext)
+    const {requests} = useContext(RequestsContext)
+    const {challenges} = useContext(ChallengesContext)
 
     return(
         <div>

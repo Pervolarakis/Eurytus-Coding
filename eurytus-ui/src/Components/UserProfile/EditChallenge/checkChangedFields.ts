@@ -1,5 +1,4 @@
 import { requestChallengeProperties } from "../../AdminPage/ModerateChallenges/ReviewRequestInterfaces";
-import {fetchedDataType} from '../../AdminPage/ModerateChallenges/ReviewRequestInterfaces'
 
 interface  destructuredDataType {
     id: string

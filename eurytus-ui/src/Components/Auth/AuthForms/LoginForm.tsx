@@ -8,7 +8,7 @@ import FloatingLabel from "../../FloatingLabel/FloatingLabel";
 
 const LoginForm = () => {
     
-    const {user, setUser} = useContext(UserContext);
+    const {setUser} = useContext(UserContext);
     const [logInMail, setLogInMail] = useState('');
     const [logInPass, setLogInPass] = useState('');
     let navigate = useNavigate();
@@ -24,9 +24,9 @@ const LoginForm = () => {
             .then((res)=>{setUser(res.data.data); navigate('/challenges')})
             .catch(err=>toast.error(err.response?.data.error||'There was an error fetching current user!'))
         })
-        .catch(err=>err.response.data.error.map((err:{message: string, field: string})=>{
-            toast.error(err.message);
-        }))
+        .catch(err=>err.response.data.error.map((err:{message: string, field: string})=>
+            toast.error(err.message)
+        ))
     }
     
     return(
@@ -34,7 +34,7 @@ const LoginForm = () => {
             <h1 className="font-bold text-4xl mb-3">Login</h1>
             <FloatingLabel name="Email" type="Email" value={logInMail} onChange={setLogInMail}/>
             <FloatingLabel name="Password" type="password" value={logInPass} onChange={setLogInPass}/>
-            <a className="text-sm m-4" href="#">Forgot your password?</a>
+            <a className="text-sm m-4">Forgot your password?</a>
             <div className="w-full flex justify-center">
                 <input type="submit" className="rounded-2xl border-solid bg-secondary text-white font-bold uppercase border py-3 px-11 md:w-6/12 transform transition duration-250 hover:scale-110" value="Login" />
             </div>

@@ -4,7 +4,7 @@ import ChallengesTable from "./Tables/ChallengesTable";
 
 const AdminAllChallenges = () => {
 
-    const {challenges, setChallenges} = useContext(ChallengesContext)
+    const {challenges} = useContext(ChallengesContext)
     
     return(
         <div className="h-full">
