@@ -36,7 +36,7 @@ const SolveChallenge = () => {
         })
         .then((res)=>{setExecutionMessage(res.data)})
         .catch((err)=>{
-            toast.error('There was an error executing your code. This is probably an error on our end. We are sorry for that.')
+            toast.error(err.response?.data.error||'There was an error executing your code. This is probably an error on our end. We are sorry for that.')
         })
     }
 
@@ -49,7 +49,7 @@ const SolveChallenge = () => {
             navigate('/challenges');
         })
         .catch((err)=>{
-            toast.error('There was an error submitting your assignment.')
+            toast.error(err.response?.data.error||'There was an error submitting your assignment.')
         })
     }
 
