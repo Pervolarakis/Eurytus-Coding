@@ -6,7 +6,7 @@ import { initializeDb } from './initializedb';
 
 const start = async () =>{
     try{
-        await natsWrapper.connect('eurytus', process.env.CLIENT_ID!, 'http://nats-srv:4222')
+        await natsWrapper.connect('eurytus', process.env.CLIENT_ID! || process.env.HOSTNAME!, 'http://nats-srv:4222')
         new ChallengeNewRequestListener(natsWrapper.client).listen();
         if(!process.env.JWT_KEY){
             throw new Error('No Jwt Env variable');

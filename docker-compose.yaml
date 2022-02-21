@@ -1,0 +1,124 @@
+version: '3.1'
+
+services:
+  
+  ##eurytus ui
+  eurytus-ui-cluster-srv:
+    build: ./eurytus-ui/
+    image: pervolarakis/eurytus-ui
+    ports:
+      - "3000:80"
+  
+  ##nats server
+  nats-srv:
+    command:
+      - '-p'
+      - '4222'
+      - '-m'
+      - '8222'
+      - '-hbi'
+      - '5s'
+      - '-hbt'
+      - '5s'
+      - '-hbf'
+      - '2'
+      - '-SD'
+      - '-cid'
+      - 'eurytus'
+    image: nats-streaming:0.17.0
+    logging:
+      driver: "none"
+
+  ##challenge service
+  challenges-mongo-srv:
+    image: mongo
+    logging:
+      driver: "none"
+
+  challenges-cluster-srv:
+    build: ./challenges/
+    image: pervolarakis/challenges
+    environment:
+      JWT_KEY: abc123
+    depends_on:
+      - challenges-mongo-srv
+      - nats-srv
+    
+  ##execute challenge service
+  execute-challenges-mongo-srv:
+    image: mongo
+    logging:
+      driver: "none"
+
+  execute-challenges-cluster-srv:
+    build: ./executeChallenges/
+    image: pervolarakis/executechallenges
+    environment:
+      JWT_KEY: abc123
+    depends_on:
+      - execute-challenges-mongo-srv
+      - nats-srv
+
+  ##auth service
+  auth-mongo-srv:
+    image: mongo
+    logging:
+      driver: "none"
+
+  auth-cluster-srv:
+    build: ./auth/
+    image: pervolarakis/eurytusauth
+    environment:
+      JWT_KEY: abc123
+    depends_on:
+      - auth-mongo-srv
+  
+  ##history service
+  history-mongo-srv:
+    image: mongo
+    logging:
+      driver: "none"
+
+  history-cluster-srv:
+    build: ./history/
+    image: pervolarakis/history
+    environment:
+      JWT_KEY: abc123
+    depends_on:
+      - history-mongo-srv
+      - nats-srv
+
+  ##moderate challenges service
+  moderate-challenges-mongo-srv:
+    image: mongo
+    logging:
+      driver: "none"
+
+  moderate-challenges-cluster-srv:
+    build: ./moderateChallenges/
+    image: pervolarakis/moderatechallenges
+    environment:
+      JWT_KEY: abc123
+    depends_on:
+      - moderate-challenges-mongo-srv
+      - nats-srv
+
+  ##nginx reverse proxy
+  reverse-proxy:
+    image: nginx:1.17.10
+    container_name: reverse_proxy
+    depends_on:
+        - moderate-challenges-cluster-srv
+        - history-cluster-srv
+        - auth-cluster-srv
+        - execute-challenges-cluster-srv
+        - challenges-cluster-srv
+        - eurytus-ui-cluster-srv
+    volumes:
+      - ./reverse_proxy/nginx.conf:/etc/nginx/nginx.conf
+    ports:
+      - 80:80
+
+networks:
+  default:
+    name: eurytus-network
