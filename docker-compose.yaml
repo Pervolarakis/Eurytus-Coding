@@ -105,8 +105,7 @@ services:
 
   ##nginx reverse proxy
   reverse-proxy:
-    image: nginx:1.17.10
-    container_name: reverse_proxy
+    image: nginx
     depends_on:
         - moderate-challenges-cluster-srv
         - history-cluster-srv
@@ -115,9 +114,9 @@ services:
         - challenges-cluster-srv
         - eurytus-ui-cluster-srv
     volumes:
-      - ./reverse_proxy/nginx.conf:/etc/nginx/nginx.conf
+      - ./reverse_proxy/nginx.conf:/etc/nginx/conf.d/default.conf:ro
     ports:
-      - 80:80
+      - 8080:8080
 
 networks:
   default:
