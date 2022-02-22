@@ -1,10 +1,10 @@
-import { BasicCustomError, requireAuth } from '@eurytus/common';
+import { BasicCustomError, requireAuth, asyncHandler } from '@eurytus/common';
 import express, {Request, Response, NextFunction} from 'express';
 import { PendingRequest } from '../models/PendingRequests';
 
 const router = express.Router();
 
-router.get('/api/v1/moderate/requests/:id', requireAuth, async(req: Request, res: Response, next: NextFunction)=>{
+router.get('/api/v1/moderate/requests/:id', requireAuth, asyncHandler(async(req: Request, res: Response, next: NextFunction)=>{
     
     const request = await PendingRequest.findById(req.params.id);
 
@@ -17,6 +17,6 @@ router.get('/api/v1/moderate/requests/:id', requireAuth, async(req: Request, res
     }
 
     res.status(200).json({success: true, data: request})
-})
+}))
 
 export {router as getRequestRouter}

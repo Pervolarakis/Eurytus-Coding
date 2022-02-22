@@ -1,10 +1,10 @@
 import { Challenge } from "../models/challengeModel";
 import express from 'express';
-import { BasicCustomError, requireAuth } from "@eurytus/common";
+import { BasicCustomError, requireAuth, asyncHandler } from "@eurytus/common";
 
 const router = express.Router();
 
-router.get('/api/v1/challenges/:id', requireAuth, async(req,res,next)=>{
+router.get('/api/v1/challenges/:id', requireAuth, asyncHandler(async(req,res,next)=>{
     
     try{
         const challenges = await Challenge.findById(req.params.id);
@@ -18,6 +18,6 @@ router.get('/api/v1/challenges/:id', requireAuth, async(req,res,next)=>{
     }catch(err){
         return next(new BasicCustomError(err, 400));
     }
-})
+}))
 
 export {router as getChallengeById}

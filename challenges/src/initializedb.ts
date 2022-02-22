@@ -26,7 +26,7 @@ export const initializeDb = async () => {
                     }
                 ]
             }),
-            template: 'solution(){}',
+            template: JSON.stringify('solution(){}'),
             language: 'js',
             expectedStructure: '',
             expectedDesignPatterns: []
@@ -53,7 +53,7 @@ export const initializeDb = async () => {
                     }
                 ]
             }),
-            template: 'solution(){}',
+            template: JSON.stringify('solution(){}'),
             language: 'js',
             expectedStructure: '',
             expectedDesignPatterns: []
@@ -81,7 +81,7 @@ export const initializeDb = async () => {
                 ]
             }),
             language: "java",
-            template: `class Solution {}`,
+            template: JSON.stringify(`class Solution {}`),
             expectedStructure: '[{"blockType":"Base","expanded":true,"children":[{"title":"Interface","className":"furnitureFactory","blockType":"interface","superClass":"","modifiers":[\"abstract interface\"],"expanded":true,"children":[{"title":"Method","blockType":"method","modifiers":[\"public\"],"parameters":"","returnType":"Furniture","name":"getFurniture"}]},{"title":"Class","blockType":"class","modifiers":[],"className":"factorySubClass","superClass":"","name":"","interfaces":"","expanded":true,"children":[{"title":"Implements","blockType":"implements","className":"furnitureFactory","expanded":true},{"title":"Method","blockType":"method","modifiers":[\"public\"],"parameters":"","returnType":"Furniture","name":"getFurniture"}]},{"title":"Interface","className":"Furniture","blockType":"interface","superClass":"","modifiers":[\"abstract interface\"]},{"title":"Class","blockType":"class","modifiers":[],"className":"Chair","superClass":"","name":"","interfaces":"","expanded":true,"children":[{"title":"Implements","blockType":"implements","className":"Furniture"}]}]}]',
             expectedDesignPatterns: []
         },
@@ -113,7 +113,7 @@ export const initializeDb = async () => {
             }),
             language: "java",
             expectedStructure: '',
-            template: `class Solution {}`,
+            template: JSON.stringify(`class Solution {}`),
             expectedDesignPatterns: ['factory']
         },
         {
@@ -168,7 +168,7 @@ export const initializeDb = async () => {
                 ]
             }),
             expectedStructure: '',
-            template: `class Solution {}`,
+            template: JSON.stringify(`class Solution {}`),
             expectedDesignPatterns: [],
             language: "java"
         },
@@ -202,7 +202,7 @@ export const initializeDb = async () => {
             expectedStructure: '',
             expectedDesignPatterns: [],
             language: "js",
-            template: ''
+            template: JSON.stringify('')
         }
     ]
     const challenge = await Challenge.findById('61b07f82c2d7ad3a19087d2f');

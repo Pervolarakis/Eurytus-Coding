@@ -1,4 +1,4 @@
-import axios from "axios";
+import {axios} from "../../../Api/eurytusInstance";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Ide from "../../Ide/Ide";
@@ -24,12 +24,12 @@ const SolveChallenge = () => {
     const [ executionMessage, setExecutionMessage ] = useState<executionMessage>();
 
     useEffect(()=>{
-        axios.get(`http://eurytus.com/api/v1/challenges/${challengeId}`)
-            .then((res)=>{setChallenge(res.data.data);setIdeValue(res.data.data.template)})
+        axios.get(`/challenges/${challengeId}`)
+            .then((res)=>{setChallenge(res.data.data);setIdeValue(JSON.parse(res.data.data.template))})
     },[challengeId])
 
     const onCodeRun = () => {
-        axios.post(`http://eurytus.com/api/v1/compile/challenge${challenge!.language}/${challengeId}`,{
+        axios.post(`/compile/challenge${challenge!.language}/${challengeId}`,{
             solution: JSON.stringify(ideValue)
         })
         .then((res)=>{setExecutionMessage(res.data)})
@@ -41,8 +41,13 @@ const SolveChallenge = () => {
             <div className="flex w-full h-full ">
                 <ChallengeDescription name={challenge.name} description={challenge.description} difficulty={challenge.difficulty} language={challenge.language}/>
                 <div className="w-4/6">
-                    <Ide language={(challenge.language==='js')?'javascript':challenge.language} value={ideValue} changeValue={(val)=>setIdeValue(val)}/>
-                    <SubmitChallenge onCodeRun={()=>onCodeRun()} executionMessage={executionMessage}/>
+                    <div className="h-5/6">
+                        <Ide language={(challenge.language==='js')?'javascript':challenge.language} value={ideValue} changeValue={(val)=>setIdeValue(val)}/>
+                    </div>
+                    <div className="h-1/6">
+                        <SubmitChallenge onCodeRun={()=>onCodeRun()} executionMessage={executionMessage}/>
+                    </div>
+                    
                 </div>
             </div>:null}
         </div>

@@ -8,8 +8,13 @@ import { getUserRequestsRouter } from './routes/getUserRequests';
 import { cancelUserRequestRouter } from './routes/cancelUserRequest';
 import { getRequestRouter } from './routes/getRequestById';
 import { getLatestRequestByChallengeIdRouter } from './routes/getLatestRequestByChallengeId';
+import cors from 'cors';
 
 const app = express();
+
+app.use(cors({
+    origin: ['http://eurytus.com:3000'],
+    credentials: true }))
 
 app.use(express.json());
 

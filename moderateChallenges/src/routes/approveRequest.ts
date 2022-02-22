@@ -1,4 +1,4 @@
-import { BasicCustomError, NotAnAdminError, requireAuth } from '@eurytus/common';
+import { BasicCustomError, NotAnAdminError, requireAuth, asyncHandler } from '@eurytus/common';
 import express, {Request, Response, NextFunction} from 'express';
 import { CreateChallengeApprovedPublisher } from '../events/CreateChallengeApprovedPublisher';
 import { DeleteChallengeApprovedPublisher } from '../events/DeleteChallengeApprovedPublisher';
@@ -8,7 +8,7 @@ import { PendingRequest } from '../models/PendingRequests';
 
 const router = express.Router();
 
-router.post('/api/v1/moderate/approve/:id', requireAuth, async(req: Request, res: Response, next: NextFunction)=>{
+router.post('/api/v1/moderate/approve/:id', requireAuth, asyncHandler(async(req: Request, res: Response, next: NextFunction)=>{
 
     if(req.currentUser?.role!=='admin'){
         return next(new NotAnAdminError());
@@ -55,6 +55,6 @@ router.post('/api/v1/moderate/approve/:id', requireAuth, async(req: Request, res
         useFindAndModify: false
     });
     
-})
+}))
 
 export {router as approveRequestRouter}

@@ -1,12 +1,12 @@
 import mongoose from 'mongoose';
 import { PendingRequest } from './models/PendingRequests';
 
-export const initializeDb = () => {
+export const initializeDb = async () => {
     console.log('TO DELETE --- Initializing Pending requests Service!')
     const pendingRequests = [
         {
+            _id: new mongoose.Types.ObjectId('61d597c6ae966569e7c1a0a9'),
             kind: 'create',
-            challengeId: new mongoose.Types.ObjectId('61b08ad1a75d6eacb7880b24').toString(),
             data: JSON.stringify({
                 name: "Multiply Challenge2",
                 description: "Write a function that multiplies 3 numbers",
@@ -16,7 +16,7 @@ export const initializeDb = () => {
                 status: 'pending',
                 startsAt: Date.now(),
                 creatorId: new mongoose.Types.ObjectId('56cb91bdc3464f14678934ca'),
-                tests: JSON.stringify({
+                expectedOutputTests: JSON.stringify({
                     "challenge" : [
                         {
                             input: JSON.stringify(`solution(5,10,15)`),
@@ -38,8 +38,8 @@ export const initializeDb = () => {
             message: 'please create this new challenge'
         },
         {
+            _id: new mongoose.Types.ObjectId('61d597ed9f8e1a6b026c0b04'),
             kind: 'create',
-            challengeId: new mongoose.Types.ObjectId('61b07a4e8ac34e37f17e97b5').toString(),
             data: JSON.stringify({
                 name: "Sum Challenge2",
                 description: "Write a function that takes 2 numbers as arguments and divides the first one by the second one",
@@ -49,7 +49,7 @@ export const initializeDb = () => {
                 status: 'pending',
                 startsAt: Date.now(),
                 creatorId: new mongoose.Types.ObjectId('56cb91bdc3464f14678934ca'),
-                tests: JSON.stringify({
+                expectedOutputTests: JSON.stringify({
                     "challenge" : [
                         {
                             input: JSON.stringify(`solution(10,2)`),
@@ -71,6 +71,7 @@ export const initializeDb = () => {
             message: 'please create this new challenge'
         },
         {
+            _id: new mongoose.Types.ObjectId('61d597f6828c62e215558beb'),
             kind: 'update',
             challengeId: new mongoose.Types.ObjectId('61b07f8a611ccb9622c258b4').toString(),
             data: JSON.stringify({
@@ -81,6 +82,7 @@ export const initializeDb = () => {
             message: 'please create this new challenge'
         },
         {
+            _id: new mongoose.Types.ObjectId('61d598002fb4af4bd3c50171'),
             kind: 'delete',
             challengeId: new mongoose.Types.ObjectId('61b07f82c2d7ad3a19087d2f').toString(),
             ownerId: new mongoose.Types.ObjectId('56cb91bdc3464f14678934ca'),
@@ -88,9 +90,11 @@ export const initializeDb = () => {
             message: 'please create this new challenge'
         }
     ]
-
-    pendingRequests.map(async (el,index)=>{
-        const request = new PendingRequest(el)
-        await request.save();
-    })
+    const request = await PendingRequest.findById('61d597f6828c62e215558beb');
+    if(!request){
+        pendingRequests.map(async (el,index)=>{
+            const request = new PendingRequest(el)
+            await request.save();
+        })
+    }
 }

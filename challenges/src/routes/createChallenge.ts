@@ -1,5 +1,5 @@
 import express, {Request,Response,NextFunction} from 'express';
-import { BasicCustomError,NotAnAdminError,requireAuth, validateRequestSchema } from '@eurytus/common'
+import { BasicCustomError, asyncHandler ,requireAuth, validateRequestSchema } from '@eurytus/common'
 import { Challenge } from '../models/challengeModel';
 import { ChallengeNewRequestPublisher } from '../events/ChallengeNewRequestPubisher';
 import { natsWrapper } from '../events/NatsWrapper';
@@ -8,14 +8,12 @@ import { createChallengeSchema } from './requestSchemas/createChallengeSchema';
 
 const router = express.Router();
 
-router.post('/api/v1/challenges/new', requireAuth,  createChallengeSchema, validateRequestSchema, async(req: Request,res: Response,next: NextFunction)=>{
+router.post('/api/v1/challenges/new', requireAuth,  createChallengeSchema, validateRequestSchema, asyncHandler(async(req: Request,res: Response,next: NextFunction)=>{
     
     const {name, description, difficulty, isPublic, startsAt, expiresAt, expectedOutputTests, expectedStructure, expectedDesignPatterns, language, template} = req.body;
     
     try{
-        
         if(req.currentUser!.role !== 'admin' && isPublic==="true"){
-            console.log("edo")
             const message = req.body.message;
             delete req.body.message
             new ChallengeNewRequestPublisher(natsWrapper.client).publish({
@@ -61,6 +59,6 @@ router.post('/api/v1/challenges/new', requireAuth,  createChallengeSchema, valid
         return next(new BasicCustomError(err,400))
     }
 
-})
+}))
 
 export {router as createChallengeRouter}

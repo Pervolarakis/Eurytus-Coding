@@ -36,6 +36,15 @@ html, body, #root {
 
 #solvechallenge{
   height: calc(100% - 80px);
+  display: flex;
+  flex-direction: column;
+}
+
+#trapezoid {
+  border-bottom: 144px solid #1ab0c3;
+  border-right: 150px solid transparent;
+  height: 0;
+  width: 250px;
 }
 
 @keyframes App-logo-spin {

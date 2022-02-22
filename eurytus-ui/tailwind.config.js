@@ -1,5 +1,6 @@
 module.exports = {
-  purge: ['./src/**/*.{js,jsx,ts,tsx}', './public/index.html'],
+  mode: 'jit',
+  purge: ['./src/**/*.{js,jsx,ts,tsx}', './public/**/*.html'],
   darkMode: false, // or 'media' or 'class'
   theme: {
     extend: {
@@ -15,7 +16,17 @@ module.exports = {
           'class2-right': '#E4B726',
           'class3-left': '#2031FF',
           'class3-right': '#07B8FA'
-        }
+        },
+        basicColor1: '#6B58E4',
+        basicColor2: '#E4587E',
+        basicColor3: '#E4D358',
+        constru: '#FF7435',
+        class: '#D82735',
+        method: '#0079e7',
+        field: '#009E37',
+        implements: '#7D3CB5',
+        interface: 'rgb(194, 63, 118)',
+        argument: '#996017'
       }
     },
   },

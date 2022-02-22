@@ -2,11 +2,11 @@ import express, {Request,Response,NextFunction} from 'express';
 import { Challenge } from '../models/Challenge';
 import {jsTemp} from '../templates/jsTemp';
 import {node} from 'compile-run'
-import { BasicCustomError, requireAuth } from '@eurytus/common';
+import { BasicCustomError, requireAuth, asyncHandler } from '@eurytus/common';
 
 const router = express.Router();
 
-router.post('/api/v1/compile/challengejs/:id',requireAuth, async(req: Request, res: Response, next: NextFunction)=>{
+router.post('/api/v1/compile/challengejs/:id',requireAuth, asyncHandler(async(req: Request, res: Response, next: NextFunction)=>{
     const challenge = await Challenge.findById(req.params.id);
 
     if(!challenge || challenge.status==='deleted'){
@@ -51,7 +51,7 @@ router.post('/api/v1/compile/challengejs/:id',requireAuth, async(req: Request, r
     .catch(error => res.status(200).json({success: false, compileError: error}))
     
 
-})
+}))
 
 export {router as executeJSRouter}
 

@@ -64,8 +64,4 @@ export const createChallengeSchema = [
         .optional()
         .exists({checkFalsy: true})
         .withMessage("Message cant be empty")
-        .bail()
-        .trim()
-        .isLength({min: 6})
-        .withMessage('Message has to be longer than 6 characters'),
 ]

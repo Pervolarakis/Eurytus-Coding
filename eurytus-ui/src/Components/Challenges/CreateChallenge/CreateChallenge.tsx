@@ -1,30 +1,80 @@
-import { Tab } from '@headlessui/react'
+import { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom';
+import {TreeItem } from "react-sortable-tree";
+import {axios} from '../../../Api/eurytusInstance';
+import PreviewChallenge from '../PreviewChallenge/PreviewChallenge'
+import {challengeTest, fieldType} from '../PreviewChallenge/PreviewChallenge';
+
 
 const CreateChallenge = () => {
+    let navigate = useNavigate();
+    const [template, setTemplate] = useState('')
+    const [classDiagram, setClassDiagram] = useState<TreeItem[]>([
+        {
+            blockType: "Base",
+            expanded: true,
+            children: []
+        
+        }
+    ])
+    const [inputTests, setInputTests] = useState<{"challenge": challengeTest[]}>({
+        "challenge" : []
+    })
+
+    const [challengeDetails, setChallengeDetails] = useState<fieldType>({
+        name: "",
+        description: "",
+        difficulty: 1,
+        startsAt: new Date(),
+        isPublic: false,
+        expiresAt: new Date(),
+        language: 'js',
+        expectedDesignPatterns: [],
+    })
+
+    const [message, setMessage] = useState('');
+    
+    const transformData = () => {
+        if(classDiagram[0].children?.length!==0 && challengeDetails.language!=='js'){
+            return (JSON.stringify(classDiagram).replaceAll("\"[\\\"","[\\\"").replaceAll("\\\"]\"","\\\"]").replaceAll("\" ","\"").replaceAll(" \"","\"").replaceAll("\"[]\"","[]"));
+        }else{
+            return ''
+        }
+    }
+
+    useEffect(()=>{
+        if(challengeDetails.language==='js'){
+            updateField({expectedDesignPatterns: []})
+        }
+    },[challengeDetails.language])
+
+    const createChallenge = () => {
+        axios.post('/challenges/new', {
+            ...challengeDetails,
+            isPublic: challengeDetails.isPublic===true? "true": "false",
+            expectedOutputTests: JSON.stringify(inputTests),
+            expectedStructure: transformData(),     
+            template: JSON.stringify(template),
+            ...(challengeDetails.isPublic? {message: message} : {})
+        })
+        .then((res)=>navigate('/challenges'))
+        .catch((err)=>console.log(err.response ))
+    }
+
+    const updateField = (change: Partial<fieldType>) => {
+        const detailsCopy = {...challengeDetails, ...change};
+        setChallengeDetails(detailsCopy)
+    }
+
+    // useEffect(()=>{console.log(transformData())},[classDiagram])
+
     return(
-        <div>
+        <div id='solvechallenge'>
             <div className='bg-black flex justify-between items-center h-12 p-4'>
                 <h1 className="text-white text-2xl font-bold">Create Challenge</h1>
-                <button className="h-10 bg-yellow-300 w-40 text-2xl font-bold text-white rounded-lg">Submit</button>
+                <button className="h-10 bg-yellow-300 w-40 text-2xl font-bold text-white rounded-lg" onClick={()=>createChallenge()}>Submit</button>
             </div>
-            <div className="h-full w-full flex flex-row">
-                <div className="w-1/2 bg-yellow-50 h-full">
-                </div>
-                <div className="w-1/2 h-full border-l border-gray-500">
-                    <Tab.Group>
-                        <Tab.List className="h-14 bg-red-500 flex justify-between rounded-xl overflow-hidden mt-2">
-                            <Tab className="bg-yellow-300 flex-1">Tab 1</Tab>
-                            <Tab className="bg-yellow-300 flex-1">Tab 2</Tab>
-                            <Tab className="bg-yellow-300 flex-1">Tab 3</Tab>
-                        </Tab.List>
-                        <Tab.Panels>
-                            <Tab.Panel>Content 1</Tab.Panel>
-                            <Tab.Panel>Content 2</Tab.Panel>
-                            <Tab.Panel>Content 3</Tab.Panel>
-                        </Tab.Panels>
-                    </Tab.Group>
-                </div>
-            </div>
+            <PreviewChallenge template={template} message={message} setMessage={setMessage} setTemplate={setTemplate} classDiagram={classDiagram} setClassDiagram={setClassDiagram} challengeDetails={challengeDetails} updateField={updateField} inputTests={inputTests} setInputTests={setInputTests}/>
         </div>
     )
 }

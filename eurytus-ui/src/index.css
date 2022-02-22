@@ -11,9 +11,42 @@
         @apply container flex max-w-screen-xl mx-auto px-4 sm:px-6 md:px-6 lg:px-8 xl:px-7 2xl:px-3 flex-col items-start;
     }
     .difficulty-filled {
-        @apply w-5 bg-red-400 h-3 rounded-lg
+        @apply w-3 bg-red-400 h-3 rounded-lg
     }
     .difficulty-empty {
-        @apply w-5 bg-gray-300 h-3 rounded-lg
+        @apply w-3 bg-gray-300 h-3 rounded-lg
+    }
+    .draggableBlock div{
+        @apply font-sans text-center rounded-lg text-white
+    }
+    .draggableBlock div input{
+        @apply text-black font-sans text-center mx-1 bg-white rounded-md
+    }
+    .draggableBlock div select{
+        @apply text-black text-lg font-sans text-center mx-1 bg-white rounded-md
+    }
+    .Base div {
+        @apply text-black
+    }
+    .construBlock div {
+        @apply bg-constru
+    }  
+    .class div {
+        @apply bg-class
+    }
+    .method div {
+        @apply bg-method
+    }
+    .field div {
+        @apply bg-field
+    }
+    .implements div {
+        @apply bg-implements
+    }
+    .interface div {
+        @apply bg-interface
+    }
+    .argument div {
+        @apply bg-argument
     }
 }

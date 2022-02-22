@@ -1,5 +1,5 @@
 import express, {Request, Response, NextFunction} from 'express';
-import { BasicCustomError,requireAuth, NotAnAdminError, YouDontOwnThisError, validateRequestSchema } from '@eurytus/common';
+import { BasicCustomError,requireAuth, asyncHandler, YouDontOwnThisError, validateRequestSchema } from '@eurytus/common';
 import { Challenge } from '../models/challengeModel';
 import { natsWrapper } from '../events/NatsWrapper';
 import { ChallengeNewRequestPublisher } from '../events/ChallengeNewRequestPubisher';
@@ -8,7 +8,7 @@ import { editChallengeSchema } from './requestSchemas/editChallengeSchema';
 
 const router = express.Router();
 
-router.put('/api/v1/challenges/update/:id', requireAuth, editChallengeSchema, validateRequestSchema, async(req: Request, res: Response, next: NextFunction)=>{
+router.put('/api/v1/challenges/update/:id', requireAuth, editChallengeSchema, validateRequestSchema, asyncHandler(async(req: Request, res: Response, next: NextFunction)=>{
     
     const challenge = await Challenge.findById(req.params.id);
     if(!challenge){
@@ -57,6 +57,6 @@ router.put('/api/v1/challenges/update/:id', requireAuth, editChallengeSchema, va
         return next(new BasicCustomError(err,400));
     }
     
-})
+}))
 
 export {router as editChallengeRouter}

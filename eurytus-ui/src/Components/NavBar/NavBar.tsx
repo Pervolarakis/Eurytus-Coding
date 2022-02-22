@@ -1,15 +1,14 @@
 import { Fragment, useContext, useEffect, useState } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { MenuIcon, XIcon } from '@heroicons/react/outline'
-import { createAvatar } from '@dicebear/avatars';
-import * as style from '@dicebear/avatars-gridy-sprites';
 import { UserContext } from '../../Contexts/UserContext';
-
+import { NavLink } from 'react-router-dom';
+import { getUserAvatar } from '../../Utils/getUserAvatar';
 
 const navigation = [
-    { name: 'Practice', href: '#', current: true },
-    { name: 'Create Exam', href: '#', current: false },
-    { name: 'Join Exam', href: '#', current: false },
+    { name: 'Practice', href: '/challenges', current: true },
+    { name: 'Create Exam', href: '/createchallenge', current: false },
+    { name: 'Join Exam', href: '/joinchallenge', current: false },
   ]
 
 function classNames(...classes: string[]) {
@@ -20,20 +19,6 @@ function classNames(...classes: string[]) {
 const NavBar = () => {
     
     const {user, setUser} = useContext(UserContext);
-    const [userImage, setUserImage] = useState('')
-
-    useEffect(()=>{
-      let svg = createAvatar(style, {
-        seed: user?.id,
-        // ... and other options
-      });
-
-      var svg64 = btoa(unescape(encodeURIComponent(svg)));
-      var image64 = "data:image/svg+xml;base64," + svg64;
-      setUserImage(image64);
-    },[user])
-    
-    // console.log(image64)
 
     return(
         <Disclosure as="nav" className="bg-primary">
@@ -68,24 +53,15 @@ const NavBar = () => {
                   <div className="hidden sm:block sm:ml-6">
                     <div className="flex space-x-4 h-full">
                       {navigation.map((item) => (
-                        <div className={classNames(
-                            item.current ? 'border-b-4 border-secondary' : '',
-                            'flex flex-wrap content-center h-full'
-                          )} key={item.name}>
-                        <a
-                          
-                          href={item.href}
-                          className={classNames(
-                            item.current ? ' text-white font-bold' : 'text-gray-300 hover:bg-gray-700 hover:text-white font-bold',
-                            'text-md font-medium'
-                          )}
-                          aria-current={item.current ? 'page' : undefined}
+                        <NavLink
+                          to={item.href}
+                          className={({ isActive }) =>
+                            isActive ? ' text-white font-bold border-b-4 border-secondary flex flex-wrap content-center h-full' : 'border-b-4 border-primary text-gray-300 hover:bg-gray-700 hover:text-white font-bold flex flex-wrap content-center h-full'
+                          }
                         >
                           {item.name}
                           
-                        </a>
-                        
-                        </div>
+                        </NavLink>
                       ))}
                     </div>
                   </div>
@@ -101,7 +77,7 @@ const NavBar = () => {
                       <span className="sr-only">Open user menu</span>
                       <img
                         className="h-8 w-8 rounded-full"
-                        src={userImage}
+                        src={getUserAvatar(user.id)}
                         alt=""
                       />
                     </Menu.Button>

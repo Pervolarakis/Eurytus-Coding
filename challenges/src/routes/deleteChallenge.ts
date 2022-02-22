@@ -1,5 +1,5 @@
 import express, {Request, Response, NextFunction} from 'express';
-import { requireAuth, BasicCustomError, YouDontOwnThisError } from '@eurytus/common';
+import { requireAuth, BasicCustomError, YouDontOwnThisError, asyncHandler } from '@eurytus/common';
 import { Challenge } from '../models/challengeModel';
 import { natsWrapper } from '../events/NatsWrapper';
 import { ChallengeNewRequestPublisher } from '../events/ChallengeNewRequestPubisher';
@@ -7,7 +7,7 @@ import { DeleteChallengePublisher} from '../events/DeleteChallengePublisher'
 
 const router = express.Router();
 
-router.delete('/api/v1/challenges/delete/:id', requireAuth, async(req: Request, res: Response, next: NextFunction)=>{
+router.delete('/api/v1/challenges/delete/:id', requireAuth, asyncHandler(async(req: Request, res: Response, next: NextFunction)=>{
     
     const challenge = await Challenge.findById(req.params.id);
     if(!challenge){
@@ -44,6 +44,6 @@ router.delete('/api/v1/challenges/delete/:id', requireAuth, async(req: Request, 
     }catch(err){
         return next(new BasicCustomError(err,400));
     }
-})
+}))
 
 export {router as deleteChallengeRouter}
