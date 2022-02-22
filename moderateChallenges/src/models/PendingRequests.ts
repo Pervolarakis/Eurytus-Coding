@@ -30,6 +30,14 @@ const pendingRequestSchema = new mongoose.Schema({
         type: String,
         required: false
     },
+    ownerEmail: {
+        type: String,
+        required: true
+    },
+    challengeName: {
+        type: String,
+        required: true
+    },
     message: {
         type: String,
         required: true

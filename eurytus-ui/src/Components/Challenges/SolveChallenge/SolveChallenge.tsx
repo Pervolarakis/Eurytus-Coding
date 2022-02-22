@@ -1,9 +1,10 @@
 import {axios} from "../../../Api/eurytusInstance";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Ide from "../../Ide/Ide";
 import ChallengeDescription from "./ChallengeDescription";
 import SubmitChallenge, {executionMessage} from "./SubmitChallenge";
+import { toast } from "react-toastify";
 
 interface challenge {
     name: string,
@@ -18,7 +19,7 @@ interface challenge {
 const SolveChallenge = () => {
 
     const {challengeId} = useParams();
-    
+    let navigate = useNavigate();
     const [ challenge,setChallenge ] = useState<challenge>();
     const [ ideValue, setIdeValue ] = useState('');
     const [ executionMessage, setExecutionMessage ] = useState<executionMessage>();
@@ -26,6 +27,7 @@ const SolveChallenge = () => {
     useEffect(()=>{
         axios.get(`/challenges/${challengeId}`)
             .then((res)=>{setChallenge(res.data.data);setIdeValue(JSON.parse(res.data.data.template))})
+            .catch(err=>toast.error(err.response?.data.error||'There was an error fetching challenge!'))
     },[challengeId])
 
     const onCodeRun = () => {
@@ -33,13 +35,22 @@ const SolveChallenge = () => {
             solution: JSON.stringify(ideValue)
         })
         .then((res)=>{setExecutionMessage(res.data)})
+        .catch((err)=>{
+            toast.error('There was an error executing your code. This is probably an error on our end. We are sorry for that.')
+        })
     }
 
     const submitCode = () => {
         axios.post(`/compile/challenge${challenge!.language}/${challengeId}?submit=true`,{
             solution: JSON.stringify(ideValue)
         })
-        .then((res)=>{setExecutionMessage(res.data)})
+        .then((res)=>{
+            toast.success('Assignment Submitted!')
+            navigate('/challenges');
+        })
+        .catch((err)=>{
+            toast.error('There was an error submitting your assignment.')
+        })
     }
 
     return(

@@ -1,5 +1,4 @@
 import { Dialog, Transition } from "@headlessui/react"
-import { ExclamationIcon } from "@heroicons/react/outline"
 import { Fragment, useRef, useState } from "react"
 import { getUserAvatar } from "../../Utils/getUserAvatar"
 
@@ -8,9 +7,10 @@ interface ModalProps {
     toggleShow: ()=>void,
     message: string,
     userId: string
+    userEmail: string
 }
 
-const BasicModal = ({show, toggleShow, message, userId}: ModalProps) => {
+const RequestReviewMessageModal = ({show, toggleShow, message,userId, userEmail}: ModalProps) => {
 
     const cancelButtonRef = useRef(null)
     return (
@@ -50,7 +50,7 @@ const BasicModal = ({show, toggleShow, message, userId}: ModalProps) => {
                                 </div>
                                 <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
                                     <Dialog.Title as="h3" className="text-lg leading-6 font-medium text-gray-900">
-                                        {userId}
+                                        {userEmail}
                                     </Dialog.Title>
                                     <div className="mt-2">
                                     <p className="text-sm text-gray-500">
@@ -68,4 +68,4 @@ const BasicModal = ({show, toggleShow, message, userId}: ModalProps) => {
     )
 }
 
-export default BasicModal;
+export default RequestReviewMessageModal;

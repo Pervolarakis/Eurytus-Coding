@@ -1,4 +1,5 @@
 import { useContext, useEffect, useState } from "react";
+import { toast } from "react-toastify";
 import { axios } from "../../Api/eurytusInstance";
 import { UserContext } from "../../Contexts/UserContext";
 import { getUserAvatar } from "../../Utils/getUserAvatar";
@@ -30,31 +31,38 @@ const UserProfile = () => {
     const fetchUserData = () => {
         axios.get('/moderate/myrequests')
             .then((res)=>{setUserRequests(res.data.data)})
+            .catch(err=>toast.error(err.response?.data.error||'There was an error fetching requests!'))
         axios.get('/challenges/myChallenges')
             .then((res)=>{setUserChallenges(res.data.data);setLoaded(true)})
+            .catch(err=>toast.error(err.response?.data.error||'There was an error fetching challenges!'))
         axios.get('/history/user')
             .then((res)=>setHistory(res.data.data))
+            .catch(err=>toast.error(err.response?.data.error||'There was an error fetching user history!'))
         axios.get('/history/getuserparticipants')
             .then((res)=>setParticipants(res.data.data))
+            .catch(err=>toast.error(err.response?.data.error||'There was an error fetching participants!'))
     }
 
     const deleteRequest = () => {
         axios.delete(`/moderate/cancel/${requestToDelete}`)
-            .then((res)=>{setRequestToDelete('');fetchUserData()})
+            .then((res)=>{
+                setRequestToDelete('');
+                fetchUserData();
+                toast.success('Request Deleted!')
+            })
+            .catch((err)=>{
+                toast.error('There was an error deleting that request. Please try again later!')
+            })
     }
 
     useEffect(()=>{
         if(participants.length&&userChallenges.length&&loaded){
             let userChallengesTemp = [...userChallenges];
-            userChallengesTemp = userChallengesTemp.map(obj=> ({ ...obj, participants: participants.find(entry => entry._id === obj.id)!["count"]}))
+            userChallengesTemp = userChallengesTemp.map(obj=> ({ ...obj, participants: (participants.find(entry => entry._id === obj.id)!==undefined)?participants.find(entry => entry._id === obj.id)!["count"]:0}))
             setUserChallenges(userChallengesTemp);
             setLoaded(false);
         }
     },[participants, loaded])
-
-    useEffect(()=>{
-        console.log(userChallenges)
-    },[userChallenges])
 
     return (
         <div className="responsive-container items-center">

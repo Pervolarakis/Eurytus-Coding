@@ -7,7 +7,9 @@ interface RequestContextArgs {
         created_at: string,
         name: string,
         kind: string,
-        ownerId: string
+        ownerId: string,
+        ownerEmail: string,
+        challengeName: string
     }[]|null,
     setRequests:  Dispatch<SetStateAction<null>>
 }

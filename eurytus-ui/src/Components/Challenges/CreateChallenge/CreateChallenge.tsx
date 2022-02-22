@@ -5,6 +5,7 @@ import { requestChallengeProperties } from '../../AdminPage/ModerateChallenges/R
 import PreviewChallenge from '../PreviewChallenge/PreviewChallenge'
 import {fieldType} from '../PreviewChallenge/PreviewChallenge';
 import SetRequestMessageModal from '../../Modals/SetRequestMessageModal';
+import { toast } from 'react-toastify';
 
 const CreateChallenge = () => {
     let navigate = useNavigate();
@@ -58,8 +59,15 @@ const CreateChallenge = () => {
             template: JSON.stringify(challenge.template),
             ...(challenge.challengeDetails.isPublic? {message: message} : {})
         })
-        .then((res)=>navigate('/challenges'))
-        .catch((err)=>console.log(err.response ))
+        .then((res)=>{
+            toast.success((challenge.challengeDetails.isPublic===true)?'Request Submitted!':'Challenge Created!')
+            navigate('/challenges');
+        })
+        .catch((err)=>{
+            err.response.data.error.map((err:{message: string, field: string})=>{
+                toast.error(err.message);
+            })
+        } )
     }
 
     const updateField = (change: Partial<requestChallengeProperties>) => {

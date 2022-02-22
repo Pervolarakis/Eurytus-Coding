@@ -5,6 +5,7 @@ import { UserContext } from '../../Contexts/UserContext';
 import { NavLink } from 'react-router-dom';
 import { getUserAvatar } from '../../Utils/getUserAvatar';
 import { axios } from '../../Api/eurytusInstance';
+import { toast } from 'react-toastify';
 
 const navigation = [
     { name: 'Practice', href: '/challenges', current: true },
@@ -32,6 +33,7 @@ const NavBar = () => {
     const signOut = () => {
       axios.post('/users/auth/logout')
         .then((res)=>{setUser(null)})
+        .catch(err=>toast.error(err.response?.data.error||'There was an error logging out!'))
     }
 
     return(

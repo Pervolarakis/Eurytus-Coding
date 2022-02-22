@@ -6,10 +6,11 @@ import ChallengeDetails from "../../Challenges/PreviewChallenge/ChallengeDetails
 import InputOutputList from "../../Challenges/PreviewChallenge/InputOutputList";
 import ClassBuilder from "../../ClassBuilder/ClassBuilder";
 import Ide from "../../Ide/Ide";
-import BasicModal from "../../Modals/RequestReviewMessageModal";
+import RequestReviewMessageModal from "../../Modals/RequestReviewMessageModal";
 import { fetchedDataType, requestChallengeProperties } from "./ReviewRequestInterfaces";
 import { BsCardText } from "react-icons/bs";
 import { combineChallengeDataWithIncomingChanges, setChallengeStateAfterFetch } from "../ChallengeUtils/ChallengeUitls";
+import { toast } from "react-toastify";
 
 const PreviewUpdateChallengeRequest = () => {
     const {requestId} = useParams();
@@ -19,21 +20,23 @@ const PreviewUpdateChallengeRequest = () => {
     const [challengeAfterChanges, setChallengeAfterChanges] = useState<requestChallengeProperties>()
     const [challengeBeforeChanges, setChallengeBeforeChanges] = useState<requestChallengeProperties>()
     const [showModal, toggleShowModal] = useState(true)
-    const [user, setUser] = useState('')
+    const [user, setUser] = useState<{userId: string, userEmail: string}>({userId: '', userEmail: ''})
 
     useEffect(()=>{
         axios.get(`/moderate/requests/${requestId}`)
             .then((res)=>{
                 setChanges({...JSON.parse(res.data.data.data)})
                 setMessage(res.data.data.message)
-                setUser(res.data.data.ownerId)
+                setUser({userId: res.data.data.ownerId, userEmail: res.data.data.ownerEmail})
                 // console.log(JSON.parse(res.data.data.data))
                 axios.get(`/challenges/${res.data.data.challengeId}`)
                     .then((res)=>{
                         const oldChallengeData = res.data.data;
                         setChallengeBeforeChanges(setChallengeStateAfterFetch(oldChallengeData))
                     })
+                    .catch(err=>toast.error(err.response?.data.error||'There was an error fetching challenge!'))
             })
+            .catch(err=>toast.error(err.response?.data.error||'There was an error fetching requests!'))
     },[])
 
     useEffect(()=>{
@@ -45,7 +48,7 @@ const PreviewUpdateChallengeRequest = () => {
 
     return (
         <div id='solvechallenge'>
-            <BasicModal show={showModal} toggleShow={()=>toggleShowModal(false)} message={message} userId={user}/>
+            <RequestReviewMessageModal show={showModal} toggleShow={()=>toggleShowModal(false)} message={message} userId={user.userId} userEmail={user.userEmail}/>
             <div className='bg-black flex justify-between items-center h-12 p-4'>
                 <h1 className="text-white text-2xl font-bold">Review Update Challenge</h1>
                 <button onClick={()=>toggleShowModal(true)}>

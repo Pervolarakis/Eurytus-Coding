@@ -7,6 +7,7 @@ import { Disclosure } from '@headlessui/react';
 import {FaAngleUp, FaAngleDown} from 'react-icons/fa'
 import { particiants } from '../UserProfile/UserProfile';
 import { fetchedDataType } from './ModerateChallenges/ReviewRequestInterfaces';
+import { toast } from 'react-toastify';
 
 const AdminPage = () => {
     
@@ -18,17 +19,19 @@ const AdminPage = () => {
     useEffect(()=>{
         axios.get('/moderate/requests')
             .then((res)=>setRequests(res.data.data||null))
-            .catch(err=>console.log(err))
+            .catch(err=>toast.error(err.response?.data.error||'There was an error fetching requests!'))
         axios.get('/challenges/')
             .then((res)=>{setChallenges(res.data.data||null);setLoaded(true)})
+            .catch(err=>toast.error(err.response?.data.error||'There was an error fetching challenges!'))
         axios.get('/history/getallparticipants')
             .then((res)=>setParticipants(res.data.data))
+            .catch(err=>toast.error(err.response?.data.error||'There was an error fetching challenge participants!'))
     },[])
 
     useEffect(()=>{
         if(loaded && participants.length && challenges.length){
             let userChallengesTemp = [...challenges];
-            userChallengesTemp = userChallengesTemp.map(obj=> ({ ...obj, participants: participants.find(entry => entry._id === obj.id)!["count"]}))
+            userChallengesTemp = userChallengesTemp.map(obj=> ({ ...obj, participants: (participants.find(entry => entry._id === obj.id)!==undefined)?participants.find(entry => entry._id === obj.id)!["count"]:0}))
             setChallenges(userChallengesTemp);
             setLoaded(false);
         }

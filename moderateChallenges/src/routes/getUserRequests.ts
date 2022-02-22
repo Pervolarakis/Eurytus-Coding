@@ -28,7 +28,9 @@ router.get('/api/v1/moderate/myrequests', requireAuth, asyncHandler(async(req: R
                             ownerId: {$last: '$ownerId'},
                             data: {$last: '$data'},
                             created_at: { $last: '$created_at' },
-                            message: {$last: '$message'}
+                            message: {$last: '$message'},
+                            ownerEmail: {$last: '$ownerEmail'},
+                            challengeName: {$last: '$challengeName'}
                         }
                     },{
                         $project: {
@@ -38,7 +40,9 @@ router.get('/api/v1/moderate/myrequests', requireAuth, asyncHandler(async(req: R
                             ownerId: '$ownerId',
                             data: '$data',
                             created_at: '$created_at' ,
-                            message: '$message'
+                            message: '$message',
+                            ownerEmail: '$ownerEmail',
+                            challengeName: '$challengeName'
                         }
                     }
                 ]

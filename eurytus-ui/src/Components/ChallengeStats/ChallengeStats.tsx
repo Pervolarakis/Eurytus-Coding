@@ -6,6 +6,7 @@ import { userHistoryProps } from "../UserProfile/UserHistory/UserHistoryListItem
 import UserSubmission from "./UserSubmission";
 import ChallengeDetailsOverview from "./ChallengeDetailsOverview";
 import ChallengeStatsOverview from "./ChallengeStatsOverview";
+import { toast } from "react-toastify";
 
 const ChallengeStats = () => {
     
@@ -17,8 +18,10 @@ const ChallengeStats = () => {
     useEffect(()=>{
         axios.get(`/history/${challengeId}`)
             .then((res)=>setChallengeHistory(res.data.data))
+            .catch(err=>toast.error(err.response?.data.error||'There was an error fetching challenge history!'))
         axios.get(`/challenges/${challengeId}`)
-            .then((res)=>setChallenge(res.data.data));
+            .then((res)=>setChallenge(res.data.data))
+            .catch(err=>toast.error(err.response?.data.error||'There was an error fetching challenge!'))
     },[challengeId])
 
     useEffect(()=>{

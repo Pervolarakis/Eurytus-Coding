@@ -4,6 +4,7 @@ import codeBrackets from '../../../Assets/codeBrackets.svg'
 import ChallengeListItem from './ChallengeListItem';
 import { useEffect, useState } from 'react';
 import {axios} from '../../../Api/eurytusInstance';
+import { toast } from 'react-toastify';
 
 const ListAll = () => {
 
@@ -20,6 +21,7 @@ const ListAll = () => {
     useEffect(()=>{
         axios.get('/challenges/')
         .then((res)=>setChallenges(res.data.data))
+        .catch(err=>toast.error(err.response?.data.error||'There was an error fetching challenges!'))
     },[])
 
     return(

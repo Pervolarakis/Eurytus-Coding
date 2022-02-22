@@ -21,7 +21,9 @@ router.post('/api/v1/challenges/new', requireAuth,  createChallengeSchema, valid
                 data: JSON.stringify(req.body),
                 message: message,
                 ownerId: req.currentUser?.id!,
-                created_at: new Date().toISOString()
+                created_at: new Date().toISOString(),
+                ownerEmail: req.currentUser?.email!,
+                challengeName: name
             })
 
             res.status(201).json({success: true, data: 'Request submited'})

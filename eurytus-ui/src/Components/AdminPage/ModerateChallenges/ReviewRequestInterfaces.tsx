@@ -26,4 +26,5 @@ export interface fetchedDataType {
     template: string
     expectedOutputTests: string
     participants?: number
+    userEmail?: string
 }

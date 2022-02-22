@@ -28,7 +28,9 @@ router.put('/api/v1/challenges/update/:id', requireAuth, editChallengeSchema, va
                 data: JSON.stringify(req.body),
                 message: message,
                 ownerId: req.currentUser?.id!,
-                created_at: new Date().toISOString()
+                created_at: new Date().toISOString(),
+                ownerEmail: req.currentUser?.email!,
+                challengeName: challenge.name
             })
             res.status(201).json({success: true, data: 'Request submited'})
             return next();
