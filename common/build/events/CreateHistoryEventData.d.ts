@@ -2,9 +2,13 @@ import { Subjects } from './Subjects';
 export interface CreateHistoryEventData {
     subject: Subjects.CreateHistory;
     data: {
-        userId: String;
-        challengeId: String;
-        challengeName: String;
-        score: String;
+        userId: string;
+        challengeId: string;
+        challengeName: string;
+        completionDate: string;
+        saveFileId: string;
+        outputTestsPassedScore: number | null;
+        requiredStructureFound: boolean | null;
+        designPatternsFound: string | null;
     };
 }
