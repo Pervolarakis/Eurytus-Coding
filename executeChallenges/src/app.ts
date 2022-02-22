@@ -7,8 +7,13 @@ import { executeJSRouter } from './routes/executeChallengeJS'
 import { compileCRouter } from './routes/compileC'
 import { compileJSRouter } from './routes/compileJS'
 import { compileJavaRouter } from './routes/compileJava'
+import cors from 'cors'
 
-const app = express()
+const app = express();
+
+app.use(cors({
+    origin: ['http://eurytus.com:3000'],
+    credentials: true }))
 
 app.use(express.json())
 

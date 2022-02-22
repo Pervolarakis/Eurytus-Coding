@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import { Challenge } from './models/challengeModel';
 
-export const initializeDb = () => {
+export const initializeDb = async () => {
     console.log('TO DELETE --- Initializing Challenge Service!')
     const challenges = [
         {
@@ -81,7 +81,7 @@ export const initializeDb = () => {
                 ]
             }),
             language: "java",
-            template: JSON.stringify(`class Solution {}`),
+            template: `class Solution {}`,
             expectedStructure: '[{"blockType":"Base","expanded":true,"children":[{"title":"Interface","className":"furnitureFactory","blockType":"interface","superClass":"","modifiers":[\"abstract interface\"],"expanded":true,"children":[{"title":"Method","blockType":"method","modifiers":[\"public\"],"parameters":"","returnType":"Furniture","name":"getFurniture"}]},{"title":"Class","blockType":"class","modifiers":[],"className":"factorySubClass","superClass":"","name":"","interfaces":"","expanded":true,"children":[{"title":"Implements","blockType":"implements","className":"furnitureFactory","expanded":true},{"title":"Method","blockType":"method","modifiers":[\"public\"],"parameters":"","returnType":"Furniture","name":"getFurniture"}]},{"title":"Interface","className":"Furniture","blockType":"interface","superClass":"","modifiers":[\"abstract interface\"]},{"title":"Class","blockType":"class","modifiers":[],"className":"Chair","superClass":"","name":"","interfaces":"","expanded":true,"children":[{"title":"Implements","blockType":"implements","className":"Furniture"}]}]}]',
             expectedDesignPatterns: []
         },
@@ -113,7 +113,7 @@ export const initializeDb = () => {
             }),
             language: "java",
             expectedStructure: '',
-            template: JSON.stringify(`class Solution {}`),
+            template: `class Solution {}`,
             expectedDesignPatterns: ['factory']
         },
         {
@@ -168,7 +168,7 @@ export const initializeDb = () => {
                 ]
             }),
             expectedStructure: '',
-            template: JSON.stringify(`class Solution {}`),
+            template: `class Solution {}`,
             expectedDesignPatterns: [],
             language: "java"
         },
@@ -205,24 +205,26 @@ export const initializeDb = () => {
             template: ''
         }
     ]
-
-    challenges.map(async (el,index)=>{
-        const challenge = new Challenge({
-            _id: el._id, 
-            name: el.name, 
-            description: el.description, 
-            difficulty: el.difficulty, 
-            isPublic: el.isPublic, 
-            expiresAt: el.expiresAt, 
-            status: el.status, 
-            startsAt: el.startsAt,
-            creatorId: el.creatorId,
-            expectedOutputTests: el.expectedOutputTests,
-            expectedStructure: el.expectedStructure,
-            expectedDesignPatterns: el.expectedDesignPatterns,
-            language: el.language,
-            template: el.template
+    const challenge = await Challenge.findById('61b07f82c2d7ad3a19087d2f');
+    if(!challenge){
+        challenges.map(async (el,index)=>{
+            const challenge = new Challenge({
+                _id: el._id, 
+                name: el.name, 
+                description: el.description, 
+                difficulty: el.difficulty, 
+                isPublic: el.isPublic, 
+                expiresAt: el.expiresAt, 
+                status: el.status, 
+                startsAt: el.startsAt,
+                creatorId: el.creatorId,
+                expectedOutputTests: el.expectedOutputTests,
+                expectedStructure: el.expectedStructure,
+                expectedDesignPatterns: el.expectedDesignPatterns,
+                language: el.language,
+                template: el.template
+            })
+            await challenge.save();
         })
-        await challenge.save();
-    })
+    }
 }

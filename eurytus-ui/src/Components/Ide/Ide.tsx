@@ -3,20 +3,18 @@ import { useEffect, useState } from "react";
 
 interface IdeProps {
     language: string,
-    template: string
+    value: string,
+    changeValue: (val: string)=>void,
+    
 }
 
-const Ide = ({language, template}: IdeProps) => {
-    const [code, setCode] = useState(template)
-    useEffect(()=>{
-        console.log(code)
-    },[code])
+const Ide = ({language, value, changeValue}: IdeProps) => {
     return(
         <Editor
             language={language}
             theme = "vs-dark"
-            value={code}
-            onChange={(e)=>setCode(e!)}
+            value={value}
+            onChange={(e)=>changeValue(e!)}
             height="83%"
         />
     )
