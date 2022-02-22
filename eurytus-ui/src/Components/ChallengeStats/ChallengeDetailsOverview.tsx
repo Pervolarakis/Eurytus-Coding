@@ -18,10 +18,10 @@ const ChallengeDetailsOverview = ({challenge}:{challenge: fetchedDataType}) => {
                     </Tooltip>
                 </div>
             </div>
-            <div className="w-full h-44 bg-white rounded shadow p-5 flex flex-col justify-between">
+            <div className="w-full md:max-h-44 max-h-64 bg-white rounded shadow p-5 flex flex-col justify-between">
                 <p className="text-left text-base font-medium text-gray-600 max-h-24 md:max-h-full overflow-y-scroll">{challenge.description}</p>
-                <div className="flex justify-between">
-                    <div className="flex gap-4 mt-1">
+                <div className="flex justify-between items-center">
+                    <div className="flex md:gap-4 mt-1 flex-col md:flex-row items-start">
                         <p className="text-basicColor1 font-medium">Total tests: {JSON.parse(challenge.expectedOutputTests)["challenge"].length}</p>
                         <p className="text-basicColor2 font-medium">Required structure: {challenge.expectedStructure? 'true': 'false'}</p>
                         <p className="text-basicColor3 font-medium">Required design patterns: {challenge.expectedDesignPatterns.length}</p>

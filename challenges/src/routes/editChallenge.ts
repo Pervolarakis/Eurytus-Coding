@@ -19,7 +19,7 @@ router.put('/api/v1/challenges/update/:id', requireAuth, editChallengeSchema, va
         return next(new YouDontOwnThisError('Challenge'));
     }
     try{
-        if(req.currentUser!.role!=='admin' && challenge.isPublic ===true){
+        if(req.currentUser!.role!=='admin' && (challenge.isPublic ===true || req.body.isPublic === 'true')){
             const message = req.body.message;
             delete req.body.message
             new ChallengeNewRequestPublisher(natsWrapper.client).publish({

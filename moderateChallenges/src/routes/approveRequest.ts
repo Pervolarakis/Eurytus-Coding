@@ -26,9 +26,9 @@ router.post('/api/v1/moderate/approve/:id', requireAuth, asyncHandler(async(req:
                 creatorId: request.ownerId
             })
         })
-        // await PendingRequest.findByIdAndRemove(req.params.id,{
-        //     useFindAndModify: false
-        // });
+        await PendingRequest.findByIdAndRemove(req.params.id,{
+            useFindAndModify: false
+        });
         res.status(201).json({success: true, data: request.data});
     }
     if(request.kind==='update'){
@@ -39,6 +39,9 @@ router.post('/api/v1/moderate/approve/:id', requireAuth, asyncHandler(async(req:
         // await PendingRequest.findByIdAndRemove(req.params.id,{
         //     useFindAndModify: false
         // });
+        await PendingRequest.deleteMany({created_at: {$lte: request.created_at}, challengeId: request.challengeId},{
+            useFindAndModify: false
+        });
         res.status(201).json({success: true, data: request.data});
     }
 
@@ -49,11 +52,18 @@ router.post('/api/v1/moderate/approve/:id', requireAuth, asyncHandler(async(req:
         // await PendingRequest.findByIdAndRemove(req.params.id,{
         //     useFindAndModify: false
         // });
+        await PendingRequest.deleteMany({created_at: {$lte: request.created_at}, challengeId: request.challengeId},{
+            useFindAndModify: false
+        });
         res.status(201).json({success: true, data: request.challengeId});
     }
-    await PendingRequest.deleteMany({created_at: {$lte: request.created_at}, challengeId: request.challengeId},{
-        useFindAndModify: false
-    });
+    // const requestToBeApproved =  await PendingRequest.find({created_at: {$lte: request.created_at}, challengeId: request.challengeId},{
+    //     useFindAndModify: false
+    // });
+    // console.log(requestToBeApproved)
+    // await PendingRequest.deleteMany({created_at: {$lte: request.created_at}, challengeId: request.challengeId},{
+    //     useFindAndModify: false
+    // });
     
 }))
 

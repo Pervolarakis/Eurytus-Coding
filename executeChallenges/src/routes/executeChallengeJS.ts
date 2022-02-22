@@ -30,7 +30,7 @@ router.post('/api/v1/compile/challengejs/:id',requireAuth, asyncHandler(async(re
 
     // console.log(final)
     // console.log(jsTemp(final,funct));
-    new Promise<compileOutputJs>((resolve, reject)=>node.runSource(jsTemp(final,funct))
+    new Promise<compileOutputJs>((resolve, reject)=>node.runSource(jsTemp(final, funct, challenge.ownerId, req.currentUser?.id!))
         .then(result => {
             if(result.stderr){
                 let formattedError = result.stderr;

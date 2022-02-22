@@ -1,6 +1,6 @@
 import { Tab } from "@headlessui/react";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { axios } from "../../../Api/eurytusInstance";
 import ChallengeDetails from "../../Challenges/PreviewChallenge/ChallengeDetails";
 import InputOutputList from "../../Challenges/PreviewChallenge/InputOutputList";
@@ -13,8 +13,9 @@ import { combineChallengeDataWithIncomingChanges, setChallengeStateAfterFetch } 
 import { toast } from "react-toastify";
 
 const PreviewUpdateChallengeRequest = () => {
-    const {requestId} = useParams();
 
+    const {requestId} = useParams();
+    let navigate = useNavigate();
     const [changes, setChanges] = useState<Partial<fetchedDataType>>()
     const [message, setMessage] = useState('');
     const [challengeAfterChanges, setChallengeAfterChanges] = useState<requestChallengeProperties>()
@@ -46,6 +47,24 @@ const PreviewUpdateChallengeRequest = () => {
         }
     },[challengeBeforeChanges, changes, message])
 
+    const onApprove = () => {
+        axios.post(`/moderate/approve/${requestId}`)
+            .then((res)=>{
+                toast.success('Update request approved!');
+                navigate('/admin');
+            })
+            .catch((err)=>{toast.error(err.response?.data.error||'Could not approve update request!')})
+    }
+
+    const onDecline = () => {
+        axios.delete(`/moderate/reject/${requestId}`)
+            .then((res)=>{
+                toast.success('Update request declined!');
+                navigate('/admin');
+            })
+            .catch((err)=>{toast.error(err.response?.data.error||'Could not decline update request!')})
+    }
+
     return (
         <div id='solvechallenge'>
             <RequestReviewMessageModal show={showModal} toggleShow={()=>toggleShowModal(false)} message={message} userId={user.userId} userEmail={user.userEmail}/>
@@ -55,8 +74,8 @@ const PreviewUpdateChallengeRequest = () => {
                     <BsCardText color="white" size={40}/>
                 </button>
                 <div>
-                    <button className="h-10 border border-red-600 w-40 text-2xl font-bold text-red-600 rounded-md" onClick={()=>null}>Decline</button>
-                    <button className="h-10 bg-green-500 w-40 text-2xl font-bold text-white rounded-md ml-4" onClick={()=>null}>Approve</button>
+                    <button className="h-10 border border-red-600 w-40 text-2xl font-bold text-red-600 rounded-md" onClick={()=>onDecline()}>Decline</button>
+                    <button className="h-10 bg-green-500 w-40 text-2xl font-bold text-white rounded-md ml-4" onClick={()=>onApprove()}>Approve</button>
                 </div>
             </div>
             {(challengeAfterChanges && challengeBeforeChanges)?

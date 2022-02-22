@@ -55,13 +55,12 @@ export const checkChangedFields = (challengeBeforeChanges: requestChallengePrope
             }else if(el==='template'){
                 changes.template = JSON.stringify(challengeAfterChangesDestructured.template)
             }else if(el==='inputTests'){
-                changes.expectedOutputTests = JSON.stringify(challengeAfterChangesDestructured.inputTests)
+                changes.expectedOutputTests = JSON.stringify({"challenge" : challengeAfterChangesDestructured.inputTests.challenge.filter((el)=>el.input!==JSON.stringify('')&&el.output!==JSON.stringify(''))})
             }else{
                 //@ts-ignore
                 changes[el] = challengeAfterChangesDestructured[el]
             }
         }
     })
-
     return changes;
 }

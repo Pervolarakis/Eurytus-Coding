@@ -52,7 +52,7 @@ router.post('/api/v1/compile/challengejava/:id',requireAuth, asyncHandler(async(
 
     // console.log(javaTemp(outPutFunctionCalls, userFunction, checkEqualityLogic, detectClassesMainLocal, detectClassesLogicLocal))
     new Promise<compileOutputJava>((resolve, reject)=>
-        java.runSource(javaTemp(outPutFunctionCalls, userFunction, checkEqualityLogic, detectClassesMainLocal, detectClassesLogicLocal),{timeout: 4000, compileTimeout: 4000, stdoutLimit: 50000, stderrLimit: 50000 })
+        java.runSource(javaTemp(outPutFunctionCalls, userFunction, checkEqualityLogic, detectClassesMainLocal, detectClassesLogicLocal, challenge.ownerId, req.currentUser?.id!),{timeout: 4000, compileTimeout: 4000, stdoutLimit: 50000, stderrLimit: 50000 })
             .then(result => {
                 if(result.stderr){
                     let formattedError = result.stderr;

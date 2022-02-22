@@ -1,4 +1,4 @@
-import { Fragment, useContext, useEffect, useState } from 'react'
+import { Fragment, useContext } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { MenuIcon, XIcon } from '@heroicons/react/outline'
 import { UserContext } from '../../Contexts/UserContext';
@@ -6,12 +6,8 @@ import { NavLink } from 'react-router-dom';
 import { getUserAvatar } from '../../Utils/getUserAvatar';
 import { axios } from '../../Api/eurytusInstance';
 import { toast } from 'react-toastify';
+import {Link} from 'react-router-dom';
 
-const navigation = [
-    { name: 'Practice', href: '/challenges', current: true },
-    { name: 'Create Exam', href: '/createchallenge', current: false },
-    { name: 'Join Exam', href: '/joinchallenge', current: false },
-  ]
 
 function classNames(...classes: string[]) {
     return classes.filter(Boolean).join(' ')
@@ -55,16 +51,13 @@ const NavBar = () => {
                 </div>
                 <div className="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start h-full">
                   <div className="flex-shrink-0 flex items-center">
-                    <img
-                      className="block lg:hidden h-12 w-auto mr-8"
-                      src="logo.png"
-                      alt="Workflow"
-                    />
-                    <img
-                      className="hidden lg:block h-12 w-auto mr-8"
-                      src="logo.png"
-                      alt="Workflow"
-                    />
+                    <Link to="/">
+                      <img
+                        className="block h-12 w-auto md:mr-8"
+                        src={process.env.PUBLIC_URL + "/logo.png"}
+                        alt="Workflow"
+                      />
+                    </Link>
                   </div>
                   {(user)?
                   <div className="hidden sm:block sm:ml-6">
@@ -74,7 +67,7 @@ const NavBar = () => {
                           key={item.name}
                           to={item.href}
                           className={({ isActive }) =>
-                            isActive ? ' text-white font-bold border-b-4 border-secondary flex flex-wrap content-center h-full px-2' : 'px-2 border-b-4 border-primary text-gray-300 hover:bg-gray-700 hover:text-white font-bold flex flex-wrap content-center h-10 my-auto rounded-md'
+                            isActive ? ' text-white font-bold border-b-4 border-secondary flex flex-wrap content-center h-full px-2' : 'px-2 pb-1 border-primary text-gray-300 hover:bg-gray-800 hover:text-white font-bold flex flex-wrap content-center h-10 my-auto rounded'
                           }
                         >
                           {item.name}

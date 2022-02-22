@@ -36,12 +36,18 @@ const ChallengeStats = () => {
             {(challengeHistory && challenge)?
                 <>
                     <ChallengeDetailsOverview challenge={challenge}/>
-                    <ChallengeStatsOverview challengeHistory={challengeHistory} challenge={challenge} notRunning={notRunning}/>
-                    <h1 className="mt-8 mb-4 w-full text-left text-md font-medium">Students</h1>
+                    {challengeHistory.length? 
+                        <>
+                            <ChallengeStatsOverview challengeHistory={challengeHistory} challenge={challenge} notRunning={notRunning}/>
+                            <h1 className="mt-8 mb-4 w-full text-left text-md font-medium">Students</h1>
+                        </>
+                        :<h1 className="mt-8 font-medium text-lg text-gray-800">There are not any participants yet!</h1>
+                    }
+        
                     <div className="w-full flex flex-col gap-3">
                         {
                             challengeHistory.map((el,index)=>{
-                                return <UserSubmission  submissionData={el}/>
+                                return <UserSubmission  submissionData={el} key={JSON.stringify(el)}/>
                             })
                         }
                     </div>

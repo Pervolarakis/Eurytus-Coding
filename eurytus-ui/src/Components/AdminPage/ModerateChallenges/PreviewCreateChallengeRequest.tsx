@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { BsCardText } from "react-icons/bs";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { axios } from "../../../Api/eurytusInstance";
 import PreviewChallenge  from "../../Challenges/PreviewChallenge/PreviewChallenge";
@@ -12,7 +12,7 @@ import { fetchedDataType, requestChallengeProperties } from "./ReviewRequestInte
 const PreviewCreateChallengeRequest = () => {
 
     const {requestId} = useParams();
-    
+    let navigate = useNavigate();
     const [fetchedChallenge, setFetchedChallenge] = useState<requestChallengeProperties>()
     const [showModal, toggleShowModal] = useState(true)
     const [user, setUser] = useState<{userId: string, userEmail: string}>({userId: '', userEmail: ''})
@@ -27,6 +27,26 @@ const PreviewCreateChallengeRequest = () => {
             .catch(err=>toast.error(err.response?.data.error||'There was an error fetching requests!'))
     },[])
 
+    const onApprove = () => {
+        axios.post(`/moderate/approve/${requestId}`)
+            .then((res)=>{
+                toast.success('Create request approved!');
+                navigate('/admin');
+            })
+            .catch((err)=>{
+                toast.error(err.response?.data.error||'Could not decline create request!')
+            })
+    }
+
+    const onDecline = () => {
+        axios.delete(`/moderate/reject/${requestId}`)
+            .then((res)=>{
+                toast.success('Create request declined!');
+                navigate('/admin');
+            })
+            .catch((err)=>{toast.error(err.response?.data.error||'Could not decline create request!')})
+    }
+
     return(
         <div id='solvechallenge'>
             <RequestReviewMessageModal show={showModal} toggleShow={()=>toggleShowModal(false)} message={(fetchedChallenge)?(fetchedChallenge.message)?fetchedChallenge.message:'':''} userId={user.userId} userEmail={user.userEmail}/>
@@ -36,8 +56,8 @@ const PreviewCreateChallengeRequest = () => {
                     <BsCardText color="white" size={40}/>
                 </button>
                 <div>
-                    <button className="h-10 border border-red-600 w-40 text-2xl font-bold text-red-600 rounded-md" onClick={()=>null}>Decline</button>
-                    <button className="h-10 bg-green-500 w-40 text-2xl font-bold text-white rounded-md ml-4" onClick={()=>null}>Approve</button>
+                    <button className="h-10 border border-red-600 w-40 text-2xl font-bold text-red-600 rounded-md" onClick={()=>onDecline()}>Decline</button>
+                    <button className="h-10 bg-green-500 w-40 text-2xl font-bold text-white rounded-md ml-4" onClick={()=>onApprove()}>Approve</button>
                 </div>
             </div>
             {fetchedChallenge?<PreviewChallenge template={fetchedChallenge.template} setTemplate={()=>null} classDiagram={fetchedChallenge.classDiagram} setClassDiagram={()=>null} challengeDetails={fetchedChallenge.challengeDetails} updateField={()=>null} inputTests={fetchedChallenge.inputTests} setInputTests={()=>null}/>:null}
