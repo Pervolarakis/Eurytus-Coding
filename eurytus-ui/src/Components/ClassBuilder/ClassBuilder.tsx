@@ -17,7 +17,7 @@ import ArgumentBlock from "./Blocks/argumentBlock";
 
 interface ClassBuilderProps {
     treeData: TreeItem[],
-    setTreeData: (val: React.SetStateAction<TreeItem[]>)=>void
+    setTreeData: (val: TreeItem[])=>void
 }
 
 const ClassBuilder = ({treeData, setTreeData}: ClassBuilderProps) => {

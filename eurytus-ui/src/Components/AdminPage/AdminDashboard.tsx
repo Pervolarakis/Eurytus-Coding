@@ -6,7 +6,6 @@ import {HiOutlineDocumentReport} from 'react-icons/hi'
 import {AiOutlineFileDone} from 'react-icons/ai'
 import { RequestsContext } from "../../Contexts/RequestsContext";
 import { useContext } from "react";
-import { request } from "http";
 import { ChallengesContext } from "../../Contexts/ChallengesContext";
 
 const AdminDashboard = () => {
@@ -16,8 +15,8 @@ const AdminDashboard = () => {
 
     return(
         <div>
-            <div className="flex justify-between gap-16">
-                <div className="h-36 w-1/3 bg-white rounded-md shadow p-4 px-7">
+            <div className="flex flex-col justify-between gap-4 md:flex-row md:gap-16">
+                <div className="h-36 md:w-1/3 bg-white rounded-md shadow p-4 px-7">
                     <div className="flex">
                         <MdPendingActions 
                             size={80}
@@ -27,7 +26,7 @@ const AdminDashboard = () => {
                     </div>
                     <h1 className="text-basicColor1 font-bold text-xl text-left ml-3">Pending Requests</h1>
                 </div>
-                <div className="h-36 w-1/3 bg-white rounded-md shadow p-4 px-7">
+                <div className="h-36 md:w-1/3 bg-white rounded-md shadow p-4 px-7">
                     <div className="flex">
                         <AiOutlineFileDone 
                             size={80}
@@ -37,7 +36,7 @@ const AdminDashboard = () => {
                     </div>
                     <h1 className="text-basicColor2 font-bold text-xl text-left ml-3">Challenges Completed</h1>
                 </div>
-                <div className="h-36 w-1/3 bg-white rounded-md shadow p-4 px-7">
+                <div className="h-36 md:w-1/3 bg-white rounded-md shadow p-4 px-7">
                     <div className="flex">
                         <HiOutlineDocumentReport 
                             size={80}

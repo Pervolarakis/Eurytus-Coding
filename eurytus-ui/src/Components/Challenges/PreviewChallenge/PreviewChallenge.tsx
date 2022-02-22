@@ -25,20 +25,18 @@ interface PreviewChallengeProps {
     template: string
     setTemplate: (template: string)=>void;
     classDiagram: TreeItem[]
-    setClassDiagram: (val: React.SetStateAction<TreeItem[]>)=>void;
+    setClassDiagram: (val: TreeItem[])=>void;
     challengeDetails: fieldType;
     updateField:(change: Partial<fieldType>) => void;
     inputTests: {"challenge": challengeTest[]}
     setInputTests: (newTestList: {"challenge": challengeTest[]})=>void
-    message: string,
-    setMessage: (newMessage: string) => void
 }
 
-const PreviewChallenge = ({message, setMessage, template, setTemplate, classDiagram, setClassDiagram, challengeDetails, updateField, inputTests, setInputTests}: PreviewChallengeProps) => {
+const PreviewChallenge = ({template, setTemplate, classDiagram, setClassDiagram, challengeDetails, updateField, inputTests, setInputTests}: PreviewChallengeProps) => {
     return (
         <div className="h-full w-full flex flex-row">
             <div className="w-1/2 h-full">
-                <ChallengeDetails message={message} setMessage={setMessage} challengeDetails={challengeDetails} updateField={updateField}/>
+                <ChallengeDetails challengeDetails={challengeDetails} updateField={updateField}/>
             </div>
             <div className="w-1/2 border-l border-gray-500 flex flex-col">
                 <Tab.Group>

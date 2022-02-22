@@ -2,6 +2,7 @@ import { TreeItem } from "react-sortable-tree";
 import { challengeTest, fieldType } from "../../Challenges/PreviewChallenge/PreviewChallenge";
 
 export interface requestChallengeProperties {
+    _id?: string
     template: string;
     classDiagram: TreeItem[];
     inputTests: {"challenge": challengeTest[]}
@@ -10,6 +11,7 @@ export interface requestChallengeProperties {
 }
 
 export interface fetchedDataType {
+    id: string
     creatorId: string
     description: string
     difficulty: number

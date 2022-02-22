@@ -5,6 +5,7 @@ import PreviewChallenge  from "../../Challenges/PreviewChallenge/PreviewChalleng
 import BasicModal from "../../Modals/RequestReviewMessageModal";
 import { requestChallengeProperties } from "./ReviewRequestInterfaces";
 import { BsCardText } from "react-icons/bs";
+import { setChallengeStateAfterFetch } from "../ChallengeUtils/ChallengeUitls";
 
 const PreviewDeleteChallengeRequest = () => {
 
@@ -22,32 +23,7 @@ const PreviewDeleteChallengeRequest = () => {
                 axios.get(`/challenges/${res.data.data.challengeId}`)
                     .then((res)=>{
                         const challengeData = res.data.data;
-
-                        setFetchedChallenge(
-                            {
-                                template: JSON.parse(challengeData.template),
-                                classDiagram: (challengeData.expectedStructure.length>0?JSON.parse(challengeData.expectedStructure.replaceAll('\\\"','\"')):[
-                                    {
-                                        blockType: "Base",
-                                        expanded: true,
-                                        children: []
-                                    
-                                    }
-                                ]),
-                                inputTests: JSON.parse(challengeData.expectedOutputTests),
-                                challengeDetails: {
-                                    name: challengeData.name,
-                                    description: challengeData.description,
-                                    difficulty: challengeData.difficulty,
-                                    startsAt: new Date(challengeData.startsAt),
-                                    isPublic: challengeData.isPublic,
-                                    expiresAt: new Date(challengeData.expiresAt),
-                                    language: challengeData.language,
-                                    expectedDesignPatterns: challengeData.expectedDesignPatterns,
-                                },
-                                
-                            }
-                        )
+                        setFetchedChallenge(setChallengeStateAfterFetch(challengeData))
                     })
                 setMessage(res.data.data.message)
             })
@@ -66,7 +42,7 @@ const PreviewDeleteChallengeRequest = () => {
                     <button className="h-10 bg-green-500 w-40 text-2xl font-bold text-white rounded-md ml-4" onClick={()=>null}>Approve</button>
                 </div>
             </div>
-            {fetchedChallenge?<PreviewChallenge message={""} setMessage={()=>null} template={fetchedChallenge.template} setTemplate={()=>null} classDiagram={fetchedChallenge.classDiagram} setClassDiagram={()=>null} challengeDetails={fetchedChallenge.challengeDetails} updateField={()=>null} inputTests={fetchedChallenge.inputTests} setInputTests={()=>null}/>:null}
+            {fetchedChallenge?<PreviewChallenge template={fetchedChallenge.template} setTemplate={()=>null} classDiagram={fetchedChallenge.classDiagram} setClassDiagram={()=>null} challengeDetails={fetchedChallenge.challengeDetails} updateField={()=>null} inputTests={fetchedChallenge.inputTests} setInputTests={()=>null}/>:null}
         </div>
     )
 }

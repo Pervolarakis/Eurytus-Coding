@@ -8,7 +8,7 @@ import {Challenge} from '../../models/challengeModel';
 it('successfully deletes challenge', async()=>{
     const userOne = new mongoose.Types.ObjectId();
     const response = await request(app)
-        .delete(`/api/v1/challenges/delete/${dumbChallenges[0]._id}`)
+        .put(`/api/v1/challenges/delete/${dumbChallenges[0]._id}`)
         .set('Cookie', global.signin(userOne, 'admin'))
         .expect(200);
     expect(response.body.data.status).toBe('deleted')
@@ -16,7 +16,7 @@ it('successfully deletes challenge', async()=>{
 
 it('fails if user is not authed', async()=>{
     const response = await request(app)
-        .delete(`/api/v1/challenges/delete/${dumbChallenges[0]._id}`)
+        .put(`/api/v1/challenges/delete/${dumbChallenges[0]._id}`)
         .expect(401);
 })
 
@@ -24,7 +24,7 @@ it('fails if challenge doesnt exists', async()=>{
     const userOne = new mongoose.Types.ObjectId();
     const challengeId = new mongoose.Types.ObjectId();
     const response = await request(app)
-        .delete(`/api/v1/challenges/delete/${challengeId}`)
+        .put(`/api/v1/challenges/delete/${challengeId}`)
         .set('Cookie', global.signin(userOne, 'admin'))
         .expect(400);
 })
@@ -32,7 +32,7 @@ it('fails if challenge doesnt exists', async()=>{
 it('fails if user is not admin and doesnt own the challenge', async()=>{
     const userOne = new mongoose.Types.ObjectId();
     await request(app)
-        .delete(`/api/v1/challenges/delete/${dumbChallenges[0]._id}`)
+        .put(`/api/v1/challenges/delete/${dumbChallenges[0]._id}`)
         .set('Cookie', global.signin(userOne, 'user'))
         .expect(403);
 })
@@ -67,7 +67,7 @@ it('successfully publishes delete event if user owns the challenge', async()=>{
     })
     await challenge.save();
     await request(app)
-        .delete(`/api/v1/challenges/delete/${challenge.id}`)
+        .put(`/api/v1/challenges/delete/${challenge.id}`)
         .set('Cookie', global.signin(userOne, 'user'))
         .expect(201);
     expect(natsWrapper.client.publish).toHaveBeenCalled();
@@ -103,7 +103,7 @@ it('successfully deletes challenge if user owns the challenge and challenge is p
     })
     await challenge.save();
     await request(app)
-        .delete(`/api/v1/challenges/delete/${challenge.id}`)
+        .put(`/api/v1/challenges/delete/${challenge.id}`)
         .set('Cookie', global.signin(userOne, 'user'))
         .expect(200);
     expect(natsWrapper.client.publish).toHaveBeenCalled();
