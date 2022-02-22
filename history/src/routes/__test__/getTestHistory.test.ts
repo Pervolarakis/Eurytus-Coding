@@ -190,3 +190,11 @@ it('fails if user is not an admin and doesnt own the challenge', async()=>{
         .set('Cookie', global.signin(new mongoose.Types.ObjectId(), 'user'))
         .expect(403)
 })
+
+it('returns err if challenge doesnt exist', async()=>{
+    const response = await request(app)
+        .get(`/api/v1/history/${new mongoose.Types.ObjectId()}`)
+        .set('Cookie', global.signin(new mongoose.Types.ObjectId(), 'admin'))
+        .expect(400)
+    expect(response.body.error).toEqual('This challenge doesnt have any participants yet!')
+})

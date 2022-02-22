@@ -12,12 +12,13 @@ it('successfully logs in', async()=>{
 })
 
 it('throws error if field is missing', async()=>{
-    await request(app)
+    const response = await request(app)
         .post('/api/v1/users/auth/login')
         .send({
             email: 'test123@gmail.com'
         })
         .expect(400)
+    expect(response.body.error).toContainEqual({field: "password", message: "Password cant be empty"})
 })
 
 it('throws error if password is wrong', async()=>{

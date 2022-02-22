@@ -17,13 +17,6 @@ it('returns all public and approved requests for specific language', async()=>{
 
 it('returns all public and approved requests for specific language', async()=>{
     const response = await request(app)
-        .get('/api/v1/challenges?query=pipiki')
-        .expect(200)
-    expect(response.body.data).toHaveLength(4);
-})
-
-it('returns all public and approved requests for specific language', async()=>{
-    const response = await request(app)
         .get('/api/v1/challenges?language=pipiki')
         .expect(200)
     expect(response.body.data).toHaveLength(0);

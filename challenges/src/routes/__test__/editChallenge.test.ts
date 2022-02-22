@@ -51,13 +51,14 @@ it('fails challenge doesnt exist', async()=>{
 
 it('fails if data is not valid', async()=>{
     const userOne = new mongoose.Types.ObjectId();
-    await request(app)
+    const response = await request(app)
         .put(`/api/v1/challenges/update/${dumbChallenges[0]._id}`)
         .set('Cookie', global.signin(userOne, 'admin'))
         .send({
             isPublic: 'pipi'
         })
         .expect(400)
+    expect(response.body.error).toContainEqual({field: "isPublic", message: "Is public should be true or false"})
 })
 
 it('successfully publishes update event if user owns the challenge', async()=>{
@@ -138,4 +139,44 @@ it('successfully updates challenge if user owns the challenge and challenge is p
     expect(natsWrapper.client.publish).toHaveBeenCalled();
     const updatedChallenge = await Challenge.findById(challenge.id);
     expect(updatedChallenge?.name).toEqual('new challenge 1 name')
+})
+
+it('publishes request if challenge is private and gets updated to public', async()=>{
+    const userOne = new mongoose.Types.ObjectId();
+    const challenge = new Challenge({
+        name: "Sum Challenge",
+        description: "Write a function that sums 3 numbers",
+        difficulty: 1,
+        isPublic: false,
+        expiresAt: "2014-02-01T00:00:00",
+        status: 'approved',
+        startsAt: Date.now(),
+        creatorId: userOne,
+        expectedOutputTests: JSON.stringify({
+            "challenge" : [
+                {
+                    input: JSON.stringify(`5,10,15`),
+                    output: JSON.stringify(`30`)
+                },
+                {
+                    input: JSON.stringify(`40,10,5`),
+                    output: JSON.stringify(`55`)
+                }
+            ]
+        }),
+        template: 'solution(a,b,c){}',
+        language: 'js',
+        expectedStructure: '',
+        expectedDesignPatterns: []
+    })
+    await challenge.save();
+    const response = await request(app)
+        .put(`/api/v1/challenges/update/${challenge.id}`)
+        .set('Cookie', global.signin(userOne, 'user'))
+        .send({
+            isPublic: 'true'
+        })
+        .expect(201);
+    expect(natsWrapper.client.publish).toHaveBeenCalled();
+    expect(response.body.data).toEqual('Request submited')
 })

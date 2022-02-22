@@ -1,21 +1,14 @@
 import { Challenge } from "../models/challengeModel";
-import express from 'express';
-import { BasicCustomError, asyncHandler } from "@eurytus/common";
+import express, { NextFunction, Request, Response } from 'express';
+import { asyncHandler } from "@eurytus/common";
 
 const router = express.Router();
 
-router.get('/api/v1/challenges/', asyncHandler(async(req,res,next)=>{
-    try{
-        if(req.query.language){
-            const challenges = await Challenge.find({isPublic: true, status: 'approved', ...req.query}).select(['-expectedOutputTests', '-expectedStructure', '-expectedDesignPatterns']);
-            res.status(200).json({success: true, data: challenges})
-            return next();
-        }
-        const challenges = await Challenge.find({isPublic: true, status: 'approved'}).select(['-expectedOutputTests', '-expectedStructure', '-expectedDesignPatterns']);
-        res.status(200).json({success: true, data: challenges})
-    }catch(err){
-        return next(new BasicCustomError(err, 400));
-    }
+router.get('/api/v1/challenges/', asyncHandler(async(req: Request, res: Response, next: NextFunction)=>{
+    
+    const challenges = await Challenge.find({isPublic: true, status: 'approved', ...req.query}).select(['-expectedOutputTests', '-expectedStructure', '-expectedDesignPatterns']);
+    res.status(200).json({success: true, data: challenges})
+    
 }))
 
 export {router as getAllChallengesRouter}

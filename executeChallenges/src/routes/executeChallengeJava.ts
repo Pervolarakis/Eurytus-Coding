@@ -6,7 +6,7 @@ import { BasicCustomError, asyncHandler, requireAuth } from '@eurytus/common';
 import { checkEquality } from '../templates/CheckEqualityLogic';
 import { detectClassesMain, detectClassesLogic } from '../templates/ClassDiagramTemplate';
 import { detectDesignPattern } from './designPatterns';
-import { checkStructure } from './__test__/checkProgramStructure';
+import { checkStructure } from './utils/checkProgramStructure';
 import { compileOutputJava } from './interfaces/CompileOutputInterface';
 import { convertStructureFormat } from './utils/convertStructureFormat';
 import { SubmitChallengePublisher } from '../events/SubmitChallengePublisher';

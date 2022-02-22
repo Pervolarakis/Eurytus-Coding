@@ -1,16 +1,13 @@
-import express from 'express';
-import { BasicCustomError } from '@eurytus/common';
+import express, { NextFunction, Request, Response } from 'express';
+import { asyncHandler, BasicCustomError, validateRequestSchema } from '@eurytus/common';
 import { User } from '../models/UserModel';
+import { loginSchema } from './requestSchemas/loginSchema';
 
 const router = express.Router();
 
-router.post('/api/v1/users/auth/login', async (req,res,next)=>{
+router.post('/api/v1/users/auth/login', loginSchema, validateRequestSchema, asyncHandler( async (req: Request, res: Response, next: NextFunction)=>{
     
     const {email, password} = req.body;
-
-    if(!email || !password){
-        return next(new BasicCustomError('Invalid credentials',400))
-    }
 
     const user = await User.findOne({email: email});
 
@@ -32,6 +29,6 @@ router.post('/api/v1/users/auth/login', async (req,res,next)=>{
 
     res.status(200).json({success: true, data: user});
 
-})
+}))
 
 export {router as signInRouter}

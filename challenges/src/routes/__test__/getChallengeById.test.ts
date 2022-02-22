@@ -150,3 +150,19 @@ it('successfully hides fields if user doesnt own challenge or user is not an adm
     expect(result.body.data.expectedOutputTests).not.toBeDefined()
     expect(result.body.data.description).toEqual('Write a function that sums 3 numbers')
 })
+
+it('fails if challenge id is wrongly formatted', async()=>{
+    const response = await request(app)
+        .get(`/api/v1/challenges/eeee`)
+        .set('Cookie', global.signin(new mongoose.Types.ObjectId(), 'user'))
+        .expect(400)
+    expect(response.body.error).toEqual('An error occurred!')
+})
+
+it('fails if challenge doesnt exist', async()=>{
+    const response = await request(app)
+        .get(`/api/v1/challenges/${new mongoose.Types.ObjectId()}`)
+        .set('Cookie', global.signin(new mongoose.Types.ObjectId(), 'user'))
+        .expect(400)
+    expect(response.body.error).toEqual('Challenge Not found')
+})

@@ -10,9 +10,10 @@ var ErrorHandler = function (err, req, res, next) {
     }
     if (err instanceof RequestValidationError_1.RequestValidationError) {
         res.status(err.errorCode).json({ success: false, error: err.getFormatedMessage() });
+        return next();
     }
     else {
-        res.status(500).json({ success: false, error: err.message });
+        res.status(400).json({ success: false, error: 'An error occurred!' });
         return next();
     }
 };

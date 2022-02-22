@@ -66,7 +66,7 @@ it('fails if user is not authenticated', async()=>{
 
 it('fails if fields are missing', async()=>{
     const userOne = new mongoose.Types.ObjectId();
-    await request(app)
+    const response = await request(app)
         .post('/api/v1/challenges/new')
         .set('Cookie', global.signin(userOne, 'admin'))
         .send({
@@ -92,11 +92,13 @@ it('fails if fields are missing', async()=>{
             expectedDesignPatterns: []
         })
         .expect(400)
+    expect(response.body.error).toContainEqual({field: "difficulty", message: "Difficulty cant be empty"})
+    expect(response.body.error).toContainEqual({field: "startsAt", message: "Starts at cant be empty"})
 })
 
 it('successfully published a create new challenge event', async()=>{
     const userOne = new mongoose.Types.ObjectId();
-    const result = await request(app)
+    await request(app)
         .post('/api/v1/challenges/new')
         .set('Cookie', global.signin(userOne, 'user'))
         .send({

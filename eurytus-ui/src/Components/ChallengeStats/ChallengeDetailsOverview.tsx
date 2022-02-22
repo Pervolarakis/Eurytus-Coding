@@ -1,12 +1,53 @@
+import { useState } from "react";
+import { BsLink45Deg } from "react-icons/bs";
 import { MdDeleteOutline, MdOutlineEdit } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { axios } from "../../Api/eurytusInstance";
 import { fetchedDataType } from "../AdminPage/ModerateChallenges/ReviewRequestInterfaces";
+import ConfirmDeletePrivateModal from "../Modals/ConfirmDeletePrivateModal";
+import DeleteChallengeMessageModal from "../Modals/DeleteChallengeMessageModal";
 import Tooltip from "../Tooltip/Tooltip";
 
 const ChallengeDetailsOverview = ({challenge}:{challenge: fetchedDataType}) => {
+
     const navigate = useNavigate();
+    const [showDeletePublicModal, toggleDeletePublicModal] = useState(false);
+    const [message, setMessage] = useState('');
+    const [showDeletePrivateModal, toggleDeletePrivateModal] = useState(false);
+
+    const copyChallengeUrl = () => {
+        const url = `http://eurytus.com:3000/solve/${challenge.id}`;
+        const el = document.createElement('textarea');
+        el.value = url;
+        document.body.appendChild(el);
+        el.select();
+        document.execCommand('copy');
+        document.body.removeChild(el);
+        toast.info('Link copied!')
+    }
+
+    const deleteChallenge = () => {
+        axios.put(`/challenges/delete/${challenge.id}`,{
+            message: message
+        }).then((res)=>{
+            toast.success((challenge.isPublic)?'Request submitted!':'Challenge deleted!')
+            toggleDeletePublicModal(false); 
+            toggleDeletePrivateModal(false);   
+            if(!challenge.isPublic){
+                navigate('/profile')
+            } 
+        })
+        .catch((err)=>{
+            console.log(err.response.data)
+            toast.error('There was an error deleting this challenge. Please try again later.')
+        })
+    }
+
     return(
         <div className="w-full">
+            <ConfirmDeletePrivateModal show={showDeletePrivateModal} toggleShow={()=>toggleDeletePrivateModal(false)} deleteChallenge={()=>deleteChallenge()}/>
+            <DeleteChallengeMessageModal message={message} setMessage={(val)=>setMessage(val)} show={showDeletePublicModal} toggleShow={()=>toggleDeletePublicModal(false)} deleteChallenge={()=>deleteChallenge()}/>
             <div className="mt-8 mb-4 w-full flex items-center justify-between">
                 <h1 className="text-left text-md font-medium">{challenge.name}</h1>
                 <div className="flex gap-4">
@@ -14,7 +55,10 @@ const ChallengeDetailsOverview = ({challenge}:{challenge: fetchedDataType}) => {
                         <button onClick={()=>navigate(`/editchallenge/${challenge.id}`)} className="w-8 h-8 bg-white rounded-full flex justify-center"><MdOutlineEdit className='m-auto'/></button>
                     </Tooltip>
                     <Tooltip tooltipText="Delete">
-                        <button className="w-8 h-8 bg-white rounded-full flex justify-center"><MdDeleteOutline className='m-auto'/></button>
+                        <button className="w-8 h-8 bg-white rounded-full flex justify-center" onClick={challenge.isPublic? ()=>toggleDeletePublicModal(true): ()=>toggleDeletePrivateModal(true) }><MdDeleteOutline className='m-auto'/></button>
+                    </Tooltip>
+                    <Tooltip tooltipText="Copy link">
+                        <button className="w-8 h-8 bg-white rounded-full flex justify-center" onClick={copyChallengeUrl}><BsLink45Deg className='m-auto'/></button>
                     </Tooltip>
                 </div>
             </div>

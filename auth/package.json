@@ -19,7 +19,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@eurytus/common": "^1.0.10",
+    "@eurytus/common": "^1.0.48",
     "@types/bcryptjs": "^2.4.2",
     "@types/cookie-session": "^2.0.43",
     "@types/cors": "^2.8.12",
@@ -29,6 +29,7 @@
     "cookie-session": "^1.4.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
+    "express-validator": "^6.14.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.13.5",
     "ts-node-dev": "^1.1.8",
