@@ -17,6 +17,7 @@ import PreviewUpdateChallengeRequest from './Components/AdminPage/ModerateChalle
 import PreviewDeleteChallengeRequest from './Components/AdminPage/ModerateChallenges/PreviewDeleteChallengeRequest';
 import UserProfile from './Components/UserProfile/UserProfile';
 import EditChallenge from './Components/UserProfile/EditChallenge/EditChallenge'
+import ChallengeStats from './Components/ChallengeStats/ChallengeStats';
 
 
 function App() {
@@ -45,6 +46,7 @@ function App() {
                 <Route path="/admin" element={<AdminDashboard/>}/>
                 <Route path="/admin/requests" element={<AdminPendingRequests/>}/>
               </Route>
+              <Route path="/challenge/:challengeId" element={<ChallengeStats/>}/>
               <Route path="/admin/review/create/:requestId" element={<PreviewCreateChallengeRequest/>}/>
               <Route path="/admin/review/update/:requestId" element={<PreviewUpdateChallengeRequest/>}/>
               <Route path="/admin/review/delete/:requestId" element={<PreviewDeleteChallengeRequest/>}/>

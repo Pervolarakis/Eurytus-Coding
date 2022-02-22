@@ -19,7 +19,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@eurytus/common": "^1.0.40",
+    "@eurytus/common": "^1.0.43",
     "@eurytus/compile-run": "^2.3.5",
     "@types/cookie-session": "^2.0.43",
     "@types/cors": "^2.8.12",

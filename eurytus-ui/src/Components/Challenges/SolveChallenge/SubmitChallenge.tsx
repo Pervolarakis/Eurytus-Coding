@@ -16,10 +16,11 @@ export interface executionMessage {
 
 interface SubmitChallengeProps {
     onCodeRun: ()=>void,
+    submitCode: ()=>void,
     executionMessage: executionMessage|undefined
 }
 
-const SubmitChallenge = ({onCodeRun, executionMessage}:SubmitChallengeProps) => {
+const SubmitChallenge = ({onCodeRun, submitCode, executionMessage}:SubmitChallengeProps) => {
     return(
         <div className="h-1/6 p-6">
             {(executionMessage)?
@@ -39,7 +40,7 @@ const SubmitChallenge = ({onCodeRun, executionMessage}:SubmitChallengeProps) => 
             </>:null}
             <div className="flex flex-row justify-end">
                 <button className="border border-secondary border-solid font-bold text-lg text-secondary py-4 px-6" onClick={()=>onCodeRun()}>RUN</button>
-                <button className="bg-primary font-bold text-lg text-white p-4 px-6 ml-4">SUBMIT</button>
+                <button className="bg-primary font-bold text-lg text-white p-4 px-6 ml-4" onClick={()=>submitCode()}>SUBMIT</button>
             </div>
         </div>
     )

@@ -21,7 +21,13 @@ export interface classDiagram{
     }[]
 };
 
-export interface compileOutput {
+export interface compileOutputJava {
     classDiagram: classDiagram[],
-    testsPassed: number
+    testsPassed: number,
+    file: string
+}
+
+export interface compileOutputJs {
+    successfulTests: number,
+    file: string
 }

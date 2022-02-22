@@ -9,6 +9,7 @@ interface historyDoc extends mongoose.Document{
     language: string,
     outputTestsPassedScore: number | null,
     requiredStructureFound: boolean | null,
+    running: boolean,
     designPatternsFound: {
         singleton?: boolean,
         factory?: boolean,
@@ -19,6 +20,10 @@ interface historyDoc extends mongoose.Document{
 const historySchema = new mongoose.Schema({
     userId: {
         type: String,
+        required: true
+    },
+    running: {
+        type: Boolean,
         required: true
     },
     userEmail: {
@@ -48,6 +53,7 @@ const historySchema = new mongoose.Schema({
         type: Boolean
     },
     designPatternsFound: {
+        _id: false,
         type: {
             singleton: Boolean,
             factory: Boolean,

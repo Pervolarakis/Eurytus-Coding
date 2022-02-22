@@ -4,8 +4,8 @@ import { UserContext } from "../../Contexts/UserContext";
 import { getUserAvatar } from "../../Utils/getUserAvatar";
 import PendingRequestsTable from "../AdminPage/Tables/PendingRequestsTable";
 import CancelRequestModal from "../Modals/CancelRequestModal";
-import DeleteChallengeMessageModal from "../Modals/DeleteChallengeMessageModal";
 import UserChallengeListItem from "./UserChallenges/UserChallengeListItem";
+import UserHistoryListItem, { userHistoryProps } from "./UserHistory/UserHistoryListItem";
 
 const UserProfile = () => {
 
@@ -13,6 +13,7 @@ const UserProfile = () => {
     const [userChallenges, setUserChallenges] = useState([])
     const [userRequests, setUserRequests] = useState([])
     const [requestToDelete, setRequestToDelete] = useState('')
+    const [history, setHistory] = useState<userHistoryProps[]>([]);
 
     useEffect(() => {
         fetchUserData()
@@ -23,6 +24,8 @@ const UserProfile = () => {
             .then((res)=>{setUserRequests(res.data.data)})
         axios.get('/challenges/myChallenges')
             .then((res)=>setUserChallenges(res.data.data))
+        axios.get('/history/user')
+            .then((res)=>setHistory(res.data.data))
     }
 
     const deleteRequest = () => {
@@ -46,8 +49,14 @@ const UserProfile = () => {
                 </div>
             </div>
             <div className="flex justify-start w-full md:w-10/12 flex-col">
-                <h1 className="my-8 text-left">Recent Exams</h1>
-                <div>Comming soon</div>
+                <h1 className="my-8 text-left text-md font-medium">Recent Exams</h1>
+                <div className="flex flex-col md:grid md:grid-cols-2 gap-6">
+                    {history?
+                        history.map((el, index)=>{
+                            return <UserHistoryListItem key={el._id} _id={el._id} challengeId={el.challengeId} completionDate={el.completionDate} language={el.language} outputTestsPassedScore={el.outputTestsPassedScore} designPatternsFound={el.designPatternsFound} requiredStructureFound={el.requiredStructureFound} running={el.running}/>
+                        }):<h1>You haven't completed any challenges yet!</h1>
+                    }
+                </div>
             </div>
             <div className="flex justify-start w-full md:w-10/12 flex-col">
                 <h1 className="my-8 text-left text-md font-medium">My Challenges</h1>
@@ -55,7 +64,7 @@ const UserProfile = () => {
                     {userChallenges?
                         userChallenges.map((el,index)=>{
                             return <UserChallengeListItem reloadData={()=>fetchUserData()} key={el+index} listItem={el}/>
-                        }):null
+                        }):<h1>You dont own any challenges yet!</h1>
                     }
                 </div>
             </div>

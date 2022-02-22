@@ -8,6 +8,7 @@ export interface CreateHistoryEventData {
         completionDate: string;
         saveFileId: string;
         language: string;
+        running: boolean;
         outputTestsPassedScore: number | null;
         requiredStructureFound: boolean | null;
         designPatternsFound: {

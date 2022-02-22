@@ -7,8 +7,10 @@ import { checkEquality } from '../templates/CheckEqualityLogic';
 import { detectClassesMain, detectClassesLogic } from '../templates/ClassDiagramTemplate';
 import { detectDesignPattern } from './designPatterns';
 import { checkStructure } from './__test__/checkProgramStructure';
-import { compileOutput } from './interfaces/CompileOutputInterface';
+import { compileOutputJava } from './interfaces/CompileOutputInterface';
 import { convertStructureFormat } from './utils/convertStructureFormat';
+import { SubmitChallengePublisher } from '../events/SubmitChallengePublisher';
+import { natsWrapper } from '../events/NatsWrapper';
 
 const router = express.Router();
 
@@ -49,7 +51,7 @@ router.post('/api/v1/compile/challengejava/:id',requireAuth, asyncHandler(async(
     }
 
     // console.log(javaTemp(outPutFunctionCalls, userFunction, checkEqualityLogic, detectClassesMainLocal, detectClassesLogicLocal))
-    new Promise<compileOutput>((resolve, reject)=>
+    new Promise<compileOutputJava>((resolve, reject)=>
         java.runSource(javaTemp(outPutFunctionCalls, userFunction, checkEqualityLogic, detectClassesMainLocal, detectClassesLogicLocal),{timeout: 4000, compileTimeout: 4000, stdoutLimit: 50000, stderrLimit: 50000 })
             .then(result => {
                 if(result.stderr){
@@ -63,13 +65,13 @@ router.post('/api/v1/compile/challengejava/:id',requireAuth, asyncHandler(async(
                         });
                     }
                     // console.log(formattedError)
-                    return reject(formattedError)
+                    return reject({errorMessage: formattedError, file: result.file})
                 }
                 //console.log(javaTemp(JSON.parse(currentChallenge.input),funct))
                 // console.log(result.stdout)
                 const output = JSON.parse(result.stdout);
                 // parseInt(result.stdout.trim().split(/\s/).join(''))
-                return resolve(output);
+                return resolve({...output, file: result.file});
             })
             .catch(err => {
                 console.log(err);
@@ -97,13 +99,49 @@ router.post('/api/v1/compile/challengejava/:id',requireAuth, asyncHandler(async(
                 successfulTests = result.testsPassed;
             }
             // console.log(result.classDiagram);
+
+            const structureFound = (challenge.expectedStructure)?checkStructure(result.classDiagram, convertStructureFormat(challenge.expectedStructure)):null
+
+            if(req.query.submit){
+                new SubmitChallengePublisher(natsWrapper.client).publish({
+                    userId: req.currentUser?.id!,
+                    userEmail: req.currentUser?.email!,
+                    language: challenge.language,
+                    challengeId: challenge._id,
+                    running: true,
+                    completionDate: new Date().toISOString(), 
+                    saveFileId: result.file,
+                    outputTestsPassedScore: (successfulTests/totalTestsDone) * 100,
+                    requiredStructureFound: structureFound, 
+                    designPatternsFound: (Object.keys(designPatterns).length)?designPatterns:null
+                })
+                // console.log(result);
+            }
             res.status(200).json({success: true, data: {
-                structure: (challenge.expectedStructure)?checkStructure(result.classDiagram, convertStructureFormat(challenge.expectedStructure)):null,
+                structure: structureFound,
                 designPatterns: designPatterns,
                 totalTestsDone: totalTestsDone,
                 successfulTests: successfulTests}})
         })
-        .catch(error => {res.status(200).json({success: false, compileError: error})})
+        .catch(error => {
+            if(req.query.submit){
+                new SubmitChallengePublisher(natsWrapper.client).publish({
+                    userId: req.currentUser?.id!,
+                    userEmail: req.currentUser?.email!,
+                    language: challenge.language,
+                    challengeId: challenge._id,
+                    running: false,
+                    completionDate: new Date().toISOString(), 
+                    saveFileId: error.file,
+                    outputTestsPassedScore: null,
+                    requiredStructureFound: null, 
+                    designPatternsFound: null
+                })
+                // console.log(result);
+            }
+            res.status(200).json({success: false, compileError: error.errorMessage})
+        
+        })
 
 }))
 
