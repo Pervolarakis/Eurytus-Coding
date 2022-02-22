@@ -2,6 +2,8 @@ import {app} from './app';
 import mongoose from 'mongoose';
 import { natsWrapper } from './events/NatsWrapper';
 import { CreateHistoryListener } from './events/CreateHistoryListener';
+import { initializeDb } from './initializedb'
+
 const start = async () =>{
     try{
         await natsWrapper.connect('eurytus', process.env.CLIENT_ID!, 'http://nats-srv:4222')
@@ -11,6 +13,7 @@ const start = async () =>{
         }
         await mongoose.connect('mongodb://history-mongo-srv:27017/history')
         console.log("connected to db")
+        initializeDb()
     }catch(err){
         console.log(err)
     }

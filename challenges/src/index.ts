@@ -4,6 +4,7 @@ import { natsWrapper } from './events/NatsWrapper';
 import { CreateChallengeApprovedListener } from './events/CreateChallengeApprovedListener';
 import { UpdateChallengeApprovedListener } from './events/UpdataChallengeApprovedListener';
 import { DeleteChallengeApprovedListener } from './events/DeleteChallengeApprovedListener';
+import { initializeDb } from './initializedb';
 
 const start = async () =>{
     try{
@@ -20,6 +21,7 @@ const start = async () =>{
             useCreateIndex: true
         })
         console.log("connected to db")
+        initializeDb();
     }catch(err){
         console.log(err)
     }
