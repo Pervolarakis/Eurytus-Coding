@@ -7,7 +7,7 @@ import FloatingLabel from "../../FloatingLabel/FloatingLabel";
 
 const RegisterForm = () => {
 
-    const {user, setUser} = useContext(UserContext);
+    const {setUser} = useContext(UserContext);
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [email, setEmail] = useState('');
@@ -27,9 +27,9 @@ const RegisterForm = () => {
             .then((res)=>{setUser(res.data.data); navigate('/challenges')})
             .catch(err=>toast.error(err.response?.data.error||'There was an error fetching current user!'))
         })
-        .catch(err=>err.response.data.error.map((err:{message: string, field: string})=>{
-            toast.error(err.message);
-        }))
+        .catch(err=>err.response.data.error.map((err:{message: string, field: string})=>
+            toast.error(err.message)
+        ))
     }
 
     return (

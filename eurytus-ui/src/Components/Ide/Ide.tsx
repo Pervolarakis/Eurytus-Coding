@@ -1,5 +1,4 @@
 import Editor from "@monaco-editor/react";
-import { useEffect, useState } from "react";
 
 interface IdeProps {
     language: string,

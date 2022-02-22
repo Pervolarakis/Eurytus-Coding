@@ -64,9 +64,9 @@ const CreateChallenge = () => {
             navigate('/challenges');
         })
         .catch((err)=>{
-            err.response.data.error.map((err:{message: string, field: string})=>{
-                toast.error(err.message);
-            })
+            err.response.data.error.map((err:{message: string, field: string})=>
+                toast.error(err.message)
+            )
         } )
     }
 

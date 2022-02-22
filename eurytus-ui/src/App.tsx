@@ -18,7 +18,7 @@ import PreviewDeleteChallengeRequest from './Components/AdminPage/ModerateChalle
 import UserProfile from './Components/UserProfile/UserProfile';
 import EditChallenge from './Components/UserProfile/EditChallenge/EditChallenge'
 import ChallengeStats from './Components/ChallengeStats/ChallengeStats';
-import { toast, ToastContainer } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import HomePage from './Components/HomePage/HomePage';
 

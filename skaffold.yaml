@@ -48,3 +48,11 @@ build:
         manual:
           - src: 'src/**/*.ts'
             dest: .
+    - image: pervolarakis/eurytus-ui
+      context: eurytus-ui
+      docker:
+          dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: 'src/**/*.ts'
+            dest: .

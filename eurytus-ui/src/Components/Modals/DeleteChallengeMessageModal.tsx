@@ -1,7 +1,6 @@
-import { Fragment, useRef, useState } from 'react'
+import { Fragment, useRef } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import {BsExclamationTriangle} from 'react-icons/bs';
-import {useNavigate} from 'react-router-dom';
 
 interface ModalProps {
     show: boolean,

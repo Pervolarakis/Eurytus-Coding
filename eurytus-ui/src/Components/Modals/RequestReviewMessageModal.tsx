@@ -1,5 +1,5 @@
 import { Dialog, Transition } from "@headlessui/react"
-import { Fragment, useRef, useState } from "react"
+import { Fragment, useRef } from "react"
 import { getUserAvatar } from "../../Utils/getUserAvatar"
 
 interface ModalProps {
