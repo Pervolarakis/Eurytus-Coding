@@ -22,7 +22,12 @@ import ChallengeStats from './Components/ChallengeStats/ChallengeStats';
 
 function App() {
 
-  const [user,setUser] = useState(null)
+  const [user,setUser] = useState<{
+    id: string, 
+    email: string, 
+    role: string, 
+    iat: number
+  }|null>(null)
 
   useEffect(()=>{
     axios.get('/users/auth/currentuser')
@@ -41,11 +46,13 @@ function App() {
               <Route path="/editchallenge/:challengeId" element={<EditChallenge />}/>
               <Route path="/solve/:challengeId" element={<SolveChallenge />}/>
               <Route path="/profile" element={<UserProfile />}/>
-              <Route path="/admin" element={<AdminPage/>}>
-                <Route path="/admin/challenges" element={<AdminAllChallenges/>}/>
-                <Route path="/admin" element={<AdminDashboard/>}/>
-                <Route path="/admin/requests" element={<AdminPendingRequests/>}/>
-              </Route>
+              {(user.role==='admin')?
+                <Route path="/admin" element={<AdminPage/>}>
+                  <Route path="/admin/challenges" element={<AdminAllChallenges/>}/>
+                  <Route path="/admin" element={<AdminDashboard/>}/>
+                  <Route path="/admin/requests" element={<AdminPendingRequests/>}/>
+                </Route>:null
+              }
               <Route path="/challenge/:challengeId" element={<ChallengeStats/>}/>
               <Route path="/admin/review/create/:requestId" element={<PreviewCreateChallengeRequest/>}/>
               <Route path="/admin/review/update/:requestId" element={<PreviewUpdateChallengeRequest/>}/>

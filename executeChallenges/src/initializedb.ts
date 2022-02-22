@@ -9,6 +9,7 @@ export const initializeDb = async () => {
             _id: new mongoose.Types.ObjectId('61b07f82c2d7ad3a19087d2f'),
             expiresAt: "2014-02-01T00:00:00",
             status: 'approved',
+            ownerId: new mongoose.Types.ObjectId('56cb91bdc3464f14678934ca'),
             startsAt: Date.now(),
             expectedOutputTests: JSON.stringify({
                 "challenge" : [
@@ -31,6 +32,7 @@ export const initializeDb = async () => {
             expiresAt: "2014-02-01T00:00:00",
             status: 'approved',
             startsAt: Date.now(),
+            ownerId: new mongoose.Types.ObjectId('61b07a4e8ac34e37f17e97b5'),
             expectedOutputTests: JSON.stringify({
                 "challenge" : [
                     {
@@ -49,6 +51,7 @@ export const initializeDb = async () => {
         },
         {
             _id: new mongoose.Types.ObjectId('61b07f9453ac6a09dffd9705'),
+            ownerId: new mongoose.Types.ObjectId('56cb91bdc3464f14678934ca'),
             expiresAt: "2014-02-01T00:00:00",
             status: 'approved',
             startsAt: Date.now(),
@@ -76,6 +79,7 @@ export const initializeDb = async () => {
             _id: new mongoose.Types.ObjectId('61b07f9911b8e709381ca4ee'),
             expiresAt: "2014-02-01T00:00:00",
             status: 'approved',
+            ownerId: new mongoose.Types.ObjectId('61b07a4e8ac34e37f17e97b5'),
             startsAt: Date.now(),
             expectedOutputTests: JSON.stringify({
                 "challenge" : [
@@ -127,6 +131,7 @@ export const initializeDb = async () => {
             expiresAt: "2014-02-01T00:00:00",
             status: 'approved',
             startsAt: Date.now(),
+            ownerId: new mongoose.Types.ObjectId('61b07d810d86f0c5529ba8dc'),
             expectedOutputTests: JSON.stringify({
                 "challenge" : [
                     {
@@ -151,6 +156,7 @@ export const initializeDb = async () => {
         {
             _id: new mongoose.Types.ObjectId('61b0a841dcfdddbcd35caba3'),
             expiresAt: "2014-02-01T00:00:00",
+            ownerId: new mongoose.Types.ObjectId('56cb91bdc3464f14678934ca'),
             status: 'approved',
             startsAt: Date.now(),
             expectedOutputTests: JSON.stringify({
@@ -178,6 +184,7 @@ export const initializeDb = async () => {
                 expiresAt: el.expiresAt, 
                 status: el.status, 
                 startsAt: el.startsAt,
+                ownerId: el.ownerId,
                 expectedOutputTests: el.expectedOutputTests,
                 expectedStructure: el.expectedStructure,
                 expectedDesignPatterns: el.expectedDesignPatterns,

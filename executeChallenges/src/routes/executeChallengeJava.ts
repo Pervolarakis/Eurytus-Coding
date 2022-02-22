@@ -111,6 +111,7 @@ router.post('/api/v1/compile/challengejava/:id',requireAuth, asyncHandler(async(
                     running: true,
                     completionDate: new Date().toISOString(), 
                     saveFileId: result.file,
+                    challengeOwnerId: challenge.ownerId,
                     outputTestsPassedScore: (successfulTests/totalTestsDone) * 100,
                     requiredStructureFound: structureFound, 
                     designPatternsFound: (Object.keys(designPatterns).length)?designPatterns:null
@@ -131,6 +132,7 @@ router.post('/api/v1/compile/challengejava/:id',requireAuth, asyncHandler(async(
                     language: challenge.language,
                     challengeId: challenge._id,
                     running: false,
+                    challengeOwnerId: challenge.ownerId,
                     completionDate: new Date().toISOString(), 
                     saveFileId: error.file,
                     outputTestsPassedScore: null,

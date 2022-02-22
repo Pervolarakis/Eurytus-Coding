@@ -6,6 +6,7 @@ export const jsDataTypesTest = [
         status: 'approved',
         startsAt: Date.now(),
         expiresAt: "2014-02-01T00:00:00",
+        ownerId: new mongoose.Types.ObjectId(),
         expectedOutputTests: JSON.stringify({
             "challenge" : [
                 {

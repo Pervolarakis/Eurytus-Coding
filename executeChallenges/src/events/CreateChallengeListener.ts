@@ -11,6 +11,7 @@ export class CreateChallengeListener extends Listener<CreateChallengeEventData>{
             expectedOutputTests: data.expectedOutputTests,
             expectedDesignPatterns: data.expectedDesignPatterns,
             expectedStructure: data.expectedStructure, 
+            ownerId: data.ownerId,
             expiresAt: data.expiresAt, 
             startsAt: data.startsAt, 
             status: data.status, 

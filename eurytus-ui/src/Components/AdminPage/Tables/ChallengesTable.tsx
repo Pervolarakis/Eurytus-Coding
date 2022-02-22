@@ -1,18 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 import TablePagination from "./TablePagination";
 import {IoIosMan} from 'react-icons/io'
+import { fetchedDataType } from "../ModerateChallenges/ReviewRequestInterfaces";
+import { NavLink } from "react-router-dom";
 
-interface Challenge {
-    id: string,
-    name: string,
-    description: string,
-    isPublic: boolean,
-    language: string,
-    participants: number
-}
-
-
-const ChallengesTable = ({challenges, fixed}: {challenges: Challenge[], fixed?:boolean}) => {
+const ChallengesTable = ({challenges, fixed}: {challenges: fetchedDataType[], fixed?:boolean}) => {
 
     const tableRef = useRef() as React.MutableRefObject<HTMLInputElement>;;
     const [tableHeight, setTableHeight] = useState(0);
@@ -68,9 +60,9 @@ const ChallengesTable = ({challenges, fixed}: {challenges: Challenge[], fixed?:b
                     <div className="text-sm text-gray-900 flex justify-center items-center"><IoIosMan/> {challenge.participants||100}</div>
                 </td>
                 <td className="px-6 py-3 whitespace-nowrap text-sm font-medium">
-                    <a href="#" className="text-indigo-600 hover:text-indigo-900">
+                    <NavLink to={`/challenge/${challenge.id}`} className="text-indigo-600 hover:text-indigo-900">
                         Inspect
-                    </a>
+                    </NavLink>
                 </td>
             </tr>
         ))

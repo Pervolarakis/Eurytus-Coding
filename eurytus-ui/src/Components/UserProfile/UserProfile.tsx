@@ -2,18 +2,26 @@ import { useContext, useEffect, useState } from "react";
 import { axios } from "../../Api/eurytusInstance";
 import { UserContext } from "../../Contexts/UserContext";
 import { getUserAvatar } from "../../Utils/getUserAvatar";
+import { fetchedDataType } from "../AdminPage/ModerateChallenges/ReviewRequestInterfaces";
 import PendingRequestsTable from "../AdminPage/Tables/PendingRequestsTable";
 import CancelRequestModal from "../Modals/CancelRequestModal";
 import UserChallengeListItem from "./UserChallenges/UserChallengeListItem";
 import UserHistoryListItem, { userHistoryProps } from "./UserHistory/UserHistoryListItem";
 
+export interface particiants{
+    _id: string,
+    count: number
+}
+
 const UserProfile = () => {
 
     const {user, setUser} = useContext(UserContext);
-    const [userChallenges, setUserChallenges] = useState([])
+    const [userChallenges, setUserChallenges] = useState<fetchedDataType[]>([])
     const [userRequests, setUserRequests] = useState([])
     const [requestToDelete, setRequestToDelete] = useState('')
     const [history, setHistory] = useState<userHistoryProps[]>([]);
+    const [participants, setParticipants] = useState<particiants[]>([]);
+    const [loaded, setLoaded] = useState(false);
 
     useEffect(() => {
         fetchUserData()
@@ -23,15 +31,30 @@ const UserProfile = () => {
         axios.get('/moderate/myrequests')
             .then((res)=>{setUserRequests(res.data.data)})
         axios.get('/challenges/myChallenges')
-            .then((res)=>setUserChallenges(res.data.data))
+            .then((res)=>{setUserChallenges(res.data.data);setLoaded(true)})
         axios.get('/history/user')
             .then((res)=>setHistory(res.data.data))
+        axios.get('/history/getuserparticipants')
+            .then((res)=>setParticipants(res.data.data))
     }
 
     const deleteRequest = () => {
         axios.delete(`/moderate/cancel/${requestToDelete}`)
             .then((res)=>{setRequestToDelete('');fetchUserData()})
     }
+
+    useEffect(()=>{
+        if(participants.length&&userChallenges.length&&loaded){
+            let userChallengesTemp = [...userChallenges];
+            userChallengesTemp = userChallengesTemp.map(obj=> ({ ...obj, participants: participants.find(entry => entry._id === obj.id)!["count"]}))
+            setUserChallenges(userChallengesTemp);
+            setLoaded(false);
+        }
+    },[participants, loaded])
+
+    useEffect(()=>{
+        console.log(userChallenges)
+    },[userChallenges])
 
     return (
         <div className="responsive-container items-center">
@@ -63,7 +86,7 @@ const UserProfile = () => {
                 <div className="flex flex-col md:grid md:grid-cols-2 gap-6">
                     {userChallenges?
                         userChallenges.map((el,index)=>{
-                            return <UserChallengeListItem reloadData={()=>fetchUserData()} key={el+index} listItem={el}/>
+                            return <UserChallengeListItem reloadData={()=>fetchUserData()} key={el.id+index} listItem={el}/>
                         }):<h1>You dont own any challenges yet!</h1>
                     }
                 </div>

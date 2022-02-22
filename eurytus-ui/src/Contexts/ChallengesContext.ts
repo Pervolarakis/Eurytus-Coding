@@ -1,15 +1,9 @@
 import { createContext, Dispatch, SetStateAction } from "react";
+import { fetchedDataType } from "../Components/AdminPage/ModerateChallenges/ReviewRequestInterfaces";
 
 interface ChallengesContextArgs {
-    challenges: {
-        id: string,
-        name: string,
-        description: string,
-        isPublic: boolean,
-        language: string,
-        participants: number
-    }[]|null,
-    setChallenges:  Dispatch<SetStateAction<null>>
+    challenges: fetchedDataType[]|null,
+    setChallenges:  Dispatch<SetStateAction<fetchedDataType[]>>
 }
 
 export const ChallengesContext = createContext<ChallengesContextArgs>({} as ChallengesContextArgs);

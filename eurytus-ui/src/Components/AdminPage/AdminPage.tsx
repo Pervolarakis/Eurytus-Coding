@@ -5,22 +5,34 @@ import { ChallengesContext } from '../../Contexts/ChallengesContext';
 import { RequestsContext } from '../../Contexts/RequestsContext';
 import { Disclosure } from '@headlessui/react';
 import {FaAngleUp, FaAngleDown} from 'react-icons/fa'
+import { particiants } from '../UserProfile/UserProfile';
+import { fetchedDataType } from './ModerateChallenges/ReviewRequestInterfaces';
 
 const AdminPage = () => {
     
-    // const {challenges, setChallenges} = useContext(ChallengesContext);
-    // const {request, setRequests} = useContext(RequestsContext);
-    const [requests,setRequests] = useState(null)
-    const [challenges,setChallenges] = useState(null)
+    const [requests,setRequests] = useState(null);
+    const [challenges,setChallenges] = useState<fetchedDataType[]>([]);
+    const [participants, setParticipants] = useState<particiants[]>([]);
+    const [loaded, setLoaded] = useState(false);
 
     useEffect(()=>{
         axios.get('/moderate/requests')
             .then((res)=>setRequests(res.data.data||null))
             .catch(err=>console.log(err))
         axios.get('/challenges/')
-            .then((res)=>setChallenges(res.data.data||null))
-
+            .then((res)=>{setChallenges(res.data.data||null);setLoaded(true)})
+        axios.get('/history/getallparticipants')
+            .then((res)=>setParticipants(res.data.data))
     },[])
+
+    useEffect(()=>{
+        if(loaded && participants.length && challenges.length){
+            let userChallengesTemp = [...challenges];
+            userChallengesTemp = userChallengesTemp.map(obj=> ({ ...obj, participants: participants.find(entry => entry._id === obj.id)!["count"]}))
+            setChallenges(userChallengesTemp);
+            setLoaded(false);
+        }
+    },[loaded, participants])
 
     const routes = [
         {name: 'Dashboard', to: '/admin'},

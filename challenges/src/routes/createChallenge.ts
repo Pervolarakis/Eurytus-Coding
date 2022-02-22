@@ -48,6 +48,7 @@ router.post('/api/v1/challenges/new', requireAuth,  createChallengeSchema, valid
             id: challenge.id,
             expectedOutputTests: challenge.expectedOutputTests, 
             expectedStructure: challenge.expectedStructure, 
+            ownerId: challenge.creatorId,
             expectedDesignPatterns: challenge.expectedDesignPatterns,
             status: challenge.status,
             startsAt: challenge.startsAt,

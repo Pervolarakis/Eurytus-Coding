@@ -18,10 +18,10 @@ const ChallengeStatsOverview = ({challengeHistory, notRunning, challenge}: {chal
                     <h1 className="text-xl font-bold text-basicColor1">Avg. Tests</h1>
                 </div>
                 {challenge.expectedStructure?<div>
-                    <h1 className="text-3xl font-bold text-basicColor2">{(challengeHistory.reduce((total, next) => total + (next.requiredStructureFound?1:0) , 0)/(challengeHistory.length-notRunning)).toFixed(2)}%</h1>
+                    <h1 className="text-3xl font-bold text-basicColor2">{(challengeHistory.reduce((total, next) => total + (next.requiredStructureFound?1:0) , 0)/(challengeHistory.length-notRunning)*100).toFixed(2)}%</h1>
                     <h1 className="text-xl font-bold text-basicColor2">Structure</h1>
                 </div>:null}
-                {challenge.expectedDesignPatterns?<div>
+                {challenge.expectedDesignPatterns.length?<div>
                     <h1 className="text-3xl font-bold text-basicColor3">{((challengeHistory.reduce((total, next) => total + (next.designPatternsFound!?Object.values(next.designPatternsFound!).reduce((a, item) => a + (item?1:0), 0):0) , 0))/(challengeHistory.length-notRunning)).toFixed(2)}</h1>
                     <h1 className="text-xl font-bold text-basicColor3">Avg. Patterns</h1>
                 </div>:null}
@@ -37,10 +37,10 @@ const ChallengeStatsOverview = ({challengeHistory, notRunning, challenge}: {chal
                 </div>
                 {challenge.expectedStructure?
                     <div>
-                        <Gauge value={(Number.parseFloat((challengeHistory.reduce((total, next) => total + (next.requiredStructureFound?1:0) , 0)/(challengeHistory.length-notRunning)).toFixed(2)))} valueLabelStyle={{fontSize: '30px'}} minMaxLabelStyle={{display: 'none'}}  color={"#E4587E"} width={300} height={150} label="" />
+                        <Gauge value={(Number.parseFloat((challengeHistory.reduce((total, next) => total + (next.requiredStructureFound?1:0) , 0)/(challengeHistory.length-notRunning)*100).toFixed(2)))} valueLabelStyle={{fontSize: '30px'}} minMaxLabelStyle={{display: 'none'}}  color={"#E4587E"} width={300} height={150} label="" />
                         <h1 className="text-xl font-bold text-basicColor2 -top-5 relative">Structure</h1>
                     </div>:null}
-                {challenge.expectedDesignPatterns?
+                {challenge.expectedDesignPatterns.length?
                     <div>
                         <Gauge value={(Number.parseFloat(((challengeHistory.reduce((total, next) => total + (next.designPatternsFound!?Object.values(next.designPatternsFound!).reduce((a, item) => a + (item?1:0), 0):0) , 0))/(challengeHistory.length-notRunning)).toFixed(2))*100)} minMaxLabelStyle={{display: 'none'}} valueLabelStyle={{fontSize: '30px'}}  color={"#E4D358"} width={300} height={150} label="" />
                         <h1 className="text-xl font-bold text-basicColor3 -top-5 relative">Avg. Patterns</h1>
