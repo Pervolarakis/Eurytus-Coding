@@ -6,6 +6,7 @@ interface PendingRequestDoc extends mongoose.Document{
     data?: string;
     message: string;
     ownerId: string;
+    created_at: string;
 }
 
 const pendingRequestSchema = new mongoose.Schema({
@@ -20,6 +21,10 @@ const pendingRequestSchema = new mongoose.Schema({
     data: {
         type: String,
         required: false
+    },
+    created_at: {
+        type: String,
+        required: true
     },
     challengeId: {
         type: String,

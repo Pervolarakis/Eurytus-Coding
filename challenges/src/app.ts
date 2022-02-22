@@ -6,6 +6,7 @@ import { getAllChallengesRouter } from './routes/getAllChallenges';
 import { editChallengeRouter } from './routes/editChallenge';
 import { deleteChallengeRouter } from './routes/deleteChallenge';
 import { getUserChallengesRouter } from './routes/getUserChallenges';
+import { getChallengeById } from './routes/getChallengeById';
 
 const app = express();
 
@@ -21,6 +22,7 @@ app.use(getAllChallengesRouter);
 app.use(editChallengeRouter);
 app.use(deleteChallengeRouter);
 app.use(getUserChallengesRouter);
+app.use(getChallengeById);
 
 app.use(ErrorHandler);
 

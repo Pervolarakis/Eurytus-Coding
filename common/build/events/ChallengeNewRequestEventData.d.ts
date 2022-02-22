@@ -5,6 +5,7 @@ export interface ChallengeNewRequestEventData {
         kind: string;
         challengeId?: string;
         data?: string;
+        created_at: string;
         message: string;
         ownerId: string;
     };

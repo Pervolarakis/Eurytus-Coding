@@ -36,6 +36,7 @@ const setup = async()=>{
             expectedStructure: '',
             expectedDesignPatterns: []
         }),
+        created_at: new Date().toISOString(),
         ownerId: new mongoose.Types.ObjectId().toString(),
         message: 'please create this new challenge'
         
@@ -61,4 +62,44 @@ it('successfully listens and creates request', async()=>{
 
     expect(msg.ack).toHaveBeenCalled()
 
+})
+
+it('doesnt save request if last request is of type delete', async()=>{
+    const {listener, msg} = await setup();
+
+    const challengeId = new mongoose.Types.ObjectId().toString();
+    const userId = new mongoose.Types.ObjectId().toString();
+
+    const request = new PendingRequest({
+        kind: 'delete',
+        challengeId: challengeId,
+        created_at: new Date().toISOString(),
+        ownerId: userId,
+        message: 'please create this new challenge'
+    })
+
+    await request.save()
+
+    const data: ChallengeNewRequestEventData["data"] = {
+        kind: 'update',
+        challengeId: challengeId,
+        data: JSON.stringify({
+            name: "Multiply Challenge5",
+        }),
+        created_at: new Date().toISOString(),
+        ownerId: userId,
+        message: 'please update this challenge'
+        
+    }
+
+    await listener.onMessage(data,msg);
+
+    const pendingRequests = await PendingRequest.find({challengeId: data.challengeId})
+
+    expect(pendingRequests).toHaveLength(1);
+
+    expect(pendingRequests[0]).toEqual(
+        expect.objectContaining({kind: 'delete'})
+    )
+    expect(msg.ack).toHaveBeenCalled()
 })
