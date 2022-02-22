@@ -27,6 +27,7 @@
 html, body, #root {
   background: #f6f5f7;
   height: 100%;
+  width: 100%;
 }
 
 .App-link {
