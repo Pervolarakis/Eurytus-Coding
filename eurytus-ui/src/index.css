@@ -2,3 +2,18 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components{
+    .auth-input {
+        @apply bg-gray-200 border-none m-2 p-3;
+    }
+    .responsive-container {
+        @apply container flex max-w-screen-xl mx-auto px-4 sm:px-6 md:px-6 lg:px-8 xl:px-7 2xl:px-3 flex-col items-start;
+    }
+    .difficulty-filled {
+        @apply w-5 bg-red-400 h-3 rounded-lg
+    }
+    .difficulty-empty {
+        @apply w-5 bg-gray-300 h-3 rounded-lg
+    }
+}

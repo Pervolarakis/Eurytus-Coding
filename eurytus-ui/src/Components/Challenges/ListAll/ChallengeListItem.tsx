@@ -15,11 +15,11 @@ const ChallengeListItem = ({name, description, difficulty, language, id}: Challe
                     <div className="hidden md:flex">
                         <h1 className="font-bold capitalize">{language}</h1>
                         <div className="flex gap-1 items-center ml-4">
-                            <div className="w-5 bg-red-400 h-3 rounded-lg"></div>
-                            <div className="w-5 bg-red-400 h-3 rounded-lg"></div>
-                            <div className="w-5 bg-red-400 h-3 rounded-lg"></div>
-                            <div className="w-5 bg-gray-300 h-3 rounded-lg"></div>
-                            <div className="w-5 bg-gray-300 h-3 rounded-lg"></div>
+                            <div className="difficulty-filled"></div>
+                            <div className="difficulty-filled"></div>
+                            <div className="difficulty-filled"></div>
+                            <div className="difficulty-empty"></div>
+                            <div className="difficulty-empty"></div>
                         </div>
                     </div>
                 </div>
@@ -29,14 +29,14 @@ const ChallengeListItem = ({name, description, difficulty, language, id}: Challe
                 <div className="flex md:hidden">
                     <h1 className="font-bold capitalize">{language}</h1>
                     <div className="flex gap-1 items-center ml-4">
-                        <div className="w-5 bg-red-400 h-3 rounded-lg"></div>
-                        <div className="w-5 bg-red-400 h-3 rounded-lg"></div>
-                        <div className="w-5 bg-red-400 h-3 rounded-lg"></div>
-                        <div className="w-5 bg-gray-300 h-3 rounded-lg"></div>
-                        <div className="w-5 bg-gray-300 h-3 rounded-lg"></div>
+                        <div className="difficulty-filled"></div>
+                        <div className="difficulty-filled"></div>
+                        <div className="difficulty-filled"></div>
+                        <div className="difficulty-empty"></div>
+                        <div className="difficulty-empty"></div>
                     </div>
                 </div>
-                <button className="font-bold text-secondary text-xl border-4 rounded-xl py-2 px-16 border-secondary hover:bg-secondary hover:text-white">Solve!</button>
+                <button className="font-bold text-secondary text-xl border-4 rounded-xl py-1 px-4 md:py-2 md:px-16 border-secondary hover:bg-secondary hover:text-white">Solve!</button>
             </div>
         </div>
     )

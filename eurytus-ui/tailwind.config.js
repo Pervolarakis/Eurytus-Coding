@@ -6,7 +6,8 @@ module.exports = {
       colors: {
         primary: '#2A2A2A',
         secondary: '#DD574B',
-        auth: '#ff4b2b',
+        auth: '#b3372c',
+        auth_secondary: '#55012a',
         classes: {
           'class1-left': '#2C3DDB',
           'class1-right': '#EE48E2',
