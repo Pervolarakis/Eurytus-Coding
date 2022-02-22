@@ -8,10 +8,11 @@ import { detectClassesMain, detectClassesLogic } from '../templates/ClassDiagram
 import { detectDesignPattern } from './designPatterns';
 import { checkStructure } from './__test__/checkProgramStructure';
 import { compileOutput } from './interfaces/CompileOutputInterface';
+import { convertStructureFormat } from './utils/convertStructureFormat';
 
 const router = express.Router();
 
-router.post('/api/v1/compile/challengejava/:id', requireAuth, async(req: Request, res: Response, next: NextFunction)=>{
+router.post('/api/v1/compile/challengejava/:id', async(req: Request, res: Response, next: NextFunction)=>{
     
     const challenge = await Challenge.findById(req.params.id);
     
@@ -95,8 +96,9 @@ router.post('/api/v1/compile/challengejava/:id', requireAuth, async(req: Request
                 totalTestsDone = tests["challenge"].length;
                 successfulTests = result.testsPassed;
             }
+            // console.log(result.classDiagram);
             res.status(200).json({success: true, data: {
-                structure: (challenge.expectedStructure)?checkStructure(result.classDiagram, JSON.parse(challenge.expectedStructure)):null,
+                structure: (challenge.expectedStructure)?checkStructure(result.classDiagram, convertStructureFormat(challenge.expectedStructure)):null,
                 designPatterns: designPatterns,
                 totalTestsDone: totalTestsDone,
                 successfulTests: successfulTests}})

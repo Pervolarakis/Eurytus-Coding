@@ -5,6 +5,8 @@ import { getAllRequestsRouter } from './routes/getAllRequests';
 import { approveRequestRouter } from './routes/approveRequest';
 import { rejectRequestRouter } from './routes/rejectRequest';
 import { getUserRequestsRouter } from './routes/getUserRequests';
+import { cancelUserRequestRouter } from './routes/cancelUserRequest';
+import { getRequestRouter } from './routes/getRequestById';
 
 const app = express();
 
@@ -20,6 +22,8 @@ app.use(getAllRequestsRouter);
 app.use(approveRequestRouter);
 app.use(rejectRequestRouter);
 app.use(getUserRequestsRouter);
+app.use(cancelUserRequestRouter);
+app.use(getRequestRouter);
 
 app.use(ErrorHandler);
 

@@ -21,6 +21,9 @@ export const checkStructure = (classes: classDiagram[], expectedClasses: classDi
                 // console.log(JSON.stringify(currentClass));
                 // console.log(JSON.stringify(targetClass));
                 if(compareArrays(currentClass.interfaces,targetClass.interfaces)){
+                    // console.log('idio interfaces')
+                    // console.log(targetClass.modifiers);
+                    // console.log(currentClass.modifiers);
                     if(compareArrays(currentClass.modifiers,targetClass.modifiers)){
                         // console.log('idio modifiers')
                         if(currentClass.superClass===targetClass.superClass){
@@ -29,8 +32,8 @@ export const checkStructure = (classes: classDiagram[], expectedClasses: classDi
                             // console.log(currentClass.methods);
                             if(targetClass.methods.every(el=>currentClass.methods.some(method=>method.name===el.name && compareArrays(method.modifiers,el.modifiers) && method.returnType===el.returnType && compareArrays(method.parameters,el.parameters)))){
                                 // console.log('idio methods')
-                                // console.log(targetClass.constructors)
-                                // console.log(currentClass.constructors)
+                                // console.log(index +" "+targetClass.constructors)
+                                // console.log(index +" "+currentClass.constructors)
                                 if(targetClass.constructors.every(el=>currentClass.constructors.some(constructor=> compareArrays(el.modifiers,constructor.modifiers)&& compareArrays(el.parameters,constructor.parameters)))){
                                     // console.log('idio constructors')
                                     // console.log(targetClass.fields)
