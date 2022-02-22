@@ -2,13 +2,18 @@ import mongoose from 'mongoose';
 
 interface historyDoc extends mongoose.Document{
     userId: string,
+    userEmail: string,
     challengeId: string,
-    challengeName: string,
     completionDate: string,
     saveFileId: string,
+    language: string,
     outputTestsPassedScore: number | null,
     requiredStructureFound: boolean | null,
-    designPatternsFound: string | null,
+    designPatternsFound: {
+        singleton?: boolean,
+        factory?: boolean,
+        observer?: boolean
+    } | null,
 }
 
 const historySchema = new mongoose.Schema({
@@ -16,11 +21,11 @@ const historySchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    challengeId: {
+    userEmail: {
         type: String,
         required: true
     },
-    challengeName: {
+    challengeId: {
         type: String,
         required: true
     },
@@ -32,6 +37,10 @@ const historySchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    language: {
+        type: String,
+        required: true
+    },
     outputTestsPassedScore: {
         type: Number
     },
@@ -39,7 +48,11 @@ const historySchema = new mongoose.Schema({
         type: Boolean
     },
     designPatternsFound: {
-        type: String
+        type: {
+            singleton: Boolean,
+            factory: Boolean,
+            observer: Boolean
+        }
     },
 })
 

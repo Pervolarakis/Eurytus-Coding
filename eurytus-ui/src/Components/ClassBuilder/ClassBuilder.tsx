@@ -1,7 +1,6 @@
 // import "./ClassBuilder.css";
-import SortableTree, { changeNodeAtPath, removeNodeAtPath, TreeItem } from "react-sortable-tree";
-import { Children, useEffect, useState } from "react";
-import 'react-sortable-tree/style.css';
+import SortableTree, { removeNodeAtPath, TreeItem } from "ndanvers-react-sortable-tree";
+import 'ndanvers-react-sortable-tree/style.css';
 import { DndProvider , DragSource } from "react-dnd";
 import PropTypes from 'prop-types';
 import {HTML5Backend} from 'react-dnd-html5-backend';

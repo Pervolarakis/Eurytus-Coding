@@ -1,4 +1,4 @@
-import { TreeItem } from "react-sortable-tree";
+import { TreeItem } from "ndanvers-react-sortable-tree";
 import { challengeTest, fieldType } from "../../Challenges/PreviewChallenge/PreviewChallenge";
 
 export interface requestChallengeProperties {

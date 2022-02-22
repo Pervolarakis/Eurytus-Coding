@@ -1,7 +1,7 @@
 import express, {Request,Response,NextFunction} from 'express';
 import { Challenge } from '../models/Challenge';
 import {javaTemp} from '../templates/javaTemp';
-import {java} from 'compile-run'
+import {java} from '@eurytus/compile-run'
 import { BasicCustomError, asyncHandler, requireAuth } from '@eurytus/common';
 import { checkEquality } from '../templates/CheckEqualityLogic';
 import { detectClassesMain, detectClassesLogic } from '../templates/ClassDiagramTemplate';

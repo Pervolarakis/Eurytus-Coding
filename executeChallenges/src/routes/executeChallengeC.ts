@@ -1,7 +1,7 @@
 import express, {Request,Response,NextFunction} from 'express';
 import { Challenge } from '../models/Challenge';
 import {cTemp} from '../templates/cTemp';
-import {c} from 'compile-run'
+import {c} from '@eurytus/compile-run'
 import { BasicCustomError, requireAuth } from '@eurytus/common';
 
 const router = express.Router();
