@@ -1,62 +1,4 @@
-interface classesInfo{
-    className: string,
-    modifiers: string[],
-    superClass: string,
-    interfaces: string[],
-    constructors: classesInfoConstructor[],
-    methods: classesInfoMethod[],
-    fields: classesInfoField[]
-};
-
-interface classesInfoConstructor{
-    modifiers: string[],
-    parameters: string[]
-}
-
-interface classesInfoMethod{
-    name: string,
-    modifiers: string[],
-    returnType: string,
-    parameters: string[],
-    overrides: string|boolean
-}
-
-interface classesInfoField{
-    modifiers: string[],
-    name: string,
-    type: string
-}
-
-const sampleStructTest:classesInfo = {
-    
-    className: "TestEntity2",
-    modifiers: [],
-    superClass: "TestEntitySuper",
-    interfaces: ["TestInt"],
-    constructors: [
-    {
-    modifiers: ["public"],
-    parameters: ["java.lang.String", "java.util.Map", "[I"]
-    }],
-    methods: [
-        {
-        name: "getNumber",
-        modifiers: ["public"],
-        returnType: "int",
-        parameters: [],
-        overrides: "TestEntitySuper"
-    }],
-    fields: [
-    {
-        modifiers: ["private"],
-        name: "m",
-        type: "java.util.Map"
-    }
-    ]
-
-}
-
-const sampleFromJSON = JSON.parse(`[{"className":"TestEntity2","modifiers":[],"superClass":"TestEntitySuper","interfaces":["TestInt"],"constructors":[{"modifiers":[\"public\"],"parameters":[\"java.lang.String\",\"[I\",\"java.util.Map\"]}],"methods":[{"modifiers":[\"public\"],"name":"getStr","returnType":"java.lang.String","parameters":[]},{"modifiers":[\"public\",\"static\"],"name":"testMethod","returnType":"void","parameters":[\"int\",\"java.lang.Integer\",\"java.lang.String\"]}],"fields":[{"modifiers":[\"private\"],"type":"java.util.Map","name":"m"},{"modifiers":[\"private\"],"type":"java.lang.String","name":"str"}]}]`)
+import {classDiagram} from '../interfaces/CompileOutputInterface';
 
 const compareArrays = (arr1:string[], arr2:string[])=>{
     const array1 = arr1.map(el=>el.replace(" ",""))
@@ -67,7 +9,7 @@ const compareArrays = (arr1:string[], arr2:string[])=>{
     return false;
 }
 
-export const checkStructure = (classes: classesInfo[], expectedClasses: classesInfo[]) => {
+export const checkStructure = (classes: classDiagram[], expectedClasses: classDiagram[]) => {
     // console.log(targetClass);
     // targetClass=sampleStructTest;
     let found = 0;
