@@ -1,16 +1,33 @@
 import React, { useEffect, useState } from "react";
 import SignInForm from "./AuthForms/SignInForm";
 import SignUpForm from "./AuthForms/SignUpForm";
+import axios from "axios";
 
 function Auth() {
 
   const [rightPanelActive, triggerRightPanelActive] = useState(true);
 
+  const [logInMail, setLogInMail] = useState('');
+  const [logInPass, setLogInPass] = useState('');
+
+  const logIn = () => {
+    axios.post('http://eurytus.com/api/v1/users/auth/login',{
+      email: logInMail,
+      password: logInPass
+    },{withCredentials: true})
+    .then((res)=>{
+      console.log(res)
+      axios.get('http://eurytus.com/api/v1/users/auth/currentuser', {withCredentials: true})
+        .then((res)=>console.log('-------------- current user', res.data))
+    })
+    .catch((err)=>console.log(err))
+  }
+
   return (
     <div className="flex justify-center flex-column align-middle mt-6">
       <div className="bg-white hidden shadow-xl max-h-[400px] m-auto w-6/12 xl:w-8/12 2xl:w-6/12 lg:w-9/12 md:w-11/12 md:flex justify-center flex-column relative align-middle rounded-2xl overflow-hidden">
         <div className={`w-2/4 py-14 px-7 ${rightPanelActive? 'transform -translate-x-0 duration-500 z-10': 'transform translate-x-full duration-500 opacity-0 z-0'}`}>
-          <SignInForm/>
+          <SignInForm logInMail={logInMail} logInPass={logInPass} setLogInMail={(mail)=> setLogInMail(mail)} setLogInPass={(pass)=> setLogInPass(pass)} logIn={logIn}/>
         </div>
         <div className={`py-14 px-7 w-2/4 ${rightPanelActive? 'transform -translate-x-full duration-500 opacity-0 z-0': 'transform translate-x-0 duration-500 z-10'}`}>
           <SignUpForm/>
@@ -49,7 +66,7 @@ function Auth() {
           
           <div className="flex flex-row h-full relative w-full justify-center">
             <div className={`left-0 py-7 px-7 absolute w-full md:w-5/6 xl:w-4/6 ${!rightPanelActive? 'transform -translate-x-full duration-500 opacity-0 z-0': 'z-10 transform translate-x-0 duration-500'}`}>
-              <SignInForm/>
+              <SignInForm logInMail={logInMail} logInPass={logInPass} setLogInMail={(mail)=> setLogInMail(mail)} setLogInPass={(pass)=> setLogInPass(pass)} logIn={logIn}/>
             </div>
             <div className={`left-0 py-7 px-7 w-full md:w-5/6 xl:w-4/6 ${rightPanelActive? 'transform translate-x-full duration-500 opacity-0 z-0 left-0': 'z-10 transform translate-x-0 duration-500'}`}>
               <SignUpForm/>
