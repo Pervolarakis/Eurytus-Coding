@@ -25,7 +25,8 @@ export const initializeDb = async () => {
             }),
             language: 'js',
             expectedStructure: '',
-            expectedDesignPatterns: []
+            expectedDesignPatterns: [],
+            isPublic: true
         },
         {
             _id: new mongoose.Types.ObjectId('61b07f8a611ccb9622c258b4'),
@@ -47,7 +48,8 @@ export const initializeDb = async () => {
             }),
             language: "java",
             expectedStructure: '[{"blockType":"Base","expanded":true,"children":[{"title":"Interface","className":"furnitureFactory","blockType":"interface","superClass":"","modifiers":[\"abstract interface\"],"expanded":true,"children":[{"title":"Method","blockType":"method","modifiers":[\"public\"],"parameters":"","returnType":"Furniture","name":"getFurniture"}]},{"title":"Class","blockType":"class","modifiers":[],"className":"factorySubClass","superClass":"","name":"","interfaces":"","expanded":true,"children":[{"title":"Implements","blockType":"implements","className":"furnitureFactory","expanded":true},{"title":"Method","blockType":"method","modifiers":[\"public\"],"parameters":"","returnType":"Furniture","name":"getFurniture"}]},{"title":"Interface","className":"Furniture","blockType":"interface","superClass":"","modifiers":[\"abstract interface\"]},{"title":"Class","blockType":"class","modifiers":[],"className":"Chair","superClass":"","name":"","interfaces":"","expanded":true,"children":[{"title":"Implements","blockType":"implements","className":"Furniture"}]}]}]',
-            expectedDesignPatterns: []
+            expectedDesignPatterns: [],
+            isPublic: true
         },
         {
             _id: new mongoose.Types.ObjectId('61b07f9453ac6a09dffd9705'),
@@ -73,7 +75,8 @@ export const initializeDb = async () => {
             }),
             language: "java",
             expectedStructure: '',
-            expectedDesignPatterns: ['factory']
+            expectedDesignPatterns: ['factory'],
+            isPublic: true
         },
         {
             _id: new mongoose.Types.ObjectId('61b07f9911b8e709381ca4ee'),
@@ -124,7 +127,8 @@ export const initializeDb = async () => {
             }),
             expectedStructure: '',
             expectedDesignPatterns: [],
-            language: "java"
+            language: "java",
+            isPublic: true
         },
         {
             _id: new mongoose.Types.ObjectId('61b07f9f2d57ab33c622345b'),
@@ -151,6 +155,7 @@ export const initializeDb = async () => {
             expectedStructure: '',
             expectedDesignPatterns: [],
             language: "js",
+            isPublic: true
             
         },
         {
@@ -173,7 +178,8 @@ export const initializeDb = async () => {
             }),
             language: 'js',
             expectedStructure: '',
-            expectedDesignPatterns: []
+            expectedDesignPatterns: [],
+            isPublic: true
         },
     ]
     const challenge = await Challenge.findById('61b07f82c2d7ad3a19087d2f');
@@ -189,6 +195,7 @@ export const initializeDb = async () => {
                 expectedStructure: el.expectedStructure,
                 expectedDesignPatterns: el.expectedDesignPatterns,
                 language: el.language,
+                isPublic: el.isPublic
                 
             })
             await challenge.save();
