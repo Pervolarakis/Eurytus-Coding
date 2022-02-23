@@ -27,7 +27,8 @@ const setup = async()=>{
         }),
         language: "java",
         expectedDesignPatterns: [],
-        expectedStructure: ''
+        expectedStructure: '',
+        isPublic: true
     }
 
     //@ts-ignore

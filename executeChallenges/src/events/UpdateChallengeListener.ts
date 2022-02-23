@@ -13,6 +13,7 @@ export class UpdateChallengeListener extends Listener<UpdateChallengeEventData>{
             status: data.status,
             expiresAt: data.expiresAt,
             startsAt: data.startsAt,
+            isPublic: data.isPublic,
             ownerId: data.ownerId,
             language: data.language
         },{

@@ -50,7 +50,8 @@ export const javaDataTypesTest = [
         }),
         expectedStructure: '',
         expectedDesignPatterns: [],
-        language: "java"
+        language: "java",
+        isPublic: true
     },
     {
         _id: new mongoose.Types.ObjectId(),
@@ -72,7 +73,8 @@ export const javaDataTypesTest = [
         }),
         expectedStructure: '',
         expectedDesignPatterns: [],
-        language: "java"
+        language: "java",
+        isPublic: true
     },
     {
         _id: new mongoose.Types.ObjectId(),
@@ -94,7 +96,8 @@ export const javaDataTypesTest = [
         }),
         expectedStructure: '',
         expectedDesignPatterns: [],
-        language: "java"
+        language: "java",
+        isPublic: true
     },
     {
         _id: new mongoose.Types.ObjectId(),
@@ -125,7 +128,8 @@ export const javaDataTypesTest = [
         }),
         expectedStructure: '',
         expectedDesignPatterns: [],
-        language: "java"
+        language: "java",
+        isPublic: true
     },
     {
         _id: new mongoose.Types.ObjectId(),
@@ -143,7 +147,8 @@ export const javaDataTypesTest = [
         }),
         expectedStructure: '',
         expectedDesignPatterns: [],
-        language: "java"
+        language: "java",
+        isPublic: true
     },
 ]
 

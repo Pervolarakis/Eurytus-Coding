@@ -20,11 +20,11 @@ router.post('/api/v1/compile/challengejs/:id',requireAuth, asyncHandler(async(re
         return next(new BasicCustomError('This language is not supported for this test', 400))
     }
 
-    if(challenge.startsAt.getTime() > new Date().getTime()){
+    if(!challenge.isPublic && challenge.startsAt.getTime() > new Date().getTime()){
         return next(new BasicCustomError(`Exam hasn't started yet.`,400))
     }
 
-    if(new Date().getTime() > challenge.expiresAt.getTime()){
+    if(!challenge.isPublic && new Date().getTime() > challenge.expiresAt.getTime()){
         return next(new BasicCustomError('Exam has ended.',400))
     }
 

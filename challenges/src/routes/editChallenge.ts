@@ -52,7 +52,8 @@ router.put('/api/v1/challenges/update/:id', requireAuth, editChallengeSchema, va
         startsAt: newChallenge?.startsAt!,
         expiresAt: newChallenge?.expiresAt!,
         version: newChallenge?.version!,
-        language: newChallenge?.language!
+        language: newChallenge?.language!,
+        isPublic: newChallenge?.isPublic!,
 
     })
     res.status(200).json({success: true, data: newChallenge});

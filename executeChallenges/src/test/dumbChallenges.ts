@@ -21,7 +21,8 @@ export const dumbChallenges = [
         }),
         expectedStructure: '',
         expectedDesignPatterns: [],
-        language: "java"
+        language: "java",
+        isPublic: true
     },
     {
         _id: new mongoose.Types.ObjectId(),
@@ -43,7 +44,8 @@ export const dumbChallenges = [
         }),
         expectedStructure: '',
         expectedDesignPatterns: [],
-        language: "js"
+        language: "js",
+        isPublic: true
     },
     {
         _id: new mongoose.Types.ObjectId(),    
@@ -65,6 +67,7 @@ export const dumbChallenges = [
         }),
         expectedStructure: '',
         expectedDesignPatterns: [],
-        language: "java"
+        language: "java",
+        isPublic: true
     },
 ]

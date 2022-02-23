@@ -30,7 +30,8 @@ const setup = async()=>{
         }),
         language: "js",
         expectedDesignPatterns: [],
-        expectedStructure: ''
+        expectedStructure: '',
+        isPublic: true
     })
 
     await challenge.save();
@@ -56,7 +57,8 @@ const setup = async()=>{
         }),
         language: "js",
         expectedDesignPatterns: [],
-        expectedStructure: ''
+        expectedStructure: '',
+        isPublic: true
     }    
     
     //@ts-ignore

@@ -30,7 +30,8 @@ const setup = async()=>{
         }),
         language: "c",
         expectedDesignPatterns: [],
-        expectedStructure: ''
+        expectedStructure: '',
+        isPublic: true
     })
     await challenge.save();
     const data: DeleteChallengeEventData["data"] = {

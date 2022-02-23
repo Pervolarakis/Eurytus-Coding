@@ -24,7 +24,8 @@ export class UpdateChallengeApprovedListener extends Listener<UpdateChallengeApp
             ownerId: challenge?.creatorId!,
             expiresAt: challenge?.expiresAt!,
             version: challenge?.version!,
-            language: challenge?.language!
+            language: challenge?.language!,
+            isPublic: challenge?.isPublic!
         })
         msg.ack();
     }
