@@ -45,7 +45,7 @@ const PreviewChallenge = ({template, setTemplate, classDiagram, setClassDiagram,
                             selected ? 'border-b-4 border-secondary  flex-1 font-bold h-14' : 'flex-1 border-b-4 border-white h-14'
                         }>Template</Tab>
                         <Tab disabled={challengeDetails.language!=='java'} className={({ selected }) =>
-                            selected ? 'border-b-4 border-secondary  flex-1 font-bold h-14' : 'flex-1 border-b-4 border-white h-14'
+                            selected ? `border-b-4 border-secondary  flex-1 font-bold h-14 ${(challengeDetails.language!=='java')?'bg-gray-200':''}` : `flex-1 border-b-4 border-white h-14 ${(challengeDetails.language!=='java')?'bg-gray-200 border-gray-200':''}`
                         }>Structure</Tab>
                         <Tab className={({ selected }) =>
                             selected ? 'border-b-4 border-secondary  flex-1 font-bold h-14' : 'flex-1 border-b-4 border-white h-14'
