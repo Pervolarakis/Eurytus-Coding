@@ -1,7 +1,14 @@
+import { useContext, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import homepageIllustration from '../../Assets/homepage-illustration.svg'
 import layeredWave from '../../Assets/layered-wave.svg'
+import { UserContext } from '../../Contexts/UserContext';
 
 const HomePage = () => {
+
+    const {user} = useContext(UserContext);
+    let navigate = useNavigate();
+    
     return <div>
         <div className="bg-primary relative h-[80vh] sm:h-[90vh] xl:h-96 lg:h-80 md:h-72 flex justify-center">
             <div className="flex flex-col md:flex-row absolute w-full 2xl:container px-7">
@@ -12,7 +19,7 @@ const HomePage = () => {
                         test your students and compete with your
                         friends. All in one platform!
                     </h1>
-                    <button className="text-white w-56 h-12 bg-secondary shadow mt-8 rounded font-nunito text-lg font-semibold">JOIN NOW!</button>
+                    <button onClick={()=>(user? navigate('/challenges'): navigate('/auth/register'))} className="text-white w-56 h-12 bg-secondary shadow mt-8 rounded font-nunito text-lg font-semibold">JOIN NOW!</button>
                 </div>
                 <div className="w-full md:w-1/2 flex justify-end mt-4 md:mt-12 lg:mt-6 xl:mt-8 order-1 md:order-2">
                     <img className='w-6/6 md:w-6/6 h-6/6 md:h-5/6 lg:w-5/6 xl:w-9/12 2xl:w-4/6' src={homepageIllustration} alt="coding illustration" />
