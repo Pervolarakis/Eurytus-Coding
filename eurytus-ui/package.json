@@ -6,7 +6,7 @@
     "@craco/craco": "^6.4.1",
     "@dicebear/avatars": "^4.10.1",
     "@dicebear/avatars-gridy-sprites": "^4.10.1",
-    "@headlessui/react": "^1.4.2",
+    "@headlessui/react": "^1.5.0",
     "@heroicons/react": "^1.0.5",
     "@monaco-editor/react": "^4.3.1",
     "@testing-library/jest-dom": "^5.15.1",
