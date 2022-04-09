@@ -39,14 +39,16 @@ const ListAll = () => {
                 </div>
                 <div className="h-44 w-full md:w-4/12  bg-gradient-to-r from-classes-class2-left to-classes-class2-right flex flex-row rounded-2xl shadow-xl px-8 py-4">
                     <img className="w-1/4" src={javaIcon} alt="code brackets" />
-                    <div className="flex items-center w-3/4">
+                    <div className="flex items-center w-3/4 flex-col justify-center">
                         <h1 className="font-bold text-white text-4xl pl-8 md:text-2xl md:px-4 xl:text-4xl xl:pl-8">Learn Java!</h1>
+                        <p className='text-sm text-white'>Coming soon!</p>
                     </div>
                 </div>
                 <div className="h-44 w-full md:w-4/12 bg-gradient-to-r from-classes-class3-left to-classes-class3-right flex flex-row rounded-2xl shadow-xl px-8 py-4">
                     <img className="w-1/4" src={jsIcon} alt="code brackets" />
-                    <div className="flex items-center w-3/4">
+                    <div className="flex items-center w-3/4 flex-col justify-center">
                         <h1 className="font-bold text-white text-4xl pl-8 md:text-2xl md:px-4 xl:text-4xl xl:pl-8">Learn JavaScript!</h1>
+                        <p className='text-sm text-white'>Coming soon!</p>
                     </div>
                 </div>
             </div>
