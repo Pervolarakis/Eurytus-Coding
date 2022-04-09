@@ -51,22 +51,26 @@ const CreateChallenge = () => {
     },[challenge.challengeDetails.language])
 
     const createChallenge = () => {
-        axios.post('/challenges/new', {
-            ...challenge.challengeDetails,
-            isPublic: challenge.challengeDetails.isPublic===true? "true": "false",
-            expectedOutputTests: JSON.stringify({"challenge" : challenge.inputTests.challenge.filter((el)=>el.input!==JSON.stringify('')&&el.output!==JSON.stringify(''))}),
-            expectedStructure: transformData(),     
-            template: JSON.stringify(challenge.template),
-            ...(challenge.challengeDetails.isPublic? {message: message} : {})
-        })
-        .then((res)=>{
-            toast.success((challenge.challengeDetails.isPublic===true)?'Request Submitted!':'Challenge Created!')
-            navigate('/challenges');
-        })
-        .catch(err=>{(typeof err.response.data.error === 'object')?err.response.data.error.map((err:{message: string, field: string})=>
-            toast.error(err.message)
-        ):toast.error(err.response.data.error||'There as an error creating challenge!')
-        })
+        if(!challenge.challengeDetails.isPublic && (new Date()>new Date(challenge.challengeDetails.expiresAt) || new Date(challenge.challengeDetails.startsAt)>new Date(challenge.challengeDetails.expiresAt))){
+            toast.error("Invalid dates")
+        }else{
+            axios.post('/challenges/new', {
+                ...challenge.challengeDetails,
+                isPublic: challenge.challengeDetails.isPublic===true? "true": "false",
+                expectedOutputTests: JSON.stringify({"challenge" : challenge.inputTests.challenge.filter((el)=>el.input!==JSON.stringify('')&&el.output!==JSON.stringify(''))}),
+                expectedStructure: transformData(),     
+                template: JSON.stringify(challenge.template),
+                ...(challenge.challengeDetails.isPublic? {message: message} : {})
+            })
+            .then((res)=>{
+                toast.success((challenge.challengeDetails.isPublic===true)?'Request Submitted!':'Challenge Created!')
+                navigate('/challenges');
+            })
+            .catch(err=>{(typeof err.response.data.error === 'object')?err.response.data.error.map((err:{message: string, field: string})=>
+                toast.error(err.message)
+            ):toast.error(err.response.data.error||'There as an error creating challenge!')
+            })
+        }
     }
 
     const updateField = (change: Partial<requestChallengeProperties>) => {

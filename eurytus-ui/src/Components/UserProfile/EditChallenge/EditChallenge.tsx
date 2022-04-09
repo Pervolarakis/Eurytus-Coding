@@ -47,16 +47,20 @@ const EditChallenge = () => {
     }
 
     const submitEditRequest = () => {
-        axios.put(`/challenges/update/${challengeId}`,{
-            ...checkChangedFields(initialChallenge!, challenge!),
-            ...(challenge!.challengeDetails.isPublic? {message: message} : {})
-        }).then((res)=>{
-            toast.success((challenge!.challengeDetails.isPublic===true)?'Request Submitted!':'Challenge Updated!');
-            navigate('/profile')
-        })
-        .catch(err=>{(typeof err.response.data.error === 'object')?err.response.data.error.map((err:{message: string, field: string})=>
-            toast.error(err.message)
-        ):toast.error(err.response.data.error||'There was an error editing challnge!')})
+        if(challenge && !challenge.challengeDetails.isPublic && (new Date()>new Date(challenge.challengeDetails.expiresAt) || new Date(challenge.challengeDetails.startsAt)>new Date(challenge.challengeDetails.expiresAt))){
+            toast.error("Invalid dates")
+        }else{
+            axios.put(`/challenges/update/${challengeId}`,{
+                ...checkChangedFields(initialChallenge!, challenge!),
+                ...(challenge!.challengeDetails.isPublic? {message: message} : {})
+            }).then((res)=>{
+                toast.success((challenge!.challengeDetails.isPublic===true)?'Request Submitted!':'Challenge Updated!');
+                navigate('/profile')
+            })
+            .catch(err=>{(typeof err.response.data.error === 'object')?err.response.data.error.map((err:{message: string, field: string})=>
+                toast.error(err.message)
+            ):toast.error(err.response.data.error||'There was an error editing challnge!')})
+        }
     }
 
     useEffect(()=>{

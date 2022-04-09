@@ -60,6 +60,7 @@ const ChallengeDetails = ({challengeDetails, updateField}: ChallengeDetailsProps
                         disabled={((typeof(challengeDetails.isPublic)=='string')?(challengeDetails.isPublic==='true'):challengeDetails.isPublic)}
                         onChange={(val)=>updateField({startsAt: val})}
                         value={challengeDetails.startsAt}
+                        format={"dd-MM-y h:mm:ss a"}
                     />
                 </div>
                 <div className="flex items-center">
@@ -68,6 +69,7 @@ const ChallengeDetails = ({challengeDetails, updateField}: ChallengeDetailsProps
                         disabled={((typeof(challengeDetails.isPublic)=='string')?(challengeDetails.isPublic==='true'):challengeDetails.isPublic)}
                         onChange={(val)=>updateField({expiresAt: val})}
                         value={challengeDetails.expiresAt}
+                        format={"dd-MM-y h:mm:ss a"}
                     />
                 </div>
             </div>
