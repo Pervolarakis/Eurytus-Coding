@@ -56,6 +56,11 @@ const ChallengesTable = ({challenges, fixed}: {challenges: fetchedDataType[], fi
                         {(challenge.language==='java')?'Java':'Javascript'}
                     </span>
                 </td>
+                <td className="px-6 py-3 whitespace-nowrap text-sm text-gray-500">
+                    <span className={`ml-3 px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${(challenge.isPublic===true)?'text-green-800 bg-green-100': 'text-yellow-800 bg-yellow-100'}`}>
+                        {(challenge.isPublic===true)?'Public':'Private'}
+                    </span>
+                </td>
                 <td className="px-6 py-3 whitespace-nowrap text-sm font-medium">
                     <div className="text-sm text-gray-900 flex justify-center items-center"><IoIosMan/> {challenge.participants}</div>
                 </td>
@@ -95,6 +100,12 @@ const ChallengesTable = ({challenges, fixed}: {challenges: fetchedDataType[], fi
                                 className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider"
                             >
                                 Language
+                            </th>
+                            <th
+                                scope="col"
+                                className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider"
+                            >
+                                Public
                             </th>
                             <th scope="col" className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">
                                 Participants

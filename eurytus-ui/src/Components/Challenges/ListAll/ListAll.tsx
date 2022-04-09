@@ -13,7 +13,8 @@ const ListAll = () => {
         difficulty: number,
         id: string,
         description: string,
-        language: string
+        language: string,
+        isPublic: boolean
     }
 
     const [challenges, setChallenges] = useState<challenge[]>();
@@ -71,7 +72,9 @@ const ListAll = () => {
             <div className="w-full mt-6 flex flex-col gap-3">
                 {(challenges)?
                 challenges.map((el, index)=>{
-                    return <ChallengeListItem name={el.name} description={el.description} difficulty={el.difficulty} language={el.language} id={el.id} key={el.id}/>
+                    if(el.isPublic){
+                        return <ChallengeListItem name={el.name} description={el.description} difficulty={el.difficulty} language={el.language} id={el.id} key={el.id}/>
+                    }
                 }):<p>heeeee</p>}
             </div>
         </div>

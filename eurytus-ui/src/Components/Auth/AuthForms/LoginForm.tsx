@@ -24,9 +24,9 @@ const LoginForm = () => {
             .then((res)=>{setUser(res.data.data); navigate('/challenges')})
             .catch(err=>toast.error(err.response?.data.error||'There was an error fetching current user!'))
         })
-        .catch(err=>err.response.data.error.map((err:{message: string, field: string})=>
+        .catch(err=>{(typeof err.response.data.error === 'object')?err.response.data.error.map((err:{message: string, field: string})=>
             toast.error(err.message)
-        ))
+        ):toast.error(err.response.data.error||'There was an error logging in!')})
     }
     
     return(

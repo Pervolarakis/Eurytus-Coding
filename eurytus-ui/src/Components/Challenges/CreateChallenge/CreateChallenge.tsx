@@ -63,11 +63,10 @@ const CreateChallenge = () => {
             toast.success((challenge.challengeDetails.isPublic===true)?'Request Submitted!':'Challenge Created!')
             navigate('/challenges');
         })
-        .catch((err)=>{
-            err.response.data.error.map((err:{message: string, field: string})=>
-                toast.error(err.message)
-            )
-        } )
+        .catch(err=>{(typeof err.response.data.error === 'object')?err.response.data.error.map((err:{message: string, field: string})=>
+            toast.error(err.message)
+        ):toast.error(err.response.data.error||'There as an error creating challenge!')
+        })
     }
 
     const updateField = (change: Partial<requestChallengeProperties>) => {

@@ -54,11 +54,9 @@ const EditChallenge = () => {
             toast.success((challenge!.challengeDetails.isPublic===true)?'Request Submitted!':'Challenge Updated!');
             navigate('/profile')
         })
-        .catch((err)=>{
-            err.response.data.error.map((err:{message: string, field: string})=>
-                toast.error(err.message)
-            )
-        })
+        .catch(err=>{(typeof err.response.data.error === 'object')?err.response.data.error.map((err:{message: string, field: string})=>
+            toast.error(err.message)
+        ):toast.error(err.response.data.error||'There was an error editing challnge!')})
     }
 
     useEffect(()=>{
