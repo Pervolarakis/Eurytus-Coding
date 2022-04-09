@@ -82,17 +82,20 @@ const NavBar = () => {
                   
                 {/* Profile dropdown */}
                 <Menu as="div" className="ml-3 relative z-10">
-                  <div className="flex flex-wrap flex-column">
-                    <p className='hidden md:text-white md:font-bold md:mr-4 md:block'>{user.email}</p>
-                    <Menu.Button className="bg-sky-400 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
-                      <span className="sr-only">Open user menu</span>
-                      <img
-                        className="h-8 w-8 rounded-full"
-                        src={getUserAvatar(user.id)}
-                        alt=""
-                      />
+                  
+                    
+                    <Menu.Button className="bg-sky-400 flex text-sm rounded-full focus:outline-none  focus:ring-0">
+                      <div className="flex flex-wrap flex-column items-center">
+                        <p className='hidden md:text-white md:font-bold md:mr-4 md:block'>{user.email}</p>
+                        <span className="sr-only">Open user menu</span>
+                        <img
+                          className="h-8 w-8 rounded-full"
+                          src={getUserAvatar(user.id)}
+                          alt=""
+                        />
+                      </div>
                     </Menu.Button>
-                  </div>
+                  
                   <Transition
                     as={Fragment}
                     enter="transition ease-out duration-100"
