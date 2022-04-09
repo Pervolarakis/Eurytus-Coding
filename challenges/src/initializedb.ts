@@ -7,7 +7,7 @@ export const initializeDb = async () => {
         {
             _id: new mongoose.Types.ObjectId('61b07f82c2d7ad3a19087d2f'),
             name: "Sum Challenge",
-            description: "Write a function that sums 3 numbers",
+            description: "Write a function called solution that takes 3 numbers as arguments and returns their sum",
             difficulty: 1,
             isPublic: true,
             expiresAt: "2014-02-01T00:00:00",
@@ -34,7 +34,7 @@ export const initializeDb = async () => {
         {
             _id: new mongoose.Types.ObjectId('61b0a841dcfdddbcd35caba3'),
             name: "Private Sum Challenge",
-            description: "Write a function that sums 3 numbers",
+            description: "Write a function called solution that takes 3 numbers as arguments and returns their sum",
             difficulty: 3,
             isPublic: false,
             expiresAt: "2014-02-01T00:00:00",
@@ -61,7 +61,7 @@ export const initializeDb = async () => {
         {
             _id: new mongoose.Types.ObjectId('61b07f8a611ccb9622c258b4'),
             name: "Sum Challenge 2",
-            description: "Write a function that sums 3 numbers",
+            description: "Create a class named Solution then write a function called solution that takes 3 int numbers as arguments and returns their sum",
             difficulty: 1,
             isPublic: true,
             expiresAt: "2014-02-01T00:00:00",
@@ -88,7 +88,7 @@ export const initializeDb = async () => {
         {
             _id: new mongoose.Types.ObjectId('61b07f9453ac6a09dffd9705'),
             name: "Multiply Challenge",
-            description: "Write a function that multiplies 3 numbers",
+            description: "Create a class named Solution then write a function called solution that takes 3 integers as arguments and returns their product. Make sure to include the factory design pattern.",
             difficulty: 1,
             isPublic: true,
             expiresAt: "2014-02-01T00:00:00",
@@ -119,7 +119,7 @@ export const initializeDb = async () => {
         {
             _id: new mongoose.Types.ObjectId('61b07f9911b8e709381ca4ee'),
             name: "Array Data test",
-            description: "Write a function that takes an array (any type) as argument and returns it",
+            description: "Create a class called Solution then write a function called solution that takes an array (any type) as argument and returns it",
             difficulty: 3,
             isPublic: true,
             expiresAt: "2014-02-01T00:00:00",
@@ -175,7 +175,7 @@ export const initializeDb = async () => {
         {
             _id: new mongoose.Types.ObjectId('61b07f9f2d57ab33c622345b'),
             name: "Array Data Test",
-            description: "Write a function that takes an array (any type) as argument and returns it",
+            description: "Write a function called solution that takes an array (any type) as argument and returns it",
             difficulty: 3,
             isPublic: true,
             expiresAt: "2014-02-01T00:00:00",
