@@ -32,7 +32,7 @@ const UserChallengeListItem = ({listItem, reloadData}: {listItem: fetchedDataTyp
     },[])
 
     const copyChallengeUrl = () => {
-        const url = `http://eurytus.com:3000/solve/${listItem.id}`;
+        const url = `${window.location.host}/solve/${listItem.id}`;
         const el = document.createElement('textarea');
         el.value = url;
         document.body.appendChild(el);
