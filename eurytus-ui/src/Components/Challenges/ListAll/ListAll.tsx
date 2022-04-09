@@ -18,6 +18,8 @@ const ListAll = () => {
     }
 
     const [challenges, setChallenges] = useState<challenge[]>();
+    const [difficulty, setDifficulty] = useState("");
+    const [language, setLanguage] = useState("");
 
     useEffect(()=>{
         axios.get('/challenges/')
@@ -51,15 +53,15 @@ const ListAll = () => {
             <div className="flex justify-between w-full mt-6 flex-col md:flex-row">
                 <div className="flex items-center">
                     <h1 className="font-bold">Available Languages: </h1>
-                    <select className="ml-4 rounded-md border border-gray-300 shadow-sm px-4 py-2 text-sm font-medium text-gray-700" name="cars" id="cars">
+                    <select className="ml-4 rounded-md border border-gray-300 shadow-sm px-4 py-2 text-sm font-medium text-gray-700" onChange={(e)=>setLanguage(e.target.value)} name="cars" id="cars">
                         <option value=""></option>
-                        <option value="Java">Java</option>
-                        <option value="Javascript">Javascript</option>
+                        <option value="java">Java</option>
+                        <option value="js">Javascript</option>
                     </select>
                 </div>
                 <div className="flex items-center">
                     <h1 className="font-bold">Difficulty:</h1>
-                    <select className="ml-4 rounded-md border border-gray-300 shadow-sm px-4 py-2 text-sm font-medium text-gray-700" name="cars" id="cars">
+                    <select className="ml-4 rounded-md border border-gray-300 shadow-sm px-4 py-2 text-sm font-medium text-gray-700" onChange={(e)=>setDifficulty(e.target.value)}  name="cars" id="cars">
                         <option value=""></option>
                         <option value="1">1</option>
                         <option value="2">2</option>
@@ -72,7 +74,7 @@ const ListAll = () => {
             <div className="w-full mt-6 flex flex-col gap-3">
                 {(challenges)?
                 challenges.map((el, index)=>{
-                    if(el.isPublic){
+                    if(el.isPublic && (difficulty==="" || el.difficulty.toString()===difficulty) && (language==="" || el.language===language)){
                         return <ChallengeListItem name={el.name} description={el.description} difficulty={el.difficulty} language={el.language} id={el.id} key={el.id}/>
                     }
                 }):<p>heeeee</p>}
