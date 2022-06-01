@@ -51,11 +51,15 @@ router.post('/api/v1/compile/challengejava/:id',requireAuth, asyncHandler(async(
     }
 
     if(challenge.expectedStructure.length || challenge.expectedDesignPatterns.length){
-        const str = userFunction.split(/\s|\"|\'/).join('');
-        const regExp = /(?<=class|interface).*?(?=extends|{|implements)/g;
-        const classAndInterfaceNames = str.match(regExp);
-        detectClassesMainLocal = detectClassesMain("\"" + classAndInterfaceNames.join("\",\"") + "\"");
-        detectClassesLogicLocal = detectClassesLogic;
+        try{
+            const str = userFunction.split(/\s|\"|\'/).join('');
+            const regExp = /(?<=class|interface).*?(?=extends|{|implements)/g;
+            const classAndInterfaceNames = str.match(regExp);
+            detectClassesMainLocal = detectClassesMain("\"" + classAndInterfaceNames.join("\",\"") + "\"");
+            detectClassesLogicLocal = detectClassesLogic;
+        }catch{
+            console.log('submitted code has no structure')
+        }
     }
 
     // console.log(javaTemp(outPutFunctionCalls, userFunction, checkEqualityLogic, detectClassesMainLocal, detectClassesLogicLocal))
