@@ -48,14 +48,16 @@ const UserHistoryListItem = ({challengeId, completionDate, language, outputTests
                     <p className="text-left text-xs text-gray-600">Completed: {new Date(completionDate).toLocaleString()}</p>
                 </div>
                 {running?<div className="w-2/6">
-                    <Tooltip tooltipText={`${outputTestsPassedScore!.toString()}%`}>
+                    {outputTestsPassedScore!==null?
+                        <Tooltip tooltipText={`${outputTestsPassedScore!.toString()}%`}>
                         <>
                             <p className="text-sm text-left text-gray-800">Score</p>
                             <div className={`h-3 rounded border border-gray-300 overflow-hidden`}>
                                 <div className={`h-full ${Math.floor(outputTestsPassedScore!/20)===0? 'w-0': Math.floor(outputTestsPassedScore!/20)===1? 'w-1/5': Math.floor(outputTestsPassedScore!/20)===2? 'w-2/5': Math.floor(outputTestsPassedScore!/20)===3? 'w-3/5': Math.floor(outputTestsPassedScore!/20)===4? 'w-4/5': 'w-5/5'} bg-basicColor1`}></div>
                             </div>
                         </>
-                    </Tooltip>
+                    </Tooltip>:null}
+                
                     {
                         requiredStructureFound!==null?
                         <Tooltip tooltipText={requiredStructureFound!.toString()}>
