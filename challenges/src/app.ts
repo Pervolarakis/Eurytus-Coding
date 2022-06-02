@@ -25,7 +25,7 @@ app.use(currentUser)
 app.use(createChallengeRouter);
 app.use(getAllChallengesRouter);
 app.use(editChallengeRouter);
-app.use(deleteChallengeRouter);
+// app.use(deleteChallengeRouter);
 app.use(getUserChallengesRouter);
 app.use(getChallengeById);
 

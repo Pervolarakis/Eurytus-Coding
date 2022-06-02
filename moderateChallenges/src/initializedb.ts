@@ -87,16 +87,16 @@ export const initializeDb = async () => {
             ownerEmail: 'test124@gmail.com',
             challengeName: "Sum Challenge 2"
         },
-        {
-            _id: new mongoose.Types.ObjectId('61d598002fb4af4bd3c50171'),
-            kind: 'delete',
-            challengeId: new mongoose.Types.ObjectId('61b07f82c2d7ad3a19087d2f').toString(),
-            ownerId: new mongoose.Types.ObjectId('56cb91bdc3464f14678934ca'),
-            created_at: new Date().toISOString(),
-            message: 'please create this new challenge',
-            ownerEmail: 'test123@gmail.com',
-            challengeName: "Sum Challenge"
-        }
+        // {
+        //     _id: new mongoose.Types.ObjectId('61d598002fb4af4bd3c50171'),
+        //     kind: 'delete',
+        //     challengeId: new mongoose.Types.ObjectId('61b07f82c2d7ad3a19087d2f').toString(),
+        //     ownerId: new mongoose.Types.ObjectId('56cb91bdc3464f14678934ca'),
+        //     created_at: new Date().toISOString(),
+        //     message: 'please create this new challenge',
+        //     ownerEmail: 'test123@gmail.com',
+        //     challengeName: "Sum Challenge"
+        // }
     ]
     const request = await PendingRequest.findById('61d597f6828c62e215558beb');
     if(!request){

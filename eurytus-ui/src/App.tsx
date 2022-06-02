@@ -14,7 +14,7 @@ import AdminAllChallenges from './Components/AdminPage/AdminAllChallenges';
 import AdminPendingRequests from './Components/AdminPage/AdminPendingRequests';
 import PreviewCreateChallengeRequest from './Components/AdminPage/ModerateChallenges/PreviewCreateChallengeRequest';
 import PreviewUpdateChallengeRequest from './Components/AdminPage/ModerateChallenges/PreviewUpdateChallengeRequest';
-import PreviewDeleteChallengeRequest from './Components/AdminPage/ModerateChallenges/PreviewDeleteChallengeRequest';
+// import PreviewDeleteChallengeRequest from './Components/AdminPage/ModerateChallenges/PreviewDeleteChallengeRequest';
 import UserProfile from './Components/UserProfile/UserProfile';
 import EditChallenge from './Components/UserProfile/EditChallenge/EditChallenge'
 import ChallengeStats from './Components/ChallengeStats/ChallengeStats';
@@ -59,7 +59,7 @@ function App() {
                   </Route>
                   <Route path="/admin/review/create/:requestId" element={<PreviewCreateChallengeRequest/>}/>
                   <Route path="/admin/review/update/:requestId" element={<PreviewUpdateChallengeRequest/>}/>
-                  <Route path="/admin/review/delete/:requestId" element={<PreviewDeleteChallengeRequest/>}/>
+                  {/* <Route path="/admin/review/delete/:requestId" element={<PreviewDeleteChallengeRequest/>}/> */}
                 </>
                 :null
               }
