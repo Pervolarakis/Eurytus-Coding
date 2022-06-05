@@ -32,6 +32,11 @@ router.post('/api/v1/compile/challengejs/:id',requireAuth, asyncHandler(async(re
 
     const tests = JSON.parse(challenge?.expectedOutputTests!);
 
+    if(funct.length===0){
+        res.status(200).json({success: true, data: {totalTestsDone: tests["challenge"].length, successfulTests: 0}})
+        return next();
+    }
+
     let final = ""
     try{
         final = ""+tests["challenge"].map((el:any)=>{

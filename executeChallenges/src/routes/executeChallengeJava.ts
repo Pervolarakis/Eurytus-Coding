@@ -36,7 +36,7 @@ router.post('/api/v1/compile/challengejava/:id',requireAuth, asyncHandler(async(
 
     const userFunction = JSON.parse(req.body.solution);
     // console.log(funct)
-    
+
     let outPutFunctionCalls = '';  
     let checkEqualityLogic = ''; 
     let detectClassesMainLocal = ''; 
@@ -61,7 +61,29 @@ router.post('/api/v1/compile/challengejava/:id',requireAuth, asyncHandler(async(
             console.log('submitted code has no structure')
         }
     }
-
+    if (detectClassesLogicLocal.length === 0) {
+        let designPatterns = {};
+        let totalTestsDone = 0;
+        if(challenge.expectedStructure.length || challenge.expectedDesignPatterns.length){
+            if(challenge.expectedDesignPatterns){
+                challenge.expectedDesignPatterns.map((el,i)=>{
+                    //@ts-ignore
+                    designPatterns = {...designPatterns, [el]: false}
+                    
+                })
+            }
+        }
+        if(challenge?.expectedOutputTests!.length){
+            const tests = JSON.parse(challenge?.expectedOutputTests!);
+            totalTestsDone = tests["challenge"].length;
+        }
+        res.status(200).json({success: true, data: {
+            structure: (challenge.expectedStructure)?false:null,
+            designPatterns: designPatterns,
+            totalTestsDone: totalTestsDone,
+            successfulTests: 0}})
+        return next();
+    }
     // console.log(javaTemp(outPutFunctionCalls, userFunction, checkEqualityLogic, detectClassesMainLocal, detectClassesLogicLocal))
     new Promise<compileOutputJava>((resolve, reject)=>
         java.runSource(javaTemp(outPutFunctionCalls, userFunction, checkEqualityLogic, detectClassesMainLocal, detectClassesLogicLocal, challenge.ownerId, req.currentUser?.id!),{timeout: 4000, compileTimeout: 4000, stdoutLimit: 50000, stderrLimit: 50000 })
