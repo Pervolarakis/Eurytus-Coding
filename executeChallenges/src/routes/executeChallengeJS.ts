@@ -33,8 +33,12 @@ router.post('/api/v1/compile/challengejs/:id',requireAuth, asyncHandler(async(re
     const tests = JSON.parse(challenge?.expectedOutputTests!);
 
     if(funct.length===0){
-        res.status(200).json({success: true, data: {totalTestsDone: tests["challenge"].length, successfulTests: 0}})
-        return next();
+        if(req.query.submit){
+            return next(new BasicCustomError('This challenge cannot be submitted empty. If you wish to submit write at least a comment.', 400))
+        }else{
+            res.status(200).json({success: true, data: {totalTestsDone: tests["challenge"].length, successfulTests: 0}})
+            return next();
+        }
     }
 
     let final = ""

@@ -11,6 +11,7 @@ import { compileOutputJava } from './interfaces/CompileOutputInterface';
 import { convertStructureFormat } from './utils/convertStructureFormat';
 import { SubmitChallengePublisher } from '../events/SubmitChallengePublisher';
 import { natsWrapper } from '../events/NatsWrapper';
+import fs from 'fs';
 
 const router = express.Router();
 
@@ -56,12 +57,13 @@ router.post('/api/v1/compile/challengejava/:id',requireAuth, asyncHandler(async(
             const regExp = /(?<=class|interface).*?(?=extends|{|implements)/g;
             const classAndInterfaceNames = str.match(regExp);
             detectClassesMainLocal = detectClassesMain("\"" + classAndInterfaceNames.join("\",\"") + "\"");
+            //console.log(detectClassesMainLocal)
             detectClassesLogicLocal = detectClassesLogic;
         }catch{
             console.log('submitted code has no structure')
         }
     }
-    if (detectClassesLogicLocal.length === 0) {
+    if (detectClassesLogicLocal.length === 0 && (challenge.expectedStructure.length || challenge.expectedDesignPatterns.length) ) {
         let designPatterns = {};
         let totalTestsDone = 0;
         if(challenge.expectedStructure.length || challenge.expectedDesignPatterns.length){
@@ -77,12 +79,16 @@ router.post('/api/v1/compile/challengejava/:id',requireAuth, asyncHandler(async(
             const tests = JSON.parse(challenge?.expectedOutputTests!);
             totalTestsDone = tests["challenge"].length;
         }
-        res.status(200).json({success: true, data: {
-            structure: (challenge.expectedStructure)?false:null,
-            designPatterns: designPatterns,
-            totalTestsDone: totalTestsDone,
-            successfulTests: 0}})
-        return next();
+        if(req.query.submit){
+            return next(new BasicCustomError('This type of challenge cannot be submitted without a class. If you wish to submit create at least an empty class.',400))
+        }else{
+            res.status(200).json({success: true, data: {
+                structure: (challenge.expectedStructure)?false:null,
+                designPatterns: designPatterns,
+                totalTestsDone: totalTestsDone,
+                successfulTests: 0}})
+            return next();
+        }
     }
     // console.log(javaTemp(outPutFunctionCalls, userFunction, checkEqualityLogic, detectClassesMainLocal, detectClassesLogicLocal))
     new Promise<compileOutputJava>((resolve, reject)=>

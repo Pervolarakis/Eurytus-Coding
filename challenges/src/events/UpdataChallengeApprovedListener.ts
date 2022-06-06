@@ -8,25 +8,29 @@ export class UpdateChallengeApprovedListener extends Listener<UpdateChallengeApp
     subject: Subjects.UpdateChallengeApproved = Subjects.UpdateChallengeApproved;
     QueueGroup = 'challenges-service'
     async onMessage(data: UpdateChallengeApprovedEventData["data"], msg: Message){
-        const challenge = await Challenge.findByIdAndUpdate(data.challengeId, JSON.parse(data.data), {
-            new: true,
-            runValidators: true,
-            useFindAndModify: false
-        })
-        await challenge?.save();
-        new UpdateChallengePublisher(natsWrapper.client).publish({
-            id: challenge?.id!,
-            expectedOutputTests: challenge?.expectedOutputTests!,
-            expectedStructure: challenge?.expectedStructure!,
-            expectedDesignPatterns: challenge?.expectedDesignPatterns!,
-            status: challenge?.status!,
-            startsAt: challenge?.startsAt!,
-            ownerId: challenge?.creatorId!,
-            expiresAt: challenge?.expiresAt!,
-            version: challenge?.version!,
-            language: challenge?.language!,
-            isPublic: challenge?.isPublic!
-        })
-        msg.ack();
+        try{
+            const challenge = await Challenge.findByIdAndUpdate(data.challengeId, JSON.parse(data.data), {
+                new: true,
+                runValidators: true,
+                useFindAndModify: false
+            })
+            await challenge?.save();
+            new UpdateChallengePublisher(natsWrapper.client).publish({
+                id: challenge?.id!,
+                expectedOutputTests: challenge?.expectedOutputTests!,
+                expectedStructure: challenge?.expectedStructure!,
+                expectedDesignPatterns: challenge?.expectedDesignPatterns!,
+                status: challenge?.status!,
+                startsAt: challenge?.startsAt!,
+                ownerId: challenge?.creatorId!,
+                expiresAt: challenge?.expiresAt!,
+                version: challenge?.version!,
+                language: challenge?.language!,
+                isPublic: challenge?.isPublic!
+            })
+            msg.ack();
+        }catch(err){
+            console.log(err)
+        }
     }
 }

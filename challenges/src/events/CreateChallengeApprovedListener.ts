@@ -8,20 +8,24 @@ export class CreateChallengeApprovedListener extends Listener<CreateChallengeApp
     subject: Subjects.CreateChallengeApproved = Subjects.CreateChallengeApproved;
     QueueGroup = 'challenges-service'
     async onMessage(data: CreateChallengeApprovedEventData["data"], msg: Message){
-        const challenge = new Challenge({...JSON.parse(data.data), status:'approved'});
-        await challenge.save();
-        new CreateChallengePublisher(natsWrapper.client).publish({
-            id: challenge.id,
-            expectedOutputTests: challenge.expectedOutputTests,
-            expectedStructure: challenge.expectedStructure,
-            expectedDesignPatterns: challenge.expectedDesignPatterns,
-            status: challenge.status,
-            ownerId: challenge.creatorId,
-            startsAt: challenge.startsAt,
-            expiresAt: challenge.expiresAt,
-            language: challenge.language,
-            isPublic: challenge.isPublic
-        })
-        msg.ack()
+        try{
+            const challenge = new Challenge({...JSON.parse(data.data), status:'approved'});
+            await challenge.save();
+            new CreateChallengePublisher(natsWrapper.client).publish({
+                id: challenge.id,
+                expectedOutputTests: challenge.expectedOutputTests,
+                expectedStructure: challenge.expectedStructure,
+                expectedDesignPatterns: challenge.expectedDesignPatterns,
+                status: challenge.status,
+                ownerId: challenge.creatorId,
+                startsAt: challenge.startsAt,
+                expiresAt: challenge.expiresAt,
+                language: challenge.language,
+                isPublic: challenge.isPublic
+            })
+            msg.ack()
+        }catch(err){
+            console.log(err)
+        }
     }
 }

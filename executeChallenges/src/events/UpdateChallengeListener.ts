@@ -6,22 +6,26 @@ export class UpdateChallengeListener extends Listener<UpdateChallengeEventData>{
     subject: Subjects.UpdateChallenge = Subjects.UpdateChallenge;
     QueueGroup = 'executechallenge-service'
     async onMessage(data: UpdateChallengeEventData["data"], msg: Message){
-        let challenge = await Challenge.findOneAndUpdate({_id: data.id, version: data.version-1}, {
-            expectedOutputTests: data.expectedOutputTests,
-            expectedDesignPatterns: data.expectedDesignPatterns,
-            expectedStructure: data.expectedStructure,
-            status: data.status,
-            expiresAt: data.expiresAt,
-            startsAt: data.startsAt,
-            isPublic: data.isPublic,
-            ownerId: data.ownerId,
-            language: data.language
-        },{
-            new: true,
-            runValidators: true,
-            useFindAndModify: false
-        })
-        await challenge?.save();
-        msg.ack();
+        try{
+            let challenge = await Challenge.findOneAndUpdate({_id: data.id, version: data.version-1}, {
+                expectedOutputTests: data.expectedOutputTests,
+                expectedDesignPatterns: data.expectedDesignPatterns,
+                expectedStructure: data.expectedStructure,
+                status: data.status,
+                expiresAt: data.expiresAt,
+                startsAt: data.startsAt,
+                isPublic: data.isPublic,
+                ownerId: data.ownerId,
+                language: data.language
+            },{
+                new: true,
+                runValidators: true,
+                useFindAndModify: false
+            })
+            await challenge?.save();
+            msg.ack();
+        }catch(err){
+            console.log(err)
+        }
     }
 }
