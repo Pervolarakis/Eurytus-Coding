@@ -13,6 +13,7 @@ interface ChallengeDoc extends mongoose.Document{
     version: number;
     language: string;
     ownerId: string;
+    isPublic: boolean
 }
 
 const challengeSchema = new mongoose.Schema({
@@ -28,6 +29,10 @@ const challengeSchema = new mongoose.Schema({
     },
     ownerId: {
         type: String,
+        required: true
+    },
+    isPublic: {
+        type: Boolean,
         required: true
     },
     status: {

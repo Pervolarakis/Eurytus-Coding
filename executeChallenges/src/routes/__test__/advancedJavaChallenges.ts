@@ -28,7 +28,8 @@ export const advancedJavaChallenges = [
         }),
         expectedStructure: '',
         expectedDesignPatterns: [],
-        language: "java"
+        language: "java",
+        isPublic: true
     },
     {
         _id: new mongoose.Types.ObjectId(),
@@ -50,7 +51,8 @@ export const advancedJavaChallenges = [
         }),
         expectedStructure: '',
         expectedDesignPatterns: [],
-        language: "java"
+        language: "java",
+        isPublic: true
     }
 ]
 

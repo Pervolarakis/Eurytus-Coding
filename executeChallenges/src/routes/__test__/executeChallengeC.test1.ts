@@ -24,7 +24,8 @@ it('successfully runs tests', async()=>{
                 }
             ]
         }),
-        language: "c"
+        language: "c",
+        isPublic: true
     })
     await challenge.save()
     const result = await request(app)
@@ -58,7 +59,8 @@ it('successfully runs tests 2', async()=>{
                 }
             ]
         }),
-        language: "c"
+        language: "c",
+        isPublic: true
     })
     await challenge.save()
     const result = await request(app)
@@ -95,7 +97,8 @@ it('successfully runs tests 2', async()=>{
                 }
             ]
         }),
-        language: "c"
+        language: "c",
+        isPublic: true
     })
     await challenge.save()
     const result = await request(app)
@@ -132,7 +135,8 @@ it('throws error if it cant compile', async()=>{
                 }
             ]
         }),
-        language: "c"
+        language: "c",
+        isPublic: true
     })
     await challenge.save()
     const result = await request(app)
@@ -169,7 +173,8 @@ it('fails if challenge doesnt support this language', async()=>{
                 }
             ]
         }),
-        language: "js"
+        language: "js",
+        isPublic: true
     })
     await challenge.save()
     const result = await request(app)
@@ -204,7 +209,8 @@ it('fails if challenge is deleted', async()=>{
                 }
             ]
         }),
-        language: "c"
+        language: "c",
+        isPublic: true
     })
     await challenge.save()
     const result = await request(app)

@@ -27,7 +27,8 @@ it('successfully runs tests', async()=>{
         }),
         expectedStructure: '',
         expectedDesignPatterns: [],
-        language: "js"
+        language: "js",
+        isPublic: true
     })
     await challenge.save()
     const result = await request(app)
@@ -66,7 +67,8 @@ it('successfully runs tests 2', async()=>{
         }),
         expectedStructure: '',
         expectedDesignPatterns: [],
-        language: "js"
+        language: "js",
+        isPublic: true
     })
     await challenge.save()
     const result = await request(app)
@@ -105,7 +107,8 @@ it('throws error if it cant compile', async()=>{
         }),
         expectedStructure: '',
         expectedDesignPatterns: [],
-        language: "js"
+        language: "js",
+        isPublic: true
     })
     await challenge.save()
     const result = await request(app)
@@ -144,7 +147,8 @@ it('fails if challenge doesnt support this language', async()=>{
         }),
         expectedStructure: '',
         expectedDesignPatterns: [],
-        language: "java"
+        language: "java",
+        isPublic: true
     })
     await challenge.save()
     const result = await request(app)
@@ -181,7 +185,8 @@ it('fails if challenge is deleted', async()=>{
         }),
         expectedStructure: '',
         expectedDesignPatterns: [],
-        language: "js"
+        language: "js",
+        isPublic: true
     })
     await challenge.save()
     const result = await request(app)
@@ -233,7 +238,8 @@ it('successfully hides arguments from errors', async()=>{
         }),
         expectedStructure: '',
         expectedDesignPatterns: [],
-        language: "js"
+        language: "js",
+        isPublic: true
     })
     await challenge.save()
     const result = await request(app)

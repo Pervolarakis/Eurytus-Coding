@@ -26,7 +26,8 @@ export const jsDataTypesTest = [
         
         expectedStructure: '',
         expectedDesignPatterns: [],
-        language: "js"
+        language: "js",
+        isPublic: true
     }
 ];
 

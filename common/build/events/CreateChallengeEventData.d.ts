@@ -7,6 +7,7 @@ export interface CreateChallengeEventData {
         expectedStructure: string;
         expectedDesignPatterns: string[];
         status: string;
+        isPublic: boolean;
         startsAt: Date;
         ownerId: string;
         expiresAt: Date;

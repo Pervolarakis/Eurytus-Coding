@@ -54,7 +54,8 @@ router.post('/api/v1/challenges/new', requireAuth,  createChallengeSchema, valid
         status: challenge.status,
         startsAt: challenge.startsAt,
         expiresAt: challenge.expiresAt,
-        language: challenge.language
+        language: challenge.language,
+        isPublic: challenge.isPublic,
     })
     res.status(201).json({success: true, data: challenge})
 

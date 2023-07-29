@@ -13,6 +13,7 @@ export class CreateChallengeListener extends Listener<CreateChallengeEventData>{
             expectedStructure: data.expectedStructure, 
             ownerId: data.ownerId,
             expiresAt: data.expiresAt, 
+            isPublic: data.isPublic,
             startsAt: data.startsAt, 
             status: data.status, 
             language: data.language});
