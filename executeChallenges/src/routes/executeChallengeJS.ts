@@ -32,9 +32,26 @@ router.post('/api/v1/compile/challengejs/:id',requireAuth, asyncHandler(async(re
 
     const tests = JSON.parse(challenge?.expectedOutputTests!);
 
-    const final = ""+tests["challenge"].map((el:any)=>{
-        return "if("+JSON.parse(el.input)+".toString().split(/\\s|\\\"|\\\'/).join('') == JSON.parse("+el.output.replaceAll(`'`,`\\"`)+").toString().replace(`\"`,``).replace(`'`,``).split(/\\s/).join('')) testsPassed++;\n"
-    }).join('')+""; 
+    if(funct.length===0){
+        if(req.query.submit){
+            return next(new BasicCustomError('This challenge cannot be submitted empty. If you wish to submit write at least a comment.', 400))
+        }else{
+            res.status(200).json({success: true, data: {totalTestsDone: tests["challenge"].length, successfulTests: 0}})
+            return next();
+        }
+    }
+
+    let final = ""
+    try{
+        final = ""+tests["challenge"].map((el:any)=>{
+            return "if("+JSON.parse(el.input)+".toString().split(/\\s|\\\"|\\\'/).join('') == JSON.parse("+el.output.replaceAll(`'`,`\\"`)+").toString().replace(`\"`,``).replace(`'`,``).split(/\\s/).join('')) testsPassed++;\n"
+        }).join('')+""; 
+        
+    }catch (err){
+        final = ""+tests["challenge"].map((el:any)=>{
+            return "if("+JSON.parse(el.input)+".toString().split(/\\s|\\\"|\\\'/).join('') == JSON.parse("+el.output.replace(/'/g,`\\"`)+").toString().replace(`\"`,``).replace(`'`,``).split(/\\s/).join('')) testsPassed++;\n"
+        }).join('')+""; 
+    }
 
     // console.log(final)
     // console.log(jsTemp(final,funct));

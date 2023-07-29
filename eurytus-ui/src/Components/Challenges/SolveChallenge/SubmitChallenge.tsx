@@ -28,7 +28,7 @@ const SubmitChallenge = ({onCodeRun, submitCode, executionMessage}:SubmitChallen
                 {(executionMessage.success)?
                 <>
                 <p className="text-green-600 font-bold text-left text-lg">{`${executionMessage.data?.successfulTests}/${executionMessage.data?.totalTestsDone} Tests were Successful!`}</p>
-                {(executionMessage.data?.structure!==undefined)?<p className="text-green-600 font-bold text-left text-lg">{`Structure ${executionMessage.data?.structure? 'found': 'not found!'}`}</p>:null}
+                {(executionMessage.data?.structure!==undefined && executionMessage.data?.structure!==null)?<p className="text-green-600 font-bold text-left text-lg">{`Structure ${executionMessage.data?.structure? 'found': 'not found!'}`}</p>:null}
                 {
                     (executionMessage.data?.designPatterns!==undefined)?Object.keys(executionMessage.data.designPatterns).map((el,index)=>{
                         //@ts-ignore

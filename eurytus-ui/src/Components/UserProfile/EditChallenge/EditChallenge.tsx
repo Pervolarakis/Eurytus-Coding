@@ -93,7 +93,7 @@ const EditChallenge = () => {
     return(
         <div id='solvechallenge'>
             <SetRequestMessageModal show={showRequestModal} toggleShow={()=>toggleRequestModal(false)} submitRequest={()=>submitEditRequest()} message={message} setMessage={setMessage} />
-            {previousRequest? previousRequest.kind==='delete'? <DeleteRequestExistsModal/> : null: null}
+            {/* {previousRequest? previousRequest.kind==='delete'? <DeleteRequestExistsModal/> : null: null} */}
             {previousRequest? previousRequest.kind==='update'? <EditChallengeExistsModal show={showEditModal} toggleShow={()=>toggleEditModal(false)} loadPendingRequest={()=>changeDataToLatestRequest()}/> : null: null}
             <div className='bg-black flex justify-between items-center h-12 p-4'>
                 <h1 className="text-white text-2xl font-bold">Edit Challenge</h1>

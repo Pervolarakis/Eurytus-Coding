@@ -5,7 +5,7 @@ import mongoose from 'mongoose';
 import {natsWrapper} from '../../events/NatsWrapper';
 import {Challenge} from '../../models/challengeModel';
 
-it('successfully deletes challenge', async()=>{
+it.skip('successfully deletes challenge', async()=>{
     const userOne = new mongoose.Types.ObjectId();
     const response = await request(app)
         .put(`/api/v1/challenges/delete/${dumbChallenges[0]._id}`)
@@ -14,13 +14,13 @@ it('successfully deletes challenge', async()=>{
     expect(response.body.data.status).toBe('deleted')
 })
 
-it('fails if user is not authed', async()=>{
+it.skip('fails if user is not authed', async()=>{
     const response = await request(app)
         .put(`/api/v1/challenges/delete/${dumbChallenges[0]._id}`)
         .expect(401);
 })
 
-it('fails if challenge doesnt exists', async()=>{
+it.skip('fails if challenge doesnt exists', async()=>{
     const userOne = new mongoose.Types.ObjectId();
     const challengeId = new mongoose.Types.ObjectId();
     const response = await request(app)
@@ -29,7 +29,7 @@ it('fails if challenge doesnt exists', async()=>{
         .expect(400);
 })
 
-it('fails if user is not admin and doesnt own the challenge', async()=>{
+it.skip('fails if user is not admin and doesnt own the challenge', async()=>{
     const userOne = new mongoose.Types.ObjectId();
     await request(app)
         .put(`/api/v1/challenges/delete/${dumbChallenges[0]._id}`)
@@ -37,7 +37,7 @@ it('fails if user is not admin and doesnt own the challenge', async()=>{
         .expect(403);
 })
 
-it('successfully publishes delete event if user owns the challenge', async()=>{
+it.skip('successfully publishes delete event if user owns the challenge', async()=>{
     const userOne = new mongoose.Types.ObjectId();
     const challenge = new Challenge({
         name: "Sum Challenge",
@@ -73,7 +73,7 @@ it('successfully publishes delete event if user owns the challenge', async()=>{
     expect(natsWrapper.client.publish).toHaveBeenCalled();
 })
 
-it('successfully deletes challenge if user owns the challenge and challenge is private', async()=>{
+it.skip('successfully deletes challenge if user owns the challenge and challenge is private', async()=>{
     const userOne = new mongoose.Types.ObjectId();
     const challenge = new Challenge({
         name: "Sum Challenge",

@@ -80,7 +80,7 @@ const UserProfile = () => {
                 </div>
             </div>
             <div className="flex justify-start w-full md:w-10/12 flex-col">
-                <h1 className="my-8 text-left text-md font-medium">Recent Exams</h1>
+                <h1 className="my-8 text-left text-md font-medium">My recent grades</h1>
                 <div className="flex flex-col md:grid md:grid-cols-2 gap-6">
                     {history?
                         history.map((el, index)=>{

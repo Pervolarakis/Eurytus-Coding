@@ -8,16 +8,20 @@ export class ChallengeNewRequestListener extends Listener<ChallengeNewRequestEve
     QueueGroup = 'pendingChallenges-service';
 
     async onMessage(data: ChallengeNewRequestEventData["data"], msg: Message){
-        if(data.kind!=='create'){
-            const request = await PendingRequest.find({challengeId: data.challengeId}).sort({created_at: -1}).limit(1);
-            if(request.length){
-                if(request[0].kind==='delete'){
-                    return msg.ack();
+        try{
+            if(data.kind!=='create'){
+                const request = await PendingRequest.find({challengeId: data.challengeId}).sort({created_at: -1}).limit(1);
+                if(request.length){
+                    if(request[0].kind==='delete'){
+                        return msg.ack();
+                    }
                 }
             }
+            const request = new PendingRequest(data);
+            await request.save();
+            msg.ack();
+        }catch(err){
+            console.log(err)
         }
-        const request = new PendingRequest(data);
-        await request.save();
-        msg.ack();
     }
 }

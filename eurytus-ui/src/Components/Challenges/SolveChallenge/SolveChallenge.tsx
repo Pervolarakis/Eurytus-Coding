@@ -5,6 +5,7 @@ import Ide from "../../Ide/Ide";
 import ChallengeDescription from "./ChallengeDescription";
 import SubmitChallenge, {executionMessage} from "./SubmitChallenge";
 import { toast } from "react-toastify";
+import { useCountdown } from "./useCountDown";
 
 interface challenge {
     name: string,
@@ -13,7 +14,9 @@ interface challenge {
     description: string,
     language: string,
     creatorId: string,
-    template: string
+    template: string,
+    isPublic: boolean,
+    expiresAt: string
 }
 
 const SolveChallenge = () => {
@@ -29,7 +32,7 @@ const SolveChallenge = () => {
             .then((res)=>{setChallenge(res.data.data);setIdeValue(JSON.parse(res.data.data.template))})
             .catch(err=>toast.error(err.response?.data.error||'There was an error fetching challenge!'))
     },[challengeId])
-
+    
     const onCodeRun = () => {
         axios.post(`/compile/challenge${challenge!.language}/${challengeId}`,{
             solution: JSON.stringify(ideValue)
@@ -57,7 +60,7 @@ const SolveChallenge = () => {
         <div className="w-full" id="solvechallenge">
             {(challenge)?
             <div className="flex w-full h-full ">
-                <ChallengeDescription name={challenge.name} description={challenge.description} difficulty={challenge.difficulty} language={challenge.language}/>
+                <ChallengeDescription name={challenge.name} isPublic={challenge.isPublic} expiresAt={challenge?.expiresAt} description={challenge.description} difficulty={challenge.difficulty} language={challenge.language}/>
                 <div className="w-4/6">
                     <div className="h-5/6">
                         <Ide language={(challenge.language==='js')?'javascript':challenge.language} value={ideValue} changeValue={(val)=>setIdeValue(val)}/>
