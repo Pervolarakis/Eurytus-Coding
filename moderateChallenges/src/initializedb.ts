@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 import { PendingRequest } from './models/PendingRequests';
 
 export const initializeDb = async () => {
-    console.log('TO DELETE --- Initializing Pending requests Service!')
+    console.log('TO DELETE --- Initializing Pending requests Service! v2')
     const pendingRequests = [
         {
             _id: new mongoose.Types.ObjectId('61d597c6ae966569e7c1a0a9'),
