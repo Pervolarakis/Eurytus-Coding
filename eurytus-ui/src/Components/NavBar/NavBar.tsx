@@ -20,7 +20,7 @@ const NavBar = () => {
     const navigation = user?[
       { name: 'Practice', href: '/challenges', current: true },
       { name: 'Create Exam', href: '/createchallenge', current: false },
-      { name: 'Join Exam', href: '/joinchallenge', current: false },
+      { name: 'Join Exam', href: '/joinexam', current: false },
     ]: [
       { name: 'Login', href: '/auth/login', current: true },
       { name: 'Register', href: '/auth/register', current: false },

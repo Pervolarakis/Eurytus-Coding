@@ -12,7 +12,7 @@ const start = async()=>{
         if(!process.env.JWT_KEY){
             throw new Error('No Jwt Env variable');
         }
-        await natsWrapper.connect('eurytus', process.env.CLIENT_ID!, 'http://nats-srv:4222')
+        await natsWrapper.connect('eurytus', process.env.CLIENT_ID! || process.env.HOSTNAME!, 'http://nats-srv:4222')
         new CreateChallengeListener(natsWrapper.client).listen();
         new UpdateChallengeListener(natsWrapper.client).listen();
         new DeleteChallengeListener(natsWrapper.client).listen();

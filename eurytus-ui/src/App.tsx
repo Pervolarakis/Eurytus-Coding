@@ -21,6 +21,7 @@ import ChallengeStats from './Components/ChallengeStats/ChallengeStats';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import HomePage from './Components/HomePage/HomePage';
+import JoinExam from './Components/JoinExam/JoinExam';
 
 function App() {
 
@@ -50,16 +51,20 @@ function App() {
               <Route path="/solve/:challengeId" element={<SolveChallenge />}/>
               <Route path="/profile" element={<UserProfile />}/>
               {(user.role==='admin')?
-                <Route path="/admin" element={<AdminPage/>}>
-                  <Route path="/admin/challenges" element={<AdminAllChallenges/>}/>
-                  <Route path="/admin" element={<AdminDashboard/>}/>
-                  <Route path="/admin/requests" element={<AdminPendingRequests/>}/>
-                </Route>:null
+                <>
+                  <Route path="/admin" element={<AdminPage/>}>
+                    <Route path="/admin/challenges" element={<AdminAllChallenges/>}/>
+                    <Route path="/admin" element={<AdminDashboard/>}/>
+                    <Route path="/admin/requests" element={<AdminPendingRequests/>}/>
+                  </Route>
+                  <Route path="/admin/review/create/:requestId" element={<PreviewCreateChallengeRequest/>}/>
+                  <Route path="/admin/review/update/:requestId" element={<PreviewUpdateChallengeRequest/>}/>
+                  <Route path="/admin/review/delete/:requestId" element={<PreviewDeleteChallengeRequest/>}/>
+                </>
+                :null
               }
               <Route path="/challenge/:challengeId" element={<ChallengeStats/>}/>
-              <Route path="/admin/review/create/:requestId" element={<PreviewCreateChallengeRequest/>}/>
-              <Route path="/admin/review/update/:requestId" element={<PreviewUpdateChallengeRequest/>}/>
-              <Route path="/admin/review/delete/:requestId" element={<PreviewDeleteChallengeRequest/>}/>
+              <Route path="/joinexam" element={<JoinExam/>}/>
             </>:<>
               <Route path="/auth/:page" element={<Auth />}/>
           </>
