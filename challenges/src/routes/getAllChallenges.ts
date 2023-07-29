@@ -6,8 +6,13 @@ const router = express.Router();
 
 router.get('/api/v1/challenges/', asyncHandler(async(req: Request, res: Response, next: NextFunction)=>{
     
-    const challenges = await Challenge.find({isPublic: true, status: 'approved', ...req.query}).select(['-expectedOutputTests', '-expectedStructure', '-expectedDesignPatterns']);
-    res.status(200).json({success: true, data: challenges})
+    const challenges = Challenge.find({status: 'approved', ...req.query}).select(['-expectedOutputTests', '-expectedStructure', '-expectedDesignPatterns']);
+    if(req.currentUser?.role!=='admin'){
+        challenges.find({isPublic: true})
+    }
+    const selectedChallenges = await challenges
+    res.status(200).json({success: true, data: selectedChallenges})
+
     
 }))
 
